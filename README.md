@@ -1,4 +1,4 @@
-udar
+ruta
 =============================
 
-Unsupervised Deep Architectures in R
+Unsupervised deep architectures in R
