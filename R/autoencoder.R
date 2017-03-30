@@ -40,7 +40,7 @@ trainAutoencoderMXnet <-
            learning_rate,
            momentum,
            ...) {
-    ruta.util.require("mxnet")
+    tryRequire("mxnet")
     train.x = t(data.matrix(dataset[-class]))
 
     nn <- mxnet::mx.symbol.Variable("data")
@@ -86,7 +86,7 @@ trainAutoencoderH2o <-
            layers,
            activation,
            epochs) {
-    ruta.util.require("h2o")
+    tryRequire("h2o")
     dataset.h2o <- h2o::as.h2o(dataset)
     inputs <- setdiff(1:ncol(dataset), class_col)
     dataset.h2o <- dataset.h2o[-class_col]
