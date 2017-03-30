@@ -1,8 +1,30 @@
-# id: string, data: data.frame, target: string, positive: string (?)
-ruta.makeTask <- function(id, data) {
-    if (missing(id))
-        id <- substitute(data)
-    task <- list(id = id, data = as.data.frame(data))
-    class(dataset) <- "ruta.task"
-    task
+#' @export
+ruta.makeUnsupervisedTask <- function(id, data, cl = NULL) {
+  if (missing(id))
+    id <- substitute(data)
+
+  task <- list(id = id,
+               data = as.data.frame(data),
+               cl = cl)
+  class(task) <- c(rutaTask, rutaUnsupervisedTask)
+  task
+}
+
+print.rutaTask <- function(task) {
+  type <- if (rutaUnsupervisedTask %in% class(task))
+    "unsupervised"
+  else
+    "other"
+
+  class <- if (!is.null(task$cl))
+    paste0("Yes (", task$cl, ")")
+  else
+    "No"
+
+  cat("# ruta Task: ", task$id, "\n",
+      "# Type: ", type, "\n",
+      "# Instances: ", length(task$data[[1]]), "\n",
+      "# Features: ", length(task$data), "\n",
+      "# Has class: ", class, "\n",
+      sep = "")
 }
