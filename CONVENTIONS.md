@@ -2,7 +2,7 @@
 
 ## Function and variable naming
 
-- Functions and variables will be named using camelCase. Exported functions will be prepended by `ruta.` to avoid name conflicts with other packages.
+- Functions and variables will be named using camelCase. Exported functions will be prepended by `ruta.` to avoid name conflicts with other packages. Methods, however, will use common names (`print`, `train`, etc.).
 - Arguments for functions will use the dot as a separator.
 
 Example:
