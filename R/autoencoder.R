@@ -128,42 +128,44 @@ trainAutoencoderMXnet <-
         ),
         learner = x
       )
-  }
-
-trainAutoencoderH2o <-
-  function(x,
-           dataset,
-           class_col,
-           layers,
-           activation,
-           epochs) {
-    tryRequire("h2o")
-    dataset.h2o <- h2o::as.h2o(dataset)
-    inputs <- setdiff(1:ncol(dataset), class_col)
-    dataset.h2o <- dataset.h2o[-class_col]
-
-    ae_model <- h2o::h2o.deeplearning(
-      x = inputs,
-      training_frame = dataset.h2o,
-      activation = activation,
-      autoencoder = T,
-      hidden = layers,
-      epochs = epoch_num,
-      ignore_const_cols = F,
-      max_w2 = 10,
-      l1 = 1e-5
-    )
-
-    model <- list(
-      model   = ae_model,
-      inputs  = dataset[inputs],
-      classes = dataset[class_col],
-      layers  = layer,
-      backend = backend
-    )
-    class(model) <- ruta_model
+    class(model) <- rutaModel
     model
   }
+
+# trainAutoencoderH2o <-
+#   function(x,
+#            dataset,
+#            class_col,
+#            layers,
+#            activation,
+#            epochs) {
+#     tryRequire("h2o")
+#     dataset.h2o <- h2o::as.h2o(dataset)
+#     inputs <- setdiff(1:ncol(dataset), class_col)
+#     dataset.h2o <- dataset.h2o[-class_col]
+#
+#     ae_model <- h2o::h2o.deeplearning(
+#       x = inputs,
+#       training_frame = dataset.h2o,
+#       activation = activation,
+#       autoencoder = T,
+#       hidden = layers,
+#       epochs = epoch_num,
+#       ignore_const_cols = F,
+#       max_w2 = 10,
+#       l1 = 1e-5
+#     )
+#
+#     model <- list(
+#       internal   = ae_model,
+#       inputs  = dataset[inputs],
+#       classes = dataset[class_col],
+#       layers  = layer,
+#       backend = backend
+#     )
+#     class(model) <- rutaModel
+#     model
+#   }
 
 predictInternal <- function(model, X, ctx=NULL, layer.prefix, array.batch.size=128, array.layout="auto") {
   # Copyright (c) 2017 by mxnet contributors, David Charte
@@ -219,7 +221,6 @@ predictInternal <- function(model, X, ctx=NULL, layer.prefix, array.batch.size=1
   internals <- model$symbol$get.internals()
   ## TODO layer.prefix only works for layer symbols (not for activations since we're using '_bias' later). Fix.
   layerIndex <- which(internals$outputs == paste0(layer.prefix, "_output"))
-  print(layerIndex)
   pexec <- mxnet:::mx.simple.bind(internals[[layerIndex]], ctx=ctx, data=dim(dlist$data), grad.req="null")
   # end executor creation ------------------------------------------------------
   # set up arg arrays ----------------------------------------------------------
@@ -253,8 +254,5 @@ ruta.deepFeatures <- function(model, task, ...) {
     predX = taskToMxnet(task)
     predOut = predictInternal(model$internal, predX, layer.prefix = model$learner$innermostLayer, ...)
     t(predOut)
-  } else if (x$backend == "h2o") {
-    h2o::h2o.deepfeatures(x$model, dataset.h2o, layer = floor((length(layer) + 1) /
-                                                                2))
   }
 }
