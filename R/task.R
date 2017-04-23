@@ -28,3 +28,10 @@ print.rutaTask <- function(task) {
       "# Has class: ", class, "\n",
       sep = "")
 }
+
+taskToMxnet <- function(task) {
+  if (is.null(task$cl))
+    t(data.matrix(task$data))
+  else
+    t(data.matrix(task$data[-task$cl]))
+}
