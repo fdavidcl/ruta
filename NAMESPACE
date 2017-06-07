@@ -2,6 +2,7 @@
 
 S3method(train,rutaAutoencoder)
 export(ruta.deepFeatures)
+export(ruta.layerOutputs)
 export(ruta.makeLearner)
 export(ruta.makeUnsupervisedTask)
 export(train)

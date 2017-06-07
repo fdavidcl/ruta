@@ -9,21 +9,46 @@ makeAutoencoder <-
     class(learner) <- c(rutaLearner, rutaAutoencoder)
 
     if (sparse) {
-      learner$parameters$sparsenessPenalty = if (is.null(sparseness.penalty)) 0.001 else sparseness.penalty
-      class(learner) <- c(class(learner), rutaSparseAutoencoder)
+      if (is.null(activation) || activation != "sigmoid") {
+        warning("Sparse autoencoders are only available with 'sigmoid' activation. Sparseness penalty has been disabled")
+        learner$parameters$sparsenessPenalty = 0
+      } else {
+        learner$parameters$sparsenessPenalty = if (is.null(sparseness.penalty)) 0.001 else sparseness.penalty
+        class(learner) <- c(class(learner), rutaSparseAutoencoder)
+      }
     }
 
     ## Use MXnet's symbolic functionality to build the neural network
     nn <- mxnet::mx.symbol.Variable("data")
 
     ## TODO some checks on hidden (size of first and last layer, etc.)
-    innermost <- 1 + floor(length(hidden) / 2)
-    learner$innermostLayer <- "innermost"
+    encoding <- 1 + floor(length(hidden) / 2)
+    learner$encodingLayer <- encoding
+    learner$layers = list()
 
     for (l in 1:length(hidden)) {
-      name = if(l != innermost) paste0("aelayer", l) else learner$innermostLayer
+      name = paste0("aelayer", l)
+      learner$layers[[l]] = list(
+        weight = paste0(name, "_weight"),
+        bias = paste0(name, "_bias"),
+        layerout = paste0(name, "_output"),
+        out = if (sparse)
+          paste0(name, "kl_output")
+        else if (!is.null(activation))
+          paste0(name, "act_output")
+        else
+          paste0(name, "_output")
+      )
       nn <- autoencoderAddLayer(nn, hidden[l], learner$parameters$activation, learner$parameters$sparsenessPenalty, name = name)
     }
+
+    # Add output layer and output
+    # lastLayer <- length(x$layers) + 1
+    #   x$layers[[lastLayer]] <- list(
+    #
+    # )
+    # nn <- autoencoderAddLayer(x$nn, dim(trainX)[1], x$parameters$activation, x$parameters$sparseness.penalty, name = paste0("aelayer", lastLayer))
+    nn <- mxnet::mx.symbol.LinearRegressionOutput(data = nn)
 
     learner$nn <- nn
 
@@ -78,6 +103,7 @@ trainAutoencoderMXnet <-
            optimizer = "sgd",
            learning.rate = 0.01,
            momentum = 0.9,
+           eval.metric = mxnet::mx.metric.rmse,
            ...) {
     dataset <- task$data
     class <- task$cl
@@ -87,10 +113,6 @@ trainAutoencoderMXnet <-
     ## Remove class column if necessary, use a data structure supported
     ## by MXnet
     trainX <- taskToMxnet(task)
-
-    # Add output layer and output
-    nn <- autoencoderAddLayer(x$nn, dim(trainX)[1], x$parameters$activation, x$parameters$sparseness.penalty, name = "layerout")
-    nn <- mxnet::mx.symbol.LinearRegressionOutput(data = nn)
 
     ## Create an optimizer
     optimizer <-
@@ -106,12 +128,12 @@ trainAutoencoderMXnet <-
     ## Train the network
     mxmodel <-
       mxnet::mx.model.FeedForward.create(
-        symbol = nn,
+        symbol = x$nn,
         X = trainX,
         y = trainX,
         num.round = epochs,
         momentum = momentum,
-        eval.metric = mxnet::mx.metric.rmse,
+        eval.metric = eval.metric,
         array.layout = "colmajor",
         optimizer = optimizer
       )
@@ -167,7 +189,7 @@ trainAutoencoderMXnet <-
 #     model
 #   }
 
-predictInternal <- function(model, X, ctx=NULL, layer.prefix, array.batch.size=128, array.layout="auto") {
+predictPartial <- function(model, X, ctx = NULL, output.layer, arg.limit, array.batch.size = 128, array.layout="auto") {
   # Copyright (c) 2017 by mxnet contributors, David Charte
   # All rights reserved.
   #
@@ -214,21 +236,29 @@ predictInternal <- function(model, X, ctx=NULL, layer.prefix, array.batch.size=1
   if (!X$iter.next()) stop("Cannot predict on empty iterator")
   dlist = X$value()
   # end iterator creation ------------------------------------------------------
+
   # executor creation ----------------------------------------------------------
   ## mx.simple.bind defined in https://github.com/dmlc/mxnet/blob/master/R-package/R/executor.R#L5
   ## internally calls mx.symbol.bind, defined in https://github.com/dmlc/mxnet/blob/master/R-package/src/executor.cc#L191
   ### see also: https://github.com/dmlc/mxnet/blob/e7514fe1b3265aaf15870b124bb6ed0edd82fa76/R-package/demo/basic_executor.R
   internals <- model$symbol$get.internals()
-  ## TODO layer.prefix only works for layer symbols (not for activations since we're using '_bias' later). Fix.
-  layerIndex <- which(internals$outputs == paste0(layer.prefix, "_output"))
+  ## Select the output layer from mxnet internals
+  layerIndex <- which(internals$outputs == output.layer)
+  cat(paste0("Extracting layer ", output.layer, " (output #", layerIndex, ")\n"))
+  ## We *could* select all the layers and create a group symbol, thus obtaining all the outputs
+  ## but it doesn't look necessary
   pexec <- mxnet:::mx.simple.bind(internals[[layerIndex]], ctx=ctx, data=dim(dlist$data), grad.req="null")
   # end executor creation ------------------------------------------------------
   # set up arg arrays ----------------------------------------------------------
-  argIndex <- which(names(model$arg.params) == paste0(layer.prefix, "_bias"))
+  argIndex <- which(names(model$arg.params) == arg.limit)
+  cat(paste0("Setting arguments up to ", arg.limit, " (arg #", argIndex, ")\n"))
+
   internalArgParams <- model$arg.params[1:argIndex]
   # print(names(internalArgParams))
 
   mxnet:::mx.exec.update.arg.arrays(pexec, internalArgParams, match.name=T)
+
+  ## leave aux params untouched since we're still not using them
   mxnet:::mx.exec.update.aux.arrays(pexec, model$aux.params, match.name=T)
   # end set up arg arrays ------------------------------------------------------
   # the rest is left untouched -------------------------------------------------
@@ -248,11 +278,31 @@ predictInternal <- function(model, X, ctx=NULL, layer.prefix, array.batch.size=1
   return(packer$get())
 }
 
+predictInternal <- function(rutaModel, X, ctx = NULL, layer, array.batch.size = 128, array.layout="auto") {
+  predictPartial(
+    rutaModel$internal, X, ctx,
+    output.layer = rutaModel$learner$layers[[layer]]$out,
+    arg.limit = rutaModel$learner$layers[[layer]]$bias,
+    array.batch.size,
+    array.layout
+  )
+}
+
+#' @export
+predict.rutaModel <- function(model, task, ...) {
+  predX = taskToMxnet(task)
+  predOut = predict(model$internal, predX, ...)
+  t(predOut)
+}
+
+#' @export
+ruta.layerOutputs <- function(model, task, layerInput = 1, layerOutput, ...) {
+  predX = taskToMxnet(task)
+  predOut = predictInternal(model, predX, layer = layerOutput, ...)
+  t(predOut)
+}
+
 #' @export
 ruta.deepFeatures <- function(model, task, ...) {
-  if (model$backend == "mxnet") {
-    predX = taskToMxnet(task)
-    predOut = predictInternal(model$internal, predX, layer.prefix = model$learner$innermostLayer, ...)
-    t(predOut)
-  }
+  ruta.layerOutputs(model, task, 1, model$learner$encodingLayer, ...)
 }
