@@ -17,6 +17,8 @@ makeAutoencoder <-
       }
     }
 
+    tryRequire("mxnet")
+
     ## Use MXnet's symbolic functionality to build the neural network
     nn <- mxnet::mx.symbol.Variable("data")
 

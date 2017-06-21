@@ -20,6 +20,8 @@ An object for the learner containing the provided parameters.
 Create a representation for a learning algorithm.
 }
 \examples{
+\dontrun{
 ruta.makeLearner("autoencoder", "ae1", hidden = c(4, 2, 4), activation = "relu")
+}
 }
 

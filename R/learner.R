@@ -5,7 +5,9 @@
 #' @param ... Additional parameters for the learner.
 #' @return An object for the learner containing the provided parameters.
 #' @examples
+#' \dontrun{
 #' ruta.makeLearner("autoencoder", "ae1", hidden = c(4, 2, 4), activation = "relu")
+#' }
 #' @export
 ruta.makeLearner <- function(cl, id = cl, ...) {
   if (cl == "autoencoder") {

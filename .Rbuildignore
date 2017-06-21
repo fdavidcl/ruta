@@ -4,3 +4,4 @@
 ^exampl.*\.R$
 ^.*\.png$
 ^docs$
+^\.travis\.yml$

@@ -21,8 +21,6 @@ trainAutoencoderMXnet <-
     dataset <- task$data
     class <- task$cl
 
-    tryRequire("mxnet")
-
     ## Remove class column if necessary, use a data structure supported
     ## by MXnet
     trainX <- taskToMxnet(task)
