@@ -1,30 +1,39 @@
+#' Create a representation for a learning task.
+#' @param id A string. A name for the task.
+#' @param data A dataset, will be casted to data.frame with \code{as.data.frame}.
+#' @param cl The index of the column corresponding to the class, or \code{NULL} if the dataset has no class.
+#' @return A generic task object with the provided data and parameters.
 #' @export
-ruta.makeUnsupervisedTask <- function(id, data, cl = NULL) {
+ruta.makeTask <- function(id, data, cl = NULL) {
   if (missing(id))
     id <- substitute(data)
 
   task <- list(id = id,
                data = as.data.frame(data),
                cl = cl)
-  class(task) <- c(rutaTask, rutaUnsupervisedTask)
+  class(task) <- c(rutaTask)
   task
 }
 
-print.rutaTask <- function(task) {
-  type <- if (rutaUnsupervisedTask %in% class(task))
+#' \code{print} method for tasks.
+#' @param x \code{"rutaTask"} object
+#' @param ... Ignored
+#' @export
+print.rutaTask <- function(x, ...) {
+  type <- if (rutaUnsupervisedTask %in% class(x))
     "unsupervised"
   else
     "other"
 
-  class <- if (!is.null(task$cl))
-    paste0("Yes (", task$cl, ")")
+  class <- if (!is.null(x$cl))
+    paste0("Yes (", x$cl, ")")
   else
     "No"
 
-  cat("# ruta Task: ", task$id, "\n",
+  cat("# ruta Task: ", x$id, "\n",
       "# Type: ", type, "\n",
-      "# Instances: ", length(task$data[[1]]), "\n",
-      "# Features: ", length(task$data), "\n",
+      "# Instances: ", length(x$data[[1]]), "\n",
+      "# Features: ", length(x$data), "\n",
       "# Has class: ", class, "\n",
       sep = "")
 }

@@ -1,18 +1,16 @@
+#' Create a representation for a learning algorithm.
+#'
+#' @param cl A string. Type of learner.
+#' @param id A string. A name for the learner.
+#' @param ... Additional parameters for the learner.
+#' @return An object for the learner containing the provided parameters.
+#' @examples
+#' ruta.makeLearner("autoencoder", "ae1", hidden = c(4, 2, 4), activation = "relu")
 #' @export
 ruta.makeLearner <- function(cl, id = cl, ...) {
   if (cl == "autoencoder") {
     makeAutoencoder(id, ...)
   } else {
-    stop(paste0("No corresponding function found for ", type, " learner type"))
+    stop(paste0("No corresponding function found for ", cl, " learner type"))
   }
 }
-
-# ruta.train <- function(learner, task, subset) {
-#   if (class(learner) == "character")
-#     learner <- ruta.makeLearner(learner)
-#
-#   if (!("ruta.learner" %in% class(learner)))
-#     stop("'learner' parameter is not of class 'ruta.learner'")
-#
-#
-# }

@@ -1,99 +1,14 @@
-makeAutoencoder <-
-  function(id, hidden, activation = NULL, sparse = FALSE, sparseness.penalty = NULL, ..., backend = "mxnet") {
-    learner <- list(id = id,
-                    backend = backend,
-                    parameters = list(
-                      hidden = hidden,
-                      activation = activation
-                    ))
-    class(learner) <- c(rutaLearner, rutaAutoencoder)
-
-    if (sparse) {
-      if (is.null(activation) || activation != "sigmoid") {
-        warning("Sparse autoencoders are only available with 'sigmoid' activation. Sparseness penalty has been disabled")
-        learner$parameters$sparsenessPenalty = 0
-      } else {
-        learner$parameters$sparsenessPenalty = if (is.null(sparseness.penalty)) 0.001 else sparseness.penalty
-        class(learner) <- c(class(learner), rutaSparseAutoencoder)
-      }
-    }
-
-    ## Use MXnet's symbolic functionality to build the neural network
-    nn <- mxnet::mx.symbol.Variable("data")
-
-    ## TODO some checks on hidden (size of first and last layer, etc.)
-    encoding <- 1 + floor(length(hidden) / 2)
-    learner$encodingLayer <- encoding
-    learner$layers = list()
-
-    for (l in 1:length(hidden)) {
-      name = paste0("aelayer", l)
-      learner$layers[[l]] = list(
-        weight = paste0(name, "_weight"),
-        bias = paste0(name, "_bias"),
-        layerout = paste0(name, "_output"),
-        out = if (sparse)
-          paste0(name, "kl_output")
-        else if (!is.null(activation))
-          paste0(name, "act_output")
-        else
-          paste0(name, "_output")
-      )
-      nn <- autoencoderAddLayer(nn, hidden[l], learner$parameters$activation, learner$parameters$sparsenessPenalty, name = name)
-    }
-
-    # Add output layer and output
-    # lastLayer <- length(x$layers) + 1
-    #   x$layers[[lastLayer]] <- list(
-    #
-    # )
-    # nn <- autoencoderAddLayer(x$nn, dim(trainX)[1], x$parameters$activation, x$parameters$sparseness.penalty, name = paste0("aelayer", lastLayer))
-    nn <- mxnet::mx.symbol.LinearRegressionOutput(data = nn)
-
-    learner$nn <- nn
-
-    learner
-  }
-
-autoencoderAddLayer <- function(nn, hidden, activation = NULL, sparseness.penalty = NULL, name) {
-  nn <- mxnet::mx.symbol.FullyConnected(data = nn, num_hidden = hidden, name = name)
-  if (!is.null(activation)) {
-    nn <- mxnet::mx.symbol.Activation(data = nn, act.type = activation, name = paste0(name, "act"))
-  }
-  if (!is.null(sparseness.penalty)) {
-    nn <- mxnet::mx.symbol.IdentityAttachKLSparseReg(data = nn, penalty = sparseness.penalty, name = paste0(name, "kl"))
-  }
-  nn
-}
-
-print.rutaAutoencoder <- function(x) {
-  cat(
-    "# ruta Learner\n",
-    "# Type: Autoencoder\n",
-    "# Backend: ", x$backend, "\n",
-    "# Sparse: ",
-    (if (rutaSparseAutoencoder %in% class(x))
-      "Yes"
-     else
-       "No"),
-    "\n",
-    sep = ""
-  )
-}
-
-#' @export
-train <- function(x, ...)
-  UseMethod("train")
-
+#' Train an autoencoder.
+#' @param x A \code{"rutaAutoencoder"} object. This is the learner that will be
+#'   trained.
+#' @param task A \code{"rutaUnsupervisedTask"} object. It contains the data that
+#'   will be used to train the autoencoder. Class information, if present, will
+#'   not be used.
+#' @param ... Additional parameters for the MXNet optimizer
+#' @return A \code{"rutaModel"} object containing the trained model.
 #' @export
 train.rutaAutoencoder <- function(x, task, ...) {
-  if (x$backend == "mxnet") {
-    trainAutoencoderMXnet(x, task, ...)
-  } else if (x$backend == "h2o") {
-    trainAutoencoderH2o(x, task, ...)
-  } else {
-    stop("Invalid backend selected")
-  }
+  trainAutoencoderMXnet(x, task, ...)
 }
 
 trainAutoencoderMXnet <-
@@ -101,8 +16,6 @@ trainAutoencoderMXnet <-
            task,
            epochs,
            optimizer = "sgd",
-           learning.rate = 0.01,
-           momentum = 0.9,
            eval.metric = mxnet::mx.metric.rmse,
            ...) {
     dataset <- task$data
@@ -115,27 +28,36 @@ trainAutoencoderMXnet <-
     trainX <- taskToMxnet(task)
 
     ## Create an optimizer
-    optimizer <-
-      mxnet::mx.opt.create(optimizer, learning.rate = learning.rate, ...)
-    ## available optimizers:
-    ## mx.opt.sgd
-    ## mx.opt.rmsprop
-    ## mx.opt.adam
-    ## mx.opt.adagrad
-    ## mx.opt.adadelta
+    optimizer <- mxnet::mx.opt.create(optimizer, ...)
+    ## available optimizers and parameters:
+    ## mx.opt.sgd - learning.rate, momentum, wd, rescale.grad, clip_gradient, lr_scheduler
+    ## mx.opt.rmsprop - learning.rate, gamma1, gamma2, wd, rescale.grad, clip_gradient, lr_scheduler
+    ## mx.opt.adam - learning.rate, beta1, beta2, epsilon, wd, rescale.grad, clip_gradient, lr_scheduler
+    ## mx.opt.adagrad - learning.rate, epsilon, wd, rescale.grad, clip_gradient, lr_scheduler
+    ## mx.opt.adadelta - rho, epsilon, wd, rescale.grad, clip_gradient
     ## source: https://github.com/dmlc/mxnet/blob/master/R-package/R/optimizer.R
 
     ## Train the network
-    mxmodel <-
+    mxmodel <- if (!x$parameters$sparse)
       mxnet::mx.model.FeedForward.create(
         symbol = x$nn,
         X = trainX,
         y = trainX,
         num.round = epochs,
-        momentum = momentum,
         eval.metric = eval.metric,
         array.layout = "colmajor",
         optimizer = optimizer
+      )
+    else
+      mxnet::mx.model.FeedForward.create(
+        symbol = x$nn,
+        X = trainX,
+        y = trainX,
+        num.round = epochs,
+        eval.metric = eval.metric,
+        array.layout = "colmajor",
+        optimizer = optimizer#,
+        #aux.params = list(aelayer1kl_moving_avg = 0.1, aelayer2kl_moving_avg = 0.1, aelayer3kl_moving_avg = 0.1)
       )
 
     model <-
@@ -144,50 +66,15 @@ trainAutoencoderMXnet <-
         backend = x$backend,
         parameters = list(
           epochs = epochs,
-          optimizer = optimizer,
-          learningRate = learning.rate,
-          momentum = momentum
+          optimizer = optimizer#,
+          #learningRate = learning.rate,
+          #momentum = momentum
         ),
         learner = x
       )
     class(model) <- rutaModel
     model
   }
-
-# trainAutoencoderH2o <-
-#   function(x,
-#            dataset,
-#            class_col,
-#            layers,
-#            activation,
-#            epochs) {
-#     tryRequire("h2o")
-#     dataset.h2o <- h2o::as.h2o(dataset)
-#     inputs <- setdiff(1:ncol(dataset), class_col)
-#     dataset.h2o <- dataset.h2o[-class_col]
-#
-#     ae_model <- h2o::h2o.deeplearning(
-#       x = inputs,
-#       training_frame = dataset.h2o,
-#       activation = activation,
-#       autoencoder = T,
-#       hidden = layers,
-#       epochs = epoch_num,
-#       ignore_const_cols = F,
-#       max_w2 = 10,
-#       l1 = 1e-5
-#     )
-#
-#     model <- list(
-#       internal   = ae_model,
-#       inputs  = dataset[inputs],
-#       classes = dataset[class_col],
-#       layers  = layer,
-#       backend = backend
-#     )
-#     class(model) <- rutaModel
-#     model
-#   }
 
 predictPartial <- function(model, X, ctx = NULL, output.layer, arg.limit, array.batch.size = 128, array.layout="auto") {
   # Copyright (c) 2017 by mxnet contributors, David Charte
@@ -219,7 +106,7 @@ predictPartial <- function(model, X, ctx = NULL, output.layer, arg.limit, array.
   # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   # initialization stuff I probably don't care about ---------------------------
-  if (is.null(ctx)) ctx <- mxnet:::mx.ctx.default()
+  if (is.null(ctx)) ctx <- mxnet::mx.ctx.default()
   if (is.array(X) || is.matrix(X)) {
     if (array.layout == "auto") {
       array.layout <- mxnet:::mx.model.select.layout.predict(X, model)
@@ -247,7 +134,7 @@ predictPartial <- function(model, X, ctx = NULL, output.layer, arg.limit, array.
   cat(paste0("Extracting layer ", output.layer, " (output #", layerIndex, ")\n"))
   ## We *could* select all the layers and create a group symbol, thus obtaining all the outputs
   ## but it doesn't look necessary
-  pexec <- mxnet:::mx.simple.bind(internals[[layerIndex]], ctx=ctx, data=dim(dlist$data), grad.req="null")
+  pexec <- mxnet::mx.simple.bind(internals[[layerIndex]], ctx=ctx, data=dim(dlist$data), grad.req="null")
   # end executor creation ------------------------------------------------------
   # set up arg arrays ----------------------------------------------------------
   argIndex <- which(names(model$arg.params) == arg.limit)
@@ -256,19 +143,19 @@ predictPartial <- function(model, X, ctx = NULL, output.layer, arg.limit, array.
   internalArgParams <- model$arg.params[1:argIndex]
   # print(names(internalArgParams))
 
-  mxnet:::mx.exec.update.arg.arrays(pexec, internalArgParams, match.name=T)
+  mxnet::mx.exec.update.arg.arrays(pexec, internalArgParams, match.name=T)
 
   ## leave aux params untouched since we're still not using them
-  mxnet:::mx.exec.update.aux.arrays(pexec, model$aux.params, match.name=T)
+  mxnet::mx.exec.update.aux.arrays(pexec, model$aux.params, match.name=T)
   # end set up arg arrays ------------------------------------------------------
   # the rest is left untouched -------------------------------------------------
   packer <- mxnet:::mx.nd.arraypacker()
   X$reset()
   while (X$iter.next()) {
     dlist = X$value()
-    mxnet:::mx.exec.update.arg.arrays(pexec, list(data=dlist$data), match.name=T)
-    mxnet:::mx.exec.forward(pexec, is.train=FALSE)
-    out.pred <- mxnet:::mx.nd.copyto(pexec$ref.outputs[[1]], mxnet:::mx.cpu())
+    mxnet::mx.exec.update.arg.arrays(pexec, list(data=dlist$data), match.name=T)
+    mxnet::mx.exec.forward(pexec, is.train=FALSE)
+    out.pred <- mxnet::mx.nd.copyto(pexec$ref.outputs[[1]], mxnet::mx.cpu())
     padded <- X$num.pad()
     oshape <- dim(out.pred)
     ndim <- length(oshape)
@@ -288,20 +175,50 @@ predictInternal <- function(rutaModel, X, ctx = NULL, layer, array.batch.size = 
   )
 }
 
+#' Predict outputs for trained models and new data.
+#'
+#' You should pass a \code{model} argument and a \code{task} argument at least.
+#' The task can be the same input data the model was trained with, or new data
+#' with the same shape.
+#' Other arguments will be passed to the internal prediction function.
+#'
+#' @param object A \code{"rutaModel"} object.
+#' @param ... Custom parameters for MXNet prediction function.
+#' @return A matrix containing predictions for each instance in the given task.
+#' @importFrom stats predict
 #' @export
-predict.rutaModel <- function(model, task, ...) {
-  predX = taskToMxnet(task)
-  predOut = predict(model$internal, predX, ...)
+predict.rutaModel <- function(object, ...) {
+  args <- list(...)
+  task <- args$task
+  args$task = NULL
+  predX <- taskToMxnet(task)
+  predOut <- predict(object$internal, predX, ... = args)
   t(predOut)
 }
 
+#' Get outputs from any layer from a trained model and new data.
+#'
+#' @param model A \code{"rutaModel"} object from an autoencoder learner.
+#' @param task A \code{"rutaTask"} object.
+#' @param layerInput Currently input is always injected into the first layer.
+#' @param layerOutput An integer indicating the index of the layer to be
+#'   obtained.
+#' @param ... Custom parameters for internal prediction function.
+#' @return A matrix containing layer outputs for each instance in the given task.
 #' @export
 ruta.layerOutputs <- function(model, task, layerInput = 1, layerOutput, ...) {
-  predX = taskToMxnet(task)
-  predOut = predictInternal(model, predX, layer = layerOutput, ...)
+  predX <- taskToMxnet(task)
+  predOut <- predictInternal(model, predX, layer = layerOutput, ...)
   t(predOut)
 }
 
+#' Get the deep features from a trained autoencoder model.
+#'
+#' @param model A \code{"rutaModel"} object from an autoencoder learner.
+#' @param task A \code{"rutaTask"} object.
+#' @param ... Custom parameters for internal prediction function.
+#' @return A matrix containing the encoding output for each instance in the
+#'   given task.
 #' @export
 ruta.deepFeatures <- function(model, task, ...) {
   ruta.layerOutputs(model, task, 1, model$learner$encodingLayer, ...)
