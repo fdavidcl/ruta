@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^CONVENTIONS\.md$
+^exampl.*\.R$
+^.*\.png$
+^docs$
