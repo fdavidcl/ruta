@@ -7,8 +7,6 @@ Depends:
     R (>= 3.3)
 Imports:
     stats
-Suggests:
-    mxnet
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
