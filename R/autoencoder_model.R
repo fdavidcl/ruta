@@ -36,7 +36,7 @@ trainAutoencoderMXnet <-
     ## source: https://github.com/dmlc/mxnet/blob/master/R-package/R/optimizer.R
 
     ## Train the network
-    mxmodel <- if (!x$parameters$sparse)
+    mxmodel <- if (!(rutaSparseAutoencoder %in% class(x)))
       mxnet::mx.model.FeedForward.create(
         symbol = x$nn,
         X = trainX,

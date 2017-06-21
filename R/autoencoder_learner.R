@@ -3,7 +3,8 @@ makeAutoencoder <-
     learner <- list(id = id,
                     parameters = list(
                       hidden = hidden,
-                      activation = activation
+                      activation = activation,
+                      backend = "mxnet"
                     ))
     class(learner) <- c(rutaLearner, rutaAutoencoder)
 
