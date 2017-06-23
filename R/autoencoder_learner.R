@@ -21,14 +21,15 @@ makeAutoencoder <-
     tryRequire("mxnet")
 
     ## Use MXnet's symbolic functionality to build the neural network
+    #hidden = c(hidden, rev(hidden), length())
     nn <- mxnet::mx.symbol.Variable("data")
 
     ## TODO some checks on hidden (size of first and last layer, etc.)
-    encoding <- 1 + floor(length(hidden) / 2)
+    encoding <- floor(length(hidden) / 2)
     learner$encodingLayer <- encoding
     learner$layers = list()
 
-    for (l in 1:length(hidden)) {
+    for (l in 1:(length(hidden) - 1)) {
       name = paste0("aelayer", l)
       learner$layers[[l]] = list(
         weight = paste0(name, "_weight"),
@@ -41,7 +42,7 @@ makeAutoencoder <-
         else
           paste0(name, "_output")
       )
-      nn <- autoencoderAddLayer(nn, hidden[l], learner$parameters$activation, learner$parameters$sparsenessPenalty, name = name)
+      nn <- autoencoderAddLayer(nn, hidden[l + 1], learner$parameters$activation, learner$parameters$sparsenessPenalty, name = name)
     }
 
     # Add output layer and output
@@ -60,7 +61,10 @@ makeAutoencoder <-
 autoencoderAddLayer <- function(nn, hidden, activation = NULL, sparseness.penalty = NULL, name) {
   nn <- mxnet::mx.symbol.FullyConnected(data = nn, num_hidden = hidden, name = name)
   if (!is.null(activation)) {
-    nn <- mxnet::mx.symbol.Activation(data = nn, act.type = activation, name = paste0(name, "act"))
+    nn <- if (activation %in% c("elu", "leaky", "prelu", "rrelu"))
+      mxnet::mx.symbol.LeakyReLU(data = nn, act.type = activation, name = paste0(name, "act"))
+    else
+      mxnet::mx.symbol.Activation(data = nn, act.type = activation, name = paste0(name, "act"))
   }
   if (!is.null(sparseness.penalty)) {
     nn <- mxnet::mx.symbol.IdentityAttachKLSparseReg(data = nn, penalty = sparseness.penalty, name = paste0(name, "kl"))
@@ -76,7 +80,7 @@ print.rutaAutoencoder <- function(x, ...) {
   cat(
     "# ruta Learner\n",
     "# Type: Autoencoder\n",
-    "# Backend: ", x$backend, "\n",
+    "# Backend: ", x$parameters$backend, "\n",
     "# Sparse: ",
     (if (rutaSparseAutoencoder %in% class(x))
       "Yes"

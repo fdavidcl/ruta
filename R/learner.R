@@ -5,6 +5,7 @@
 #' @param ... Additional parameters for the learner.
 #' @return An object for the learner containing the provided parameters.
 #' @examples
+#' ruta.makeLearner("rbm", hidden = 4, activation = "sigm")
 #' \dontrun{
 #' ruta.makeLearner("autoencoder", "ae1", hidden = c(4, 2, 4), activation = "relu")
 #' }
@@ -12,6 +13,8 @@
 ruta.makeLearner <- function(cl, id = cl, ...) {
   if (cl == "autoencoder") {
     makeAutoencoder(id, ...)
+  } else if (cl == "rbm") {
+    makeRBM(id, ...)
   } else {
     stop(paste0("No corresponding function found for ", cl, " learner type"))
   }

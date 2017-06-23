@@ -6,6 +6,9 @@ rutaUnsupervisedTask <- "rutaUnsupervisedTask"
 rutaLearner <- "rutaLearner"
 rutaAutoencoder <- "rutaAutoencoder"
 rutaSparseAutoencoder <- "rutaSparseAutoencoder"
+rutaRBM <- "rutaRBM"
 
 ## Models
 rutaModel <- "rutaModel"
+rutaAutoencoderModel <- "rutaAutoencoderModel"
+rutaRBMModel <- "rutaRBMModel"

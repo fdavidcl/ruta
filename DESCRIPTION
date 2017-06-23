@@ -6,7 +6,7 @@ Description: Implementation of several unsupervised deep architechtures.
 Depends:
     R (>= 3.3)
 Imports:
-    stats
+    stats, deepnet
 License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
 LazyData: true

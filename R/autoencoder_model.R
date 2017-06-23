@@ -11,12 +11,37 @@ train.rutaAutoencoder <- function(x, task, ...) {
   trainAutoencoderMXnet(x, task, ...)
 }
 
+#' Pretrain autoencoders.
+#'
+#' Obtain initial weights for an autoencoder via stack of RBMs.
+#'
+#' @import deepnet
+#' @export
+ruta.pretrain <- function(x, task, epochs = 10, ...) {
+  ## Use stack of RBMs to initialize weights
+  initialArguments <- list()
+  n <- length(x$parameters$hidden)
+  rbmTask <- task
+  for (l in 1:x$encodingLayer) {
+    print(rbmTask)
+    #cat("Entrenando una RBM de ", length(rbmTask$data), " neuronas visibles y ", x$parameters$hidden[l + 1], " neuronas ocultas\n")
+    rbm <- ruta.makeLearner("rbm", hidden = x$parameters$hidden[l + 1])
+    rbmModel <- train(rbm, rbmTask, numepochs = epochs, ...)
+    initialArguments[[x$layers[[l]]$weight]] = mxnet::mx.nd.array(ruta.getWeights(rbmModel, 2))
+    initialArguments[[x$layers[[n - l]]$weight]] = mxnet::mx.nd.array(ruta.getWeights(rbmModel, 1))
+    rbmTask <- ruta.makeTask("rbm", ruta.layerOutputs(rbmModel, rbmTask, layerInput = 1))
+  }
+
+  initialArguments
+}
+
 trainAutoencoderMXnet <-
   function(x,
            task,
            epochs,
            optimizer = "sgd",
            eval.metric = mxnet::mx.metric.rmse,
+           initial.args = NULL,
            ...) {
     dataset <- task$data
     class <- task$cl
@@ -44,7 +69,8 @@ trainAutoencoderMXnet <-
         num.round = epochs,
         eval.metric = eval.metric,
         array.layout = "colmajor",
-        optimizer = optimizer
+        optimizer = optimizer,
+        arg.params = initial.args
       )
     else
       mxnet::mx.model.FeedForward.create(
@@ -54,7 +80,8 @@ trainAutoencoderMXnet <-
         num.round = epochs,
         eval.metric = eval.metric,
         array.layout = "colmajor",
-        optimizer = optimizer#,
+        optimizer = optimizer,
+        arg.params = initial.args#,
         #aux.params = list(aelayer1kl_moving_avg = 0.1, aelayer2kl_moving_avg = 0.1, aelayer3kl_moving_avg = 0.1)
       )
 
@@ -70,7 +97,7 @@ trainAutoencoderMXnet <-
         ),
         learner = x
       )
-    class(model) <- rutaModel
+    class(model) <- c(rutaModel, rutaAutoencoderModel)
     model
   }
 
@@ -204,7 +231,7 @@ predict.rutaModel <- function(object, ...) {
 #' @param ... Custom parameters for internal prediction function.
 #' @return A matrix containing layer outputs for each instance in the given task.
 #' @export
-ruta.layerOutputs <- function(model, task, layerInput = 1, layerOutput, ...) {
+ruta.layerOutputs.rutaAutoencoderModel <- function(model, task, layerInput = 1, layerOutput, ...) {
   predX <- taskToMxnet(task)
   predOut <- predictInternal(model, predX, layer = layerOutput, ...)
   t(predOut)
