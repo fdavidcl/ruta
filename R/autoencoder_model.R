@@ -15,6 +15,10 @@ train.rutaAutoencoder <- function(x, task, ...) {
 #'
 #' Obtain initial weights for an autoencoder via stack of RBMs.
 #'
+#' @param x A \code{"rutaAutoencoder"} object.
+#' @param task A \code{"rutaTask"} object.
+#' @param epochs The number of epochs for the training process of each RBM.
+#'
 #' @import deepnet
 #' @export
 ruta.pretrain <- function(x, task, epochs = 10, ...) {

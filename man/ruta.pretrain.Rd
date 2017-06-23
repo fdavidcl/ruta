@@ -6,6 +6,13 @@
 \usage{
 ruta.pretrain(x, task, epochs = 10, ...)
 }
+\arguments{
+\item{x}{A \code{"rutaAutoencoder"} object.}
+
+\item{task}{A \code{"rutaTask"} object.}
+
+\item{epochs}{The number of epochs for the training process of each RBM.}
+}
 \description{
 Obtain initial weights for an autoencoder via stack of RBMs.
 }
