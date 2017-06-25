@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get outputs from any layer from a trained model and new data.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+</head><body>
+
+<table width="100%" summary="page for ruta.layerOutputs.rutaRBMModel {ruta}"><tr><td>ruta.layerOutputs.rutaRBMModel {ruta}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get outputs from any layer from a trained model and new data.</h2>
+
+<h3>Description</h3>
+
+<p>Get outputs from any layer from a trained model and new data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rutaRBMModel'
+ruta.layerOutputs(model, task, layerInput = 1,
+  layerOutput = 2 - layerInput, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>A <code>"rutaRBMModel"</code> object trained with an RBM learner.</p>
+</td></tr>
+<tr valign="top"><td><code>task</code></td>
+<td>
+<p>A <code>"rutaTask"</code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>layerInput</code></td>
+<td>
+<p>Just 1 or 2 (default = 1).</p>
+</td></tr>
+<tr valign="top"><td><code>layerOutput</code></td>
+<td>
+<p>The remaining layer (optional).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Custom parameters for internal prediction function.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A matrix containing layer outputs for each instance in the given task.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>ruta</em> version 0.2.0 ]</div>
+</body></html>
