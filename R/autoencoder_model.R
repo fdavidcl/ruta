@@ -46,6 +46,7 @@ trainAutoencoderMXnet <-
            optimizer = "sgd",
            eval.metric = mxnet::mx.metric.rmse,
            initial.args = NULL,
+           initializer.scale = 0.07,
            ...) {
     dataset <- task$data
     class <- task$cl
@@ -74,7 +75,8 @@ trainAutoencoderMXnet <-
         eval.metric = eval.metric,
         array.layout = "colmajor",
         optimizer = optimizer,
-        arg.params = initial.args
+        initializer = mxnet::mx.init.uniform(initializer.scale)
+        #arg.params = initial.args
       )
     else
       mxnet::mx.model.FeedForward.create(
