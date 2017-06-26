@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/fdavidcl/ruta/master/ruta.png)
+![](https://raw.githubusercontent.com/fdavidcl/ruta/master/docs/images/logo/ruta_logo64.png)
 
 # ruta
 
