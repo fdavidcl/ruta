@@ -53,7 +53,7 @@ train <- function(learner, ...)
 
 #' @import kerasR
 #' @export
-train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 100) {
+train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
   ae <- makeAutoencoder(learner, input_shape = 784)
 
   keras_compile(ae$model, optimizer = RMSprop(), loss = "binary_crossentropy")
@@ -62,7 +62,8 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
     x = data,
     y = data,
     batch_size = 256,
-    epochs = epochs
+    epochs = epochs,
+    ...
   )
 
   ae
