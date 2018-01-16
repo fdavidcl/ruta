@@ -1,12 +1,12 @@
 Package: ruta
 Title: Unsupervised Deep Architectures for R
-Version: 0.2.0
+Version: 0.2.0.9000
 Authors@R: person("David", "Charte", email = "fdavidcl@protonmail.com", role = c("aut", "cre"))
 Description: Implementation of several unsupervised deep architechtures.
 Depends:
-    R (>= 3.3)
+    R (>= 3.4)
 Imports:
-    stats, kerasR
+    stats, reticulate, kerasR
 Suggests:
     magrittr
 License: GPL (>= 3) | file LICENSE
