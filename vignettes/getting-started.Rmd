@@ -1,0 +1,26 @@
+---
+title: Getting started
+---
+
+## Install dependencies
+
+~~~sh
+$ pip install tensorflow
+$ pip install keras
+~~~
+
+## Install Ruta
+
+```r
+devtools::install_github("fdavidcl/ruta")
+```
+
+## Train your first autoencoder
+
+~~~r
+library(magrittr)
+library(ruta)
+
+result = iris %>%
+  autoencode(input() + dense(2) + output())
+~~~
