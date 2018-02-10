@@ -17,26 +17,49 @@ makeLayer <- function(type, units, activation) {
     is.character(activation),
     length(activation) == 1
   )
-  layer <- list(type = type, units = as.integer(units), activation = activation)
-  class(layer) <- rutaLayer
+  layer <- structure(
+    list(type = type, units = as.integer(units), activation = activation),
+    class = rutaLayer
+  )
   makeNetwork(layer)
 }
 
+#' Add layers to a network
+#'
+#' @param ... Networks to be combined
+#' @return Network combination
+#' @examples
+#' network = input() + dense(30) + output("sigmoid")
 #' @export
 "+.rutaNetwork" <- function(...) {
   makeNetwork(...)
 }
 
+#' Access a layer of a network
+#'
+"[.rutaNetwork" <- function(network, index) {
+
+}
+
+#' Create a fully-connected layer
+#'
+#' @param units Number of units
+#' @param activation Optional, string indicating activation function (linear by default)
 #' @export
 dense <- function(units, activation = "linear") {
   makeLayer("dense", units, activation = activation)
 }
 
+#' Create an input layer
+#'
 #' @export
 input <- function() {
   makeLayer("input", -1, "linear")
 }
 
+#' Create an output layer
+#'
+#' @param activation Optional, string indicating activation function (linear by default)
 #' @export
 output <- function(activation = "linear") {
   makeLayer("output", -1, activation)

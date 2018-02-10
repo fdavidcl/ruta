@@ -7,7 +7,11 @@
 autoencoder(layers, sparse = F, contractive = F)
 }
 \arguments{
-\item{contractive}{}
+\item{layers}{Layer construct of class \code{"rutaNetwork"}}
+
+\item{sparse}{Logical}
+
+\item{contractive}{Logical}
 }
 \description{
 Create an autoencoder learner

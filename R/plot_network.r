@@ -25,6 +25,7 @@ getXs <- function(struct) {
   list(lower = lower, upper = lower + marg/2)
 }
 
+#' @import graphics
 #' @export
 plot.rutaNetwork <- function(x, ...) {
   args <- list(...)
