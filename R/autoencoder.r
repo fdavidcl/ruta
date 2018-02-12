@@ -18,41 +18,35 @@ autoencoder <- function(layers, sparse = F, contractive = F) {
 #' @import kerasR
 #' @importFrom reticulate tuple
 #' @importFrom reticulate import
+#' @import purrr
 makeAutoencoder <- function(learner, input_shape) {
   loadKeras()
 
-  input_shape = tuple(as.integer(input_shape))
-  encoding_dim = as.integer(32)
-  layers = import("keras.layers")
-  models = import("keras.models")
+  encoding_dim = learner$layers[[encodingIndex(learner$layers)]]$units
+  keras_layers = import("keras.layers")
+  keras_models = import("keras.models")
 
-  input_img = layers$Input(shape = input_shape)
-  encoded = layers$Dense(encoding_dim, activation = "tanh")(input_img)
-  decoded = layers$Dense(input_shape[[0]], activation = "sigmoid")(encoded)
+  network = toKeras(learner$layers, input_shape)
 
-  model = models$Model(input_img, decoded)
-  encoder = models$Model(input_img, encoded)
+  input_layer = network[[1]]
+  model = keras_models$Model(input_layer, network[[length(network)]])
+  encoder = keras_models$Model(input_layer, network[[network %@% "encoding"]])
 
-  encoded_input = layers$Input(shape = tuple(encoding_dim))
-  decoder_layer = model$layers[[3]]
+  # encoded_input = keras_layers$Input(shape = tuple(encoding_dim))
+  # decoder_layer = model$layers[[3]]
+  #
+  # ### needs adapting for multiple hidden layers
+  # decoder = keras_models$Model(encoded_input, decoder_layer(encoded_input))
 
-  ### needs adapting for multiple hidden layers
-  decoder = models$Model(encoded_input, decoder_layer(encoded_input))
-
-  kerasR::plot_model(model)
-
-  autoencoder_obj = list(
+  structure(list(
     learner = learner,
     model = model,
-    encoder = encoder,
-    decoder = decoder
+    encoder = encoder),
+    class = rutaAutoencoder
   )
-  class(autoencoder_obj) = rutaAutoencoder
-  autoencoder_obj
 }
 
 #' @rdname train.rutaLearner
-#' @export
 train <- function(learner, ...)
   UseMethod("train")
 
@@ -95,4 +89,3 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
 encode <- function(ae, data) {
   ae$encoder$predict(data)
 }
-

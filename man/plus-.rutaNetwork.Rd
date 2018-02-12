@@ -4,7 +4,7 @@
 \alias{+.rutaNetwork}
 \title{Add layers to a network}
 \usage{
-\method{+}{rutaNetwork}(...)
+\method{+}{rutaNetwork}(e1, e2)
 }
 \arguments{
 \item{...}{Networks to be combined}
