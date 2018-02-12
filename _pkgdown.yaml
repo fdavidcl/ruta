@@ -1,0 +1,37 @@
+url: "http://ruta.software"
+
+template:
+  params:
+    bootswatch: lumen
+
+authors:
+  David Charte:
+    href: http://fdavidcl.me
+
+navbar:
+  title: Ruta
+  type: default
+  left:
+    - text: "Home"
+      href: ""
+      icon: fa-home
+    - text: "Get started"
+      href: "articles/getting-started.html"
+      icon: fa-code
+  right:
+    - text: "Documentation"
+      icon: fa-book
+      href: "reference/"
+    - icon: fa-github
+      href: "https://github.com/fdavidcl/ruta"
+
+reference:
+  - title: "Model creation"
+    contents:
+      - autoencoder
+  - title: "Model training"
+    contents:
+      - train.rutaLearner
+  - title: "Tasks for trained models"
+    contents:
+      - encode
