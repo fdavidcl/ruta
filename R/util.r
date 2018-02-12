@@ -7,3 +7,5 @@ loadKeras <- function() {
   keras_init()
   keras_available()
 }
+
+`%map%` <- function(x, f) UseMethod("%map%")

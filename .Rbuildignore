@@ -5,3 +5,6 @@
 ^.*\.png$
 ^docs$
 ^\.travis\.yml$
+^_pkgdown\.yaml$
+^README\.Rmd$
+^README\.html$
