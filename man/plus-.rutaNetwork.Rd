@@ -7,7 +7,9 @@
 \method{+}{rutaNetwork}(e1, e2)
 }
 \arguments{
-\item{...}{Networks to be combined}
+\item{e1}{First network}
+
+\item{e2}{Second network}
 }
 \value{
 Network combination

@@ -25,6 +25,9 @@ getXs <- function(struct) {
   list(lower = lower, upper = lower + marg/2)
 }
 
+#' Draw a neural network
+#'
+#' @param x A \code{"rutaNetwork"} object
 #' @import graphics
 #' @export
 plot.rutaNetwork <- function(x, ...) {

@@ -11,6 +11,9 @@
 
 \item{...}{Additional parameters, currently ignored}
 }
+\value{
+Invisibly returns the same object passed as parameter
+}
 \description{
 Inspect a neural network
 }
