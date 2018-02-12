@@ -28,9 +28,17 @@ navbar:
 reference:
   - title: "Model creation"
     contents:
+      - input
+      - dense
+      - output
+      - "+.rutaNetwork"
+      - "[.rutaNetwork"
+      - "print.rutaNetwork"
+      - "plot.rutaNetwork"
       - autoencoder
   - title: "Model training"
     contents:
+      - toKeras
       - train.rutaLearner
   - title: "Tasks for trained models"
     contents:
