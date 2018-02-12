@@ -22,7 +22,6 @@ autoencoder <- function(layers, sparse = F, contractive = F) {
 makeAutoencoder <- function(learner, input_shape) {
   loadKeras()
 
-  encoding_dim = learner$layers[[encodingIndex(learner$layers)]]$units
   keras_layers = import("keras.layers")
   keras_models = import("keras.models")
 
@@ -30,23 +29,30 @@ makeAutoencoder <- function(learner, input_shape) {
 
   input_layer = network[[1]]
   model = keras_models$Model(input_layer, network[[length(network)]])
+
   encoder = keras_models$Model(input_layer, network[[network %@% "encoding"]])
 
-  # encoded_input = keras_layers$Input(shape = tuple(encoding_dim))
-  # decoder_layer = model$layers[[3]]
-  #
-  # ### needs adapting for multiple hidden layers
-  # decoder = keras_models$Model(encoded_input, decoder_layer(encoded_input))
+  encoding_dim = learner$layers[[network %@% "encoding"]]$units
+  encoded_input = keras_layers$Input(shape = tuple(encoding_dim))
+  decoder_stack = encoded_input
+
+  for (lay_i in (network %@% "encoding" + 1):(length(network))) {
+    decoder_stack = model$layers[[lay_i]](decoder_stack)
+  }
+
+  decoder = keras_models$Model(encoded_input, decoder_stack)
 
   structure(list(
     learner = learner,
     model = model,
-    encoder = encoder),
+    encoder = encoder,
+    decoder = decoder),
     class = rutaAutoencoder
   )
 }
 
 #' @rdname train.rutaLearner
+#' @export
 train <- function(learner, ...)
   UseMethod("train")
 
@@ -83,9 +89,20 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
 #'
 #' Extracts the encoding calculated by a trained autoencoder for the specified
 #' data.
-#' @param ae Autoencoder model
+#' @param model Autoencoder model
 #' @param data data.frame to be encoded
 #' @export
 encode <- function(ae, data) {
   ae$encoder$predict(data)
+}
+
+#' Retrieve decoding of encoded data
+#'
+#' Extracts the decodification calculated by a trained autoencoder for the specified
+#' data.
+#' @param model Autoencoder model
+#' @param data data.frame to be encoded
+#' @export
+decode <- function(ae, data) {
+  ae$decoder$predict(data)
 }

@@ -125,8 +125,9 @@ toKeras <- function(net, input_shape) {
   )
 
   network = keras_lf$input(shape = input_shape)
+  net_list = list()
 
-  net %>% map(function(layer) {
+  for (layer in net) {
     if (layer$units < 0)
       layer$units = input_shape[[0]]
 
@@ -134,5 +135,9 @@ toKeras <- function(net, input_shape) {
       network
     else
       network = keras_lf[[layer$type]](units = layer$units, activation = layer$activation)(network)
-  }) %>% structure(encoding = encodingIndex(net))
+
+    net_list[[length(net_list) + 1]] <- network
+  }
+
+  net_list %>% structure(encoding = encodingIndex(net))
 }
