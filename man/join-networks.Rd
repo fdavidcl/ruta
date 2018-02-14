@@ -2,14 +2,19 @@
 % Please edit documentation in R/layers.r
 \name{+.rutaNetwork}
 \alias{+.rutaNetwork}
+\alias{c.rutaNetwork}
 \title{Add layers to a network}
 \usage{
 \method{+}{rutaNetwork}(e1, e2)
+
+\method{c}{rutaNetwork}(...)
 }
 \arguments{
 \item{e1}{First network}
 
 \item{e2}{Second network}
+
+\item{...}{networks to be concatenated}
 }
 \value{
 Network combination

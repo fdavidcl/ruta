@@ -1,14 +1,17 @@
 makeNetwork <- function(...) {
-  net <- if (every(list(...), ~ class(.) == rutaLayer))
-    list(...)
-  else if (every(list(...), ~ class(.) == rutaNetwork))
-    c(...)
+  args <- list(...)
+
+  net <- if (every(args, ~ class(.) == rutaLayer))
+    args
+  else if (every(args, ~ class(.) == rutaNetwork))
+    args %>% map(unclass) %>% do.call(c, .)
   else
     stop("Error: Not a valid network")
 
   class(net) <- rutaNetwork
   net
 }
+
 
 makeLayer <- function(type, units, activation) {
   stopifnot(
@@ -26,13 +29,15 @@ makeLayer <- function(type, units, activation) {
   makeNetwork(layer)
 }
 
-#' Add layers to a network
+#' Add layers to a network/Join networks
 #'
+#' @rdname join-networks
 #' @param e1 First network
 #' @param e2 Second network
 #' @return Network combination
 #' @examples
 #' network = input() + dense(30) + output("sigmoid")
+#' another = c(input(), dense(30), dense(3), dense(30), output())
 #' @export
 "+.rutaNetwork" <- function(e1, e2) {
   if (class(e1) != class(e2)) {
@@ -41,6 +46,13 @@ makeLayer <- function(type, units, activation) {
   }
 
   makeNetwork(e1, e2)
+}
+
+#' @rdname join-networks
+#' @param ... networks to be concatenated
+#' @export
+c.rutaNetwork <- function(...) {
+  list(...) %>% reduce(`+`)
 }
 
 #' Access subnetworks of a network
