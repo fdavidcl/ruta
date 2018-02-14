@@ -123,13 +123,13 @@ encodingIndex <- function(net) {
 
 #' Build a Keras network
 #'
-#' @param net A \code{"rutaNetwork"} object
+#' @param x A \code{"rutaNetwork"} object
 #' @param input_shape The length of each input vector (number of input attributes)
 #' @return A list of Keras Tensor objects with an attribute \code{"encoding"}
 #' indicating the index of the encoding layer
 #' @import purrr
 #' @export
-toKeras <- function(net, input_shape) {
+toKeras.rutaNetwork <- function(x, input_shape) {
   network <- NULL
   input_shape <- tuple(as.integer(input_shape))
 
@@ -143,7 +143,7 @@ toKeras <- function(net, input_shape) {
   network <- keras_lf$input(shape = input_shape)
   net_list <- list()
 
-  for (layer in net) {
+  for (layer in x) {
     if (layer$units < 0) {
       layer$units <- input_shape[[0]]
     }
@@ -157,5 +157,5 @@ toKeras <- function(net, input_shape) {
     net_list[[length(net_list) + 1]] <- network
   }
 
-  net_list %>% structure(encoding = encodingIndex(net))
+  net_list %>% structure(encoding = encodingIndex(x))
 }

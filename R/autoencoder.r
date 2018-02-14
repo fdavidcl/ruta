@@ -1,16 +1,15 @@
 #' Create an autoencoder learner
 #'
 #' @param layers Layer construct of class \code{"rutaNetwork"}
-#' @param sparse Logical
-#' @param contractive Logical
+#' @param loss Character string specifying a loss function
 #'
 #' @export
-autoencoder <- function(layers, sparse = F, contractive = F) {
+autoencoder <- function(layers, loss = "mse") {
   structure(
     list(
       layers = layers,
-      sparse = sparse,
-      contractive = contractive
+      loss = loss,
+      regularizers = list()
     ),
     class = rutaLearner
   )

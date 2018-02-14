@@ -4,14 +4,12 @@
 \alias{autoencoder}
 \title{Create an autoencoder learner}
 \usage{
-autoencoder(layers, sparse = F, contractive = F)
+autoencoder(layers, loss = "mse")
 }
 \arguments{
 \item{layers}{Layer construct of class \code{"rutaNetwork"}}
 
-\item{sparse}{Logical}
-
-\item{contractive}{Logical}
+\item{loss}{Character string specifying a loss function}
 }
 \description{
 Create an autoencoder learner

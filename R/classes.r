@@ -7,6 +7,8 @@ rutaLearner <- "rutaLearner"
 rutaLayer <- "rutaLayer"
 rutaNetwork <- "rutaNetwork"
 rutaAutoencoder <- "rutaAutoencoder"
+rutaRegularizer <- "rutaRegularizer"
+rutaSparsity <- "rutaSparsity"
 # rutaSparseAutoencoder <- "rutaSparseAutoencoder"
 # rutaRBM <- "rutaRBM"
 

@@ -3,7 +3,7 @@
 \name{+.rutaNetwork}
 \alias{+.rutaNetwork}
 \alias{c.rutaNetwork}
-\title{Add layers to a network}
+\title{Add layers to a network/Join networks}
 \usage{
 \method{+}{rutaNetwork}(e1, e2)
 
@@ -20,8 +20,9 @@
 Network combination
 }
 \description{
-Add layers to a network
+Add layers to a network/Join networks
 }
 \examples{
 network = input() + dense(30) + output("sigmoid")
+another = c(input(), dense(30), dense(3), dense(30), output())
 }
