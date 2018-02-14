@@ -2,10 +2,12 @@
 
 S3method("+",rutaNetwork)
 S3method("[",rutaNetwork)
+S3method(c,rutaNetwork)
 S3method(plot,rutaNetwork)
 S3method(print,rutaNetwork)
 S3method(train,rutaLearner)
 export(autoencoder)
+export(decode)
 export(dense)
 export(encode)
 export(input)

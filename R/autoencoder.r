@@ -6,13 +6,12 @@
 #'
 #' @export
 autoencoder <- function(layers, sparse = F, contractive = F) {
-  learner = list(
+  structure(list(
     layers = layers,
     sparse = sparse,
-    contractive = contractive
+    contractive = contractive),
+    class = rutaLearner
   )
-  class(learner) = rutaLearner
-  learner
 }
 
 #' @import kerasR
@@ -47,7 +46,8 @@ makeAutoencoder <- function(learner, input_shape) {
     model = model,
     encoder = encoder,
     decoder = decoder),
-    class = rutaAutoencoder
+    class = rutaAutoencoder,
+    trained = FALSE
   )
 }
 
@@ -82,6 +82,7 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
     ...
   )
 
+  ae %@% "trained" = TRUE
   ae
 }
 
