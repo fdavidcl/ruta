@@ -17,8 +17,8 @@ test_that("layers have correct classes", {
 })
 
 test_that("networks convert to keras networks", {
-  net = input() + dense(1) + output()
-  net2 = input() + dense(2) + dense(1) + dense(2) + output()
+  net <- input() + dense(1) + output()
+  net2 <- input() + dense(2) + dense(1) + dense(2) + output()
   expect_equal(length(toKeras(net, 3)), length(net))
   expect_equal(length(toKeras(net2, 3)), length(net2))
 })

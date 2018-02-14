@@ -6,10 +6,12 @@
 #'
 #' @export
 autoencoder <- function(layers, sparse = F, contractive = F) {
-  structure(list(
-    layers = layers,
-    sparse = sparse,
-    contractive = contractive),
+  structure(
+    list(
+      layers = layers,
+      sparse = sparse,
+      contractive = contractive
+    ),
     class = rutaLearner
   )
 }
@@ -21,31 +23,33 @@ autoencoder <- function(layers, sparse = F, contractive = F) {
 makeAutoencoder <- function(learner, input_shape) {
   loadKeras()
 
-  keras_layers = import("keras.layers")
-  keras_models = import("keras.models")
+  keras_layers <- import("keras.layers")
+  keras_models <- import("keras.models")
 
-  network = toKeras(learner$layers, input_shape)
+  network <- toKeras(learner$layers, input_shape)
 
-  input_layer = network[[1]]
-  model = keras_models$Model(input_layer, network[[length(network)]])
+  input_layer <- network[[1]]
+  model <- keras_models$Model(input_layer, network[[length(network)]])
 
-  encoder = keras_models$Model(input_layer, network[[network %@% "encoding"]])
+  encoder <- keras_models$Model(input_layer, network[[network %@% "encoding"]])
 
-  encoding_dim = learner$layers[[network %@% "encoding"]]$units
-  encoded_input = keras_layers$Input(shape = tuple(encoding_dim))
-  decoder_stack = encoded_input
+  encoding_dim <- learner$layers[[network %@% "encoding"]]$units
+  encoded_input <- keras_layers$Input(shape = tuple(encoding_dim))
+  decoder_stack <- encoded_input
 
   for (lay_i in (network %@% "encoding" + 1):(length(network))) {
-    decoder_stack = model$layers[[lay_i]](decoder_stack)
+    decoder_stack <- model$layers[[lay_i]](decoder_stack)
   }
 
-  decoder = keras_models$Model(encoded_input, decoder_stack)
+  decoder <- keras_models$Model(encoded_input, decoder_stack)
 
-  structure(list(
-    learner = learner,
-    model = model,
-    encoder = encoder,
-    decoder = decoder),
+  structure(
+    list(
+      learner = learner,
+      model = model,
+      encoder = encoder,
+      decoder = decoder
+    ),
     class = rutaAutoencoder,
     trained = FALSE
   )
@@ -82,7 +86,7 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
     ...
   )
 
-  ae %@% "trained" = TRUE
+  ae %@% "trained" <- TRUE
   ae
 }
 

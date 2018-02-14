@@ -1,12 +1,13 @@
 makeNetwork <- function(...) {
   args <- list(...)
 
-  net <- if (every(args, ~ class(.) == rutaLayer))
+  net <- if (every(args, ~ class(.) == rutaLayer)) {
     args
-  else if (every(args, ~ class(.) == rutaNetwork))
+  } else if (every(args, ~ class(.) == rutaNetwork)) {
     args %>% map(unclass) %>% do.call(c, .)
-  else
+  } else {
     stop("Error: Not a valid network")
+  }
 
   class(net) <- rutaNetwork
   net
@@ -21,9 +22,11 @@ makeLayer <- function(type, units, activation) {
     length(activation) == 1
   )
   layer <- structure(
-    list(type = type,
-         units = as.integer(units),
-         activation = activation),
+    list(
+      type = type,
+      units = as.integer(units),
+      activation = activation
+    ),
     class = rutaLayer
   )
   makeNetwork(layer)
@@ -41,8 +44,8 @@ makeLayer <- function(type, units, activation) {
 #' @export
 "+.rutaNetwork" <- function(e1, e2) {
   if (class(e1) != class(e2)) {
-    e1 = makeNetwork(e1)
-    e2 = makeNetwork(e2)
+    e1 <- makeNetwork(e1)
+    e2 <- makeNetwork(e2)
   }
 
   makeNetwork(e1, e2)
@@ -105,8 +108,9 @@ print.rutaNetwork <- function(x, ...) {
 
   for (layer in x) {
     cat(ind, layer$type)
-    if (!(layer$type %in% c("input", "output")))
+    if (!(layer$type %in% c("input", "output"))) {
       cat("(", layer$units, " units)", sep = "")
+    }
     cat(" -", layer$activation, "\n")
   }
 
@@ -126,27 +130,29 @@ encodingIndex <- function(net) {
 #' @import purrr
 #' @export
 toKeras <- function(net, input_shape) {
-  network = NULL
-  input_shape = tuple(as.integer(input_shape))
+  network <- NULL
+  input_shape <- tuple(as.integer(input_shape))
 
-  keras_layers = reticulate::import("keras.layers")
-  keras_lf = list(
+  keras_layers <- reticulate::import("keras.layers")
+  keras_lf <- list(
     input = keras_layers$Input,
     dense = keras_layers$Dense,
     output = keras_layers$Dense
   )
 
-  network = keras_lf$input(shape = input_shape)
-  net_list = list()
+  network <- keras_lf$input(shape = input_shape)
+  net_list <- list()
 
   for (layer in net) {
-    if (layer$units < 0)
-      layer$units = input_shape[[0]]
+    if (layer$units < 0) {
+      layer$units <- input_shape[[0]]
+    }
 
-    if (layer$type == "input")
+    if (layer$type == "input") {
       network
-    else
-      network = keras_lf[[layer$type]](units = layer$units, activation = layer$activation)(network)
+    } else {
+      network <- keras_lf[[layer$type]](units = layer$units, activation = layer$activation)(network)
+    }
 
     net_list[[length(net_list) + 1]] <- network
   }
