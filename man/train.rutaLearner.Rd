@@ -13,7 +13,7 @@ train(learner, ...)
 \arguments{
 \item{learner}{A \code{"rutaLearner"} object}
 
-\item{...}{Additional parameters for \code{keras_fit}}
+\item{...}{Additional parameters for \code{keras::fit}}
 
 \item{data}{Training data: columns are attributes and rows are instances}
 

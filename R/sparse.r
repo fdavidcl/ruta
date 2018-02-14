@@ -18,5 +18,7 @@ makeSparse <- function(learner, expected_value, weight = 0.2) {
 }
 
 toKeras.rutaSparsity <- function(x, ...) {
-  reticulate::import("keras.regularizers.")
+  regularizers = reticulate::import("keras.regularizers")
+  K = reticulate::import("keras.backend")
+
 }

@@ -15,7 +15,6 @@ autoencoder <- function(layers, loss = "mse") {
   )
 }
 
-#' @import kerasR
 #' @importFrom reticulate tuple
 #' @importFrom reticulate import
 #' @import purrr
@@ -68,15 +67,17 @@ train <- function(learner, ...)
 #' @param validation_data Additional data.frame of data which will not be used
 #' for training but the loss measure will be calculated against it
 #' @param epochs The number of times data will pass through the network
-#' @param ... Additional parameters for \code{keras_fit}
-#' @importFrom kerasR keras_compile
-#' @importFrom kerasR keras_fit
+#' @param ... Additional parameters for \code{keras::fit}
 #' @export
 train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
   ae <- makeAutoencoder(learner, input_shape = ncol(data))
 
-  keras_compile(ae$model, optimizer = RMSprop(), loss = "binary_crossentropy")
-  keras_fit(
+  keras::compile(
+    ae$model,
+    optimizer = keras::optimizer_rmsprop(),
+    loss = keras::loss_binary_crossentropy
+  )
+  keras::fit(
     ae$model,
     x = data,
     y = data,
