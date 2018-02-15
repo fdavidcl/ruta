@@ -132,7 +132,6 @@ encodingIndex <- function(net) {
 toKeras.rutaNetwork <- function(x, input_shape) {
   network <- NULL
 
-  keras_layers <- reticulate::import("keras.layers")
   keras_lf <- list(
     input = keras::layer_input,
     dense = keras::layer_dense,
@@ -150,7 +149,16 @@ toKeras.rutaNetwork <- function(x, input_shape) {
     if (layer$type == "input") {
       network
     } else {
-      network <- network %>% keras_lf[[layer$type]](units = layer$units, activation = layer$activation)
+      act_reg <- if (!is.null(layer$activity_regularizer))
+        toKeras(layer$activity_regularizer)
+      else
+        NULL
+
+      network <- network %>% keras_lf[[layer$type]](
+        units = layer$units,
+        activation = layer$activation,
+        activity_regularizer = act_reg
+      )
     }
 
     net_list[[length(net_list) + 1]] <- network

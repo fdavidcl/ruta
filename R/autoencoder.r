@@ -15,31 +15,26 @@ autoencoder <- function(layers, loss = "mse") {
   )
 }
 
-#' @importFrom reticulate tuple
-#' @importFrom reticulate import
 #' @import purrr
 makeAutoencoder <- function(learner, input_shape) {
   loadKeras()
 
-  keras_layers <- import("keras.layers")
-  keras_models <- import("keras.models")
-
   network <- toKeras(learner$layers, input_shape)
 
   input_layer <- network[[1]]
-  model <- keras_models$Model(input_layer, network[[length(network)]])
+  model <- keras::keras_model(input_layer, network[[length(network)]])
 
-  encoder <- keras_models$Model(input_layer, network[[network %@% "encoding"]])
+  encoder <- keras::keras_model(input_layer, network[[network %@% "encoding"]])
 
   encoding_dim <- learner$layers[[network %@% "encoding"]]$units
-  encoded_input <- keras_layers$Input(shape = tuple(encoding_dim))
+  encoded_input <- keras::layer_input(shape = encoding_dim)
   decoder_stack <- encoded_input
 
   for (lay_i in (network %@% "encoding" + 1):(length(network))) {
     decoder_stack <- model$layers[[lay_i]](decoder_stack)
   }
 
-  decoder <- keras_models$Model(encoded_input, decoder_stack)
+  decoder <- keras::keras_model(encoded_input, decoder_stack)
 
   structure(
     list(
@@ -86,7 +81,7 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
     ...
   )
 
-  ae %@% "trained" <- TRUE
+  attr(ae, "trained") <- TRUE
   ae
 }
 
