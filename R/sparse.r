@@ -31,33 +31,15 @@ toKeras.rutaSparsity <- function(x, ...) {
     expected = (1 + expected) / 2
   }
 
-  # Kullback-Leibler divergence for two Bernoulli distributions
-  # with mean `expected` and `v` respectively
-  kl <- function(v) {
-    if (rescale) {
-      v = (1 + v) / 2
-    }
-
-    # TODO check if k_any would work here
-    keras::k_switch(
-      keras::k_less_equal(expected / v, 0),
-      0,
-      keras::k_switch(
-        keras::k_less_equal((1 - expected) / (1 - v), 0),
-        0,
-        expected * keras::k_log(expected / v) +
-          (1 - expected) * keras::k_log((1 - expected) / (1 - v))
-      )
-    )
-  }
-
-  # Regularizer
   function(observed_activations) {
-    # outputs of encoding layer will be shaped (batch_size, num_attributes)
-    observed = keras::k_mean(observed_activations, axis = 0)
-    allkl = keras::k_map_fn(kl, observed)
-    sumkl = keras::k_sum(allkl)
+    if (rescale) {
+      observed_activations = (1 + observed_activations) / 2
+    }
+    observed = observed_activations %>%
+      keras::k_mean(axis = 0) %>%
+      keras::k_clip(keras::k_epsilon(), 1)
 
-    x$weight * sumkl
+    keras::k_sum(expected * keras::k_log(expected / observed) +
+                   (1 - expected) * keras::k_log((1 - expected) / (1 - observed)))
   }
 }
