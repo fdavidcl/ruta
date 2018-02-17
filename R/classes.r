@@ -1,18 +1,8 @@
-## Tasks
-# rutaTask <- "rutaTask"
-# rutaUnsupervisedTask <- "rutaUnsupervisedTask"
+ruta_layer <- "ruta_layer"
+ruta_network <- "ruta_network"
 
-## Learners
-rutaLearner <- "rutaLearner"
-rutaLayer <- "rutaLayer"
-rutaNetwork <- "rutaNetwork"
-rutaAutoencoder <- "rutaAutoencoder"
-rutaRegularizer <- "rutaRegularizer"
-rutaSparsity <- "rutaSparsity"
-# rutaSparseAutoencoder <- "rutaSparseAutoencoder"
-# rutaRBM <- "rutaRBM"
+ruta_learner <- "ruta_learner"
+ruta_autoencoder <- "ruta_autoencoder"
 
-## Models
-rutaModel <- "rutaModel"
-# rutaAutoencoderModel <- "rutaAutoencoderModel"
-# rutaRBMModel <- "rutaRBMModel"
+ruta_regularizer <- "ruta_regularizer"
+ruta_sparsity <- "ruta_sparsity"

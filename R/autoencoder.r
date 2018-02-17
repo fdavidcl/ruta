@@ -11,15 +11,15 @@ autoencoder <- function(layers, loss = "mse") {
       loss = loss,
       regularizers = list()
     ),
-    class = rutaLearner
+    class = ruta_learner
   )
 }
 
 #' @import purrr
-makeAutoencoder <- function(learner, input_shape) {
-  loadKeras()
+make_autoencoder <- function(learner, input_shape) {
+  load_keras()
 
-  network <- toKeras(learner$layers, input_shape)
+  network <- to_keras(learner$layers, input_shape)
 
   input_layer <- network[[1]]
   model <- keras::keras_model(input_layer, network[[length(network)]])
@@ -43,12 +43,12 @@ makeAutoencoder <- function(learner, input_shape) {
       encoder = encoder,
       decoder = decoder
     ),
-    class = rutaAutoencoder,
+    class = ruta_autoencoder,
     trained = FALSE
   )
 }
 
-#' @rdname train.rutaLearner
+#' @rdname train.ruta_learner
 #' @export
 train <- function(learner, ...)
   UseMethod("train")
@@ -64,8 +64,8 @@ train <- function(learner, ...)
 #' @param epochs The number of times data will pass through the network
 #' @param ... Additional parameters for \code{keras::fit}
 #' @export
-train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
-  ae <- makeAutoencoder(learner, input_shape = ncol(data))
+train.ruta_learner <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
+  ae <- make_autoencoder(learner, input_shape = ncol(data))
 
   keras::compile(
     ae$model,
@@ -89,7 +89,7 @@ train.rutaLearner <- function(learner, data, validation_data = NULL, epochs = 10
 #'
 #' Extracts the encoding calculated by a trained autoencoder for the specified
 #' data.
-#' @param model Autoencoder model
+#' @param ae Autoencoder model
 #' @param data data.frame to be encoded
 #' @export
 encode <- function(ae, data) {
@@ -100,7 +100,7 @@ encode <- function(ae, data) {
 #'
 #' Extracts the decodification calculated by a trained autoencoder for the specified
 #' data.
-#' @param model Autoencoder model
+#' @param ae Autoencoder model
 #' @param data data.frame to be encoded
 #' @export
 decode <- function(ae, data) {

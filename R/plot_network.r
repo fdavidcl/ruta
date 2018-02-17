@@ -1,10 +1,10 @@
-getRatios <- function(struct) {
+get_ratios <- function(struct) {
   mx <- max(struct)
   struct / mx
 }
 
 # center ratios in the [0,1] interval
-getYs <- function(struct) {
+get_ys <- function(struct) {
   # fix layers with negative units
   amount <- length(struct)
   hm <- 1 / (amount / 2 + amount - 1)
@@ -16,7 +16,7 @@ getYs <- function(struct) {
 }
 
 # distribute layers in [0,1] interval
-getXs <- function(struct) {
+get_xs <- function(struct) {
   amount <- length(struct)
   # margin among layers is set to double the width of a layer
   marg <- 1 / (amount / 2 + amount - 1)
@@ -27,10 +27,10 @@ getXs <- function(struct) {
 
 #' Draw a neural network
 #'
-#' @param x A \code{"rutaNetwork"} object
+#' @param x A \code{"ruta_network"} object
 #' @import graphics
 #' @export
-plot.rutaNetwork <- function(x, ...) {
+plot.ruta_network <- function(x, ...) {
   args <- list(...)
   bg <- if (!is.null(args$bg)) args$bg else "grey"
   fg <- if (!is.null(args$fg)) args$fg else "black"
@@ -49,13 +49,13 @@ plot.rutaNetwork <- function(x, ...) {
   )
 
   ratios <- if (log) {
-    getRatios(log(struct))
+    get_ratios(log(struct))
   } else {
-    getRatios(struct)
+    get_ratios(struct)
   }
 
-  ys <- getYs(ratios)
-  xs <- getXs(ratios)
+  ys <- get_ys(ratios)
+  xs <- get_xs(ratios)
 
   plot(c(0, 1), c(0, 1), type = "n", xlab = "", ylab = "", axes = F)
 

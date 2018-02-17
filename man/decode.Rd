@@ -7,9 +7,9 @@
 decode(ae, data)
 }
 \arguments{
-\item{data}{data.frame to be encoded}
+\item{ae}{Autoencoder model}
 
-\item{model}{Autoencoder model}
+\item{data}{data.frame to be encoded}
 }
 \description{
 Extracts the decodification calculated by a trained autoencoder for the specified

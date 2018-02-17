@@ -1,5 +1,5 @@
-loadKeras <- function() {
+load_keras <- function() {
   keras::is_keras_available()
 }
 
-toKeras <- function(x, ...) UseMethod("toKeras")
+to_keras <- function(x, ...) UseMethod("to_keras")

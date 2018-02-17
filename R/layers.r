@@ -1,20 +1,20 @@
-makeNetwork <- function(...) {
+make_network <- function(...) {
   args <- list(...)
 
-  net <- if (every(args, ~ class(.) == rutaLayer)) {
+  net <- if (every(args, ~ class(.) == ruta_layer)) {
     args
-  } else if (every(args, ~ class(.) == rutaNetwork)) {
+  } else if (every(args, ~ class(.) == ruta_network)) {
     args %>% map(unclass) %>% do.call(c, .)
   } else {
     stop("Error: Not a valid network")
   }
 
-  class(net) <- rutaNetwork
+  class(net) <- ruta_network
   net
 }
 
 
-makeLayer <- function(type, units, activation) {
+make_layer <- function(type, units, activation) {
   stopifnot(
     is.numeric(units),
     length(units) == 1,
@@ -27,9 +27,9 @@ makeLayer <- function(type, units, activation) {
       units = as.integer(units),
       activation = activation
     ),
-    class = rutaLayer
+    class = ruta_layer
   )
-  makeNetwork(layer)
+  make_network(layer)
 }
 
 #' Add layers to a network/Join networks
@@ -42,34 +42,34 @@ makeLayer <- function(type, units, activation) {
 #' network = input() + dense(30) + output("sigmoid")
 #' another = c(input(), dense(30), dense(3), dense(30), output())
 #' @export
-"+.rutaNetwork" <- function(e1, e2) {
+"+.ruta_network" <- function(e1, e2) {
   if (class(e1) != class(e2)) {
-    e1 <- makeNetwork(e1)
-    e2 <- makeNetwork(e2)
+    e1 <- make_network(e1)
+    e2 <- make_network(e2)
   }
 
-  makeNetwork(e1, e2)
+  make_network(e1, e2)
 }
 
 #' @rdname join-networks
 #' @param ... networks to be concatenated
 #' @export
-c.rutaNetwork <- function(...) {
+c.ruta_network <- function(...) {
   list(...) %>% reduce(`+`)
 }
 
 #' Access subnetworks of a network
 #'
-#' @param net A \code{"rutaNetwork"} object
+#' @param net A \code{"ruta_network"} object
 #' @param index An integer vector of indices of layers to be extracted
-#' @return A \code{"rutaNetwork"} object containing the specified layers.
+#' @return A \code{"ruta_network"} object containing the specified layers.
 #' @examples
 #' (input() + dense(30))[2]
 #' long = input() + dense(1000) + dense(100) + dense(1000) + output()
 #' short = long[c(1, 3, 5)]
 #' @export
-"[.rutaNetwork" <- function(net, index) {
-  reduce(index, function(acc, nxt) acc + net[[nxt]], .init = makeNetwork())
+"[.ruta_network" <- function(net, index) {
+  reduce(index, function(acc, nxt) acc + net[[nxt]], .init = make_network())
 }
 
 #' Create a fully-connected layer
@@ -78,14 +78,14 @@ c.rutaNetwork <- function(...) {
 #' @param activation Optional, string indicating activation function (linear by default)
 #' @export
 dense <- function(units, activation = "linear") {
-  makeLayer("dense", units, activation = activation)
+  make_layer("dense", units, activation = activation)
 }
 
 #' Create an input layer
 #'
 #' @export
 input <- function() {
-  makeLayer("input", -1, "linear")
+  make_layer("input", -1, "linear")
 }
 
 #' Create an output layer
@@ -93,16 +93,16 @@ input <- function() {
 #' @param activation Optional, string indicating activation function (linear by default)
 #' @export
 output <- function(activation = "linear") {
-  makeLayer("output", -1, activation)
+  make_layer("output", -1, activation)
 }
 
 #' Inspect a neural network
 #'
-#' @param x A \code{"rutaNetwork"} object
+#' @param x A \code{"ruta_network"} object
 #' @param ... Additional parameters, currently ignored
 #' @return Invisibly returns the same object passed as parameter
 #' @export
-print.rutaNetwork <- function(x, ...) {
+print.ruta_network <- function(x, ...) {
   cat("Ruta network. Structure:\n")
   ind <- " "
 
@@ -117,19 +117,19 @@ print.rutaNetwork <- function(x, ...) {
   invisible(x)
 }
 
-encodingIndex <- function(net) {
+encoding_index <- function(net) {
   ceiling(length(net) / 2)
 }
 
 #' Build a Keras network
 #'
-#' @param x A \code{"rutaNetwork"} object
+#' @param x A \code{"ruta_network"} object
 #' @param input_shape The length of each input vector (number of input attributes)
 #' @return A list of Keras Tensor objects with an attribute \code{"encoding"}
 #' indicating the index of the encoding layer
 #' @import purrr
 #' @export
-toKeras.rutaNetwork <- function(x, input_shape) {
+to_keras.ruta_network <- function(x, input_shape) {
   network <- NULL
 
   keras_lf <- list(
@@ -150,7 +150,7 @@ toKeras.rutaNetwork <- function(x, input_shape) {
       network
     } else {
       act_reg <- if (!is.null(layer$activity_regularizer))
-        toKeras(layer$activity_regularizer)
+        to_keras(layer$activity_regularizer)
       else
         NULL
 
@@ -164,5 +164,5 @@ toKeras.rutaNetwork <- function(x, input_shape) {
     net_list[[length(net_list) + 1]] <- network
   }
 
-  net_list %>% structure(encoding = encodingIndex(x))
+  net_list %>% structure(encoding = encoding_index(x))
 }

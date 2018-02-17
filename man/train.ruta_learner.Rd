@@ -2,12 +2,12 @@
 % Please edit documentation in R/autoencoder.r
 \name{train}
 \alias{train}
-\alias{train.rutaLearner}
+\alias{train.ruta_learner}
 \title{Train a learner object with data}
 \usage{
 train(learner, ...)
 
-\method{train}{rutaLearner}(learner, data, validation_data = NULL,
+\method{train}{ruta_learner}(learner, data, validation_data = NULL,
   epochs = 100, ...)
 }
 \arguments{
