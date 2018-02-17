@@ -1,16 +1,22 @@
-make_network <- function(...) {
+new_network <- function(...) {
   args <- list(...)
 
-  net <- if (every(args, ~ class(.) == ruta_layer)) {
-    args
-  } else if (every(args, ~ class(.) == ruta_network)) {
-    args %>% map(unclass) %>% do.call(c, .)
-  } else {
-    stop("Error: Not a valid network")
-  }
+  # type check
+  stopifnot(
+    every(args, ~ class(.) == ruta_layer)
+  )
 
-  class(net) <- ruta_network
-  net
+  structure(args, class = ruta_network)
+}
+
+# coercion to ruta_network
+as.ruta_network <- function(object) {
+  UseMethod("as.ruta_network")
+}
+
+# identity function for ruta_network
+as.ruta_network.ruta_network <- function(object) {
+  object
 }
 
 #' Add layers to a network/Join networks
@@ -24,19 +30,15 @@ make_network <- function(...) {
 #' another = c(input(), dense(30), dense(3), dense(30), output())
 #' @export
 "+.ruta_network" <- function(e1, e2) {
-  if (class(e1) != class(e2)) {
-    e1 <- make_network(e1)
-    e2 <- make_network(e2)
-  }
-
-  make_network(e1, e2)
+  c(e1, e2)
 }
 
 #' @rdname join-networks
-#' @param ... networks to be concatenated
+#' @param ... networks or layers to be concatenated
 #' @export
 c.ruta_network <- function(...) {
-  list(...) %>% reduce(`+`)
+  args <- list(...) %>% map(as.ruta_network) %>% flatten
+  do.call(new_network, args)
 }
 
 #' Access subnetworks of a network
@@ -50,7 +52,7 @@ c.ruta_network <- function(...) {
 #' short = long[c(1, 3, 5)]
 #' @export
 "[.ruta_network" <- function(net, index) {
-  reduce(index, function(acc, nxt) acc + net[[nxt]], .init = make_network())
+  reduce(index, function(acc, nxt) acc + net[[nxt]], .init = new_network())
 }
 encoding_index <- function(net) {
   ceiling(length(net) / 2)

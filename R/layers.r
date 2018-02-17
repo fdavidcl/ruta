@@ -21,8 +21,13 @@ new_layer <- function(type, units, activation) {
   )
 }
 
+# coercion to ruta_network
+as.ruta_network.ruta_layer <- function(object) {
+  new_network(object)
+}
+
 make_atomic_network <- function(type, units, activation) {
-  make_network(
+  as.ruta_network(
     new_layer(type, units, activation)
   )
 }
