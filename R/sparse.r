@@ -35,7 +35,7 @@ toKeras.rutaSparsity <- function(x, ...) {
     if (rescale) {
       observed_activations = (1 + observed_activations) / 2
     }
-    observed = observed_activations %>%
+    observed <- observed_activations %>%
       keras::k_mean(axis = 0) %>%
       keras::k_clip(keras::k_epsilon(), 1)
 
@@ -43,3 +43,4 @@ toKeras.rutaSparsity <- function(x, ...) {
                    (1 - expected) * keras::k_log((1 - expected) / (1 - observed)))
   }
 }
+
