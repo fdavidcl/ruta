@@ -6,3 +6,4 @@
 *~
 *.html
 R/mxnet
+inst/doc

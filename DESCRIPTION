@@ -13,10 +13,13 @@ Imports:
     purrr
 Suggests: 
     magrittr,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 SystemRequirements:
     Python (>= 2.7); keras <https://keras.io/> (>= 2.1)
 License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
