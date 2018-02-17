@@ -1,19 +1,30 @@
-make_layer <- function(type, units, activation) {
+new_layer <- function(type, units, activation) {
+  # length check
   stopifnot(
-    is.numeric(units),
-    length(units) == 1,
-    is.character(activation),
-    length(activation) == 1
+    is_scalar_vector(type),
+    is_scalar_vector(units),
+    is_scalar_vector(activation)
   )
-  layer <- structure(
+  # type coercing
+  type <- as.character(type)
+  units <- as.integer(units)
+  activation <- as.character(activation)
+
+  structure(
     list(
       type = type,
-      units = as.integer(units),
-      activation = activation
+      units = units,
+      activation = activation,
+      regularizers = list()
     ),
     class = ruta_layer
   )
-  make_network(layer)
+}
+
+make_atomic_network <- function(type, units, activation) {
+  make_network(
+    new_layer(type, units, activation)
+  )
 }
 
 #' Create a fully-connected layer
@@ -22,14 +33,14 @@ make_layer <- function(type, units, activation) {
 #' @param activation Optional, string indicating activation function (linear by default)
 #' @export
 dense <- function(units, activation = "linear") {
-  make_layer("dense", units, activation = activation)
+  make_atomic_network("dense", units, activation = activation)
 }
 
 #' Create an input layer
 #'
 #' @export
 input <- function() {
-  make_layer("input", -1, "linear")
+  make_atomic_network("input", -1, "linear")
 }
 
 #' Create an output layer
@@ -37,5 +48,5 @@ input <- function() {
 #' @param activation Optional, string indicating activation function (linear by default)
 #' @export
 output <- function(activation = "linear") {
-  make_layer("output", -1, activation)
+  make_atomic_network("output", -1, activation)
 }
