@@ -6,17 +6,30 @@ new_network <- function(...) {
     every(args, ~ class(.) == ruta_layer)
   )
 
-  structure(args, class = ruta_network)
+  structure(
+    args,
+    class = ruta_network,
+    encoding = encoding_index(args)
+  )
 }
 
 # coercion to ruta_network
-as.ruta_network <- function(object) {
-  UseMethod("as.ruta_network")
+as_network <- function(object) {
+  UseMethod("as_network")
 }
 
 # identity function for ruta_network
-as.ruta_network.ruta_network <- function(object) {
+as_network.ruta_network <- function(object) {
   object
+}
+
+as_network.numeric <- function(object) {
+  as.ruta_network(as.integer(object))
+}
+
+as_network.integer <- function(object) {
+  hidden <- object %>% map(dense) %>% reduce(`+`)
+  input() + hidden + output()
 }
 
 #' Add layers to a network/Join networks
@@ -37,7 +50,7 @@ as.ruta_network.ruta_network <- function(object) {
 #' @param ... networks or layers to be concatenated
 #' @export
 c.ruta_network <- function(...) {
-  args <- list(...) %>% map(as.ruta_network) %>% flatten
+  args <- list(...) %>% map(as_network) %>% flatten
   do.call(new_network, args)
 }
 
@@ -52,8 +65,13 @@ c.ruta_network <- function(...) {
 #' short = long[c(1, 3, 5)]
 #' @export
 "[.ruta_network" <- function(net, index) {
-  reduce(index, function(acc, nxt) acc + net[[nxt]], .init = new_network())
+  reduce(
+    index,
+    function(acc, nxt) acc + net[[nxt]],
+    .init = new_network()
+  )
 }
+
 encoding_index <- function(net) {
   ceiling(length(net) / 2)
 }
@@ -122,5 +140,5 @@ to_keras.ruta_network <- function(x, input_shape) {
     net_list[[length(net_list) + 1]] <- network
   }
 
-  net_list %>% structure(encoding = encoding_index(x))
+  keras::keras_model(inputs = net_list[[1]], outputs = net_list[[length(net_list)]])
 }

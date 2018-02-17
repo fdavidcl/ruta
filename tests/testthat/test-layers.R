@@ -18,7 +18,13 @@ test_that("layers have correct classes", {
 
 test_that("networks convert to keras networks", {
   net <- input() + dense(1) + output()
+  knet <- to_keras(net, 3)
+
   net2 <- input() + dense(2) + dense(1) + dense(2) + output()
-  expect_equal(length(to_keras(net, 3)), length(net))
-  expect_equal(length(to_keras(net2, 3)), length(net2))
+  knet2 <- to_keras(net2, 3)
+
+  expect_s3_class(knet, "keras.engine.training.Model")
+  expect_s3_class(knet2, "keras.engine.training.Model")
+  expect_equal(length(knet$layers), length(net))
+  expect_equal(length(knet2$layers), length(net2))
 })
