@@ -28,13 +28,19 @@ get_xs <- function(struct) {
 #' Draw a neural network
 #'
 #' @param x A \code{"ruta_network"} object
+#' @param ... Additional parameters for style. Available parameters: \itemize{
+#' \item \code{bg}: Color for the text over layers
+#' \item \code{fg}: Color for the background of layers
+#' \item \code{log}: Use logarithmic scale
+#' }
 #' @import graphics
+#' @import purrr
 #' @export
 plot.ruta_network <- function(x, ...) {
   args <- list(...)
-  bg <- if (!is.null(args$bg)) args$bg else "grey"
-  fg <- if (!is.null(args$fg)) args$fg else "black"
-  log <- if (!is.null(args$log)) args$log else FALSE
+  bg <- args$bg %||% "grey"
+  fg <- args$fg %||% "black"
+  log <- args$log %||% FALSE
 
   struct <- sapply(x, function(n) n$units)
   labels <- as.character(

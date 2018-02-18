@@ -8,6 +8,12 @@
 }
 \arguments{
 \item{x}{A \code{"ruta_network"} object}
+
+\item{...}{Additional parameters for style. Available parameters: \itemize{
+\item \code{bg}: Color for the text over layers
+\item \code{fg}: Color for the background of layers
+\item \code{log}: Use logarithmic scale
+}}
 }
 \description{
 Draw a neural network
