@@ -2,7 +2,7 @@
 % Please edit documentation in R/layers.r
 \name{dense}
 \alias{dense}
-\title{Create a fully-connected layer}
+\title{Create a fully-connected neural layer}
 \usage{
 dense(units, activation = "linear")
 }
@@ -11,6 +11,16 @@ dense(units, activation = "linear")
 
 \item{activation}{Optional, string indicating activation function (linear by default)}
 }
+\value{
+A construct with class \code{"ruta_layer"}
+}
 \description{
-Create a fully-connected layer
+Wrapper for a dense/fully-connected layer.
+}
+\examples{
+dense(30, "tanh")
+}
+\seealso{
+Other neural layers: \code{\link{input}},
+  \code{\link{output}}
 }

@@ -23,6 +23,6 @@ Network combination
 Add layers to a network/Join networks
 }
 \examples{
-network = input() + dense(30) + output("sigmoid")
-another = c(input(), dense(30), dense(3), dense(30), output())
+network <- input() + dense(30) + output("sigmoid")
+another <- c(input(), dense(30), dense(3), dense(30), output())
 }

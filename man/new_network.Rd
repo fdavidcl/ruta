@@ -18,7 +18,6 @@ layers. You shouldn't generally need to use this. Instead, consider
 concatenating several layers with \code{\link{+.ruta_network}}.
 }
 \examples{
-
 my_network <- new_network(
   new_layer("input", 784, "linear"),
   new_layer("dense",  32, "tanh"),

@@ -9,6 +9,14 @@ output(activation = "linear")
 \arguments{
 \item{activation}{Optional, string indicating activation function (linear by default)}
 }
+\value{
+A construct with class \code{"ruta_layer"}
+}
 \description{
-Create an output layer
+This layer acts as a placeholder for the output layer in an autoencoder. The
+number of units is not needed as it is deduced from the data during training.
+}
+\seealso{
+Other neural layers: \code{\link{dense}},
+  \code{\link{input}}
 }
