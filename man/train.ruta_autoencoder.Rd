@@ -2,16 +2,16 @@
 % Please edit documentation in R/autoencoder.r
 \name{train}
 \alias{train}
-\alias{train.ruta_learner}
+\alias{train.ruta_autoencoder}
 \title{Train a learner object with data}
 \usage{
 train(learner, ...)
 
-\method{train}{ruta_learner}(learner, data, validation_data = NULL,
+\method{train}{ruta_autoencoder}(learner, data, validation_data = NULL,
   epochs = 100, ...)
 }
 \arguments{
-\item{learner}{A \code{"rutaLearner"} object}
+\item{learner}{A \code{"ruta_autoencoder"} object}
 
 \item{...}{Additional parameters for \code{keras::fit}}
 
@@ -21,6 +21,9 @@ train(learner, ...)
 for training but the loss measure will be calculated against it}
 
 \item{epochs}{The number of times data will pass through the network}
+}
+\value{
+Same autoencoder passed as parameter, with trained internal models
 }
 \description{
 This function compiles the neural network described by the learner object

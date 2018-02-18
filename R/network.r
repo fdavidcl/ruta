@@ -52,7 +52,7 @@ as_network.ruta_network <- function(object) {
 #' @rdname as_network
 #' @export
 as_network.numeric <- function(object) {
-  as.ruta_network(as.integer(object))
+  as_network(as.integer(object))
 }
 
 #' @rdname as_network

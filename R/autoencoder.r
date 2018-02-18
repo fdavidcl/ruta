@@ -1,24 +1,49 @@
 #' Create an autoencoder learner
 #'
-#' @param layers Layer construct of class \code{"rutaNetwork"}
+#' Internal function to create autoencoder objects. Instead, consider using
+#' \code{\link{autoencoder}}.
+#' @param network Layer construct of class \code{"ruta_network"}
 #' @param loss Character string specifying a loss function
-#'
+#' @return A construct of class \code{"ruta_autoencoder"}
 #' @export
-autoencoder <- function(layers, loss = "mse") {
+new_autoencoder <- function(network, loss) {
   structure(
     list(
-      layers = layers,
-      loss = loss,
-      regularizers = list()
+      network = network,
+      loss = loss
     ),
-    class = ruta_learner
+    class = c(ruta_learner, ruta_autoencoder)
   )
 }
 
-#' @import purrr
-make_autoencoder <- function(learner, input_shape) {
-  load_keras()
+#' Create an autoencoder learner
+#'
+#' Represents a generic autoencoder network.
+#' @param network Layer construct of class \code{"ruta_network"}
+#' @param loss Character string specifying a loss function
+#' @return A construct of class \code{"ruta_autoencoder"}
+#' @seealso \code{\link{train.ruta_autoencoder}}
+#' @export
+autoencoder <- function(network, loss = "mse") {
+  new_autoencoder(network, loss)
+}
 
+is_trained <- function(learner) {
+  !is_null(learner$models)
+}
+
+#' Extract Keras models from an autoencoder wrapper
+#'
+#' @param learner Object of class \code{"ruta_autoencoder"}
+#' @param input_shape Number of attributes in input data
+#' @return A list with several Keras models: \itemize{
+#' \item \code{autoencoder}: model from the input layer to the output layer
+#' \item \code{encoder}: model from the input layer to the encoding layer
+#' \item \code{decoder}: model from the encoding layer to the output layer
+#' }
+#' @import purrr
+#' @export
+to_keras.ruta_autoencoder <- function(learner, input_shape) {
   network <- to_keras(learner$layers, input_shape)
 
   input_layer <- network[[1]]
@@ -36,44 +61,41 @@ make_autoencoder <- function(learner, input_shape) {
 
   decoder <- keras::keras_model(encoded_input, decoder_stack)
 
-  structure(
-    list(
-      learner = learner,
-      model = model,
-      encoder = encoder,
-      decoder = decoder
-    ),
-    class = ruta_autoencoder,
-    trained = FALSE
+  list(
+    autoencoder = model,
+    encoder = encoder,
+    decoder = decoder
   )
 }
 
-#' @rdname train.ruta_learner
+#' @rdname train.ruta_autoencoder
 #' @export
-train <- function(learner, ...)
+train <- function(learner, ...) {
   UseMethod("train")
+}
 
 #' Train a learner object with data
 #'
 #' This function compiles the neural network described by the learner object
 #' and trains it with the input data.
-#' @param learner A \code{"rutaLearner"} object
+#' @param learner A \code{"ruta_autoencoder"} object
 #' @param data Training data: columns are attributes and rows are instances
 #' @param validation_data Additional data.frame of data which will not be used
 #' for training but the loss measure will be calculated against it
 #' @param epochs The number of times data will pass through the network
 #' @param ... Additional parameters for \code{keras::fit}
+#' @return Same autoencoder passed as parameter, with trained internal models
 #' @export
-train.ruta_learner <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
-  ae <- make_autoencoder(learner, input_shape = ncol(data))
+train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
+  learner$models <- to_keras(learner, input_shape = ncol(data))
 
   keras::compile(
-    ae$model,
+    learner$models$autoencoder,
     optimizer = keras::optimizer_rmsprop(),
     loss = keras::loss_binary_crossentropy
   )
   keras::fit(
-    ae$model,
+    learner$models$autoencoder,
     x = data,
     y = data,
     batch_size = 256,
@@ -81,28 +103,39 @@ train.ruta_learner <- function(learner, data, validation_data = NULL, epochs = 1
     ...
   )
 
-  attr(ae, "trained") <- TRUE
-  ae
+  learner
 }
 
 #' Retrieve encoding of data
 #'
 #' Extracts the encoding calculated by a trained autoencoder for the specified
 #' data.
-#' @param ae Autoencoder model
+#' @param learner Trained autoencoder model
 #' @param data data.frame to be encoded
+#' @return Matrix containing the encodings
+#' @seealso \code{\link{decode}}
 #' @export
-encode <- function(ae, data) {
-  ae$encoder$predict(data)
+encode <- function(learner, data) {
+  if (!is_trained(learner)) {
+    stop("Autoencoder is not trained")
+  }
+
+  learner$models$encoder$predict(data)
 }
 
 #' Retrieve decoding of encoded data
 #'
 #' Extracts the decodification calculated by a trained autoencoder for the specified
 #' data.
-#' @param ae Autoencoder model
+#' @param learner Trained autoencoder model
 #' @param data data.frame to be encoded
+#' @return Matrix containing the decodifications
+#' @seealso \code{\link{encode}}
 #' @export
-decode <- function(ae, data) {
-  ae$decoder$predict(data)
+decode <- function(learner, data) {
+  if (!is_trained(learner)) {
+    stop("Autoencoder is not trained")
+  }
+
+  learner$models$decoder$predict(data)
 }

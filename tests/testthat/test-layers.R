@@ -28,3 +28,7 @@ test_that("networks convert to keras networks", {
   expect_equal(length(knet$layers), length(net))
   expect_equal(length(knet2$layers), length(net2))
 })
+
+test_that("networks can be built from integers", {
+  expect_s3_class(as_network(c(30, 3, 1)), ruta_network)
+})

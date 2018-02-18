@@ -4,14 +4,20 @@
 \alias{decode}
 \title{Retrieve decoding of encoded data}
 \usage{
-decode(ae, data)
+decode(learner, data)
 }
 \arguments{
-\item{ae}{Autoencoder model}
+\item{learner}{Trained autoencoder model}
 
 \item{data}{data.frame to be encoded}
+}
+\value{
+Matrix containing the decodifications
 }
 \description{
 Extracts the decodification calculated by a trained autoencoder for the specified
 data.
+}
+\seealso{
+\code{\link{encode}}
 }
