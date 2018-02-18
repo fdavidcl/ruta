@@ -1,3 +1,23 @@
+#' Sequential network constructor
+#'
+#' Constructor function for networks composed of several sequentially placed
+#' layers. You shouldn't generally need to use this. Instead, consider
+#' concatenating several layers with \code{\link{+.ruta_network}}.
+#'
+#' @param ... Zero or more objects of class \code{"ruta_layer"}
+#' @return A construct with class \code{"ruta_network"}
+#'
+#' @examples
+#' my_network <- new_network(
+#'   new_layer("input", 784, "linear"),
+#'   new_layer("dense",  32, "tanh"),
+#'   new_layer("dense", 784, "sigmoid")
+#' )
+#'
+#' # Instead, consider using
+#' my_network <- input() + dense(32, "tanh") + output("sigmoid")
+#' @import purrr
+#' @export
 new_network <- function(...) {
   args <- list(...)
 
@@ -13,20 +33,33 @@ new_network <- function(...) {
   )
 }
 
-# coercion to ruta_network
+#' Coercion to ruta_network
+#'
+#' Generic function to coerce objects into networks.
+#' @param object Object to be converted into a network
+#' @return A \code{"ruta_network"} construct
+#' @export
 as_network <- function(object) {
   UseMethod("as_network")
 }
 
-# identity function for ruta_network
+#' @rdname as_network
+#' @export
 as_network.ruta_network <- function(object) {
   object
 }
 
+#' @rdname as_network
+#' @export
 as_network.numeric <- function(object) {
   as.ruta_network(as.integer(object))
 }
 
+#' @rdname as_network
+#' @examples
+#' net <- as_network(c(784, 1000, 32, 1000, 784))
+#' @import purrr
+#' @export
 as_network.integer <- function(object) {
   hidden <- object %>% map(dense) %>% reduce(`+`)
   input() + hidden + output()
@@ -39,8 +72,8 @@ as_network.integer <- function(object) {
 #' @param e2 Second network
 #' @return Network combination
 #' @examples
-#' network = input() + dense(30) + output("sigmoid")
-#' another = c(input(), dense(30), dense(3), dense(30), output())
+#' network <- input() + dense(30) + output("sigmoid")
+#' another <- c(input(), dense(30), dense(3), dense(30), output())
 #' @export
 "+.ruta_network" <- function(e1, e2) {
   c(e1, e2)
@@ -48,6 +81,7 @@ as_network.integer <- function(object) {
 
 #' @rdname join-networks
 #' @param ... networks or layers to be concatenated
+#' @import purrr
 #' @export
 c.ruta_network <- function(...) {
   args <- list(...) %>% map(as_network) %>% flatten
@@ -61,8 +95,9 @@ c.ruta_network <- function(...) {
 #' @return A \code{"ruta_network"} object containing the specified layers.
 #' @examples
 #' (input() + dense(30))[2]
-#' long = input() + dense(1000) + dense(100) + dense(1000) + output()
-#' short = long[c(1, 3, 5)]
+#' long <- input() + dense(1000) + dense(100) + dense(1000) + output()
+#' short <- long[c(1, 3, 5)]
+#' @import purrr
 #' @export
 "[.ruta_network" <- function(net, index) {
   reduce(
@@ -72,6 +107,11 @@ c.ruta_network <- function(...) {
   )
 }
 
+#' Get the index of the encoding
+#'
+#' Calculates the index of the middle layer of an encoder-decoder network.
+#' @param net A network of class \code{"ruta_network"}
+#' @return Index of the middle layer
 encoding_index <- function(net) {
   ceiling(length(net) / 2)
 }
