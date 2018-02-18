@@ -1,29 +1,22 @@
 # Conventions for coding ruta
 
-## Function and variable naming
+## Naming
 
-- Functions and variables will be named using camelCase. Exported functions will be prepended by `ruta.` to avoid name conflicts with other packages. Methods, however, will use common names (`print`, `train`, etc.).
-- Arguments for functions will use the dot as a separator.
+- Functions, variables and arguments will be named using snake_case.
 
 Example:
 
 ```r
-#' @export
-ruta.makeLearner <- function(x, arg.two, arg.three) {}
-
-aNonExportedFunction <- function(x, ...) {}
+to_keras <- function(x, ...) UseMethod("to_keras")
+to_keras.ruta_network <- function(x, input_shape) {
+  # ...
+}
 ```
 
 ## Classes
 
-S3 classes are defined in `R/classes.r`. The use camelCase notation just like other variables.
-
-## Comments
-
-Comments inside code will start with `##` (thank ESS for that).
-
-Documentation comments start with `#'`.
+S3 classes are defined as string constants in `R/classes.r`. The use snake_case notation just like other variables.
 
 ## Remaining
 
-Follow [Hadley's style guide](http://stat405.had.co.nz/r-style.html) for rest of conventions.
+This package will attempt to adhere to the [tidyverse style guide](http://style.tidyverse.org/) as closely as possible.
