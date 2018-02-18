@@ -31,8 +31,7 @@ new_layer <- function(type, units, activation) {
     list(
       type = type,
       units = units,
-      activation = activation,
-      regularizers = list()
+      activation = activation
     ),
     class = ruta_layer
   )
@@ -42,6 +41,34 @@ new_layer <- function(type, units, activation) {
 #' @export
 as_network.ruta_layer <- function(object) {
   new_network(object)
+}
+
+to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_sequential()) {
+  keras_lf <- list(
+    input = keras::layer_input,
+    dense = keras::layer_dense,
+    output = keras::layer_dense
+  )[[x$type]]
+
+  if (x$units < 0) {
+    x$units <- input_shape
+  }
+
+  act_reg = if (!is.null(x$activity_regularizer))
+    to_keras(x$activity_regularizer, activation = x$activation)
+  else
+    NULL
+
+  if (x$type == "input") {
+    keras_lf(shape = input_shape)
+  } else {
+    keras_lf(
+      model,
+      units = x$units,
+      activation = x$activation,
+      activity_regularizer = act_reg
+    )
+  }
 }
 
 make_atomic_network <- function(type, units, activation) {

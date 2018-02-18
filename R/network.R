@@ -147,36 +147,10 @@ print.ruta_network <- function(x, ...) {
 #' @export
 to_keras.ruta_network <- function(x, input_shape) {
   network <- NULL
-
-  keras_lf <- list(
-    input = keras::layer_input,
-    dense = keras::layer_dense,
-    output = keras::layer_dense
-  )
-
-  network <- keras_lf$input(shape = input_shape)
   net_list <- list()
 
   for (layer in x) {
-    if (layer$units < 0) {
-      layer$units <- input_shape
-    }
-
-    if (layer$type == "input") {
-      network
-    } else {
-      act_reg <- if (!is.null(layer$activity_regularizer))
-        to_keras(layer$activity_regularizer)
-      else
-        NULL
-
-      network <- network %>% keras_lf[[layer$type]](
-        units = layer$units,
-        activation = layer$activation,
-        activity_regularizer = act_reg
-      )
-    }
-
+    network <- to_keras(layer, input_shape, model = network)
     net_list[[length(net_list) + 1]] <- network
   }
 
