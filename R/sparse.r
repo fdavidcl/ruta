@@ -8,7 +8,6 @@ sparsity <- function(expected_value, weight) {
   )
 }
 
-#' @export
 make_sparse <- function(learner, expected_value, weight = 0.2) {
   # TODO warn when sparsity expected value and encoding activation function
   # don't match (e.g. -0.8 for sigmoid or relu)
@@ -21,7 +20,6 @@ is_sparse <- function(learner) {
   !is.null(learner$layers[[encoding_index(learner$layers)]]$activity_regularizer)
 }
 
-#' @export
 to_keras.ruta_sparsity <- function(x, ...) {
   expected = x$expected_value
   # TODO detect tanh instead / use KL for tanh
