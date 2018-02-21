@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an output layer — output • ruta</title>
+<title>Retrieve decoding of encoded data — decode • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,33 +92,36 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an output layer</h1>
+    <h1>Retrieve decoding of encoded data</h1>
     </div>
 
     
-    <p>This layer acts as a placeholder for the output layer in an autoencoder. The
-number of units is not needed as it is deduced from the data during training.</p>
+    <p>Extracts the decodification calculated by a trained autoencoder for the specified
+data.</p>
     
 
-    <pre class="usage"><span class='fu'>output</span>(<span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre>
+    <pre class="usage"><span class='fu'>decode</span>(<span class='no'>learner</span>, <span class='no'>data</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>activation</th>
-      <td><p>Optional, string indicating activation function (linear by default)</p></td>
+      <th>learner</th>
+      <td><p>Trained autoencoder model</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>data.frame to be encoded</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A construct with class <code>"ruta_layer"</code></p>
+    <p>Matrix containing the decodifications</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other neural layers: <code><a href='dense.html'>dense</a></code>,
-  <code><a href='input.html'>input</a></code></p>
+    <p><code><a href='encode.html'>encode</a></code></p>
     
 
   </div>

@@ -109,7 +109,7 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-model-creation" class="hasAnchor"><a href="#section-model-creation" class="anchor"></a>Model creation</h2>
+            <h2 id="section-neural-network-architecture" class="hasAnchor"><a href="#section-neural-network-architecture" class="anchor"></a>Neural network architecture</h2>
             <p class="section-desc"></p>
           </th>
         </tr>
@@ -124,7 +124,7 @@
           <td>
             <p><code><a href="dense.html">dense</a></code> </p>
           </td>
-          <td><p>Create a fully-connected layer</p></td>
+          <td><p>Create a fully-connected neural layer</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -134,33 +134,65 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="plus-.rutaNetwork.html">+.rutaNetwork</a></code> </p>
+            <p><code><a href="join-networks.html">+.ruta_network</a></code> </p>
           </td>
-          <td><p>Add layers to a network</p></td>
+          <td><p>Add layers to a network/Join networks</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="sub-.rutaNetwork.html">[.rutaNetwork</a></code> </p>
+            <p><code><a href="sub-.ruta_network.html">[.ruta_network</a></code> </p>
           </td>
           <td><p>Access subnetworks of a network</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="print.rutaNetwork.html">print</a></code> </p>
+            <p><code><a href="print.ruta_network.html">print</a></code> </p>
           </td>
           <td><p>Inspect a neural network</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="plot.rutaNetwork.html">plot</a></code> </p>
+            <p><code><a href="plot.ruta_network.html">plot</a></code> </p>
           </td>
           <td><p>Draw a neural network</p></td>
         </tr><tr>
           <!--  -->
           <td>
+            <p><code><a href="as_network.html">as_network</a></code> </p>
+          </td>
+          <td><p>Coercion to ruta_network</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-autoencoder-and-variants" class="hasAnchor"><a href="#section-autoencoder-and-variants" class="anchor"></a>Autoencoder and variants</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
             <p><code><a href="autoencoder.html">autoencoder</a></code> </p>
           </td>
           <td><p>Create an autoencoder learner</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="autoencoder_sparse.html">autoencoder_sparse</a></code> </p>
+          </td>
+          <td><p>Sparse autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="make_sparse.html">make_sparse</a></code> </p>
+          </td>
+          <td><p>Add sparsity regularization to an autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sparsity.html">sparsity</a></code> </p>
+          </td>
+          <td><p>Sparsity regularization</p></td>
         </tr>
       </tbody><tbody>
         <tr>
@@ -172,13 +204,19 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="toKeras.html">toKeras</a></code> </p>
+            <p><code><a href="to_keras.ruta_network.html">to_keras</a></code> </p>
           </td>
           <td><p>Build a Keras network</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="train.rutaLearner.html">train</a></code> </p>
+            <p><code><a href="to_keras.ruta_autoencoder.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Extract Keras models from an autoencoder wrapper</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="train.ruta_autoencoder.html">train</a></code> </p>
           </td>
           <td><p>Train a learner object with data</p></td>
         </tr>
@@ -195,6 +233,12 @@
             <p><code><a href="encode.html">encode</a></code> </p>
           </td>
           <td><p>Retrieve encoding of data</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="decode.html">decode</a></code> </p>
+          </td>
+          <td><p>Retrieve decoding of encoded data</p></td>
         </tr>
       </tbody>
       </table>
@@ -204,7 +248,8 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-model-creation">Model creation</a></li>
+      <li><a href="#section-neural-network-architecture">Neural network architecture</a></li>
+      <li><a href="#section-autoencoder-and-variants">Autoencoder and variants</a></li>
       <li><a href="#section-model-training">Model training</a></li>
       <li><a href="#section-tasks-for-trained-models">Tasks for trained models</a></li>
     </ul>

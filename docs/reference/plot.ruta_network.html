@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an output layer — output • ruta</title>
+<title>Draw a neural network — plot.ruta_network • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,33 +92,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an output layer</h1>
+    <h1>Draw a neural network</h1>
     </div>
 
     
-    <p>This layer acts as a placeholder for the output layer in an autoencoder. The
-number of units is not needed as it is deduced from the data during training.</p>
+    <p>Draw a neural network</p>
     
 
-    <pre class="usage"><span class='fu'>output</span>(<span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for ruta_network</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>activation</th>
-      <td><p>Optional, string indicating activation function (linear by default)</p></td>
+      <th>x</th>
+      <td><p>A <code>"ruta_network"</code> object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters for style. Available parameters:</p><ul>
+<li><p><code>bg</code>: Color for the text over layers</p></li>
+<li><p><code>fg</code>: Color for the background of layers</p></li>
+<li><p><code>log</code>: Use logarithmic scale</p></li>
+</ul></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A construct with class <code>"ruta_layer"</code></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p>Other neural layers: <code><a href='dense.html'>dense</a></code>,
-  <code><a href='input.html'>input</a></code></p>
     
 
   </div>
@@ -126,11 +125,7 @@ number of units is not needed as it is deduced from the data during training.</p
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

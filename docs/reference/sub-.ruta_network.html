@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an output layer — output • ruta</title>
+<title>Access subnetworks of a network — [.ruta_network • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,35 +92,38 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an output layer</h1>
+    <h1>Access subnetworks of a network</h1>
     </div>
 
     
-    <p>This layer acts as a placeholder for the output layer in an autoencoder. The
-number of units is not needed as it is deduced from the data during training.</p>
+    <p>Access subnetworks of a network</p>
     
 
-    <pre class="usage"><span class='fu'>output</span>(<span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre>
+    <pre class="usage"># S3 method for ruta_network
+[(net, index)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>activation</th>
-      <td><p>Optional, string indicating activation function (linear by default)</p></td>
+      <th>net</th>
+      <td><p>A <code>"ruta_network"</code> object</p></td>
+    </tr>
+    <tr>
+      <th>index</th>
+      <td><p>An integer vector of indices of layers to be extracted</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A construct with class <code>"ruta_layer"</code></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p>Other neural layers: <code><a href='dense.html'>dense</a></code>,
-  <code><a href='input.html'>input</a></code></p>
+    <p>A <code>"ruta_network"</code> object containing the specified layers.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>(<span class='fu'><a href='input.html'>input</a></span>() + <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>30</span>))[<span class='fl'>2</span>]</div><div class='output co'>#&gt; Ruta network. Structure:
+#&gt;   dense(30 units) - linear </div><div class='input'><span class='no'>long</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='input.html'>input</a></span>() + <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>1000</span>) + <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>100</span>) + <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>1000</span>) + <span class='fu'><a href='output.html'>output</a></span>()
+<span class='no'>short</span> <span class='kw'>&lt;-</span> <span class='no'>long</span>[<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>)]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -128,9 +131,9 @@ number of units is not needed as it is deduced from the data during training.</p
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

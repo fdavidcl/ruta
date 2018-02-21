@@ -96,27 +96,31 @@
     </div>
 
     
-    <p>Create an autoencoder learner</p>
+    <p>Represents a generic autoencoder network.</p>
     
 
-    <pre class="usage"><span class='fu'>autoencoder</span>(<span class='no'>layers</span>, <span class='kw'>sparse</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>contractive</span> <span class='kw'>=</span> <span class='no'>F</span>)</pre>
+    <pre class="usage"><span class='fu'>autoencoder</span>(<span class='no'>network</span>, <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"mse"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>layers</th>
-      <td><p>Layer construct of class <code>"rutaNetwork"</code></p></td>
+      <th>network</th>
+      <td><p>Layer construct of class <code>"ruta_network"</code></p></td>
     </tr>
     <tr>
-      <th>sparse</th>
-      <td><p>Logical</p></td>
-    </tr>
-    <tr>
-      <th>contractive</th>
-      <td><p>Logical</p></td>
+      <th>loss</th>
+      <td><p>Character string specifying a loss function</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A construct of class <code>"ruta_autoencoder"</code></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='train.ruta_autoencoder.html'>train.ruta_autoencoder</a></code></p>
     
 
   </div>
@@ -124,7 +128,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an output layer — output • ruta</title>
+<title>Train a learner object with data — train • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,33 +92,49 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an output layer</h1>
+    <h1>Train a learner object with data</h1>
     </div>
 
     
-    <p>This layer acts as a placeholder for the output layer in an autoencoder. The
-number of units is not needed as it is deduced from the data during training.</p>
+    <p>This function compiles the neural network described by the learner object
+and trains it with the input data.</p>
     
 
-    <pre class="usage"><span class='fu'>output</span>(<span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre>
+    <pre class="usage"><span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_autoencoder</span>
+<span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>data</span>, <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>activation</th>
-      <td><p>Optional, string indicating activation function (linear by default)</p></td>
+      <th>learner</th>
+      <td><p>A <code>"ruta_autoencoder"</code> object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters for <code><a href='http://www.rdocumentation.org/packages/keras/topics/fit'>keras::fit</a></code></p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>Training data: columns are attributes and rows are instances</p></td>
+    </tr>
+    <tr>
+      <th>validation_data</th>
+      <td><p>Additional data.frame of data which will not be used
+for training but the loss measure will be calculated against it</p></td>
+    </tr>
+    <tr>
+      <th>epochs</th>
+      <td><p>The number of times data will pass through the network</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A construct with class <code>"ruta_layer"</code></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p>Other neural layers: <code><a href='dense.html'>dense</a></code>,
-  <code><a href='input.html'>input</a></code></p>
+    <p>Same autoencoder passed as parameter, with trained internal models</p>
     
 
   </div>
@@ -128,8 +144,6 @@ number of units is not needed as it is deduced from the data during training.</p
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

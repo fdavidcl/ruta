@@ -26,20 +26,28 @@ navbar:
       href: "https://github.com/fdavidcl/ruta"
 
 reference:
-  - title: "Model creation"
+  - title: "Neural network architecture"
     contents:
       - input
       - dense
       - output
-      - "+.rutaNetwork"
-      - "[.rutaNetwork"
-      - "print.rutaNetwork"
-      - "plot.rutaNetwork"
+      - "c.ruta_network"
+      - "[.ruta_network"
+      - "print.ruta_network"
+      - "plot.ruta_network"
+      - as_network
+  - title: "Autoencoder and variants"
+    contents:
       - autoencoder
+      - autoencoder_sparse
+      - make_sparse
+      - sparsity
   - title: "Model training"
     contents:
-      - toKeras
-      - train.rutaLearner
+      - to_keras.ruta_network
+      - to_keras.ruta_autoencoder
+      - train.ruta_autoencoder
   - title: "Tasks for trained models"
     contents:
       - encode
+      - decode
