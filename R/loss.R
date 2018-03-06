@@ -11,7 +11,7 @@ as_loss.character <- function(x) {
 
 as_loss.ruta_loss <- function(x) x
 
-to_keras.ruta_named_loss <- function(x) {
+to_keras.ruta_named_loss <- function(x, ...) {
   if (exists(paste0("loss_", x$name), where = asNamespace("keras"))) {
     get(paste0("loss_", x$name), envir = asNamespace("keras"))
   } else {

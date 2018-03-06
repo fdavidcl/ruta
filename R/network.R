@@ -149,6 +149,8 @@ to_keras.ruta_network <- function(x, input_shape) {
   network <- NULL
   net_list <- list()
 
+  x[[x %@% "encoding"]]$name = "encoded"
+
   for (layer in x) {
     network <- to_keras(layer, input_shape, model = network)
     net_list[[length(net_list) + 1]] <- network

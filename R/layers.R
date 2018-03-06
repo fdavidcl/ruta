@@ -43,7 +43,7 @@ as_network.ruta_layer <- function(object) {
   new_network(object)
 }
 
-to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_sequential()) {
+to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   keras_lf <- list(
     input = keras::layer_input,
     dense = keras::layer_dense,
@@ -66,7 +66,9 @@ to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_seque
       model,
       units = x$units,
       activation = x$activation,
-      activity_regularizer = act_reg
+      activity_regularizer = act_reg,
+      name = x$name,
+      ...
     )
   }
 }

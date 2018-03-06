@@ -92,10 +92,12 @@ train <- function(learner, ...) {
 train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
   learner$models <- to_keras(learner, input_shape = ncol(data))
 
+  loss_f <- learner$loss %>% as_loss() %>% to_keras(learner$models$autoencoder)
+
   keras::compile(
     learner$models$autoencoder,
     optimizer = keras::optimizer_rmsprop(),
-    loss = learner$loss %>% as_loss() %>% to_keras()
+    loss = loss_f
   )
   keras::fit(
     learner$models$autoencoder,
