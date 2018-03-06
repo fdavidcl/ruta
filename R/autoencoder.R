@@ -44,19 +44,22 @@ is_trained <- function(learner) {
 #' @import purrr
 #' @export
 to_keras.ruta_autoencoder <- function(learner, input_shape) {
-  network <- to_keras(learner$layers, input_shape)
+  len <- length(learner$network)
+  model <- to_keras(learner$network, input_shape)
 
-  input_layer <- network[[1]]
-  model <- keras::keras_model(input_layer, network[[length(network)]])
+  input_layer <- keras::get_layer(model, index = 0)
+  encoding_layer <- keras::get_layer(model, index = learner$network %@% "encoding" - 1)
+  #output_layer <- model %>% keras::get_layer(index = len - 1)
 
-  encoder <- keras::keras_model(input_layer, network[[network %@% "encoding"]])
+  #model <- keras::keras_model(input_layer, output_layer)
+  encoder <- keras::keras_model(input_layer$output, encoding_layer$output)
 
-  encoding_dim <- learner$layers[[network %@% "encoding"]]$units
+  encoding_dim <- learner$network[[learner$network %@% "encoding"]]$units
   encoded_input <- keras::layer_input(shape = encoding_dim)
   decoder_stack <- encoded_input
 
-  for (lay_i in (network %@% "encoding" + 1):(length(network))) {
-    decoder_stack <- model$layers[[lay_i]](decoder_stack)
+  for (lay_i in (learner$network %@% "encoding"):(len - 1)) {
+    decoder_stack <- keras::get_layer(model, index = lay_i)(decoder_stack)
   }
 
   decoder <- keras::keras_model(encoded_input, decoder_stack)
@@ -92,7 +95,7 @@ train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs
   keras::compile(
     learner$models$autoencoder,
     optimizer = keras::optimizer_rmsprop(),
-    loss = keras::loss_binary_crossentropy
+    loss = learner$loss %>% as_loss() %>% to_keras()
   )
   keras::fit(
     learner$models$autoencoder,
