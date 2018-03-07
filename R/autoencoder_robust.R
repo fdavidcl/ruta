@@ -14,7 +14,7 @@ make_robust <- function(learner, sigma) {
   learner$loss <- correntropy(sigma)
 }
 
-to_keras.ruta_correntropy <- function(x) {
+to_keras.ruta_correntropy <- function(x, ...) {
   sigma <- x$sigma
 
   robust_kernel <- function(alpha) {

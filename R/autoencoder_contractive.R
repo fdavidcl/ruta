@@ -14,31 +14,33 @@ contraction <- function(rec_err, weight) {
 }
 
 make_contractive <- function(learner, weight) {
-  # Save the original loss function in order to make this
-  # function idempotent
-  learner$reconstruction <- learner$reconstruction %||% learner$loss
-  learner$loss = contraction(learner$reconstruction, weight)
+  if (!(ruta_contraction %in% class(learner$loss))) {
+    learner$loss = contraction(learner$loss, weight)
+  }
+
   learner
 }
 
 to_keras.ruta_contraction <- function(x, keras_model, ...) {
   rec_err <- x$reconstruction %>% as_loss() %>% to_keras()
+  encoding_layer <- keras::get_layer(keras_model, name = "encoded")
 
   # derivative of the activation function -- only tanh for now
   dh <- function(h) 1 - h * h
 
   # contractive loss
-  function(y_pred, y_true) {
+  function(y_true, y_pred) {
     reconstruction <- rec_err(y_true, y_pred)
+    #reconstruction <- rec_err(y_pred, y_true)
 
     hid =
-      keras::k_variable(value = keras::get_layer(keras_model, name = "encoded")$get_weights()[0]) %>%
-      keras::k_transpose() %>%
+      # n x h
+      keras::k_variable(value = encoding_layer$get_weights()[[1]]) %>%
       keras::k_square() %>%
+      # 1 x h
       keras::k_sum(axis = 1)
 
-    contractive = x$weight * keras::k_sum(
-      dh(keras::get_layer(keras_model, name = "encoded")$output) ** 2 * hid)
+    contractive = x$weight * keras::k_sum(dh(encoding_layer$output) ** 2 * hid)
     reconstruction + contractive
   }
 }
