@@ -59,6 +59,11 @@ to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_seque
   else
     NULL
 
+  kern_reg = if (!is.null(x$kernel_regularizer))
+    to_keras(x$kernel_regularizer)
+  else
+    NULL
+
   if (x$type == "input") {
     keras_lf(shape = input_shape)
   } else {
@@ -67,6 +72,7 @@ to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_seque
       units = x$units,
       activation = x$activation,
       activity_regularizer = act_reg,
+      kernel_regularizer = kern_reg,
       name = x$name,
       ...
     )
