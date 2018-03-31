@@ -99,9 +99,16 @@ train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs
     optimizer = keras::optimizer_rmsprop(),
     loss = loss_f
   )
+
+  input_data <- if (is.null(learner$filter)) {
+    data
+  } else {
+    apply_filter(learner$filter, data)
+  }
+
   keras::fit(
     learner$models$autoencoder,
-    x = data,
+    x = input_data,
     y = data,
     batch_size = 256,
     epochs = epochs,
