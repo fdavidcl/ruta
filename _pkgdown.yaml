@@ -27,6 +27,9 @@ navbar:
 
 reference:
   - title: "Neural network architecture"
+    desc: >
+      This set of functions provide the necessary functionality to define the
+      neural architectures of autoencoders, by connecting layers of units.
     contents:
       - input
       - dense
@@ -35,19 +38,47 @@ reference:
       - "[.ruta_network"
       - "print.ruta_network"
       - "plot.ruta_network"
+      - new_layer
+      - new_network
       - as_network
+      - encoding_index
   - title: "Autoencoder and variants"
+    desc: >
+      These functions allow to create and customize autoencoder learners.
     contents:
       - autoencoder
+      - new_autoencoder
+      - add_weight_decay
+      - weight_decay
       - autoencoder_sparse
       - make_sparse
       - sparsity
+      - is_sparse
+      - autoencoder_contractive
+      - make_contractive
+      - contraction
+      - autoencoder_denoising
+      - make_denoising
+      - autoencoder_robust
+      - make_robust
+      - correntropy
   - title: "Model training"
+    desc: >
+      The following functions allow to train an autoencoder with input data.
     contents:
-      - to_keras.ruta_network
-      - to_keras.ruta_autoencoder
+      - starts_with("apply_filter")
       - train.ruta_autoencoder
+  - title: "Keras conversions"
+    desc: >
+      These are internal functions which convert Ruta wrapper objects into
+      Keras objects and functions.
+    contents:
+      - starts_with("to_keras")
   - title: "Tasks for trained models"
+    desc: >
+      The following functions can be applied when an autoencoder has been
+      trained, in order to transform data from the input space onto the latent
+      space and viceversa.
     contents:
       - encode
       - decode

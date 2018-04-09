@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sparse autoencoder — autoencoder_sparse • ruta</title>
+<title>Add weight decay to any autoencoder — add_weight_decay • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,45 +92,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sparse autoencoder</h1>
+    <h1>Add weight decay to any autoencoder</h1>
     </div>
 
     
-    <p>Creates a representation of a sparse autoencoder.</p>
+    <p>Adds a weight decay regularization to the encoding layer of a
+given autoencoder</p>
     
 
-    <pre class="usage"><span class='fu'>autoencoder_sparse</span>(<span class='no'>network</span>, <span class='no'>loss</span>, <span class='kw'>high_probability</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>add_weight_decay</span>(<span class='no'>learner</span>, <span class='kw'>decay</span> <span class='kw'>=</span> <span class='fl'>0.02</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>network</th>
-      <td><p>Layer construct of class <code>"ruta_network"</code></p></td>
+      <th>learner</th>
+      <td><p>The <code>"ruta_autoencoder"</code> object</p></td>
     </tr>
     <tr>
-      <th>loss</th>
-      <td><p>Character string specifying a loss function</p></td>
-    </tr>
-    <tr>
-      <th>high_probability</th>
-      <td><p>Expected probability of the high value of the
-encoding layer. Set this to a value near zero in order to minimize
-activations in that layer.</p></td>
-    </tr>
-    <tr>
-      <th>weight</th>
-      <td><p>The weight of the sparsity regularization</p></td>
+      <th>decay</th>
+      <td><p>Numeric value indicating the amount of decay</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A construct of class <code>"ruta_autoencoder"</code></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='sparsity.html'>sparsity</a></code>, <code><a href='make_sparse.html'>make_sparse</a></code>, <code><a href='is_sparse.html'>is_sparse</a></code></p>
+    <p>An autoencoder object which contains the weight decay</p>
     
 
   </div>
@@ -140,8 +127,6 @@ activations in that layer.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

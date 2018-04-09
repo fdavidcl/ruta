@@ -110,7 +110,7 @@
         <tr>
           <th colspan="2">
             <h2 id="section-neural-network-architecture" class="hasAnchor"><a href="#section-neural-network-architecture" class="anchor"></a>Neural network architecture</h2>
-            <p class="section-desc"></p>
+            <p class="section-desc"><p>This set of functions provide the necessary functionality to define the neural architectures of autoencoders, by connecting layers of units.</p></p>
           </th>
         </tr>
         <tr>
@@ -158,15 +158,33 @@
         </tr><tr>
           <!--  -->
           <td>
+            <p><code><a href="new_layer.html">new_layer</a></code> </p>
+          </td>
+          <td><p>Layer wrapper constructor</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="new_network.html">new_network</a></code> </p>
+          </td>
+          <td><p>Sequential network constructor</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
             <p><code><a href="as_network.html">as_network</a></code> </p>
           </td>
           <td><p>Coercion to ruta_network</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="encoding_index.html">encoding_index</a></code> </p>
+          </td>
+          <td><p>Get the index of the encoding</p></td>
         </tr>
       </tbody><tbody>
         <tr>
           <th colspan="2">
             <h2 id="section-autoencoder-and-variants" class="hasAnchor"><a href="#section-autoencoder-and-variants" class="anchor"></a>Autoencoder and variants</h2>
-            <p class="section-desc"></p>
+            <p class="section-desc"><p>These functions allow to create and customize autoencoder learners.</p></p>
           </th>
         </tr>
         <tr>
@@ -175,6 +193,24 @@
             <p><code><a href="autoencoder.html">autoencoder</a></code> </p>
           </td>
           <td><p>Create an autoencoder learner</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="new_autoencoder.html">new_autoencoder</a></code> </p>
+          </td>
+          <td><p>Create an autoencoder learner</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="add_weight_decay.html">add_weight_decay</a></code> </p>
+          </td>
+          <td><p>Add weight decay to any autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="weight_decay.html">weight_decay</a></code> </p>
+          </td>
+          <td><p>Weight decay</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -193,26 +229,74 @@
             <p><code><a href="sparsity.html">sparsity</a></code> </p>
           </td>
           <td><p>Sparsity regularization</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="is_sparse.html">is_sparse</a></code> </p>
+          </td>
+          <td><p>Detect whether an autoencoder is sparse</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="autoencoder_contractive.html">autoencoder_contractive</a></code> </p>
+          </td>
+          <td><p>Create a contractive autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="make_contractive.html">make_contractive</a></code> </p>
+          </td>
+          <td><p>Add contractive behavior to any autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="contraction.html">contraction</a></code> </p>
+          </td>
+          <td><p>Contractive loss</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="autoencoder_denoising.html">autoencoder_denoising</a></code> </p>
+          </td>
+          <td><p>Create a denoising autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="make_denoising.html">make_denoising</a></code> </p>
+          </td>
+          <td><p>Add denoising behavior to any autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="autoencoder_robust.html">autoencoder_robust</a></code> </p>
+          </td>
+          <td><p>Create a robust autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="make_robust.html">make_robust</a></code> </p>
+          </td>
+          <td><p>Add robust behavior to any autoencoder</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="correntropy.html">correntropy</a></code> </p>
+          </td>
+          <td><p>Correntropy loss</p></td>
         </tr>
       </tbody><tbody>
         <tr>
           <th colspan="2">
             <h2 id="section-model-training" class="hasAnchor"><a href="#section-model-training" class="anchor"></a>Model training</h2>
-            <p class="section-desc"></p>
+            <p class="section-desc"><p>The following functions allow to train an autoencoder with input data.</p></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="to_keras.ruta_network.html">to_keras</a></code> </p>
+            <p><code><a href="filters.html">apply_filter</a></code> </p>
           </td>
-          <td><p>Build a Keras network</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="to_keras.ruta_autoencoder.html">to_keras</a></code> </p>
-          </td>
-          <td><p>Extract Keras models from an autoencoder wrapper</p></td>
+          <td><p>Apply filters</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -223,8 +307,52 @@
       </tbody><tbody>
         <tr>
           <th colspan="2">
+            <h2 id="section-keras-conversions" class="hasAnchor"><a href="#section-keras-conversions" class="anchor"></a>Keras conversions</h2>
+            <p class="section-desc"><p>These are internal functions which convert Ruta wrapper objects into Keras objects and functions.</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="to_keras.ruta_autoencoder.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Extract Keras models from an autoencoder wrapper</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="to_keras.ruta_contraction.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Obtain a Keras contractive loss</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="to_keras.ruta_correntropy.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Obtain a Keras correntropy loss</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="to_keras.ruta_network.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Build a Keras network</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="to_keras.ruta_sparsity.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Translate sparsity regularization to Keras regularizer</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="to_keras.ruta_weight_decay.html">to_keras</a></code> </p>
+          </td>
+          <td><p>Obtain a Keras weight decay</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
             <h2 id="section-tasks-for-trained-models" class="hasAnchor"><a href="#section-tasks-for-trained-models" class="anchor"></a>Tasks for trained models</h2>
-            <p class="section-desc"></p>
+            <p class="section-desc"><p>The following functions can be applied when an autoencoder has been trained, in order to transform data from the input space onto the latent space and viceversa.</p></p>
           </th>
         </tr>
         <tr>
@@ -251,6 +379,7 @@
       <li><a href="#section-neural-network-architecture">Neural network architecture</a></li>
       <li><a href="#section-autoencoder-and-variants">Autoencoder and variants</a></li>
       <li><a href="#section-model-training">Model training</a></li>
+      <li><a href="#section-keras-conversions">Keras conversions</a></li>
       <li><a href="#section-tasks-for-trained-models">Tasks for trained models</a></li>
     </ul>
   </div>

@@ -100,17 +100,43 @@
     
 
     <pre class="usage"><span class='fu'>make_sparse</span>(<span class='no'>learner</span>, <span class='kw'>high_probability</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
-        
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>learner</th>
+      <td><p>A <code>"ruta_autoencoder"</code> object</p></td>
+    </tr>
+    <tr>
+      <th>high_probability</th>
+      <td><p>Expected probability of the high value of the
+encoding layer. Set this to a value near zero in order to minimize
+activations in that layer.</p></td>
+    </tr>
+    <tr>
+      <th>weight</th>
+      <td><p>The weight of the sparsity regularization</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The same autoencoder with the sparsity regularization applied</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='sparsity.html'>sparsity</a></code>, <code><a href='autoencoder_sparse.html'>autoencoder_sparse</a></code></p>
+    <p><code><a href='sparsity.html'>sparsity</a></code>, <code><a href='autoencoder_sparse.html'>autoencoder_sparse</a></code>, <code><a href='is_sparse.html'>is_sparse</a></code></p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#see-also">See also</a></li>
           </ul>
 
