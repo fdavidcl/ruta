@@ -24,5 +24,5 @@ A construct of class \code{"ruta_autoencoder"}
 Creates a representation of a sparse autoencoder.
 }
 \seealso{
-\code{\link{sparsity}}, \code{\link{make_sparse}}
+\code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 }

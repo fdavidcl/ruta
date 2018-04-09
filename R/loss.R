@@ -18,3 +18,4 @@ to_keras.ruta_named_loss <- function(x, ...) {
     stop("There is no ", x$name, " loss in keras.")
   }
 }
+

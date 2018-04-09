@@ -6,6 +6,17 @@
 \usage{
 sparsity(high_probability, weight)
 }
+\arguments{
+\item{high_probability}{Expected probability of the high value of the
+encoding layer. Set this to a value near zero in order to minimize
+activations in that layer.}
+
+\item{weight}{The weight of the sparsity regularization}
+}
+\value{
+A Ruta regularizer object for the sparsity, to be inserted in the
+  encoding layer.
+}
 \description{
 Sparsity regularization
 }
@@ -14,5 +25,5 @@ Andrew Ng, Sparse Autoencoder.
 \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
 }
 \seealso{
-\code{\link{autoencoder_sparse}}, \code{\link{make_sparse}}
+\code{\link{autoencoder_sparse}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 }

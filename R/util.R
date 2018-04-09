@@ -4,4 +4,3 @@ load_keras <- function() {
 
 to_keras <- function(x, ...) UseMethod("to_keras")
 
-apply_filter <- function(filter, data) UseMethod("apply_filter")

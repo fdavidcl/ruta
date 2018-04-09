@@ -6,9 +6,21 @@
 \usage{
 make_sparse(learner, high_probability = 0.1, weight = 0.2)
 }
+\arguments{
+\item{learner}{A \code{"ruta_autoencoder"} object}
+
+\item{high_probability}{Expected probability of the high value of the
+encoding layer. Set this to a value near zero in order to minimize
+activations in that layer.}
+
+\item{weight}{The weight of the sparsity regularization}
+}
+\value{
+The same autoencoder with the sparsity regularization applied
+}
 \description{
 Add sparsity regularization to an autoencoder
 }
 \seealso{
-\code{\link{sparsity}}, \code{\link{autoencoder_sparse}}
+\code{\link{sparsity}}, \code{\link{autoencoder_sparse}}, \code{\link{is_sparse}}
 }
