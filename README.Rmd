@@ -11,7 +11,7 @@ Get uncomplicated access to unsupervised deep neural networks, from building the
 
 <a class="btn btn-primary" href="/articles/getting-started.html"><i class="fa fa-code"></i> Get started</a>
 
-```{r structure}
+```{r structure, echo = F}
 library(ruta)
 plot(dense(784) + dense(1000) + dense(100) + dense(1000) + dense(784))
 ```
