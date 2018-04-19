@@ -14,27 +14,21 @@ autoencoder_variational <- function(intermediate, latent_dim) {
   )
 }
 
-to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
-  original_dim <- input_shape
-  intermediate_dim <- learner$intermediate
-  latent_dim <- learner$latent_dim
+variational_block <- function(units) {
+  make_atomic_network(ruta_layer_variational, units, "linear")
+}
+
+to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   epsilon_std <- 1.0
-
-  x <- layer_input(shape = c(original_dim))
-  h <- x
-  #for (intermediate_dim in intermediate) {
-    h <- layer_dense(h, intermediate_dim, activation = "relu")
-  #}
-
-  z_mean <- layer_dense(h, latent_dim, name = "z_mean")
-  z_log_var <- layer_dense(h, latent_dim, name = "z_log_var")
+  z_mean <- keras::layer_dense(model, latent_dim, name = "z_mean")
+  z_log_var <- keras::layer_dense(model, latent_dim, name = "z_log_var")
 
   sampling <- function(arg){
     z_mean <- arg[, 1:(latent_dim)]
     z_log_var <- arg[, (latent_dim + 1):(2 * latent_dim)]
 
-    epsilon <- k_random_normal(
-      shape = c(k_shape(z_mean)[[1]]),
+    epsilon <- keras::k_random_normal(
+      shape = c(keras::k_shape(z_mean)[[1]]),
       mean = 0.,
       stddev = epsilon_std
     )
@@ -42,9 +36,24 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
     z_mean + k_exp(z_log_var/2)*epsilon
   }
 
-  # note that "output_shape" isn't necessary with the TensorFlow backend
-  z <- layer_concatenate(list(z_mean, z_log_var)) %>%
-    layer_lambda(sampling)
+  # "output_shape" isn't necessary with the TensorFlow backend
+  z <- keras::layer_concatenate(list(z_mean, z_log_var)) %>%
+    keras::layer_lambda(sampling)
+
+}
+
+to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
+  original_dim <- input_shape
+  intermediate_dim <- learner$intermediate
+  latent_dim <- learner$latent_dim
+
+  x <- layer_input(shape = c(original_dim))
+  h <- x
+  #for (intermediate_dim in intermediate) {
+    h <- layer_dense(h, intermediate_dim, activation = "relu")
+  #}
+
+  z <- to_keras(variational_block(latent_dim), input_shape, h)
 
   # we instantiate these layers separately so as to reuse them later
   decoder_h <- layer_dense(units = intermediate_dim, activation = "relu")

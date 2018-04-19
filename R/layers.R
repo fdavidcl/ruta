@@ -15,7 +15,7 @@
 #' my_layer <- dense(30, "tanh")[[1]]
 #' @import purrr
 #' @export
-new_layer <- function(type, units, activation) {
+new_layer <- function(cl, units, activation) {
   # length check
   stopifnot(
     is_scalar_vector(type),
@@ -29,11 +29,10 @@ new_layer <- function(type, units, activation) {
 
   structure(
     list(
-      type = type,
       units = units,
       activation = activation
     ),
-    class = ruta_layer
+    class = c(cl, ruta_layer)
   )
 }
 
@@ -43,13 +42,10 @@ as_network.ruta_layer <- function(object) {
   new_network(object)
 }
 
-to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
-  keras_lf <- list(
-    input = keras::layer_input,
-    dense = keras::layer_dense,
-    output = keras::layer_dense
-  )[[x$type]]
-
+to_keras.ruta_layer_input <- function(x, input_shape, ...) {
+  keras::layer_input(shape = input_shape)
+}
+to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   if (x$units < 0) {
     x$units <- input_shape
   }
@@ -64,19 +60,15 @@ to_keras.ruta_layer <- function(x, input_shape, model = keras::keras_model_seque
   else
     NULL
 
-  if (x$type == "input") {
-    keras_lf(shape = input_shape)
-  } else {
-    keras_lf(
-      model,
-      units = x$units,
-      activation = x$activation,
-      activity_regularizer = act_reg,
-      kernel_regularizer = kern_reg,
-      name = x$name,
-      ...
-    )
-  }
+  keras::layer_dense(
+    model,
+    units = x$units,
+    activation = x$activation,
+    activity_regularizer = act_reg,
+    kernel_regularizer = kern_reg,
+    name = x$name,
+    ...
+  )
 }
 
 make_atomic_network <- function(type, units, activation) {
@@ -96,7 +88,7 @@ make_atomic_network <- function(type, units, activation) {
 #' @family neural layers
 #' @export
 dense <- function(units, activation = "linear") {
-  make_atomic_network("dense", units, activation = activation)
+  make_atomic_network(ruta_layer_dense, units, activation = activation)
 }
 
 #' Create an input layer
@@ -107,7 +99,7 @@ dense <- function(units, activation = "linear") {
 #' @family neural layers
 #' @export
 input <- function() {
-  make_atomic_network("input", -1, "linear")
+  make_atomic_network(ruta_layer_input, -1, "linear")
 }
 
 #' Create an output layer
@@ -119,5 +111,5 @@ input <- function() {
 #' @family neural layers
 #' @export
 output <- function(activation = "linear") {
-  make_atomic_network("output", -1, activation)
+  make_atomic_network(ruta_layer_dense, -1, activation)
 }
