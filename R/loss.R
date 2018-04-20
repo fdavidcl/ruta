@@ -15,7 +15,7 @@ to_keras.ruta_loss_named <- function(x, ...) {
   if (exists(paste0("loss_", x$name), where = asNamespace("keras"))) {
     get(paste0("loss_", x$name), envir = asNamespace("keras"))
   } else {
-    stop("There is no ", x$name, " loss in keras.")
+    stop("There is no loss_", x$name, " loss in keras.")
   }
 }
 
