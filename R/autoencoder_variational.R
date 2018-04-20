@@ -3,12 +3,12 @@
 #' Source: https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py
 #' Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
 
-autoencoder_variational <- function(intermediate, latent_dim) {
+autoencoder_variational <- function(intermediate, latent_dim, loss = "loss_binary_crossentropy") {
   structure(
     list(
       intermediate = intermediate,
       latent_dim = latent_dim,
-      loss = variational_loss(0.5)
+      loss = variational_loss(loss)
     ),
     class = c(ruta_autoencoder_variational, ruta_autoencoder)
   )
@@ -78,20 +78,23 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
     encoder = encoder,
     decoder = generator
   )
-
 }
 
-variational_loss <- function(kl_coeff) {
-  structure(list(kl_coeff = kl_coeff), class = c(ruta_variational_loss, ruta_loss))
+variational_loss <- function(base_loss) {
+  structure(
+    list(base_loss = base_loss),
+    class = c(ruta_variational_loss, ruta_loss)
+  )
 }
 
 to_keras.ruta_variational_loss <- function(loss, model) {
+  base_loss <- loss$base_loss %>% as_loss() %>% to_keras()
   z_mean <- get_layer(model, name = "z_mean")
   z_log_var <- get_layer(model, name = "z_log_var")
 
   function(x, x_decoded_mean) {
     # xent_loss <- original_dim * loss_binary_crossentropy(x, x_decoded_mean)
-    xent_loss <- loss_binary_crossentropy(x, x_decoded_mean)
+    xent_loss <- base_loss(x, x_decoded_mean)
     kl_loss <- 0.5 * k_mean(k_square(z_mean$output) + k_exp(z_log_var$output) - 1 - z_log_var$output, axis = -1L)
     xent_loss + kl_loss
   }
