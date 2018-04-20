@@ -1,9 +1,10 @@
-#' This file contains excerpts of code from Keras examples demonstrating how to
-#' build a variational autoencoder with Keras.
-#' Source: https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py
-#' Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
+# This file contains excerpts of code from Keras examples demonstrating how to
+# build a variational autoencoder with Keras.
+# Source: https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py
+# Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
 
 #' Build a variational autoencoder
+#'
 #' @param intermediate Intermediate size
 #' @param latent_dim Latent space dimension
 #' @param loss Reconstruction error to be combined with KL divergence in order to compute

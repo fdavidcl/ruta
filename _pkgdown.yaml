@@ -8,6 +8,9 @@ authors:
   David Charte:
     href: http://david.quotient.space
 
+development:
+  mode: unreleased
+
 navbar:
   title: Ruta
   type: default
@@ -62,10 +65,12 @@ reference:
       - autoencoder_robust
       - make_robust
       - correntropy
+      - autoencoder_variational
   - title: "Model training"
     desc: >
       The following functions allow to train an autoencoder with input data.
     contents:
+      - autoencode
       - starts_with("apply_filter")
       - train.ruta_autoencoder
   - title: "Keras conversions"

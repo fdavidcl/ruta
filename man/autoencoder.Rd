@@ -4,7 +4,7 @@
 \alias{autoencoder}
 \title{Create an autoencoder learner}
 \usage{
-autoencoder(network, loss = "mse")
+autoencoder(network, loss = "mean_squared_error")
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}

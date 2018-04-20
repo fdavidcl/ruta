@@ -2,11 +2,7 @@
 % Please edit documentation in R/autoencoder_variational.R
 \name{autoencoder_variational}
 \alias{autoencoder_variational}
-\title{This file contains excerpts of code from Keras examples demonstrating how to
-build a variational autoencoder with Keras.
-Source: https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py
-Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
-Build a variational autoencoder}
+\title{Build a variational autoencoder}
 \usage{
 autoencoder_variational(intermediate, latent_dim,
   loss = "binary_crossentropy")
@@ -20,9 +16,5 @@ autoencoder_variational(intermediate, latent_dim,
 the variational loss}
 }
 \description{
-This file contains excerpts of code from Keras examples demonstrating how to
-build a variational autoencoder with Keras.
-Source: https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py
-Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
 Build a variational autoencoder
 }
