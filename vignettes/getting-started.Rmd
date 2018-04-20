@@ -26,7 +26,7 @@ Most autoencoders are designed with feature extraction in mind. This is why Ruta
 ~~~r
 library(ruta)
 
-iris_x <- iris[, 1:4]
+iris_x <- as.matrix(iris[, 1:4])
 iris_y <- iris[, 5]
 result <- autoencode(iris_x, 2)
 

@@ -9,7 +9,7 @@ Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
 Build a variational autoencoder}
 \usage{
 autoencoder_variational(intermediate, latent_dim,
-  loss = "loss_binary_crossentropy")
+  loss = "binary_crossentropy")
 }
 \arguments{
 \item{intermediate}{Intermediate size}

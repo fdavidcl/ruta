@@ -24,7 +24,7 @@ new_autoencoder <- function(network, loss) {
 #' @return A construct of class \code{"ruta_autoencoder"}
 #' @seealso \code{\link{train.ruta_autoencoder}}
 #' @export
-autoencoder <- function(network, loss = "mse") {
+autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
 }
 
@@ -116,6 +116,20 @@ train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs
   )
 
   learner
+}
+
+#' Automatically compute an encoding of a data matrix
+#'
+#' Trains an autoencoder adapted to the data and extracts its encoding for the
+#'   same data matrix.
+#' @param data Numeric matrix to be encoded
+#' @param encoding_dim Number of variables to be used in the encoding
+#' @return Matrix containing the encodings
+#' @export
+autoencode <- function(data, encoding_dim) {
+  autoencoder(input() + dense(encoding_dim) + output()) %>%
+    train(data) %>%
+    encode(data)
 }
 
 #' Retrieve encoding of data
