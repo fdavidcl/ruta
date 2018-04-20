@@ -3,7 +3,8 @@
 #' Constructor function for layers. You shouldn't generally need to use this. Instead, consider
 #' using individual functions such as \code{\link{dense}}.
 #'
-#' @param type Character string specifying type of layer
+#' @param cl Character string specifying class of layer (e.g. \code{"ruta_layer_dense"}), which
+#'   will be used to call the corresponding methods
 #' @param units Amount of units in the layer
 #' @param activation Character string specifying activation function
 #' @return A construct with class \code{"ruta_layer"}
@@ -18,12 +19,12 @@
 new_layer <- function(cl, units, activation) {
   # length check
   stopifnot(
-    is_scalar_vector(type),
+    is_scalar_vector(cl),
     is_scalar_vector(units),
     is_scalar_vector(activation)
   )
   # type coercion
-  type <- as.character(type)
+  type <- as.character(cl)
   units <- as.integer(units)
   activation <- as.character(activation)
 

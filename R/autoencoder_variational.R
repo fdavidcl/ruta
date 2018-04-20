@@ -3,6 +3,12 @@
 #' Source: https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py
 #' Reference: "Auto-Encoding Variational Bayes" https://arxiv.org/abs/1312.6114
 
+#' Build a variational autoencoder
+#' @param intermediate Intermediate size
+#' @param latent_dim Latent space dimension
+#' @param loss Reconstruction error to be combined with KL divergence in order to compute
+#'   the variational loss
+#' @export
 autoencoder_variational <- function(intermediate, latent_dim, loss = "loss_binary_crossentropy") {
   structure(
     list(
@@ -83,11 +89,11 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
 variational_loss <- function(base_loss) {
   structure(
     list(base_loss = base_loss),
-    class = c(ruta_variational_loss, ruta_loss)
+    class = c(ruta_loss_variational, ruta_loss)
   )
 }
 
-to_keras.ruta_variational_loss <- function(loss, model) {
+to_keras.ruta_loss_variational <- function(loss, model) {
   base_loss <- loss$base_loss %>% as_loss() %>% to_keras()
   z_mean <- get_layer(model, name = "z_mean")
   z_log_var <- get_layer(model, name = "z_log_var")

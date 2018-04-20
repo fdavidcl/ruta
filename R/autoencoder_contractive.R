@@ -32,7 +32,7 @@ contraction <- function(rec_err, weight) {
       reconstruction = rec_err,
       weight = weight
     ),
-    class = c(ruta_loss, ruta_contraction)
+    class = c(ruta_loss_contraction, ruta_loss)
   )
 }
 
@@ -58,13 +58,13 @@ make_contractive <- function(learner, weight) {
 #'
 #' @description Builds the Keras loss function corresponding to the object received
 #'
-#' @param x A \code{"ruta_contraction"} object
+#' @param x A \code{"ruta_loss_contraction"} object
 #' @param keras_model The keras autoencoder which will use the loss function
 #' @return A function which returns the contractive loss for given true and
 #' predicted values
 #' @param ... Rest of parameters, ignored
 #' @export
-to_keras.ruta_contraction <- function(x, keras_model, ...) {
+to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
   rec_err <- x$reconstruction %>% as_loss() %>% to_keras()
   encoding_layer <- keras::get_layer(keras_model, name = "encoded")
 

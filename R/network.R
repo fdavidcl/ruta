@@ -127,8 +127,8 @@ print.ruta_network <- function(x, ...) {
   ind <- " "
 
   for (layer in x) {
-    cat(ind, layer$type)
-    if (!(layer$type %in% c("input", "output"))) {
+    cat(ind, gsub("ruta_layer_", "", class(layer)[1]))
+    if (layer$units > 0) {
       cat("(", layer$units, " units)", sep = "")
     }
     cat(" -", layer$activation, "\n")

@@ -4,10 +4,11 @@
 \alias{new_layer}
 \title{Layer wrapper constructor}
 \usage{
-new_layer(type, units, activation)
+new_layer(cl, units, activation)
 }
 \arguments{
-\item{type}{Character string specifying type of layer}
+\item{cl}{Character string specifying class of layer (e.g. \code{"ruta_layer_dense"}), which
+will be used to call the corresponding methods}
 
 \item{units}{Amount of units in the layer}
 

@@ -24,7 +24,7 @@ autoencoder_robust <- function(network, sigma) {
 correntropy <- function(sigma) {
   structure(
     list(sigma = sigma),
-    class = c(ruta_loss, ruta_correntropy)
+    class = c(ruta_loss_correntropy, ruta_loss)
   )
 }
 
@@ -48,10 +48,10 @@ make_robust <- function(learner, sigma) {
 #'
 #' @description Builds the Keras loss function corresponding to the object received
 #'
-#' @param x A \code{"ruta_correntropy"} object
+#' @param x A \code{"ruta_loss_correntropy"} object
 #' @param ... Rest of parameters, ignored
 #' @export
-to_keras.ruta_correntropy <- function(x, ...) {
+to_keras.ruta_loss_correntropy <- function(x, ...) {
   sigma <- x$sigma
 
   robust_kernel <- function(alpha) {
