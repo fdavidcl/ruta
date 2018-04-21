@@ -20,3 +20,6 @@ predicted values
 \description{
 Builds the Keras loss function corresponding to the object received
 }
+\references{
+\href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
+}

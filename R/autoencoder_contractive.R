@@ -47,7 +47,7 @@ contraction <- function(rec_err, weight) {
 #' @return An autoencoder object which contains the contractive loss
 #' @export
 make_contractive <- function(learner, weight) {
-  if (!(ruta_contraction %in% class(learner$loss))) {
+  if (!(ruta_loss_contraction %in% class(learner$loss))) {
     learner$loss = contraction(learner$loss, weight)
   }
 
@@ -63,27 +63,30 @@ make_contractive <- function(learner, weight) {
 #' @return A function which returns the contractive loss for given true and
 #' predicted values
 #' @param ... Rest of parameters, ignored
+#' @references
+#' \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
 #' @export
 to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
   rec_err <- x$reconstruction %>% as_loss() %>% to_keras()
   encoding_layer <- keras::get_layer(keras_model, name = "encoded")
 
   # derivative of the activation function -- only tanh for now
-  dh <- function(h) 1 - h * h
+  act_der <- function(h) 1 - h * h
 
   # contractive loss
   function(y_true, y_pred) {
     reconstruction <- rec_err(y_true, y_pred)
-    #reconstruction <- rec_err(y_pred, y_true)
 
-    hid =
-      # n x h
-      keras::k_variable(value = encoding_layer$get_weights()[[1]]) %>%
+    sum_wt2 <-
+      keras::k_variable(value = keras::get_weights(encoding_layer)[[1]]) %>%
+      keras::k_transpose() %>%
       keras::k_square() %>%
-      # 1 x h
-      keras::k_sum(axis = 1)
+      keras::k_sum(axis = 2)
 
-    contractive = x$weight * keras::k_sum(dh(encoding_layer$output) ** 2 * hid)
+    dh2 <- act_der(encoding_layer$output) ** 2
+
+    contractive <- x$weight * keras::k_sum(dh2 * sum_wt2, axis = 2)
+
     reconstruction + contractive
   }
 }
