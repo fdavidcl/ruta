@@ -62,7 +62,7 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
   x <- keras::layer_input(shape = c(original_dim))
   h <- x
   #for (intermediate_dim in intermediate) {
-    h <- keras::layer_dense(h, intermediate_dim, activation = "relu")
+    h <- keras::layer_dense(h, intermediate_dim, activation = "selu")
   #}
 
   encodings <- to_keras(variational_block(latent_dim)[[1]], input_shape, model = h)
@@ -70,7 +70,7 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
   z <- encodings$sampled
 
   # we instantiate these layers separately so as to reuse them later
-  decoder_h <- keras::layer_dense(units = intermediate_dim, activation = "relu")
+  decoder_h <- keras::layer_dense(units = intermediate_dim, activation = "selu")
   decoder_mean <- keras::layer_dense(units = original_dim, activation = "sigmoid")
   h_decoded <- decoder_h(z)
   x_decoded_mean <- decoder_mean(h_decoded)
@@ -102,14 +102,35 @@ variational_loss <- function(base_loss) {
 }
 
 to_keras.ruta_loss_variational <- function(loss, model) {
+  original_dim <- 1. * model$input_shape[[2]]
   base_loss <- loss$base_loss %>% as_loss() %>% to_keras()
   z_mean <- keras::get_layer(model, name = "z_mean")
   z_log_var <- keras::get_layer(model, name = "z_log_var")
 
   function(x, x_decoded_mean) {
     # xent_loss <- original_dim * loss_binary_crossentropy(x, x_decoded_mean)
-    xent_loss <- base_loss(x, x_decoded_mean)
+    xent_loss <- original_dim * base_loss(x, x_decoded_mean)
     kl_loss <- 0.5 * keras::k_mean(keras::k_square(z_mean$output) + keras::k_exp(z_log_var$output) - 1 - z_log_var$output, axis = -1L)
     xent_loss + kl_loss
   }
+}
+
+#' @import purrr
+#' @export
+sample.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
+  d <- learner$models$decoder$input_shape[[2]]
+  cat(d)
+  md <- length(dimensions)
+  col <- seq(from = from, to = to, length.out = side) %>% qnorm()
+
+  args <- rep(list(col), times = md)
+  names(args) <- paste("D", dimensions)
+  moving_dims <- cross_df(args)
+
+  fixed <- rep(fixed_values, times = side ** md) %>% qnorm()
+
+  encoded <- data.frame(rep(list(fixed), d))
+  encoded[, dimensions] <- moving_dims
+  # encoded <- data.frame(col1, col2) %>% as.matrix()
+  sampled <- model %>% decode(encoded)
 }
