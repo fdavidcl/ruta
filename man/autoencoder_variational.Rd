@@ -4,16 +4,16 @@
 \alias{autoencoder_variational}
 \title{Build a variational autoencoder}
 \usage{
-autoencoder_variational(intermediate, latent_dim,
-  loss = "binary_crossentropy")
+autoencoder_variational(network, loss = "binary_crossentropy",
+  auto_transform_network = TRUE)
 }
 \arguments{
+\item{loss}{Reconstruction error to be combined with KL divergence in order to compute
+the variational loss}
+
 \item{intermediate}{Intermediate size}
 
 \item{latent_dim}{Latent space dimension}
-
-\item{loss}{Reconstruction error to be combined with KL divergence in order to compute
-the variational loss}
 }
 \description{
 Build a variational autoencoder

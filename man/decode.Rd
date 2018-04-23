@@ -9,7 +9,7 @@ decode(learner, data)
 \arguments{
 \item{learner}{Trained autoencoder model}
 
-\item{data}{data.frame to be encoded}
+\item{data}{data.frame to be decoded}
 }
 \value{
 Matrix containing the decodifications
@@ -19,5 +19,5 @@ Extracts the decodification calculated by a trained autoencoder for the specifie
 data.
 }
 \seealso{
-\code{\link{encode}}
+\code{\link{encode}}, \code{\link{reconstruct}}
 }

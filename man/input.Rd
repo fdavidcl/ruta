@@ -15,5 +15,5 @@ needed as it is deduced from the data during training.
 }
 \seealso{
 Other neural layers: \code{\link{dense}},
-  \code{\link{output}}
+  \code{\link{output}}, \code{\link{variational_block}}
 }

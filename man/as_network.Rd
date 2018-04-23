@@ -28,5 +28,5 @@ A \code{"ruta_network"} construct
 Generic function to coerce objects into networks.
 }
 \examples{
-net <- as_network(c(784, 1000, 32, 1000, 784))
+net <- as_network(c(784, 1000, 32))
 }

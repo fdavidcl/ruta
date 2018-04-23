@@ -18,5 +18,5 @@ number of units is not needed as it is deduced from the data during training.
 }
 \seealso{
 Other neural layers: \code{\link{dense}},
-  \code{\link{input}}
+  \code{\link{input}}, \code{\link{variational_block}}
 }

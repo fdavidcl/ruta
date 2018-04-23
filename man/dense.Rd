@@ -22,5 +22,5 @@ dense(30, "tanh")
 }
 \seealso{
 Other neural layers: \code{\link{input}},
-  \code{\link{output}}
+  \code{\link{output}}, \code{\link{variational_block}}
 }

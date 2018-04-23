@@ -19,5 +19,5 @@ Extracts the encoding calculated by a trained autoencoder for the specified
 data.
 }
 \seealso{
-\code{\link{decode}}
+\code{\link{decode}}, \code{\link{reconstruct}}
 }
