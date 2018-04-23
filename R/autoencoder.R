@@ -134,7 +134,7 @@ autoencode <- function(data, encoding_dim) {
 #' @param learner Trained autoencoder model
 #' @param data data.frame to be encoded
 #' @return Matrix containing the encodings
-#' @seealso \code{\link{decode}}
+#' @seealso \code{\link{decode}}, \code{\link{reconstruct}}
 #' @export
 encode <- function(learner, data) {
   if (!is_trained(learner)) {
@@ -149,9 +149,9 @@ encode <- function(learner, data) {
 #' Extracts the decodification calculated by a trained autoencoder for the specified
 #' data.
 #' @param learner Trained autoencoder model
-#' @param data data.frame to be encoded
+#' @param data data.frame to be decoded
 #' @return Matrix containing the decodifications
-#' @seealso \code{\link{encode}}
+#' @seealso \code{\link{encode}}, \code{\link{reconstruct}}
 #' @export
 decode <- function(learner, data) {
   if (!is_trained(learner)) {
@@ -160,3 +160,26 @@ decode <- function(learner, data) {
 
   learner$models$decoder$predict(data)
 }
+
+
+#' Retrieve reconstructions for input data
+#'
+#' Extracts the reconstructions calculated by a trained autoencoder for the specified
+#' input data after encoding and decoding.
+#' @param learner Trained autoencoder model
+#' @param object Trained autoencoder model
+#' @param data data.frame to be passed through the network
+#' @return Matrix containing the reconstructions
+#' @seealso \code{\link{encode}}, \code{\link{decode}}
+#' @export
+reconstruct <- function(learner, data) {
+  if (!is_trained(learner)) {
+    stop("Autoencoder is not trained")
+  }
+
+  learner$models$autoencoder$predict(data)
+}
+
+#' @rdname reconstruct
+#' @export
+predict.ruta_autoencoder <- function(object, ...) reconstruct(object, ...)
