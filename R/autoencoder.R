@@ -6,13 +6,13 @@
 #' @param loss Character string specifying a loss function
 #' @return A construct of class \code{"ruta_autoencoder"}
 #' @export
-new_autoencoder <- function(network, loss) {
+new_autoencoder <- function(network, loss, extra_class = NULL) {
   structure(
     list(
-      network = network,
+      network = as_network(network),
       loss = loss
     ),
-    class = c(ruta_learner, ruta_autoencoder)
+    class = c(extra_class, ruta_autoencoder, ruta_learner)
   )
 }
 
