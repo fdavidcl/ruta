@@ -47,10 +47,11 @@ as_network.numeric <- function(object) {
 
 #' @rdname as_network
 #' @examples
-#' net <- as_network(c(784, 1000, 32, 1000, 784))
+#' net <- as_network(c(784, 1000, 32))
 #' @import purrr
 #' @export
 as_network.integer <- function(object) {
+  object <- c(object, rev(object)[-1])
   hidden <- object %>% map(dense) %>% reduce(`+`)
   input() + hidden + output()
 }
