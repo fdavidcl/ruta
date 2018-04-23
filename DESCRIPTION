@@ -9,6 +9,7 @@ Depends:
     R (>= 3.2)
 Imports: 
     graphics,
+    stats,
     keras,
     purrr
 Suggests: 

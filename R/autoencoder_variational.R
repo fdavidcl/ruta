@@ -117,7 +117,7 @@ to_keras.ruta_loss_variational <- function(loss, model) {
 
 #' @import purrr
 #' @export
-sample.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
+generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
   d <- learner$models$decoder$input_shape[[2]]
   cat(d)
   md <- length(dimensions)

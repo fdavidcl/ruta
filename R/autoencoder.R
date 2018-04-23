@@ -71,11 +71,6 @@ to_keras.ruta_autoencoder <- function(learner, input_shape) {
   )
 }
 
-#' @rdname train.ruta_autoencoder
-#' @export
-train <- function(learner, ...) {
-  UseMethod("train")
-}
 
 #' Train a learner object with data
 #'

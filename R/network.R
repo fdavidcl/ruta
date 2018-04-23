@@ -33,16 +33,6 @@ new_network <- function(...) {
   )
 }
 
-#' Coercion to ruta_network
-#'
-#' Generic function to coerce objects into networks.
-#' @param object Object to be converted into a network
-#' @return A \code{"ruta_network"} construct
-#' @export
-as_network <- function(object) {
-  UseMethod("as_network")
-}
-
 #' @rdname as_network
 #' @export
 as_network.ruta_network <- function(object) {

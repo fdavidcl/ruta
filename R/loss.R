@@ -1,5 +1,3 @@
-as_loss <- function(x) UseMethod("as_loss")
-
 as_loss.character <- function(x) {
   structure(
     list(
