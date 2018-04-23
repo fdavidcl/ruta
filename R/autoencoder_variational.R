@@ -73,6 +73,14 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
   to_keras.ruta_autoencoder(learner, input_shape, encoder_end = "z_mean", decoder_start = "sampling")
 }
 
+#' Variational loss
+#'
+#' Specifies an evaluation function adapted to the variational autoencoder. It combines
+#' a base reconstruction error and the Kullback-Leibler divergence between the learned
+#' distribution and the true latent posterior.
+#' @param base_loss Another loss to be used as reconstruction error (e.g. "binary_crossentropy")
+#' @return A \code{"ruta_loss"} object
+#' @export
 variational_loss <- function(base_loss) {
   structure(
     list(base_loss = base_loss),
@@ -87,7 +95,6 @@ to_keras.ruta_loss_variational <- function(loss, model) {
   z_log_var <- keras::get_layer(model, name = "z_log_var")
 
   function(x, x_decoded_mean) {
-    # xent_loss <- original_dim * loss_binary_crossentropy(x, x_decoded_mean)
     xent_loss <- original_dim * base_loss(x, x_decoded_mean)
     kl_loss <- 0.5 * keras::k_mean(keras::k_square(z_mean$output) + keras::k_exp(z_log_var$output) - 1 - z_log_var$output, axis = -1L)
     xent_loss + kl_loss
@@ -95,6 +102,7 @@ to_keras.ruta_loss_variational <- function(loss, model) {
 }
 
 #' @import purrr
+#' @rdname generate
 #' @export
 generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
   d <- learner$models$decoder$input_shape[[2]]

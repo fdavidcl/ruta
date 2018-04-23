@@ -16,4 +16,8 @@ as_network <- function(object) UseMethod("as_network")
 
 to_keras <- function(x, ...) UseMethod("to_keras")
 
+#' Generate samples from a generative model
+#'
+#' @param learner Trained learner object
+#' @export
 generate <- function(learner, ...) UseMethod("generate")

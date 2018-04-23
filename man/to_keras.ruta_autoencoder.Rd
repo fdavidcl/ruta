@@ -5,7 +5,8 @@
 \alias{to_keras.ruta_autoencoder_variational}
 \title{Extract Keras models from an autoencoder wrapper}
 \usage{
-\method{to_keras}{ruta_autoencoder}(learner, input_shape)
+\method{to_keras}{ruta_autoencoder}(learner, input_shape,
+  encoder_end = "encoding", decoder_start = "encoding")
 
 \method{to_keras}{ruta_autoencoder_variational}(learner, input_shape)
 }
