@@ -208,9 +208,33 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="new_autoencoder.html">new_autoencoder()</a></code> </p>
+          <p><code><a href="autoencoder_sparse.html">autoencoder_sparse()</a></code> </p>
         </td>
-        <td><p>Create an autoencoder learner</p></td>
+        <td><p>Sparse autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="autoencoder_contractive.html">autoencoder_contractive()</a></code> </p>
+        </td>
+        <td><p>Create a contractive autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="autoencoder_denoising.html">autoencoder_denoising()</a></code> </p>
+        </td>
+        <td><p>Create a denoising autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="autoencoder_robust.html">autoencoder_robust()</a></code> </p>
+        </td>
+        <td><p>Create a robust autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="autoencoder_variational.html">autoencoder_variational()</a></code> </p>
+        </td>
+        <td><p>Build a variational autoencoder</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -226,15 +250,27 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="autoencoder_sparse.html">autoencoder_sparse()</a></code> </p>
-        </td>
-        <td><p>Sparse autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="make_sparse.html">make_sparse()</a></code> </p>
         </td>
         <td><p>Add sparsity regularization to an autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="make_contractive.html">make_contractive()</a></code> </p>
+        </td>
+        <td><p>Add contractive behavior to any autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="make_denoising.html">make_denoising()</a></code> </p>
+        </td>
+        <td><p>Add denoising behavior to any autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="make_robust.html">make_robust()</a></code> </p>
+        </td>
+        <td><p>Add robust behavior to any autoencoder</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -250,45 +286,23 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="autoencoder_contractive.html">autoencoder_contractive()</a></code> </p>
+          <p><code><a href="new_autoencoder.html">new_autoencoder()</a></code> </p>
         </td>
-        <td><p>Create a contractive autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="make_contractive.html">make_contractive()</a></code> </p>
-        </td>
-        <td><p>Add contractive behavior to any autoencoder</p></td>
-      </tr><tr>
+        <td><p>Create an autoencoder learner</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-loss-functions" class="hasAnchor"><a href="#section-loss-functions" class="anchor"></a>Loss functions</h2>
+          <p class="section-desc"><p>These functions define different objective functions which an autoencoder may optimize. Along with these, one may use any loss defined in Keras (such as <code>"binary_crossentropy"</code> or <code>"mean_squared_error"</code>).</p></p>
+        </th>
+      </tr>
+      <tr>
         <!--  -->
         <td>
           <p><code><a href="contraction.html">contraction()</a></code> </p>
         </td>
         <td><p>Contractive loss</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="autoencoder_denoising.html">autoencoder_denoising()</a></code> </p>
-        </td>
-        <td><p>Create a denoising autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="make_denoising.html">make_denoising()</a></code> </p>
-        </td>
-        <td><p>Add denoising behavior to any autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="autoencoder_robust.html">autoencoder_robust()</a></code> </p>
-        </td>
-        <td><p>Create a robust autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="make_robust.html">make_robust()</a></code> </p>
-        </td>
-        <td><p>Add robust behavior to any autoencoder</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -298,9 +312,9 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="autoencoder_variational.html">autoencoder_variational()</a></code> </p>
+          <p><code><a href="variational_loss.html">variational_loss()</a></code> </p>
         </td>
-        <td><p>Build a variational autoencoder</p></td>
+        <td><p>Variational loss</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -356,6 +370,12 @@
       </tr><tr>
         <!--  -->
         <td>
+          <p><code><a href="to_keras.ruta_loss_variational.html">to_keras(<i>&lt;ruta_loss_variational&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Obtain a Keras variational loss</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
           <p><code><a href="to_keras.ruta_network.html">to_keras(<i>&lt;ruta_network&gt;</i>)</a></code> </p>
         </td>
         <td><p>Build a Keras network</p></td>
@@ -397,6 +417,12 @@
           <p><code><a href="reconstruct.html">reconstruct()</a></code> <code><a href="reconstruct.html">predict(<i>&lt;ruta_autoencoder&gt;</i>)</a></code> </p>
         </td>
         <td><p>Retrieve reconstructions for input data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="generate.html">generate()</a></code> </p>
+        </td>
+        <td><p>Generate samples from a generative model</p></td>
       </tr>
     </tbody>
     </table>
@@ -407,6 +433,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-neural-network-architecture">Neural network architecture</a></li>
       <li><a href="#section-autoencoder-and-variants">Autoencoder and variants</a></li>
+      <li><a href="#section-loss-functions">Loss functions</a></li>
       <li><a href="#section-model-training">Model training</a></li>
       <li><a href="#section-keras-conversions">Keras conversions</a></li>
       <li><a href="#section-tasks-for-trained-models">Tasks for trained models</a></li>

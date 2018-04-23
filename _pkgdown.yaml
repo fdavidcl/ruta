@@ -51,22 +51,29 @@ reference:
       These functions allow to create and customize autoencoder learners.
     contents:
       - autoencoder
-      - new_autoencoder
+      - autoencoder_sparse
+      - autoencoder_contractive
+      - autoencoder_denoising
+      - autoencoder_robust
+      - autoencoder_variational
       - add_weight_decay
       - weight_decay
-      - autoencoder_sparse
       - make_sparse
+      - make_contractive
+      - make_denoising
+      - make_robust
       - sparsity
       - is_sparse
-      - autoencoder_contractive
-      - make_contractive
+      - new_autoencoder
+  - title: "Loss functions"
+    desc: >
+      These functions define different objective functions which an autoencoder
+      may optimize. Along with these, one may use any loss defined in Keras (such
+      as `"binary_crossentropy"` or `"mean_squared_error"`).
+    contents:
       - contraction
-      - autoencoder_denoising
-      - make_denoising
-      - autoencoder_robust
-      - make_robust
       - correntropy
-      - autoencoder_variational
+      - variational_loss
   - title: "Model training"
     desc: >
       The following functions allow to train an autoencoder with input data.
@@ -89,3 +96,4 @@ reference:
       - encode
       - decode
       - reconstruct
+      - starts_with("generate")

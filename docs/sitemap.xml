@@ -49,6 +49,9 @@
     <loc>http://ruta.software/reference/filters.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/generate.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/input.html</loc>
   </url>
   <url>
@@ -106,6 +109,9 @@
     <loc>http://ruta.software/reference/to_keras.ruta_loss_correntropy.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/to_keras.ruta_loss_variational.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/to_keras.ruta_network.html</loc>
   </url>
   <url>
@@ -119,6 +125,9 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/variational_block.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/variational_loss.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/weight_decay.html</loc>

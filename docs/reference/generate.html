@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Automatically compute an encoding of a data matrix — autoencode • ruta</title>
+<title>Generate samples from a generative model — generate.ruta_autoencoder_variational • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Automatically compute an encoding of a data matrix — autoencode" />
+<meta property="og:title" content="Generate samples from a generative model — generate.ruta_autoencoder_variational" />
 
-<meta property="og:description" content="Trains an autoencoder adapted to the data and extracts its encoding for the
-same data matrix." />
+<meta property="og:description" content="Generate samples from a generative model" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,59 +105,63 @@ same data matrix." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Automatically compute an encoding of a data matrix</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
-    <div class="hidden name"><code>autoencode.Rd</code></div>
+    <h1>Generate samples from a generative model</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/generics.R'><code>R/generics.R</code></a></small>
+    <div class="hidden name"><code>generate.Rd</code></div>
     </div>
 
     
-    <p>Trains an autoencoder adapted to the data and extracts its encoding for the
-same data matrix.</p>
+    <p>Generate samples from a generative model</p>
     
 
-    <pre class="usage"><span class='fu'>autoencode</span>(<span class='no'>data</span>, <span class='no'>encoding_dim</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for ruta_autoencoder_variational</span>
+<span class='fu'>generate</span>(<span class='no'>learner</span>, <span class='kw'>dimensions</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>),
+  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>side</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>fixed_values</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+
+<span class='fu'>generate</span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>Numeric matrix to be encoded</p></td>
+      <th>learner</th>
+      <td><p>Trained learner object</p></td>
     </tr>
     <tr>
-      <th>encoding_dim</th>
-      <td><p>Number of variables to be used in the encoding</p></td>
+      <th>dimensions</th>
+      <td><p>Indices of the dimensions over which the model will be sampled</p></td>
+    </tr>
+    <tr>
+      <th>from</th>
+      <td><p>Lower limit on the values which will be passed to the inverse CDF of the prior</p></td>
+    </tr>
+    <tr>
+      <th>to</th>
+      <td><p>Upper limit on the values which will be passed to the inverse CDF of the prior</p></td>
+    </tr>
+    <tr>
+      <th>side</th>
+      <td><p>Number of steps to take in each traversed dimension</p></td>
+    </tr>
+    <tr>
+      <th>fixed_values</th>
+      <td><p>Value used as parameter for the inverse CDF of all non-traversed dimensions</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Matrix containing the encodings</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='autoencoder.html'>autoencoder</a></code></p></div>
+    <div class='dont-index'><p><code><a href='autoencoder_variational.html'>autoencoder_variational</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>inputs</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
-<span class='co'># Train a basic autoencoder and generate a 2-variable encoding</span>
-<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>autoencode</span>(<span class='no'>inputs</span>, <span class='fl'>2</span>)
-<span class='co'># }</span><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

@@ -133,11 +133,50 @@
 
     <p>A construct of class <code>"ruta_autoencoder"</code></p>
     
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <ul>
+<li><p><a href='https://arxiv.org/abs/1801.01586'>A practical tutorial on autoencoders for nonlinear feature fusion</a></p></li>
+</ul>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='train.ruta_autoencoder.html'>train.ruta_autoencoder</a></code></p></div>
+    <div class='dont-index'><p><code><a href='train.ruta_autoencoder.html'>train.ruta_autoencoder</a></code></p>
+<p>Other autoencoder variants: <code><a href='autoencoder_contractive.html'>autoencoder_contractive</a></code>,
+  <code><a href='autoencoder_denoising.html'>autoencoder_denoising</a></code>,
+  <code><a href='autoencoder_robust.html'>autoencoder_robust</a></code>,
+  <code><a href='autoencoder_sparse.html'>autoencoder_sparse</a></code>,
+  <code><a href='autoencoder_variational.html'>autoencoder_variational</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># Basic autoencoder with a network of [input]-256-36-256-[input] and</span>
+<span class='co'># no nonlinearities</span>
+<span class='fu'>autoencoder</span>(<span class='fu'>c</span>(<span class='fl'>256</span>, <span class='fl'>36</span>), <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div><div class='output co'>#&gt; $network
+#&gt; Ruta network. Structure:
+#&gt;   input - linear 
+#&gt;   dense(256 units) - linear 
+#&gt;   dense(36 units) - linear 
+#&gt;   dense(256 units) - linear 
+#&gt;   dense - linear 
+#&gt; 
+#&gt; $loss
+#&gt; [1] "binary_crossentropy"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ruta_autoencoder" "ruta_learner"    </div><div class='input'>
+<span class='co'># Customizing the activation functions in the same network</span>
+<span class='no'>network</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='input.html'>input</a></span>() +
+  <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>256</span>, <span class='st'>"relu"</span>) +
+  <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>36</span>, <span class='st'>"tanh"</span>) +
+  <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>256</span>, <span class='st'>"relu"</span>) +
+  <span class='fu'><a href='output.html'>output</a></span>(<span class='st'>"sigmoid"</span>)
+
+<span class='no'>learner</span> <span class='kw'>&lt;-</span>
+  <span class='no'>network</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>autoencoder</span>(<span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,8 +185,12 @@
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#references">References</a></li>
+
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

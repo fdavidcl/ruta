@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Automatically compute an encoding of a data matrix — autoencode • ruta</title>
+<title>Variational loss — variational_loss • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,11 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Automatically compute an encoding of a data matrix — autoencode" />
+<meta property="og:title" content="Variational loss — variational_loss" />
 
-<meta property="og:description" content="Trains an autoencoder adapted to the data and extracts its encoding for the
-same data matrix." />
+<meta property="og:description" content="Specifies an evaluation function adapted to the variational autoencoder. It combines
+a base reconstruction error and the Kullback-Leibler divergence between the learned
+distribution and the true latent posterior." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,47 +107,47 @@ same data matrix." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Automatically compute an encoding of a data matrix</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
-    <div class="hidden name"><code>autoencode.Rd</code></div>
+    <h1>Variational loss</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a></small>
+    <div class="hidden name"><code>variational_loss.Rd</code></div>
     </div>
 
     
-    <p>Trains an autoencoder adapted to the data and extracts its encoding for the
-same data matrix.</p>
+    <p>Specifies an evaluation function adapted to the variational autoencoder. It combines
+a base reconstruction error and the Kullback-Leibler divergence between the learned
+distribution and the true latent posterior.</p>
     
 
-    <pre class="usage"><span class='fu'>autoencode</span>(<span class='no'>data</span>, <span class='no'>encoding_dim</span>)</pre>
+    <pre class="usage"><span class='fu'>variational_loss</span>(<span class='no'>base_loss</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>Numeric matrix to be encoded</p></td>
-    </tr>
-    <tr>
-      <th>encoding_dim</th>
-      <td><p>Number of variables to be used in the encoding</p></td>
+      <th>base_loss</th>
+      <td><p>Another loss to be used as reconstruction error (e.g. "binary_crossentropy")</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Matrix containing the encodings</p>
+    <p>A <code>"ruta_loss"</code> object</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <ul>
+<li><p><a href='https://arxiv.org/abs/1312.6114'>Auto-Encoding Variational Bayes</a></p></li>
+<li><p><a href='http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html'>Under the Hood of the Variational Autoencoder (in Prose and Code)</a></p></li>
+<li><p><a href='https://keras.rstudio.com/articles/examples/variational_autoencoder.html'>Keras example: Variational autoencoder</a></p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='autoencoder.html'>autoencoder</a></code></p></div>
+    <div class='dont-index'><p><code><a href='autoencoder_variational.html'>autoencoder_variational</a></code></p>
+<p>Other loss functions: <code><a href='contraction.html'>contraction</a></code>,
+  <code><a href='correntropy.html'>correntropy</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>inputs</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
-<span class='co'># Train a basic autoencoder and generate a 2-variable encoding</span>
-<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>autoencode</span>(<span class='no'>inputs</span>, <span class='fl'>2</span>)
-<span class='co'># }</span><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -155,10 +156,10 @@ same data matrix.</p>
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#references">References</a></li>
+
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
