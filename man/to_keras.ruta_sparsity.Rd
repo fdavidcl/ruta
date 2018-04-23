@@ -18,6 +18,9 @@ Function which can be used as activity regularizer in a Keras layer
 Translate sparsity regularization to Keras regularizer
 }
 \references{
-Andrew Ng, Sparse Autoencoder.
+\itemize{
+\item \href{http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2}{Sparse deep belief net model for visual area V2}
+\item Andrew Ng, Sparse Autoencoder.
 \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
+}
 }

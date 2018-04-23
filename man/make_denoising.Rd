@@ -19,3 +19,6 @@ An autoencoder object which contains the noisy filter
 Converts an autoencoder into a denoising one by adding a filter
 for the input data
 }
+\seealso{
+\code{\link{autoencoder_denoising}}
+}

@@ -15,3 +15,9 @@ A \code{"ruta_loss"} object
 \description{
 A wrapper for the correntropy loss function
 }
+\seealso{
+\code{\link{autoencoder_robust}}
+
+Other loss functions: \code{\link{contraction}},
+  \code{\link{variational_loss}}
+}

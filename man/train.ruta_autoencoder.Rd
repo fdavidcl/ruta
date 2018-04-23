@@ -29,3 +29,6 @@ Same autoencoder passed as parameter, with trained internal models
 This function compiles the neural network described by the learner object
 and trains it with the input data.
 }
+\seealso{
+\code{\link{autoencoder}}
+}

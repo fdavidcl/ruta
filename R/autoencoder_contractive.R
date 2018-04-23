@@ -1,6 +1,6 @@
 #' Create a contractive autoencoder
 #'
-#' @description A contractive autoencoder adds a penalty term to the loss
+#' A contractive autoencoder adds a penalty term to the loss
 #' function of a basic autoencoder which attempts to induce a contraction of
 #' data in the latent space.
 #'
@@ -9,6 +9,11 @@
 #' @param weight Weight assigned to the contractive loss
 #'
 #' @return A construct of class \code{"ruta_autoencoder"}
+#'
+#' @references
+#' - [A practical tutorial on autoencoders for nonlinear feature fusion](https://arxiv.org/abs/1801.01586)
+#'
+#' @family autoencoder variants
 #' @export
 autoencoder_contractive <- function(network, loss, weight) {
   autoencoder(network, loss) %>%
@@ -23,8 +28,10 @@ autoencoder_contractive <- function(network, loss, weight) {
 #' @param rec_err Original reconstruction error to be combined with the
 #' contractive loss
 #' @param weight Weight assigned to the contractive loss
-#'
 #' @return A loss object which can be converted into a Keras loss
+#'
+#' @seealso `\link{autoencoder_contractive}`
+#' @family loss functions
 #' @export
 contraction <- function(rec_err, weight) {
   structure(
@@ -45,6 +52,8 @@ contraction <- function(rec_err, weight) {
 #' @param weight Weight assigned to the contractive loss
 #'
 #' @return An autoencoder object which contains the contractive loss
+#'
+#' @seealso `\link{autoencoder_contractive}`
 #' @export
 make_contractive <- function(learner, weight) {
   if (!(ruta_loss_contraction %in% class(learner$loss))) {
@@ -65,6 +74,8 @@ make_contractive <- function(learner, weight) {
 #' @param ... Rest of parameters, ignored
 #' @references
 #' \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
+#'
+#' @seealso `\link{autoencoder_contractive}`
 #' @export
 to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
   rec_err <- x$reconstruction %>% as_loss() %>% to_keras()

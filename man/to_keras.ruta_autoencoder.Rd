@@ -16,7 +16,8 @@
 \item{input_shape}{Number of attributes in input data}
 }
 \value{
-A list with several Keras models: \itemize{
+A list with several Keras models:
+\itemize{
 \item \code{autoencoder}: model from the input layer to the output layer
 \item \code{encoder}: model from the input layer to the encoding layer
 \item \code{decoder}: model from the encoding layer to the output layer
@@ -24,4 +25,7 @@ A list with several Keras models: \itemize{
 }
 \description{
 Extract Keras models from an autoencoder wrapper
+}
+\seealso{
+\code{\link{autoencoder}}
 }

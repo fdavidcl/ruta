@@ -12,7 +12,20 @@ generate(learner, ...)
 }
 \arguments{
 \item{learner}{Trained learner object}
+
+\item{dimensions}{Indices of the dimensions over which the model will be sampled}
+
+\item{from}{Lower limit on the values which will be passed to the inverse CDF of the prior}
+
+\item{to}{Upper limit on the values which will be passed to the inverse CDF of the prior}
+
+\item{side}{Number of steps to take in each traversed dimension}
+
+\item{fixed_values}{Value used as parameter for the inverse CDF of all non-traversed dimensions}
 }
 \description{
 Generate samples from a generative model
+}
+\seealso{
+\code{\link{autoencoder_variational}}
 }

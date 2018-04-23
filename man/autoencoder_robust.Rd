@@ -17,5 +17,19 @@ A construct of class \code{"ruta_autoencoder"}
 \description{
 A robust autoencoder uses a special objective function,
 correntropy, a localized similarity measure which makes it less sensitive
-to noise in data.
+to noise in data. Correntropy specifically measures the probability density
+that two events are equal, and is less affected by outliers than the mean
+squared error.
+}
+\references{
+\itemize{
+\item \href{https://ieeexplore.ieee.org/abstract/document/6854900/}{Robust feature learning by stacked autoencoder with maximum correntropy criterion}
+}
+}
+\seealso{
+Other autoencoder variants: \code{\link{autoencoder_contractive}},
+  \code{\link{autoencoder_denoising}},
+  \code{\link{autoencoder_sparse}},
+  \code{\link{autoencoder_variational}},
+  \code{\link{autoencoder}}
 }

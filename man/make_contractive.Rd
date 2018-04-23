@@ -18,3 +18,6 @@ An autoencoder object which contains the contractive loss
 Converts an autoencoder into a contractive one by assigning a
 contractive loss to it
 }
+\seealso{
+\code{\link{autoencoder_contractive}}
+}

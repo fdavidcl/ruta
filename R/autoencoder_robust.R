@@ -1,13 +1,20 @@
 #' Create a robust autoencoder
 #'
-#' @description A robust autoencoder uses a special objective function,
+#' A robust autoencoder uses a special objective function,
 #' correntropy, a localized similarity measure which makes it less sensitive
-#' to noise in data.
+#' to noise in data. Correntropy specifically measures the probability density
+#' that two events are equal, and is less affected by outliers than the mean
+#' squared error.
 #'
 #' @param network Layer construct of class \code{"ruta_network"}
 #' @param sigma Sigma parameter in the kernel used for correntropy
 #'
 #' @return A construct of class \code{"ruta_autoencoder"}
+#'
+#' @references
+#' - [Robust feature learning by stacked autoencoder with maximum correntropy criterion](https://ieeexplore.ieee.org/abstract/document/6854900/)
+#'
+#' @family autoencoder variants
 #' @export
 autoencoder_robust <- function(network, sigma) {
   autoencoder(network, correntropy(sigma))
@@ -20,6 +27,8 @@ autoencoder_robust <- function(network, sigma) {
 #' @param sigma Sigma parameter in the kernel
 #'
 #' @return A \code{"ruta_loss"} object
+#' @seealso `\link{autoencoder_robust}`
+#' @family loss functions
 #' @export
 correntropy <- function(sigma) {
   structure(
@@ -38,6 +47,7 @@ correntropy <- function(sigma) {
 #' @param sigma Sigma parameter in the kernel used for correntropy
 #'
 #' @return An autoencoder object which contains the correntropy loss
+#' @seealso `\link{autoencoder_robust}`
 #' @export
 make_robust <- function(learner, sigma) {
   # message("This will replace the previous loss function")
@@ -50,6 +60,7 @@ make_robust <- function(learner, sigma) {
 #'
 #' @param x A \code{"ruta_loss_correntropy"} object
 #' @param ... Rest of parameters, ignored
+#' @seealso `\link{autoencoder_robust}`
 #' @export
 to_keras.ruta_loss_correntropy <- function(x, ...) {
   sigma <- x$sigma

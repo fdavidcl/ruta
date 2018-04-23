@@ -9,6 +9,11 @@
 #' altered by random noise
 #'
 #' @return A construct of class \code{"ruta_autoencoder"}
+#'
+#' @references
+#' - [Extracting and composing robust features with denoising autoencoders](https://dl.acm.org/citation.cfm?id=1390294)
+#'
+#' @family autoencoder variants
 #' @export
 autoencoder_denoising <- function(network, loss, ratio = 0.05) {
   autoencoder(network, loss) %>%
@@ -30,6 +35,7 @@ autoencoder_denoising <- function(network, loss, ratio = 0.05) {
 #' altered by random noise
 #'
 #' @return An autoencoder object which contains the noisy filter
+#' @seealso `\link{autoencoder_denoising}`
 #' @export
 make_denoising <- function(learner, ratio = 0.05) {
   learner$filter <- structure(
@@ -41,6 +47,7 @@ make_denoising <- function(learner, ratio = 0.05) {
 }
 
 #' @rdname filters
+#' @seealso `\link{autoencoder_denoising}`
 #' @export
 ## Random setting to 0 or 1,
 ## assumes data is normalized :(

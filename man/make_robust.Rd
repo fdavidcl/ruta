@@ -19,3 +19,6 @@ Converts an autoencoder into a robust one by assigning a
 correntropy loss to it. Notice that this will replace the previous loss
 function
 }
+\seealso{
+\code{\link{autoencoder_robust}}
+}

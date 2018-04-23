@@ -14,3 +14,6 @@
 \description{
 Builds the Keras loss function corresponding to the object received
 }
+\seealso{
+\code{\link{autoencoder_robust}}
+}

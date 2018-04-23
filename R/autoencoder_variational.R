@@ -5,11 +5,34 @@
 
 #' Build a variational autoencoder
 #'
-#' @param intermediate Intermediate size
-#' @param latent_dim Latent space dimension
+#' A variational autoencoder assumes that a latent, unobserved random variable produces
+#' the observed data and attempts to approximate its distribution. This function
+#' constructs a wrapper for a variational autoencoder using a Gaussian
+#' distribution as the prior of the latent space.
+#'
+#' @param network Network architecture as a `"ruta_network"` object (or coercible)
 #' @param loss Reconstruction error to be combined with KL divergence in order to compute
 #'   the variational loss
+#' @param auto_transform_network Boolean: convert the encoding layer into a variational block if none is found?
+#'
+#' @return A construct of class \code{"ruta_autoencoder"}
+#'
 #' @import purrr
+#' @examples
+#' network <-
+#'   input() +
+#'   dense(256, "elu") +
+#'   variational_block(3) +
+#'   dense(256, "elu") +
+#'   output("sigmoid")
+#'
+#' learner <- autoencoder_variational(network, loss = "binary_crossentropy")
+#' @references
+#' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#'
+#' @family autoencoder variants
 #' @export
 autoencoder_variational <- function(network, loss = "binary_crossentropy", auto_transform_network = TRUE) {
   network <- as_network(network)
@@ -37,11 +60,16 @@ autoencoder_variational <- function(network, loss = "binary_crossentropy", auto_
 #' @examples
 #' variational_block(3)
 #' @family neural layers
+#' @seealso `\link{autoencoder_variational}`
 #' @export
 variational_block <- function(units) {
   make_atomic_network(ruta_layer_variational, units, "linear")
 }
 
+#' @references
+#' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
 to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   epsilon_std <- 1.0
   latent_dim <- x$units
@@ -80,6 +108,12 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
 #' distribution and the true latent posterior.
 #' @param base_loss Another loss to be used as reconstruction error (e.g. "binary_crossentropy")
 #' @return A \code{"ruta_loss"} object
+#' @references
+#' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' @seealso `\link{autoencoder_variational}`
+#' @family loss functions
 #' @export
 variational_loss <- function(base_loss) {
   structure(
@@ -88,11 +122,27 @@ variational_loss <- function(base_loss) {
   )
 }
 
-to_keras.ruta_loss_variational <- function(loss, model) {
-  original_dim <- 1. * model$input_shape[[2]]
+#' Obtain a Keras variational loss
+#'
+#' Builds the Keras loss function corresponding to the object received
+#'
+#' @param x A \code{"ruta_loss_variational"} object
+#' @param keras_model The keras autoencoder which will use the loss function
+#' @return A function which returns the variational loss for given true and
+#' predicted values
+#' @param ... Rest of parameters, ignored
+#' @references
+#' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#'
+#' @seealso `\link{autoencoder_variational}`
+#' @export
+to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
+  original_dim <- 1. * keras_model$input_shape[[2]]
   base_loss <- loss$base_loss %>% as_loss() %>% to_keras()
-  z_mean <- keras::get_layer(model, name = "z_mean")
-  z_log_var <- keras::get_layer(model, name = "z_log_var")
+  z_mean <- keras::get_layer(keras_model, name = "z_mean")
+  z_log_var <- keras::get_layer(keras_model, name = "z_log_var")
 
   function(x, x_decoded_mean) {
     xent_loss <- original_dim * base_loss(x, x_decoded_mean)
@@ -103,6 +153,12 @@ to_keras.ruta_loss_variational <- function(loss, model) {
 
 #' @import purrr
 #' @rdname generate
+#' @param dimensions Indices of the dimensions over which the model will be sampled
+#' @param from Lower limit on the values which will be passed to the inverse CDF of the prior
+#' @param to Upper limit on the values which will be passed to the inverse CDF of the prior
+#' @param side Number of steps to take in each traversed dimension
+#' @param fixed_values Value used as parameter for the inverse CDF of all non-traversed dimensions
+#' @seealso `\link{autoencoder_variational}`
 #' @export
 generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
   d <- learner$models$decoder$input_shape[[2]]

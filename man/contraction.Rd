@@ -19,3 +19,9 @@ A loss object which can be converted into a Keras loss
 This is a wrapper for a loss which induces a contraction in the
 latent space.
 }
+\seealso{
+\code{\link{autoencoder_contractive}}
+
+Other loss functions: \code{\link{correntropy}},
+  \code{\link{variational_loss}}
+}

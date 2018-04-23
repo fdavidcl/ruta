@@ -21,3 +21,15 @@ A construct of class \code{"ruta_autoencoder"}
 A denoising autoencoder trains with noisy data in order to
 create a model able to reduce noise in reconstructions from input data
 }
+\references{
+\itemize{
+\item \href{https://dl.acm.org/citation.cfm?id=1390294}{Extracting and composing robust features with denoising autoencoders}
+}
+}
+\seealso{
+Other autoencoder variants: \code{\link{autoencoder_contractive}},
+  \code{\link{autoencoder_robust}},
+  \code{\link{autoencoder_sparse}},
+  \code{\link{autoencoder_variational}},
+  \code{\link{autoencoder}}
+}

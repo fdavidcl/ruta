@@ -8,13 +8,43 @@ autoencoder_variational(network, loss = "binary_crossentropy",
   auto_transform_network = TRUE)
 }
 \arguments{
+\item{network}{Network architecture as a \code{"ruta_network"} object (or coercible)}
+
 \item{loss}{Reconstruction error to be combined with KL divergence in order to compute
 the variational loss}
 
-\item{intermediate}{Intermediate size}
-
-\item{latent_dim}{Latent space dimension}
+\item{auto_transform_network}{Boolean: convert the encoding layer into a variational block if none is found?}
+}
+\value{
+A construct of class \code{"ruta_autoencoder"}
 }
 \description{
-Build a variational autoencoder
+A variational autoencoder assumes that a latent, unobserved random variable produces
+the observed data and attempts to approximate its distribution. This function
+constructs a wrapper for a variational autoencoder using a Gaussian
+distribution as the prior of the latent space.
+}
+\examples{
+network <-
+  input() +
+  dense(256, "elu") +
+  variational_block(3) +
+  dense(256, "elu") +
+  output("sigmoid")
+
+learner <- autoencoder_variational(network, loss = "binary_crossentropy")
+}
+\references{
+\itemize{
+\item \href{https://arxiv.org/abs/1312.6114}{Auto-Encoding Variational Bayes}
+\item \href{http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html}{Under the Hood of the Variational Autoencoder (in Prose and Code)}
+\item \href{https://keras.rstudio.com/articles/examples/variational_autoencoder.html}{Keras example: Variational autoencoder}
+}
+}
+\seealso{
+Other autoencoder variants: \code{\link{autoencoder_contractive}},
+  \code{\link{autoencoder_denoising}},
+  \code{\link{autoencoder_robust}},
+  \code{\link{autoencoder_sparse}},
+  \code{\link{autoencoder}}
 }

@@ -15,14 +15,17 @@ activations in that layer.}
 }
 \value{
 A Ruta regularizer object for the sparsity, to be inserted in the
-  encoding layer.
+encoding layer.
 }
 \description{
 Sparsity regularization
 }
 \references{
-Andrew Ng, Sparse Autoencoder.
-\href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
+\itemize{
+\item \href{http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2}{Sparse deep belief net model for visual area V2}
+\item Andrew Ng, Sparse Autoencoder.
+\href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes}
+}
 }
 \seealso{
 \code{\link{autoencoder_sparse}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}

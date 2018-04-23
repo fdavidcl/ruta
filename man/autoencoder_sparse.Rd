@@ -23,6 +23,19 @@ A construct of class \code{"ruta_autoencoder"}
 \description{
 Creates a representation of a sparse autoencoder.
 }
+\references{
+\itemize{
+\item \href{http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2}{Sparse deep belief net model for visual area V2}
+\item Andrew Ng, Sparse Autoencoder.
+\href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes}
+}
+}
 \seealso{
 \code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
+
+Other autoencoder variants: \code{\link{autoencoder_contractive}},
+  \code{\link{autoencoder_denoising}},
+  \code{\link{autoencoder_robust}},
+  \code{\link{autoencoder_variational}},
+  \code{\link{autoencoder}}
 }

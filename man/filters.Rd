@@ -24,3 +24,6 @@ Apply a filter to input data, generally a noise filter in
 order to train a denoising autoencoder. Users won't generally need to use
 these functions
 }
+\seealso{
+\code{\link{autoencoder_denoising}}
+}

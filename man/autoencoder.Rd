@@ -17,6 +17,36 @@ A construct of class \code{"ruta_autoencoder"}
 \description{
 Represents a generic autoencoder network.
 }
+\examples{
+
+# Basic autoencoder with a network of [input]-256-36-256-[input] and
+# no nonlinearities
+autoencoder(c(256, 36), loss = "binary_crossentropy")
+
+# Customizing the activation functions in the same network
+network <-
+  input() +
+  dense(256, "relu") +
+  dense(36, "tanh") +
+  dense(256, "relu") +
+  output("sigmoid")
+
+learner <-
+  network \%>\%
+  autoencoder(loss = "binary_crossentropy")
+
+}
+\references{
+\itemize{
+\item \href{https://arxiv.org/abs/1801.01586}{A practical tutorial on autoencoders for nonlinear feature fusion}
+}
+}
 \seealso{
 \code{\link{train.ruta_autoencoder}}
+
+Other autoencoder variants: \code{\link{autoencoder_contractive}},
+  \code{\link{autoencoder_denoising}},
+  \code{\link{autoencoder_robust}},
+  \code{\link{autoencoder_sparse}},
+  \code{\link{autoencoder_variational}}
 }

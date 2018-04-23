@@ -21,6 +21,8 @@ log variance of the learned distribution in a variational autoencoder.
 variational_block(3)
 }
 \seealso{
+\code{\link{autoencoder_variational}}
+
 Other neural layers: \code{\link{dense}},
   \code{\link{input}}, \code{\link{output}}
 }

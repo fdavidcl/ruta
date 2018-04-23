@@ -21,3 +21,15 @@ A contractive autoencoder adds a penalty term to the loss
 function of a basic autoencoder which attempts to induce a contraction of
 data in the latent space.
 }
+\references{
+\itemize{
+\item \href{https://arxiv.org/abs/1801.01586}{A practical tutorial on autoencoders for nonlinear feature fusion}
+}
+}
+\seealso{
+Other autoencoder variants: \code{\link{autoencoder_denoising}},
+  \code{\link{autoencoder_robust}},
+  \code{\link{autoencoder_sparse}},
+  \code{\link{autoencoder_variational}},
+  \code{\link{autoencoder}}
+}

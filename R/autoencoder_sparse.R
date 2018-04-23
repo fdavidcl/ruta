@@ -8,7 +8,13 @@
 #'   activations in that layer.
 #' @param weight The weight of the sparsity regularization
 #' @return A construct of class \code{"ruta_autoencoder"}
+#'
+#' @references
+#' - [Sparse deep belief net model for visual area V2](http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2)
+#' - Andrew Ng, Sparse Autoencoder.
+#' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes}
 #' @seealso \code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
+#' @family autoencoder variants
 #' @export
 autoencoder_sparse <- function(network, loss, high_probability = 0.1, weight = 0.2) {
   autoencoder(network, loss) %>%
@@ -23,8 +29,10 @@ autoencoder_sparse <- function(network, loss, high_probability = 0.1, weight = 0
 #' @param weight The weight of the sparsity regularization
 #' @return A Ruta regularizer object for the sparsity, to be inserted in the
 #'   encoding layer.
-#' @references Andrew Ng, Sparse Autoencoder.
-#' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
+#' @references
+#' - [Sparse deep belief net model for visual area V2](http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2)
+#' - Andrew Ng, Sparse Autoencoder.
+#' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes}
 #' @seealso \code{\link{autoencoder_sparse}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 #' @export
 sparsity <- function(high_probability, weight) {
@@ -66,7 +74,9 @@ is_sparse <- function(learner) {
 #' @param x Sparsity object
 #' @param activation Name of the activation function used in the encoding layer
 #' @return Function which can be used as activity regularizer in a Keras layer
-#' @references Andrew Ng, Sparse Autoencoder.
+#' @references
+#' - [Sparse deep belief net model for visual area V2](http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2)
+#' - Andrew Ng, Sparse Autoencoder.
 #' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
 #' @export
 to_keras.ruta_sparsity <- function(x, activation) {

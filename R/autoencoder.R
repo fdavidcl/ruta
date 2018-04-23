@@ -23,6 +23,29 @@ new_autoencoder <- function(network, loss, extra_class = NULL) {
 #' @param loss Character string specifying a loss function
 #' @return A construct of class \code{"ruta_autoencoder"}
 #' @seealso \code{\link{train.ruta_autoencoder}}
+#'
+#' @references
+#' - [A practical tutorial on autoencoders for nonlinear feature fusion](https://arxiv.org/abs/1801.01586)
+#'
+#' @family autoencoder variants
+#' @examples
+#'
+#' # Basic autoencoder with a network of [input]-256-36-256-[input] and
+#' # no nonlinearities
+#' autoencoder(c(256, 36), loss = "binary_crossentropy")
+#'
+#' # Customizing the activation functions in the same network
+#' network <-
+#'   input() +
+#'   dense(256, "relu") +
+#'   dense(36, "tanh") +
+#'   dense(256, "relu") +
+#'   output("sigmoid")
+#'
+#' learner <-
+#'   network %>%
+#'   autoencoder(loss = "binary_crossentropy")
+#'
 #' @export
 autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
@@ -36,12 +59,12 @@ is_trained <- function(learner) {
 #'
 #' @param learner Object of class \code{"ruta_autoencoder"}
 #' @param input_shape Number of attributes in input data
-#' @return A list with several Keras models: \itemize{
-#' \item \code{autoencoder}: model from the input layer to the output layer
-#' \item \code{encoder}: model from the input layer to the encoding layer
-#' \item \code{decoder}: model from the encoding layer to the output layer
-#' }
+#' @return A list with several Keras models:
+#' - `autoencoder`: model from the input layer to the output layer
+#' - `encoder`: model from the input layer to the encoding layer
+#' - `decoder`: model from the encoding layer to the output layer
 #' @import purrr
+#' @seealso `\link{autoencoder}`
 #' @export
 to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encoding", decoder_start = "encoding") {
   # end-to-end autoencoder
@@ -86,6 +109,7 @@ to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encod
 #' @param epochs The number of times data will pass through the network
 #' @param ... Additional parameters for \code{keras::fit}
 #' @return Same autoencoder passed as parameter, with trained internal models
+#' @seealso `\link{autoencoder}`
 #' @export
 train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
   learner$models <- to_keras(learner, input_shape = ncol(data))
@@ -123,9 +147,18 @@ train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs
 #' @param data Numeric matrix to be encoded
 #' @param encoding_dim Number of variables to be used in the encoding
 #' @return Matrix containing the encodings
+#'
+#' @examples
+#' \dontrun{
+#' inputs <- as.matrix(iris[, 1:4])
+#' # Train a basic autoencoder and generate a 2-variable encoding
+#' encoded <- autoencode(inputs, 2)
+#' }
+#'
+#' @seealso `\link{autoencoder}`
 #' @export
 autoencode <- function(data, encoding_dim) {
-  autoencoder(input() + dense(encoding_dim) + output()) %>%
+  autoencoder(input() + dense(encoding_dim, "tanh") + output()) %>%
     train(data) %>%
     encode(data)
 }
