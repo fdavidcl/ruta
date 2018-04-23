@@ -43,26 +43,29 @@ is_trained <- function(learner) {
 #' }
 #' @import purrr
 #' @export
-to_keras.ruta_autoencoder <- function(learner, input_shape) {
-  len <- length(learner$network)
+to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encoding", decoder_start = "encoding") {
+  # end-to-end autoencoder
   model <- to_keras(learner$network, input_shape)
 
-  input_layer <- keras::get_layer(model, index = 0)
-  encoding_layer <- keras::get_layer(model, index = learner$network %@% "encoding" - 1)
-  #output_layer <- model %>% keras::get_layer(index = len - 1)
+  # encoder, from inputs to latent space
+  encoding_layer <- keras::get_layer(model, encoder_end)
+  encoder <- keras::keras_model(model$input, encoding_layer$output)
 
-  #model <- keras::keras_model(input_layer, output_layer)
-  encoder <- keras::keras_model(input_layer$output, encoding_layer$output)
+  # decoder, from latent space to reconstructed inputs
+  encoding_dim <- keras::get_layer(model, decoder_start)$output_shape[[2]]
+  decoder_input <- keras::layer_input(shape = encoding_dim)
 
-  encoding_dim <- learner$network[[learner$network %@% "encoding"]]$units
-  encoded_input <- keras::layer_input(shape = encoding_dim)
-  decoder_stack <- encoded_input
+  # re-build the decoder taking layers from the model
+  start <- detect_index(model$layers, ~ .$name == decoder_start)
+  end <- length(model$layers) - 1
 
-  for (lay_i in (learner$network %@% "encoding"):(len - 1)) {
+  decoder_stack <- decoder_input
+  for (lay_i in start:end) {
+    # zero-based index
     decoder_stack <- keras::get_layer(model, index = lay_i)(decoder_stack)
   }
 
-  decoder <- keras::keras_model(encoded_input, decoder_stack)
+  decoder <- keras::keras_model(decoder_input, decoder_stack)
 
   list(
     autoencoder = model,

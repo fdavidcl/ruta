@@ -68,7 +68,7 @@ make_contractive <- function(learner, weight) {
 #' @export
 to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
   rec_err <- x$reconstruction %>% as_loss() %>% to_keras()
-  encoding_layer <- keras::get_layer(keras_model, name = "encoded")
+  encoding_layer <- keras::get_layer(keras_model, name = "encoding")
 
   # derivative of the activation function -- only tanh for now
   act_der <- function(h) 1 - h * h

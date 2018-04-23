@@ -70,32 +70,7 @@ to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras
 #' @import purrr
 #' @export
 to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
-  # end-to-end autoencoder
-  vae <- to_keras(learner$network, input_shape)
-
-  # encoder, from inputs to latent space
-  encoder <- keras::keras_model(vae$input, keras::get_layer(vae, "z_mean")$output)
-
-  # generator, from latent space to reconstructed inputs
-  decoder_input <- keras::layer_input(shape = keras::get_layer(vae, "sampling")$output_shape[[2]])
-
-  # re-build the decoder taking layers from the model
-  start <- detect_index(vae$layers, ~ .$name == "sampling")
-  end <- length(vae$layers) - 1
-
-  gen_layer <- decoder_input
-  for (l in start:end) {
-    # zero-based index
-    gen_layer <- keras::get_layer(vae, index = l)(gen_layer)
-  }
-
-  generator <- keras::keras_model(decoder_input, gen_layer)
-
-  list(
-    autoencoder = vae,
-    encoder = encoder,
-    decoder = generator
-  )
+  to_keras.ruta_autoencoder(learner, input_shape, encoder_end = "z_mean", decoder_start = "sampling")
 }
 
 variational_loss <- function(base_loss) {
