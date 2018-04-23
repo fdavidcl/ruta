@@ -114,12 +114,17 @@
     <p>Build a variational autoencoder</p>
     
 
-    <pre class="usage"><span class='fu'>autoencoder_variational</span>(<span class='no'>intermediate</span>, <span class='no'>latent_dim</span>,
-  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</pre>
+    <pre class="usage"><span class='fu'>autoencoder_variational</span>(<span class='no'>network</span>, <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>,
+  <span class='kw'>auto_transform_network</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>loss</th>
+      <td><p>Reconstruction error to be combined with KL divergence in order to compute
+the variational loss</p></td>
+    </tr>
     <tr>
       <th>intermediate</th>
       <td><p>Intermediate size</p></td>
@@ -127,11 +132,6 @@
     <tr>
       <th>latent_dim</th>
       <td><p>Latent space dimension</p></td>
-    </tr>
-    <tr>
-      <th>loss</th>
-      <td><p>Reconstruction error to be combined with KL divergence in order to compute
-the variational loss</p></td>
     </tr>
     </table>
     

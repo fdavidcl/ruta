@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Train a learner object with data — train • ruta</title>
+<title>Train a learner object with data — train.ruta_autoencoder • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Train a learner object with data — train" />
+<meta property="og:title" content="Train a learner object with data — train.ruta_autoencoder" />
 
 <meta property="og:description" content="This function compiles the neural network described by the learner object
 and trains it with the input data." />
@@ -107,7 +107,7 @@ and trains it with the input data." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Train a learner object with data</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/generics.R'><code>R/generics.R</code></a></small>
     <div class="hidden name"><code>train.ruta_autoencoder.Rd</code></div>
     </div>
 
@@ -116,11 +116,11 @@ and trains it with the input data." />
 and trains it with the input data.</p>
     
 
-    <pre class="usage"><span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for ruta_autoencoder</span>
+    <pre class="usage"><span class='co'># S3 method for ruta_autoencoder</span>
 <span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>data</span>, <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)
+
+<span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,10 +128,6 @@ and trains it with the input data.</p>
     <tr>
       <th>learner</th>
       <td><p>A <code>"ruta_autoencoder"</code> object</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional parameters for <code><a href='http://www.rdocumentation.org/packages/keras/topics/fit'>keras::fit</a></code></p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -145,6 +141,10 @@ for training but the loss measure will be calculated against it</p></td>
     <tr>
       <th>epochs</th>
       <td><p>The number of times data will pass through the network</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters for <code><a href='http://www.rdocumentation.org/packages/keras/topics/fit'>keras::fit</a></code></p></td>
     </tr>
     </table>
     

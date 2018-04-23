@@ -88,6 +88,9 @@
     <loc>http://ruta.software/reference/print.ruta_network.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/reconstruct.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/sparsity.html</loc>
   </url>
   <url>
@@ -113,6 +116,9 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/train.ruta_autoencoder.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/variational_block.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/weight_decay.html</loc>

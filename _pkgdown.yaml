@@ -36,6 +36,7 @@ reference:
     contents:
       - input
       - dense
+      - variational_block
       - output
       - "c.ruta_network"
       - "[.ruta_network"
@@ -87,3 +88,4 @@ reference:
     contents:
       - encode
       - decode
+      - reconstruct
