@@ -53,6 +53,14 @@ autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
 }
 
+#' Detect trained models
+#'
+#' Inspects a learner and figures out whether it has been trained
+#'
+#' @param learner Learner object
+#' @return A boolean
+#' @seealso `\link{train}`
+#' @export
 is_trained <- function(learner) {
   !is_null(learner$models)
 }
