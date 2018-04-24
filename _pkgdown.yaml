@@ -81,12 +81,13 @@ reference:
       - autoencode
       - starts_with("apply_filter")
       - train.ruta_autoencoder
-  - title: "Keras conversions"
+      - is_trained
+  - title: "Model evaluation"
     desc: >
-      These are internal functions which convert Ruta wrapper objects into
-      Keras objects and functions.
+      Evaluation metrics for trained models.
     contents:
-      - starts_with("to_keras")
+      - starts_with("evaluate")
+      - evaluation_metric
   - title: "Tasks for trained models"
     desc: >
       The following functions can be applied when an autoencoder has been
@@ -97,3 +98,9 @@ reference:
       - decode
       - reconstruct
       - starts_with("generate")
+  - title: "Keras conversions"
+    desc: >
+      These are internal functions which convert Ruta wrapper objects into
+      Keras objects and functions.
+    contents:
+      - starts_with("to_keras")

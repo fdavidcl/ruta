@@ -46,6 +46,12 @@
     <loc>http://ruta.software/reference/encoding_index.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/evaluate.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/evaluation_metric.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/filters.html</loc>
   </url>
   <url>
@@ -56,6 +62,9 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/is_sparse.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_trained.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/join-networks.html</loc>

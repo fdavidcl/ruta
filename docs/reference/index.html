@@ -341,6 +341,64 @@
           <p><code><a href="train.ruta_autoencoder.html">train()</a></code> </p>
         </td>
         <td><p>Train a learner object with data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is_trained.html">is_trained()</a></code> </p>
+        </td>
+        <td><p>Detect trained models</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-model-evaluation" class="hasAnchor"><a href="#section-model-evaluation" class="anchor"></a>Model evaluation</h2>
+          <p class="section-desc"><p>Evaluation metrics for trained models.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="evaluate.html">evaluate_mean_squared_error()</a></code> <code><a href="evaluate.html">evaluate_mean_absolute_error()</a></code> <code><a href="evaluate.html">evaluate_binary_crossentropy()</a></code> <code><a href="evaluate.html">evaluate_binary_accuracy()</a></code> <code><a href="evaluate.html">evaluate_kullback_leibler_divergence()</a></code> </p>
+        </td>
+        <td><p>Evaluation metrics</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="evaluation_metric.html">evaluation_metric()</a></code> </p>
+        </td>
+        <td><p>Custom evaluation metrics</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-tasks-for-trained-models" class="hasAnchor"><a href="#section-tasks-for-trained-models" class="anchor"></a>Tasks for trained models</h2>
+          <p class="section-desc"><p>The following functions can be applied when an autoencoder has been trained, in order to transform data from the input space onto the latent space and viceversa.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="encode.html">encode()</a></code> </p>
+        </td>
+        <td><p>Retrieve encoding of data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="decode.html">decode()</a></code> </p>
+        </td>
+        <td><p>Retrieve decoding of encoded data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="reconstruct.html">reconstruct()</a></code> <code><a href="reconstruct.html">predict(<i>&lt;ruta_autoencoder&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Retrieve reconstructions for input data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="generate.html">generate()</a></code> </p>
+        </td>
+        <td><p>Generate samples from a generative model</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -392,38 +450,6 @@
         </td>
         <td><p>Obtain a Keras weight decay</p></td>
       </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tasks-for-trained-models" class="hasAnchor"><a href="#section-tasks-for-trained-models" class="anchor"></a>Tasks for trained models</h2>
-          <p class="section-desc"><p>The following functions can be applied when an autoencoder has been trained, in order to transform data from the input space onto the latent space and viceversa.</p></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="encode.html">encode()</a></code> </p>
-        </td>
-        <td><p>Retrieve encoding of data</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="decode.html">decode()</a></code> </p>
-        </td>
-        <td><p>Retrieve decoding of encoded data</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="reconstruct.html">reconstruct()</a></code> <code><a href="reconstruct.html">predict(<i>&lt;ruta_autoencoder&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Retrieve reconstructions for input data</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="generate.html">generate()</a></code> </p>
-        </td>
-        <td><p>Generate samples from a generative model</p></td>
-      </tr>
     </tbody>
     </table>
   </div>
@@ -435,8 +461,9 @@
       <li><a href="#section-autoencoder-and-variants">Autoencoder and variants</a></li>
       <li><a href="#section-loss-functions">Loss functions</a></li>
       <li><a href="#section-model-training">Model training</a></li>
-      <li><a href="#section-keras-conversions">Keras conversions</a></li>
+      <li><a href="#section-model-evaluation">Model evaluation</a></li>
       <li><a href="#section-tasks-for-trained-models">Tasks for trained models</a></li>
+      <li><a href="#section-keras-conversions">Keras conversions</a></li>
     </ul>
   </div>
 </div>

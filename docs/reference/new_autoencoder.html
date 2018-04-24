@@ -123,11 +123,16 @@ autoencoder." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>network</th>
-      <td><p>Layer construct of class <code>"ruta_network"</code></p></td>
+      <td><p>Layer construct of class <code>"ruta_network"</code> or coercible</p></td>
     </tr>
     <tr>
       <th>loss</th>
-      <td><p>Character string specifying a loss function</p></td>
+      <td><p>A <code>"ruta_loss"</code> object or a character string specifying a loss function</p></td>
+    </tr>
+    <tr>
+      <th>extra_class</th>
+      <td><p>Vector of classes in case this autoencoder needs to support custom
+methods (for <code>to_keras</code>, <code>train</code>, <code>generate</code> or others)</p></td>
     </tr>
     </table>
     

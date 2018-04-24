@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve reconstructions for input data — reconstruct • ruta</title>
+<title>Evaluation metrics — evaluate_mean_squared_error • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Retrieve reconstructions for input data — reconstruct" />
+<meta property="og:title" content="Evaluation metrics — evaluate_mean_squared_error" />
 
-<meta property="og:description" content="Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding. predict is an alias for reconstruct." />
+<meta property="og:description" content="Performance evaluation metrics for autoencoders" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,47 +105,59 @@ input data after encoding and decoding. predict is an alias for reconstruct." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve reconstructions for input data</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
-    <div class="hidden name"><code>reconstruct.Rd</code></div>
+    <h1>Evaluation metrics</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/evaluate.R'><code>R/evaluate.R</code></a></small>
+    <div class="hidden name"><code>evaluate.Rd</code></div>
     </div>
 
     
-    <p>Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding. <code>predict</code> is an alias for <code>reconstruct</code>.</p>
+    <p>Performance evaluation metrics for autoencoders</p>
     
 
-    <pre class="usage"><span class='fu'>reconstruct</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
+    <pre class="usage"><span class='fu'>evaluate_mean_squared_error</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
 
-<span class='co'># S3 method for ruta_autoencoder</span>
-<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>evaluate_mean_absolute_error</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
+
+<span class='fu'>evaluate_binary_crossentropy</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
+
+<span class='fu'>evaluate_binary_accuracy</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
+
+<span class='fu'>evaluate_kullback_leibler_divergence</span>(<span class='no'>learner</span>, <span class='no'>data</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>learner</th>
-      <td><p>Trained autoencoder model</p></td>
+      <td><p>A trained learner object</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>data.frame to be passed through the network</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>Trained autoencoder model</p></td>
+      <td><p>Test data for evaluation</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Matrix containing the reconstructions</p>
+    <p>A named list with the autoencoder training loss and evaluation metric for the
+given data</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='encode.html'>encode</a></code>, <code><a href='decode.html'>decode</a></code></p></div>
+    <div class='dont-index'><p><code><a href='evaluation_metric.html'>evaluation_metric</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>sample</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>]))
+<span class='no'>x_train</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>100</span>, ]
+<span class='no'>x_test</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>[<span class='fl'>101</span>:<span class='fl'>150</span>, ]
+
+<span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='train.ruta_autoencoder.html'>train</a></span>(<span class='no'>x_train</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>evaluate_mean_squared_error</span>(<span class='no'>x_test</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -156,7 +167,9 @@ input data after encoding and decoding. <code>predict</code> is an alias for <co
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve reconstructions for input data — reconstruct • ruta</title>
+<title>Detect trained models — is_trained • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Retrieve reconstructions for input data — reconstruct" />
+<meta property="og:title" content="Detect trained models — is_trained" />
 
-<meta property="og:description" content="Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding. predict is an alias for reconstruct." />
+<meta property="og:description" content="Inspects a learner and figures out whether it has been trained" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,45 +105,33 @@ input data after encoding and decoding. predict is an alias for reconstruct." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve reconstructions for input data</h1>
+    <h1>Detect trained models</h1>
     <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
-    <div class="hidden name"><code>reconstruct.Rd</code></div>
+    <div class="hidden name"><code>is_trained.Rd</code></div>
     </div>
 
     
-    <p>Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding. <code>predict</code> is an alias for <code>reconstruct</code>.</p>
+    <p>Inspects a learner and figures out whether it has been trained</p>
     
 
-    <pre class="usage"><span class='fu'>reconstruct</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
-
-<span class='co'># S3 method for ruta_autoencoder</span>
-<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>is_trained</span>(<span class='no'>learner</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>learner</th>
-      <td><p>Trained autoencoder model</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>data.frame to be passed through the network</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>Trained autoencoder model</p></td>
+      <td><p>Learner object</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Matrix containing the reconstructions</p>
+    <p>A boolean</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='encode.html'>encode</a></code>, <code><a href='decode.html'>decode</a></code></p></div>
+    <div class='dont-index'><p><code><a href='train.ruta_autoencoder.html'>train</a></code></p></div>
     
 
   </div>

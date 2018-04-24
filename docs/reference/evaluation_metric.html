@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve reconstructions for input data — reconstruct • ruta</title>
+<title>Custom evaluation metrics — evaluation_metric • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Retrieve reconstructions for input data — reconstruct" />
+<meta property="og:title" content="Custom evaluation metrics — evaluation_metric" />
 
-<meta property="og:description" content="Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding. predict is an alias for reconstruct." />
+<meta property="og:description" content="Create a different evaluation metric from a valid Keras metric" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,45 +105,37 @@ input data after encoding and decoding. predict is an alias for reconstruct." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve reconstructions for input data</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
-    <div class="hidden name"><code>reconstruct.Rd</code></div>
+    <h1>Custom evaluation metrics</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/evaluate.R'><code>R/evaluate.R</code></a></small>
+    <div class="hidden name"><code>evaluation_metric.Rd</code></div>
     </div>
 
     
-    <p>Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding. <code>predict</code> is an alias for <code>reconstruct</code>.</p>
+    <p>Create a different evaluation metric from a valid Keras metric</p>
     
 
-    <pre class="usage"><span class='fu'>reconstruct</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
-
-<span class='co'># S3 method for ruta_autoencoder</span>
-<span class='fu'>predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>evaluation_metric</span>(<span class='no'>evaluate_f</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>learner</th>
-      <td><p>Trained autoencoder model</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>data.frame to be passed through the network</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>Trained autoencoder model</p></td>
+      <th>evaluate_f</th>
+      <td><p>Must be either a metric function defined by Keras (e.g.
+<code><a href='http://www.rdocumentation.org/packages/keras/topics/metric_binary_accuracy'>keras::metric_binary_crossentropy</a></code>) or a valid function for Keras to
+create a performance metric (see <code><a href='http://www.rdocumentation.org/packages/keras/topics/metric_binary_accuracy'>metric_binary_accuracy</a></code>
+for details)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Matrix containing the reconstructions</p>
+    <p>A function which can be called with parameters <code>learner</code> and <code>data</code>
+just like the ones defined in <code>evaluate</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='encode.html'>encode</a></code>, <code><a href='decode.html'>decode</a></code></p></div>
+    <div class='dont-index'><p><code>evaluate</code></p></div>
     
 
   </div>

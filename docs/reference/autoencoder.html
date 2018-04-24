@@ -121,11 +121,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>network</th>
-      <td><p>Layer construct of class <code>"ruta_network"</code></p></td>
+      <td><p>Layer construct of class <code>"ruta_network"</code> or coercible</p></td>
     </tr>
     <tr>
       <th>loss</th>
-      <td><p>Character string specifying a loss function</p></td>
+      <td><p>A <code>"ruta_loss"</code> object or a character string specifying a loss function</p></td>
     </tr>
     </table>
     
@@ -162,7 +162,11 @@
 #&gt;   dense - linear 
 #&gt; 
 #&gt; $loss
+#&gt; $name
 #&gt; [1] "binary_crossentropy"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ruta_loss_named" "ruta_loss"      
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "ruta_autoencoder" "ruta_learner"    </div><div class='input'>

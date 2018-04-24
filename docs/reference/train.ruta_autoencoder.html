@@ -118,7 +118,8 @@ and trains it with the input data.</p>
 
     <pre class="usage"><span class='co'># S3 method for ruta_autoencoder</span>
 <span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>data</span>, <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='kw pkg'>keras</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/optimizer_rmsprop'>optimizer_rmsprop</a></span>(),
+  <span class='no'>...</span>)
 
 <span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
     
@@ -135,16 +136,29 @@ and trains it with the input data.</p>
     </tr>
     <tr>
       <th>validation_data</th>
-      <td><p>Additional data.frame of data which will not be used
-for training but the loss measure will be calculated against it</p></td>
+      <td><p>Additional numeric data matrix which will not be used
+for training but the loss measure and any metrics will be computed against it</p></td>
+    </tr>
+    <tr>
+      <th>metrics</th>
+      <td><p>Optional list of metrics which will evaluate the model but
+won't be optimized. See <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/compile'>compile</a></code></p></td>
     </tr>
     <tr>
       <th>epochs</th>
       <td><p>The number of times data will pass through the network</p></td>
     </tr>
     <tr>
+      <th>optimizer</th>
+      <td><p>The optimizer to be used in order to train the model, can
+be any optimizer object defined by Keras (e.g. <code><a href='http://www.rdocumentation.org/packages/keras/topics/optimizer_adam'>keras::optimizer_adam()</a></code>)</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Additional parameters for <code><a href='http://www.rdocumentation.org/packages/keras/topics/fit'>keras::fit</a></code></p></td>
+      <td><p>Additional parameters for <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/fit'>fit</a></code>. Some useful parameters:</p><ul>
+<li><p><code>batch_size</code> The number of examples to be grouped for each gradient update</p></li>
+<li><p><code>shuffle</code> Whether to shuffle the training data before each epoch, defaults to <code>TRUE</code></p></li>
+</ul></td>
     </tr>
     </table>
     
@@ -157,6 +171,37 @@ for training but the loss measure will be calculated against it</p></td>
     <div class='dont-index'><p><code><a href='autoencoder.html'>autoencoder</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># Minimal example ================================================</span>
+<span class='no'>iris_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>train</span>(<span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>]))
+
+<span class='co'># Simple example with MNIST ======================================</span>
+<span class='fu'>library</span>(<span class='no'>keras</span>)
+
+<span class='co'># Load and normalize MNIST</span>
+<span class='no'>mnist</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/dataset_mnist'>dataset_mnist</a></span>()
+<span class='no'>x_train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/reexports'>array_reshape</a></span>(
+  <span class='no'>mnist</span>$<span class='no'>train</span>$<span class='no'>x</span>, <span class='fu'>c</span>(<span class='fu'>dim</span>(<span class='no'>mnist</span>$<span class='no'>train</span>$<span class='no'>x</span>)[<span class='fl'>1</span>], <span class='fl'>784</span>)
+)
+<span class='no'>x_train</span> <span class='kw'>&lt;-</span> <span class='no'>x_train</span> / <span class='fl'>255.0</span>
+<span class='no'>x_test</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/reexports'>array_reshape</a></span>(
+  <span class='no'>mnist</span>$<span class='no'>test</span>$<span class='no'>x</span>, <span class='fu'>c</span>(<span class='fu'>dim</span>(<span class='no'>mnist</span>$<span class='no'>test</span>$<span class='no'>x</span>)[<span class='fl'>1</span>], <span class='fl'>784</span>)
+)
+<span class='no'>x_test</span> <span class='kw'>&lt;-</span> <span class='no'>x_test</span> / <span class='fl'>255.0</span>
+
+<span class='co'># Autoencoder with layers: 784-256-36-256-784</span>
+<span class='no'>learner</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fu'>c</span>(<span class='fl'>256</span>, <span class='fl'>36</span>), <span class='st'>"binary_crossentropy"</span>)
+<span class='fu'>train</span>(
+  <span class='no'>learner</span>,
+  <span class='no'>x_train</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='st'>"rmsprop"</span>,
+  <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>64</span>,
+  <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='no'>x_test</span>,
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>"binary_accuracy"</span>)
+)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -166,7 +211,9 @@ for training but the loss measure will be calculated against it</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
