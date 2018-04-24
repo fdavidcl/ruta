@@ -216,8 +216,8 @@ train.ruta_autoencoder <- function(
 #'
 #' @seealso `\link{autoencoder}`
 #' @export
-autoencode <- function(data, encoding_dim) {
-  autoencoder(input() + dense(encoding_dim, "tanh") + output()) %>%
+autoencode <- function(data, encoding_dim, activation = "linear") {
+  autoencoder(input() + dense(encoding_dim, activation = activation) + output()) %>%
     train(data) %>%
     encode(data)
 }
