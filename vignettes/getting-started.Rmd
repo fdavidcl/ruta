@@ -23,7 +23,7 @@ devtools::install_github("fdavidcl/ruta")
 
 Most autoencoders are designed with feature extraction in mind. This is why Ruta provides an easy way to train an easy autoencoder on some data and extract the learned features:
 
-```{r basic_ae, cache=TRUE}
+```{r basic_ae}
 library(ruta)
 
 iris_x <- as.matrix(iris[, 1:4])
