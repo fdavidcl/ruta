@@ -106,7 +106,7 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
 #' Specifies an evaluation function adapted to the variational autoencoder. It combines
 #' a base reconstruction error and the Kullback-Leibler divergence between the learned
 #' distribution and the true latent posterior.
-#' @param base_loss Another loss to be used as reconstruction error (e.g. "binary_crossentropy")
+#' @param reconstruction_loss Another loss to be used as reconstruction error (e.g. "binary_crossentropy")
 #' @return A \code{"ruta_loss"} object
 #' @references
 #' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
@@ -115,9 +115,9 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
 #' @seealso `\link{autoencoder_variational}`
 #' @family loss functions
 #' @export
-variational_loss <- function(base_loss) {
+variational_loss <- function(reconstruction_loss) {
   structure(
-    list(base_loss = base_loss),
+    list(reconstruction_loss = reconstruction_loss),
     class = c(ruta_loss_variational, ruta_loss)
   )
 }

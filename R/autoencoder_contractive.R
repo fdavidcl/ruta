@@ -25,18 +25,18 @@ autoencoder_contractive <- function(network, loss, weight) {
 #' @description This is a wrapper for a loss which induces a contraction in the
 #' latent space.
 #'
-#' @param rec_err Original reconstruction error to be combined with the
-#' contractive loss
+#' @param reconstruction_loss Original reconstruction error to be combined with the
+#' contractive loss (e.g. `"binary_crossentropy"`)
 #' @param weight Weight assigned to the contractive loss
 #' @return A loss object which can be converted into a Keras loss
 #'
 #' @seealso `\link{autoencoder_contractive}`
 #' @family loss functions
 #' @export
-contraction <- function(rec_err, weight) {
+contraction <- function(reconstruction_loss, weight) {
   structure(
     list(
-      reconstruction = rec_err,
+      reconstruction_loss = reconstruction_loss,
       weight = weight
     ),
     class = c(ruta_loss_contraction, ruta_loss)
