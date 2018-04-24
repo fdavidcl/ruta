@@ -4,11 +4,11 @@
 \alias{contraction}
 \title{Contractive loss}
 \usage{
-contraction(rec_err, weight)
+contraction(reconstruction_loss, weight)
 }
 \arguments{
-\item{rec_err}{Original reconstruction error to be combined with the
-contractive loss}
+\item{reconstruction_loss}{Original reconstruction error to be combined with the
+contractive loss (e.g. \code{"binary_crossentropy"})}
 
 \item{weight}{Weight assigned to the contractive loss}
 }
@@ -23,5 +23,5 @@ latent space.
 \code{\link{autoencoder_contractive}}
 
 Other loss functions: \code{\link{correntropy}},
-  \code{\link{variational_loss}}
+  \code{\link{loss_variational}}
 }

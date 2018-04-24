@@ -17,10 +17,10 @@ as_network <- function(x) UseMethod("as_network")
 #' Convert a Ruta object onto Keras objects and functions
 #'
 #' Generic function which uses the Keras API to build objects
-#' out of Ruts wrappers
+#' out of Ruta wrappers
 #'
 #' @param x Object to be converted
-#' @param ...
+#' @param ... Remaining parameters depending on the method
 to_keras <- function(x, ...) UseMethod("to_keras")
 
 #' Generate samples from a generative model

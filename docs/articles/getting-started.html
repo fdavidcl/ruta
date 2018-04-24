@@ -111,6 +111,7 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auto
 
 <span class="co"># You can show the learned features in a scatter plot</span>
 <span class="kw">plot</span>(result, <span class="dt">col =</span> iris_y)</code></pre></div>
+<p><img src="getting-started_files/figure-html/basic_ae-1.png" width="700"></p>
 </div>
 <div id="going-deeper" class="section level2">
 <h2 class="hasAnchor">
@@ -121,7 +122,12 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/auto
 
 <span class="co"># Specifies one hidden layer with 36 units and tanh activation function</span>
 network &lt;-<span class="st"> </span><span class="kw"><a href="../reference/input.html">input</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/dense.html">dense</a></span>(<span class="dv">36</span>, <span class="st">"tanh"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)
-learner &lt;-
+<span class="kw">print</span>(network)</code></pre></div>
+<pre><code>## Ruta network. Structure:
+##   input - linear 
+##   dense(36 units) - tanh 
+##   dense - sigmoid</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">learner &lt;-
 <span class="st">  </span>network <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># The robust autoencoder uses a custom objective function, correntropy</span>
 <span class="st">  </span><span class="kw"><a href="../reference/autoencoder_robust.html">autoencoder_robust</a></span>(<span class="dt">sigma =</span> <span class="fl">0.2</span>) <span class="op">%&gt;%</span>
@@ -141,8 +147,7 @@ x_test &lt;-<span class="st"> </span>x_test <span class="op">/</span><span class
 
 model &lt;-<span class="st"> </span>learner <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">40</span>)</code></pre></div>
 <p>We can play with this model, which includes the encoder as well as the decoder. Let’s compute reconstructions for test data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encoded &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/encode.html">encode</a></span>(x_test)
-decoded &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/decode.html">decode</a></span>(encoded)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reconstructions &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/reconstruct.html">reconstruct</a></span>(x_test)</code></pre></div>
 </div>
   </div>
 

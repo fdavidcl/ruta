@@ -70,6 +70,9 @@
     <loc>http://ruta.software/reference/join-networks.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/loss_variational.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/make_contractive.html</loc>
   </url>
   <url>
@@ -109,6 +112,9 @@
     <loc>http://ruta.software/reference/sub-.ruta_network.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/to_keras.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/to_keras.ruta_autoencoder.html</loc>
   </url>
   <url>
@@ -134,9 +140,6 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/variational_block.html</loc>
-  </url>
-  <url>
-    <loc>http://ruta.software/reference/variational_loss.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/weight_decay.html</loc>

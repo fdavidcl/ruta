@@ -23,7 +23,7 @@ devtools::install_github("fdavidcl/ruta")
 
 Most autoencoders are designed with feature extraction in mind. This is why Ruta provides an easy way to train an easy autoencoder on some data and extract the learned features:
 
-~~~r
+```{r basic_ae, cache=TRUE}
 library(ruta)
 
 iris_x <- as.matrix(iris[, 1:4])
@@ -32,29 +32,31 @@ result <- autoencode(iris_x, 2)
 
 # You can show the learned features in a scatter plot
 plot(result, col = iris_y)
-~~~
+```
 
 ## Going deeper
 
 We can customize the neural structure of our autoencoder, as well as other parameters that affect its learning behavior.
 
-~~~r
+```{r deeper, cache=TRUE}
 library(keras)
 library(magrittr)
 
 # Specifies one hidden layer with 36 units and tanh activation function
 network <- input() + dense(36, "tanh") + output("sigmoid")
+print(network)
+
 learner <-
   network %>%
   # The robust autoencoder uses a custom objective function, correntropy
   autoencoder_robust(sigma = 0.2) %>%
   # Adds weight decay onto the encoding layer
   add_weight_decay()
-~~~
+```
 
 Now we load the famous MNIST dataset and train the learner with it:
 
-~~~r
+```r
 # Load, flatten and normalize
 mnist <- dataset_mnist()
 x_train <- array_reshape(
@@ -67,11 +69,10 @@ x_test <- array_reshape(
 x_test <- x_test / 255.0
 
 model <- learner %>% train(x_train, epochs = 40)
-~~~
+```
 
 We can play with this model, which includes the encoder as well as the decoder. Let's compute reconstructions for test data:
 
-~~~r
-encoded <- model %>% encode(x_test)
-decoded <- model %>% decode(encoded)
-~~~
+```r
+reconstructions <- model %>% reconstruct(x_test)
+```

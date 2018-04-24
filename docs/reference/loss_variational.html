@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contractive loss — contraction • ruta</title>
+<title>Variational loss — loss_variational • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,11 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Contractive loss — contraction" />
+<meta property="og:title" content="Variational loss — loss_variational" />
 
-<meta property="og:description" content="This is a wrapper for a loss which induces a contraction in the
-latent space." />
+<meta property="og:description" content="Specifies an evaluation function adapted to the variational autoencoder. It combines
+a base reconstruction error and the Kullback-Leibler divergence between the learned
+distribution and the true latent posterior." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,41 +107,45 @@ latent space." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Contractive loss</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_contractive.R'><code>R/autoencoder_contractive.R</code></a></small>
-    <div class="hidden name"><code>contraction.Rd</code></div>
+    <h1>Variational loss</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a></small>
+    <div class="hidden name"><code>loss_variational.Rd</code></div>
     </div>
 
     
-    <p>This is a wrapper for a loss which induces a contraction in the
-latent space.</p>
+    <p>Specifies an evaluation function adapted to the variational autoencoder. It combines
+a base reconstruction error and the Kullback-Leibler divergence between the learned
+distribution and the true latent posterior.</p>
     
 
-    <pre class="usage"><span class='fu'>contraction</span>(<span class='no'>reconstruction_loss</span>, <span class='no'>weight</span>)</pre>
+    <pre class="usage"><span class='fu'>loss_variational</span>(<span class='no'>reconstruction_loss</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>reconstruction_loss</th>
-      <td><p>Original reconstruction error to be combined with the
-contractive loss (e.g. <code>"binary_crossentropy"</code>)</p></td>
-    </tr>
-    <tr>
-      <th>weight</th>
-      <td><p>Weight assigned to the contractive loss</p></td>
+      <td><p>Another loss to be used as reconstruction error (e.g. "binary_crossentropy")</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A loss object which can be converted into a Keras loss</p>
+    <p>A <code>"ruta_loss"</code> object</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <ul>
+<li><p><a href='https://arxiv.org/abs/1312.6114'>Auto-Encoding Variational Bayes</a></p></li>
+<li><p><a href='http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html'>Under the Hood of the Variational Autoencoder (in Prose and Code)</a></p></li>
+<li><p><a href='https://keras.rstudio.com/articles/examples/variational_autoencoder.html'>Keras example: Variational autoencoder</a></p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='autoencoder_contractive.html'>autoencoder_contractive</a></code></p>
-<p>Other loss functions: <code><a href='correntropy.html'>correntropy</a></code>,
-  <code>loss_variational</code></p></div>
+    <div class='dont-index'><p><code><a href='autoencoder_variational.html'>autoencoder_variational</a></code></p>
+<p>Other loss functions: <code><a href='contraction.html'>contraction</a></code>,
+  <code><a href='correntropy.html'>correntropy</a></code></p></div>
     
 
   </div>
@@ -150,6 +155,8 @@ contractive loss (e.g. <code>"binary_crossentropy"</code>)</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>

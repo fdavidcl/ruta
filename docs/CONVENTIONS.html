@@ -111,18 +111,27 @@
 <h2 class="hasAnchor">
 <a href="#naming" class="anchor"></a>Naming</h2>
 <ul>
-<li>Functions, variables and arguments will be named using snake_case.</li>
-</ul>
+<li>
+<p>Functions, variables and arguments will be named using snake_case.</p>
 <p>Example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">to_keras &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">UseMethod</span>(<span class="st">"to_keras"</span>)
 to_keras.ruta_network &lt;-<span class="st"> </span><span class="cf">function</span>(x, input_shape) {
   <span class="co"># ...</span>
 }</code></pre></div>
+</li>
+<li>
+<em>Constructor</em> functions are named starting with nouns, e.g. <code>autoencoder_robust</code> or <code>contraction</code>. In particular, all autoencoder variants start with <code>autoencoder_</code>.</li>
+<li>
+<em>Modifier</em> functions (those which take an object and do things with it) are named with verbs, e.g. <code>make_denoising</code> or <code>train</code>.</li>
+<li>
+<em>Coercion</em> functions and methods (those which coerce a value to an object of some class) are named with <code>as_</code>, e.g. <code>as_network</code>.</li>
+<li><p><em>Backend</em> methods are named with <code>to_</code>, e.g. <code>to_keras</code>. This will allow to support other backends in the future.</p></li>
+</ul>
 </div>
 <div id="classes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#classes" class="anchor"></a>Classes</h2>
-<p>S3 classes are defined as string constants in <code>R/classes.r</code>. The use snake_case notation just like other variables.</p>
+<p>S3 classes are defined as string constants in <code>R/classes.R</code>. The use snake_case notation just like other variables.</p>
 </div>
 <div id="remaining" class="section level2">
 <h2 class="hasAnchor">

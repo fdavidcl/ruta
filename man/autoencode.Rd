@@ -4,7 +4,7 @@
 \alias{autoencode}
 \title{Automatically compute an encoding of a data matrix}
 \usage{
-autoencode(data, encoding_dim)
+autoencode(data, encoding_dim, activation = "linear")
 }
 \arguments{
 \item{data}{Numeric matrix to be encoded}

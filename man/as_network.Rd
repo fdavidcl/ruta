@@ -8,7 +8,7 @@
 \alias{as_network.integer}
 \title{Coercion to ruta_network}
 \usage{
-as_network(object)
+as_network(x)
 
 \method{as_network}{ruta_layer}(object)
 
@@ -19,7 +19,7 @@ as_network(object)
 \method{as_network}{integer}(object)
 }
 \arguments{
-\item{object}{Object to be converted into a network}
+\item{x}{Object to be converted into a network}
 }
 \value{
 A \code{"ruta_network"} construct

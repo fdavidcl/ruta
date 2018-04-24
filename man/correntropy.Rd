@@ -19,5 +19,5 @@ A wrapper for the correntropy loss function
 \code{\link{autoencoder_robust}}
 
 Other loss functions: \code{\link{contraction}},
-  \code{\link{variational_loss}}
+  \code{\link{loss_variational}}
 }
