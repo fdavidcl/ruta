@@ -47,7 +47,7 @@ autoencoder_variational <- function(network, loss = "binary_crossentropy", auto_
     }
   }
 
-  new_autoencoder(network, variational_loss(loss), extra_class = ruta_autoencoder_variational)
+  new_autoencoder(network, loss_variational(loss), extra_class = ruta_autoencoder_variational)
 }
 
 #' Create a variational block of layers
@@ -115,7 +115,7 @@ to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
 #' @seealso `\link{autoencoder_variational}`
 #' @family loss functions
 #' @export
-variational_loss <- function(reconstruction_loss) {
+loss_variational <- function(reconstruction_loss) {
   structure(
     list(reconstruction_loss = reconstruction_loss),
     class = c(ruta_loss_variational, ruta_loss)
@@ -163,6 +163,8 @@ to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
 generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
   d <- learner$models$decoder$input_shape[[2]]
   md <- length(dimensions)
+
+  # Values from the inverse CDF of the Gaussian distribution
   col <- seq(from = from, to = to, length.out = side) %>% qnorm()
 
   args <- rep(list(col), times = md)
