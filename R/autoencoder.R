@@ -1,16 +1,18 @@
 #' Create an autoencoder learner
 #'
 #' Internal function to create autoencoder objects. Instead, consider using
-#' \code{\link{autoencoder}}.
-#' @param network Layer construct of class \code{"ruta_network"}
-#' @param loss Character string specifying a loss function
-#' @return A construct of class \code{"ruta_autoencoder"}
+#' `\link{autoencoder}`.
+#' @param network Layer construct of class `"ruta_network"` or coercible
+#' @param loss A `"ruta_loss"` object or a character string specifying a loss function
+#' @param extra_class Vector of classes in case this autoencoder needs to support custom
+#'   methods (for `to_keras`, `train`, `generate` or others)
+#' @return A construct of class `"ruta_autoencoder"`
 #' @export
 new_autoencoder <- function(network, loss, extra_class = NULL) {
   structure(
     list(
       network = as_network(network),
-      loss = loss
+      loss = as_loss(loss)
     ),
     class = c(extra_class, ruta_autoencoder, ruta_learner)
   )
@@ -19,9 +21,9 @@ new_autoencoder <- function(network, loss, extra_class = NULL) {
 #' Create an autoencoder learner
 #'
 #' Represents a generic autoencoder network.
-#' @param network Layer construct of class \code{"ruta_network"}
-#' @param loss Character string specifying a loss function
-#' @return A construct of class \code{"ruta_autoencoder"}
+#' @param network Layer construct of class `"ruta_network"` or coercible
+#' @param loss A `"ruta_loss"` object or a character string specifying a loss function
+#' @return A construct of class `"ruta_autoencoder"`
 #' @seealso \code{\link{train.ruta_autoencoder}}
 #'
 #' @references
@@ -114,7 +116,7 @@ to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encod
 train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
   learner$models <- to_keras(learner, input_shape = ncol(data))
 
-  loss_f <- learner$loss %>% as_loss() %>% to_keras(learner$models$autoencoder)
+  loss_f <- learner$loss %>% to_keras(learner$models$autoencoder)
 
   keras::compile(
     learner$models$autoencoder,
@@ -201,7 +203,7 @@ decode <- function(learner, data) {
 #' Retrieve reconstructions for input data
 #'
 #' Extracts the reconstructions calculated by a trained autoencoder for the specified
-#' input data after encoding and decoding.
+#' input data after encoding and decoding. `predict` is an alias for `reconstruct`.
 #' @param learner Trained autoencoder model
 #' @param object Trained autoencoder model
 #' @param data data.frame to be passed through the network

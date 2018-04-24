@@ -21,7 +21,7 @@ Matrix containing the reconstructions
 }
 \description{
 Extracts the reconstructions calculated by a trained autoencoder for the specified
-input data after encoding and decoding.
+input data after encoding and decoding. \code{predict} is an alias for \code{reconstruct}.
 }
 \seealso{
 \code{\link{encode}}, \code{\link{decode}}

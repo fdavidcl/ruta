@@ -7,9 +7,9 @@
 autoencoder(network, loss = "mean_squared_error")
 }
 \arguments{
-\item{network}{Layer construct of class \code{"ruta_network"}}
+\item{network}{Layer construct of class \code{"ruta_network"} or coercible}
 
-\item{loss}{Character string specifying a loss function}
+\item{loss}{A \code{"ruta_loss"} object or a character string specifying a loss function}
 }
 \value{
 A construct of class \code{"ruta_autoencoder"}

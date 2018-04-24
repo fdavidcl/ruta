@@ -7,9 +7,12 @@
 new_autoencoder(network, loss, extra_class = NULL)
 }
 \arguments{
-\item{network}{Layer construct of class \code{"ruta_network"}}
+\item{network}{Layer construct of class \code{"ruta_network"} or coercible}
 
-\item{loss}{Character string specifying a loss function}
+\item{loss}{A \code{"ruta_loss"} object or a character string specifying a loss function}
+
+\item{extra_class}{Vector of classes in case this autoencoder needs to support custom
+methods (for \code{to_keras}, \code{train}, \code{generate} or others)}
 }
 \value{
 A construct of class \code{"ruta_autoencoder"}
