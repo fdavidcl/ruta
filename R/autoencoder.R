@@ -106,22 +106,67 @@ to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encod
 #' and trains it with the input data.
 #' @param learner A \code{"ruta_autoencoder"} object
 #' @param data Training data: columns are attributes and rows are instances
-#' @param validation_data Additional data.frame of data which will not be used
-#' for training but the loss measure will be calculated against it
+#' @param validation_data Additional numeric data matrix which will not be used
+#'   for training but the loss measure and any metrics will be computed against it
+#' @param metrics Optional list of metrics which will evaluate the model but
+#'   won't be optimized. See `keras::\link[keras]{compile}`
 #' @param epochs The number of times data will pass through the network
-#' @param ... Additional parameters for \code{keras::fit}
+#' @param optimizer The optimizer to be used in order to train the model, can
+#'   be any optimizer object defined by Keras (e.g. `keras::optimizer_adam()`)
+#' @param ... Additional parameters for `keras::\link[keras]{fit}`. Some useful parameters:
+#'   - `batch_size` The number of examples to be grouped for each gradient update
+#'   - `shuffle` Whether to shuffle the training data before each epoch, defaults to `TRUE`
 #' @return Same autoencoder passed as parameter, with trained internal models
+#' @examples
+#' \dontrun{
+#' # Minimal example ================================================
+#' iris_model <- autoencoder(2) %>% train(as.matrix(iris[, 1:4]))
+#'
+#' # Simple example with MNIST ======================================
+#' library(keras)
+#'
+#' # Load and normalize MNIST
+#' mnist = dataset_mnist()
+#' x_train <- array_reshape(
+#'   mnist$train$x, c(dim(mnist$train$x)[1], 784)
+#' )
+#' x_train <- x_train / 255.0
+#' x_test <- array_reshape(
+#'   mnist$test$x, c(dim(mnist$test$x)[1], 784)
+#' )
+#' x_test <- x_test / 255.0
+#'
+#' # Autoencoder with layers: 784-256-36-256-784
+#' learner <- autoencoder(c(256, 36), "binary_crossentropy")
+#' train(
+#'   learner,
+#'   x_train,
+#'   epochs = 20,
+#'   optimizer = "rmsprop",
+#'   batch_size = 64,
+#'   validation_data = x_test,
+#'   metrics = list("binary_accuracy")
+#' )
+#' }
 #' @seealso `\link{autoencoder}`
 #' @export
-train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs = 100, ...) {
+train.ruta_autoencoder <- function(
+  learner,
+  data,
+  validation_data = NULL,
+  metrics = NULL,
+  epochs = 100,
+  optimizer = keras::optimizer_rmsprop(),
+  ...) {
   learner$models <- to_keras(learner, input_shape = ncol(data))
 
   loss_f <- learner$loss %>% to_keras(learner$models$autoencoder)
 
   keras::compile(
     learner$models$autoencoder,
-    optimizer = keras::optimizer_rmsprop(),
-    loss = loss_f
+    optimizer = optimizer,
+    loss = loss_f,
+    metrics = metrics
   )
 
   input_data <- if (is.null(learner$filter)) {
@@ -130,12 +175,16 @@ train.ruta_autoencoder <- function(learner, data, validation_data = NULL, epochs
     apply_filter(learner$filter, data)
   }
 
+  if (!is.null(validation_data)) {
+    validation_data <- list(validation_data, validation_data)
+  }
+
   keras::fit(
     learner$models$autoencoder,
     x = input_data,
     y = data,
-    batch_size = 256,
     epochs = epochs,
+    validation_data = validation_data,
     ...
   )
 
