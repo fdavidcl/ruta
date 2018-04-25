@@ -78,7 +78,7 @@ make_contractive <- function(learner, weight) {
 #' @seealso `\link{autoencoder_contractive}`
 #' @export
 to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
-  rec_err <- x$reconstruction %>% as_loss() %>% to_keras()
+  rec_err <- x$reconstruction_loss %>% as_loss() %>% to_keras()
   encoding_layer <- keras::get_layer(keras_model, name = "encoding")
 
   # derivative of the activation function -- only tanh for now

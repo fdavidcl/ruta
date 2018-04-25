@@ -140,12 +140,12 @@ loss_variational <- function(reconstruction_loss) {
 #' @export
 to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
   original_dim <- 1. * keras_model$input_shape[[2]]
-  base_loss <- loss$base_loss %>% as_loss() %>% to_keras()
+  reconstruction_loss <- loss$reconstruction_loss %>% as_loss() %>% to_keras()
   z_mean <- keras::get_layer(keras_model, name = "z_mean")
   z_log_var <- keras::get_layer(keras_model, name = "z_log_var")
 
   function(x, x_decoded_mean) {
-    xent_loss <- original_dim * base_loss(x, x_decoded_mean)
+    xent_loss <- original_dim * reconstruction_loss(x, x_decoded_mean)
     kl_loss <- 0.5 * keras::k_mean(keras::k_square(z_mean$output) + keras::k_exp(z_log_var$output) - 1 - z_log_var$output, axis = -1L)
     xent_loss + kl_loss
   }
