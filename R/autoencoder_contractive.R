@@ -130,30 +130,41 @@ to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
     }
   }
 
+  jacobian <- function(y, x) {
+    fn <- function(e) keras::k_gradients(e, x)[[1]]
+    y_flat <- keras::k_flatten(y)
+    keras::k_map_fn(fn, y_flat, name = "halou")
+  }
+
+  myjac <- jacobian(encoding_activation$output, encoding_activation$input)
+
   # contractive loss
   function(y_true, y_pred) {
     reconstruction <- rec_err(y_true, y_pred)
 
-    # sum_wt2 <-
-    #   keras::k_variable(value = keras::get_weights(encoding_layer)[[1]]) %>%
-    #   keras::k_transpose() %>%
-    #   keras::k_square() %>%
-    #   keras::k_sum(axis = 2)
+    sum_wt2 <-
+      keras::k_variable(value = keras::get_weights(encoding_layer)[[1]]) %>%
+      keras::k_transpose() %>%
+      keras::k_square() %>%
+      keras::k_sum(axis = 2)
 
     #dh2 <- keras::k_square(keras::k_gradients(encoding_activation$output, encoding_activation$input))
+    dh2 <- keras::k_square(myjac)
 
     # df <- derivative_activation(encoding_activation$activation)
     # dh2 <- keras::k_map_fn(df, encoding_activation$output, name = "jacobian", dtype = "float32") %>% keras::k_square()
 
-    # contractive <- x$weight * keras::k_sum(dh2 * sum_wt2, axis = 2)
+    contractive <- x$weight * keras::k_sum(dh2 * sum_wt2, axis = 2)
 
     #reconstruction + contractive
 
-    weights <- keras::k_variable(value = keras::get_weights(encoding_layer)[[1]])
-    grad <- keras::k_gradients(keras::k_sum(encoding_activation$output), encoding_activation$input)
-    jacob <- keras::k_batch_dot(keras::k_square(grad), keras::k_square(keras::k_sum(weights, axis = 1)))
-    frob_norm <- keras::k_sum(jacob) / 64 # replace with batch size
-    penalty <- x$weight * frob_norm
+    # weights <- keras::k_variable(value = keras::get_weights(encoding_layer)[[1]])
+    # grad <- keras::k_gradients(keras::k_sum(encoding_activation$output), encoding_activation$input)
+    # jacob <- keras::k_batch_dot(keras::k_square(grad), keras::k_square(keras::k_sum(weights, axis = 1)))
+    # frob_norm <- keras::k_sum(jacob) / 64 # replace with batch size
+    # penalty <- x$weight * frob_norm
+
+    contractive <-
 
     reconstruction + contractive
   }
