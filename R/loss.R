@@ -10,10 +10,6 @@ as_loss.character <- function(x) {
 as_loss.ruta_loss <- function(x) x
 
 to_keras.ruta_loss_named <- function(x, ...) {
-  if (exists(paste0("loss_", x$name), where = asNamespace("keras"))) {
-    get(paste0("loss_", x$name), envir = asNamespace("keras"))
-  } else {
-    stop("There is no loss_", x$name, " loss in keras.")
-  }
+  get_keras_object(x$name, "loss")
 }
 

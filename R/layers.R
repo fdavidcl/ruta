@@ -16,22 +16,23 @@
 #' my_layer <- dense(30, "tanh")[[1]]
 #' @import purrr
 #' @export
-new_layer <- function(cl, units, activation) {
+new_layer <- function(cl, ...) {
   # length check
   stopifnot(
-    is_scalar_vector(cl),
-    is_scalar_vector(units),
-    is_scalar_vector(activation)
+    is_scalar_vector(cl)#,
+    # is_scalar_vector(units),
+    # is_scalar_vector(activation)
   )
   # type coercion
-  type <- as.character(cl)
-  units <- as.integer(units)
-  activation <- as.character(activation)
+  cl <- as.character(cl)
+  # units <- as.integer(units)
+  # activation <- as.character(activation)
 
   structure(
     list(
-      units = units,
-      activation = activation
+      # units = units,
+      # activation = activation
+      ...
     ),
     class = c(cl, ruta_layer)
   )
@@ -43,11 +44,55 @@ as_network.ruta_layer <- function(object) {
   new_network(object)
 }
 
+make_atomic_network <- function(cl, ...) {
+  as_network(
+    new_layer(cl, ...)
+  )
+}
+
+#' Create an input layer
+#'
+#' This layer acts as a placeholder for input data. The number of units is not
+#' needed as it is deduced from the data during training.
+#' @return A construct with class \code{"ruta_layer"}
+#' @family neural layers
+#' @export
+input <- function() {
+  make_atomic_network(ruta_layer_input)
+}
+
 to_keras.ruta_layer_input <- function(x, input_shape, ...) {
   keras::layer_input(shape = input_shape)
 }
+
+#' Create an output layer
+#'
+#' This layer acts as a placeholder for the output layer in an autoencoder. The
+#' number of units is not needed as it is deduced from the data during training.
+#' @param activation Optional, string indicating activation function (linear by default)
+#' @return A construct with class \code{"ruta_layer"}
+#' @family neural layers
+#' @export
+output <- function(activation = "linear") {
+  make_atomic_network(ruta_layer_dense, activation = activation)
+}
+
+#' Create a fully-connected neural layer
+#'
+#' Wrapper for a dense/fully-connected layer.
+#' @param units Number of units
+#' @param activation Optional, string indicating activation function (linear by default)
+#' @return A construct with class \code{"ruta_layer"}
+#' @examples
+#' dense(30, "tanh")
+#' @family neural layers
+#' @export
+dense <- function(units, activation = "linear") {
+  make_atomic_network(ruta_layer_dense, units = units, activation = activation)
+}
+
 to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
-  if (x$units < 0) {
+  if (is.null(x$units)) {
     x$units <- input_shape
   }
 
@@ -72,45 +117,18 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   )
 }
 
-make_atomic_network <- function(type, units, activation) {
-  as_network(
-    new_layer(type, units, activation)
-  )
+#' @export
+layer_keras <- function(name, ...) {
+  make_atomic_network(ruta_layer_custom, name = name, params = list(...))
 }
 
-#' Create a fully-connected neural layer
-#'
-#' Wrapper for a dense/fully-connected layer.
-#' @param units Number of units
-#' @param activation Optional, string indicating activation function (linear by default)
-#' @return A construct with class \code{"ruta_layer"}
-#' @examples
-#' dense(30, "tanh")
-#' @family neural layers
 #' @export
-dense <- function(units, activation = "linear") {
-  make_atomic_network(ruta_layer_dense, units, activation = activation)
+dropout <- function(rate = 0.5) {
+  layer_keras("dropout", rate = rate)
 }
 
-#' Create an input layer
-#'
-#' This layer acts as a placeholder for input data. The number of units is not
-#' needed as it is deduced from the data during training.
-#' @return A construct with class \code{"ruta_layer"}
-#' @family neural layers
-#' @export
-input <- function() {
-  make_atomic_network(ruta_layer_input, -1, "linear")
-}
-
-#' Create an output layer
-#'
-#' This layer acts as a placeholder for the output layer in an autoencoder. The
-#' number of units is not needed as it is deduced from the data during training.
-#' @param activation Optional, string indicating activation function (linear by default)
-#' @return A construct with class \code{"ruta_layer"}
-#' @family neural layers
-#' @export
-output <- function(activation = "linear") {
-  make_atomic_network(ruta_layer_dense, -1, activation)
+to_keras.ruta_layer_custom <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
+  layer_f = get_keras_object(x$name, "layer")
+  args = c(list(object = model), x$params)
+  do.call(layer_f, args)
 }

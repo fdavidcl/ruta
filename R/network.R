@@ -103,8 +103,11 @@ c.ruta_network <- function(...) {
 #' Calculates the index of the middle layer of an encoder-decoder network.
 #' @param net A network of class \code{"ruta_network"}
 #' @return Index of the middle layer
+#' @import purrr
 encoding_index <- function(net) {
-  ceiling(length(net) / 2)
+  filtered <- net %>% map(~ !is.null(.$units)) %>% as_vector()
+  filtered_index <- ceiling(sum(filtered) / 2)
+  index <- detect_index(1:length(net), ~ sum(filtered[1:.]) == filtered_index)
 }
 
 #' Inspect a neural network
@@ -118,11 +121,20 @@ print.ruta_network <- function(x, ...) {
   ind <- " "
 
   for (layer in x) {
-    cat(ind, gsub("ruta_layer_", "", class(layer)[1]))
-    if (layer$units > 0) {
+    cat(ind)
+
+    if (class(layer)[1] == ruta_layer_custom) {
+      cat(layer$name)
+    } else {
+      cat(gsub("ruta_layer_", "", class(layer)[1]))
+    }
+    if (!is.null(layer$units)) {
       cat("(", layer$units, " units)", sep = "")
     }
-    cat(" -", layer$activation, "\n")
+    if (!is.null(layer$activation)) {
+      cat(" -", layer$activation)
+    }
+    cat("\n")
   }
 
   invisible(x)
