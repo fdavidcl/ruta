@@ -61,15 +61,20 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   else
     NULL
 
+  name_pre <- if (is.null(x$name)) NULL else paste0("pre_", x$name)
+
   keras::layer_dense(
     model,
     units = x$units,
-    activation = x$activation,
     activity_regularizer = act_reg,
     kernel_regularizer = kern_reg,
-    name = x$name,
+    name = name_pre,
     ...
-  )
+  ) %>%
+    keras::layer_activation(
+      activation = x$activation,
+      name = x$name
+    )
 }
 
 make_atomic_network <- function(type, units, activation) {
