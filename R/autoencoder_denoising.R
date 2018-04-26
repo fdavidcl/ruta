@@ -5,8 +5,20 @@
 #'
 #' @param network Layer construct of class \code{"ruta_network"}
 #' @param loss Loss function to be optimized
-#' @param ratio The ratio of each instance in the input data which will be
-#' altered by random noise
+#' @param noise_type Type of data corruption which will be used to train the
+#'   autoencoder, as a character string. Available types:
+#'   - `"zeros"` Randomly set components to zero (`\link{noise_zeros}`)
+#'   - `"ones"` Randomly set components to one (`\link{noise_ones}`)
+#'   - `"saltpepper"` Randomly set components to zero or one (`\link{noise_saltpepper}`)
+#'   - `"gaussian"` Randomly offset each component of an input as drawn from
+#'     Gaussian distributions with the same variance (additive Gaussian noise,
+#'     `\link{noise_gaussian}`)
+#' @param ... Extra parameters to customize the noisy filter:
+#'   - `p` The probability that each instance in the input data which will be
+#'     altered by random noise (for `"zeros"`, `"ones"` and `"saltpepper"`)
+#'   - `var` or `sd` The variance or standard deviation of the Gaussian
+#'     distribution from which additive noise will be drawn (for `"gaussian"`,
+#'     only one of those parameters is necessary)
 #'
 #' @return A construct of class \code{"ruta_autoencoder"}
 #'
@@ -15,15 +27,10 @@
 #'
 #' @family autoencoder variants
 #' @export
-autoencoder_denoising <- function(network, loss, ratio = 0.05) {
+autoencoder_denoising <- function(network, loss, noise_type = "zeros", ...) {
   autoencoder(network, loss) %>%
-    make_denoising(ratio)
+    make_denoising(noise_type, ...)
 }
-
-# noise_input <- function(x, ratio = 0.05) {
-#   noisy = x + keras::k_random_uniform(x$shape, minval = 0, maxval = 0.5 / (1 - ratio))
-#   keras::k_clip(noisy, 0, 1)
-# }
 
 #' Add denoising behavior to any autoencoder
 #'
@@ -31,35 +38,16 @@ autoencoder_denoising <- function(network, loss, ratio = 0.05) {
 #' for the input data
 #'
 #' @param learner The \code{"ruta_autoencoder"} object
-#' @param ratio The ratio of each instance in the input data which will be
-#' altered by random noise
+#' @param noise_type Type of data corruption which will be used to train the
+#'   autoencoder, as a character string. See `\link{autoencoder_denoising}` for
+#'   details
+#' @param ... Extra parameters to customize the noisy filter. See
+#'  `\link{autoencoder_denoising}` for details
 #'
 #' @return An autoencoder object which contains the noisy filter
 #' @seealso `\link{autoencoder_denoising}`
 #' @export
-make_denoising <- function(learner, ratio = 0.05) {
-  learner$filter <- structure(
-    list(ratio = ratio),
-    class = c(ruta_filter, ruta_noise)
-  )
-
+make_denoising <- function(learner, noise_type = "zeros", ...) {
+  learner$filter <- noise(noise_type, ...)
   learner
-}
-
-#' @rdname filters
-#' @seealso `\link{autoencoder_denoising}`
-#' @export
-## Random setting to 0 or 1,
-## assumes data is normalized :(
-apply_filter.ruta_noise <- function(filter, data, ...) {
-  # noisy = data + keras::k_random_uniform(k_shape(data), minval = 0, maxval = 0.5 / (1 - filter$ratio), dtype = "float64")
-  # keras::k_clip(noisy, 0, 1)
-  # k_get_value(noisy) ?
-  # how to train with this ?
-
-  noisy <- data + matrix(
-    data %>% dim %>% prod %>% runif(min = 0, max = 0.5 / (1 - filter$ratio)),
-    nrow = dim(data)[1]
-  )
-  pmin(noisy, 1)
 }

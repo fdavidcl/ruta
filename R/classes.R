@@ -11,6 +11,10 @@ ruta_autoencoder_variational <- "ruta_autoencoder_variational"
 
 ruta_filter <- "ruta_filter"
 ruta_noise <- "ruta_noise"
+ruta_noise_zeros <- "ruta_noise_zeros"
+ruta_noise_ones <- "ruta_noise_ones"
+ruta_noise_saltpepper <- "ruta_noise_saltpepper"
+ruta_noise_gaussian <- "ruta_noise_gaussian"
 
 ruta_regularizer <- "ruta_regularizer"
 ruta_sparsity <- "ruta_sparsity"
