@@ -4,13 +4,17 @@
 \alias{make_denoising}
 \title{Add denoising behavior to any autoencoder}
 \usage{
-make_denoising(learner, ratio = 0.05)
+make_denoising(learner, noise_type = "zeros", ...)
 }
 \arguments{
 \item{learner}{The \code{"ruta_autoencoder"} object}
 
-\item{ratio}{The ratio of each instance in the input data which will be
-altered by random noise}
+\item{noise_type}{Type of data corruption which will be used to train the
+autoencoder, as a character string. See \code{\link{autoencoder_denoising}} for
+details}
+
+\item{...}{Extra parameters to customize the noisy filter. See
+\code{\link{autoencoder_denoising}} for details}
 }
 \value{
 An autoencoder object which contains the noisy filter

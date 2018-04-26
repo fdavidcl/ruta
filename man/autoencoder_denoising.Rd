@@ -4,15 +4,32 @@
 \alias{autoencoder_denoising}
 \title{Create a denoising autoencoder}
 \usage{
-autoencoder_denoising(network, loss, ratio = 0.05)
+autoencoder_denoising(network, loss, noise_type = "zeros", ...)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}
 
 \item{loss}{Loss function to be optimized}
 
-\item{ratio}{The ratio of each instance in the input data which will be
-altered by random noise}
+\item{noise_type}{Type of data corruption which will be used to train the
+autoencoder, as a character string. Available types:
+\itemize{
+\item \code{"zeros"} Randomly set components to zero (\code{\link{noise_zeros}})
+\item \code{"ones"} Randomly set components to one (\code{\link{noise_ones}})
+\item \code{"saltpepper"} Randomly set components to zero or one (\code{\link{noise_saltpepper}})
+\item \code{"gaussian"} Randomly offset each component of an input as drawn from
+Gaussian distributions with the same variance (additive Gaussian noise,
+\code{\link{noise_gaussian}})
+}}
+
+\item{...}{Extra parameters to customize the noisy filter:
+\itemize{
+\item \code{p} The probability that each instance in the input data which will be
+altered by random noise (for \code{"zeros"}, \code{"ones"} and \code{"saltpepper"})
+\item \code{var} or \code{sd} The variance or standard deviation of the Gaussian
+distribution from which additive noise will be drawn (for \code{"gaussian"},
+only one of those parameters is necessary)
+}}
 }
 \value{
 A construct of class \code{"ruta_autoencoder"}

@@ -4,7 +4,7 @@
 \alias{new_layer}
 \title{Layer wrapper constructor}
 \usage{
-new_layer(cl, units, activation)
+new_layer(cl, ...)
 }
 \arguments{
 \item{cl}{Character string specifying class of layer (e.g. \code{"ruta_layer_dense"}), which
