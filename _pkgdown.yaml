@@ -98,6 +98,12 @@ reference:
       - decode
       - reconstruct
       - starts_with("generate")
+  - title: "Noise generators"
+    desc: >
+      These objects act as input filters which generate some noise into the
+      training inputs when fitting denoising autoencoders.
+    contents:
+      - starts_with("noise")
   - title: "Keras conversions"
     desc: >
       These are internal functions which convert Ruta wrapper objects into
