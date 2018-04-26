@@ -8,6 +8,8 @@ noise(type, ...)
 }
 \arguments{
 \item{type}{Type of noise, as a character string}
+
+\item{...}{Parameters for each noise class}
 }
 \description{
 Delegates on noise classes to generate noise of some type

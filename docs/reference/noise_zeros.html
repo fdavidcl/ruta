@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add denoising behavior to any autoencoder — make_denoising • ruta</title>
+<title>Filter to add zero noise — noise_zeros • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Add denoising behavior to any autoencoder — make_denoising" />
+<meta property="og:title" content="Filter to add zero noise — noise_zeros" />
 
-<meta property="og:description" content="Converts an autoencoder into a denoising one by adding a filter
-for the input data" />
+<meta property="og:description" content="A data filter which replaces some values with zeros" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,45 +105,34 @@ for the input data" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add denoising behavior to any autoencoder</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_denoising.R'><code>R/autoencoder_denoising.R</code></a></small>
-    <div class="hidden name"><code>make_denoising.Rd</code></div>
+    <h1>Filter to add zero noise</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
+    <div class="hidden name"><code>noise_zeros.Rd</code></div>
     </div>
 
     
-    <p>Converts an autoencoder into a denoising one by adding a filter
-for the input data</p>
+    <p>A data filter which replaces some values with zeros</p>
     
 
-    <pre class="usage"><span class='fu'>make_denoising</span>(<span class='no'>learner</span>, <span class='kw'>noise_type</span> <span class='kw'>=</span> <span class='st'>"zeros"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>noise_zeros</span>(<span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>learner</th>
-      <td><p>The <code>"ruta_autoencoder"</code> object</p></td>
-    </tr>
-    <tr>
-      <th>noise_type</th>
-      <td><p>Type of data corruption which will be used to train the
-autoencoder, as a character string. See <code><a href='autoencoder_denoising.html'>autoencoder_denoising</a></code> for
-details</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Extra parameters to customize the noisy filter. See
-<code><a href='autoencoder_denoising.html'>autoencoder_denoising</a></code> for details</p></td>
+      <th>p</th>
+      <td><p>Probability that a feature in an instance is set to zero</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An autoencoder object which contains the noisy filter</p>
+    <p>Object which can be applied to data with <code><a href='apply_filter.html'>apply_filter</a></code></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='autoencoder_denoising.html'>autoencoder_denoising</a></code></p></div>
+    <div class='dont-index'><p>Other noise generators: <code><a href='noise_gaussian.html'>noise_gaussian</a></code>,
+  <code><a href='noise_ones.html'>noise_ones</a></code>, <code><a href='noise_saltpepper.html'>noise_saltpepper</a></code></p></div>
     
 
   </div>

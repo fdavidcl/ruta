@@ -36,6 +36,8 @@ new_noise <- function(cl, ...) {
 #'
 #' Delegates on noise classes to generate noise of some type
 #' @param type Type of noise, as a character string
+#' @param ... Parameters for each noise class
+#' @export
 noise <- function(type, ...) {
   noise_f <- switch(tolower(noise_type),
                     zeros = noise_zeros,

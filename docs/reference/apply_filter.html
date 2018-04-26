@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add denoising behavior to any autoencoder — make_denoising • ruta</title>
+<title>Apply filters — apply_filter • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,11 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Add denoising behavior to any autoencoder — make_denoising" />
+<meta property="og:title" content="Apply filters — apply_filter" />
 
-<meta property="og:description" content="Converts an autoencoder into a denoising one by adding a filter
-for the input data" />
+<meta property="og:description" content="Apply a filter to input data, generally a noise filter in
+order to train a denoising autoencoder. Users won't generally need to use
+these functions" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,41 +107,50 @@ for the input data" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add denoising behavior to any autoencoder</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_denoising.R'><code>R/autoencoder_denoising.R</code></a></small>
-    <div class="hidden name"><code>make_denoising.Rd</code></div>
+    <h1>Apply filters</h1>
+    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
+    <div class="hidden name"><code>apply_filter.Rd</code></div>
     </div>
 
     
-    <p>Converts an autoencoder into a denoising one by adding a filter
-for the input data</p>
+    <p>Apply a filter to input data, generally a noise filter in
+order to train a denoising autoencoder. Users won't generally need to use
+these functions</p>
     
 
-    <pre class="usage"><span class='fu'>make_denoising</span>(<span class='no'>learner</span>, <span class='kw'>noise_type</span> <span class='kw'>=</span> <span class='st'>"zeros"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_custom</span>
+<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_noise_zeros</span>
+<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_noise_ones</span>
+<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_noise_saltpepper</span>
+<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_noise_gaussian</span>
+<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>learner</th>
-      <td><p>The <code>"ruta_autoencoder"</code> object</p></td>
+      <th>filter</th>
+      <td><p>Filter object to be applied</p></td>
     </tr>
     <tr>
-      <th>noise_type</th>
-      <td><p>Type of data corruption which will be used to train the
-autoencoder, as a character string. See <code><a href='autoencoder_denoising.html'>autoencoder_denoising</a></code> for
-details</p></td>
+      <th>data</th>
+      <td><p>Input data to be filtered</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Extra parameters to customize the noisy filter. See
-<code><a href='autoencoder_denoising.html'>autoencoder_denoising</a></code> for details</p></td>
+      <td><p>Other parameters</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An autoencoder object which contains the noisy filter</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -153,8 +163,6 @@ details</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
           </ul>
 

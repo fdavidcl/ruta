@@ -4,6 +4,9 @@
     <loc>http://ruta.software/reference/add_weight_decay.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/apply_filter.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/as_network.html</loc>
   </url>
   <url>
@@ -52,9 +55,6 @@
     <loc>http://ruta.software/reference/evaluation_metric.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/filters.html</loc>
-  </url>
-  <url>
     <loc>http://ruta.software/reference/generate.html</loc>
   </url>
   <url>
@@ -92,6 +92,21 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/new_network.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/noise.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/noise_gaussian.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/noise_ones.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/noise_saltpepper.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/noise_zeros.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/output.html</loc>

@@ -332,7 +332,7 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="filters.html">apply_filter()</a></code> </p>
+          <p><code><a href="apply_filter.html">apply_filter()</a></code> </p>
         </td>
         <td><p>Apply filters</p></td>
       </tr><tr>
@@ -403,6 +403,44 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-noise-generators" class="hasAnchor"><a href="#section-noise-generators" class="anchor"></a>Noise generators</h2>
+          <p class="section-desc"><p>These objects acts as input filters which generate some noise into the training inputs when fitting denoising autoencoders.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="noise.html">noise()</a></code> </p>
+        </td>
+        <td><p>Noise generator</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="noise_gaussian.html">noise_gaussian()</a></code> </p>
+        </td>
+        <td><p>Additive Gaussian noise</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="noise_ones.html">noise_ones()</a></code> </p>
+        </td>
+        <td><p>Filter to add ones noise</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="noise_saltpepper.html">noise_saltpepper()</a></code> </p>
+        </td>
+        <td><p>Filter to add salt-and-pepper noise</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="noise_zeros.html">noise_zeros()</a></code> </p>
+        </td>
+        <td><p>Filter to add zero noise</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-keras-conversions" class="hasAnchor"><a href="#section-keras-conversions" class="anchor"></a>Keras conversions</h2>
           <p class="section-desc"><p>These are internal functions which convert Ruta wrapper objects into Keras objects and functions.</p></p>
         </th>
@@ -469,6 +507,7 @@
       <li><a href="#section-model-training">Model training</a></li>
       <li><a href="#section-model-evaluation">Model evaluation</a></li>
       <li><a href="#section-tasks-for-trained-models">Tasks for trained models</a></li>
+      <li><a href="#section-noise-generators">Noise generators</a></li>
       <li><a href="#section-keras-conversions">Keras conversions</a></li>
     </ul>
   </div>

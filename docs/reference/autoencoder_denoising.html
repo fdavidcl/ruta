@@ -116,7 +116,7 @@ create a model able to reduce noise in reconstructions from input data" />
 create a model able to reduce noise in reconstructions from input data</p>
     
 
-    <pre class="usage"><span class='fu'>autoencoder_denoising</span>(<span class='no'>network</span>, <span class='no'>loss</span>, <span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
+    <pre class="usage"><span class='fu'>autoencoder_denoising</span>(<span class='no'>network</span>, <span class='no'>loss</span>, <span class='kw'>noise_type</span> <span class='kw'>=</span> <span class='st'>"zeros"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,9 +130,26 @@ create a model able to reduce noise in reconstructions from input data</p>
       <td><p>Loss function to be optimized</p></td>
     </tr>
     <tr>
-      <th>ratio</th>
-      <td><p>The ratio of each instance in the input data which will be
-altered by random noise</p></td>
+      <th>noise_type</th>
+      <td><p>Type of data corruption which will be used to train the
+autoencoder, as a character string. Available types:</p><ul>
+<li><p><code>"zeros"</code> Randomly set components to zero (<code><a href='noise_zeros.html'>noise_zeros</a></code>)</p></li>
+<li><p><code>"ones"</code> Randomly set components to one (<code><a href='noise_ones.html'>noise_ones</a></code>)</p></li>
+<li><p><code>"saltpepper"</code> Randomly set components to zero or one (<code><a href='noise_saltpepper.html'>noise_saltpepper</a></code>)</p></li>
+<li><p><code>"gaussian"</code> Randomly offset each component of an input as drawn from
+Gaussian distributions with the same variance (additive Gaussian noise,
+<code><a href='noise_gaussian.html'>noise_gaussian</a></code>)</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Extra parameters to customize the noisy filter:</p><ul>
+<li><p><code>p</code> The probability that each instance in the input data which will be
+altered by random noise (for <code>"zeros"</code>, <code>"ones"</code> and <code>"saltpepper"</code>)</p></li>
+<li><p><code>var</code> or <code>sd</code> The variance or standard deviation of the Gaussian
+distribution from which additive noise will be drawn (for <code>"gaussian"</code>,
+only one of those parameters is necessary)</p></li>
+</ul></td>
     </tr>
     </table>
     
