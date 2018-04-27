@@ -82,12 +82,17 @@ is_sparse <- function(learner) {
 to_keras.ruta_sparsity <- function(x, activation) {
   p_high = x$high_probability
 
-  low_v = 0
+  # This regularization only makes sense for bounded activation functions, but we
+  # adapt it to any other activation by defining high value as > 1 and low value
+  # as < -1
+  low_v = switch(activation,
+    sigmoid = 0,
+    relu = 0,
+    softplus = 0,
+    selu = - 1.7581,
+    -1
+  )
   high_v = 1
-
-  if (activation == "tanh") {
-    low_v = -1
-  }
 
   function(observed_activations) {
     observed <- observed_activations %>%
