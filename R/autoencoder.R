@@ -168,7 +168,7 @@ train.ruta_autoencoder <- function(
   ...) {
   learner$models <- to_keras(learner, input_shape = ncol(data))
 
-  loss_f <- learner$loss %>% to_keras(learner$models$autoencoder)
+  loss_f <- learner$loss %>% to_keras(learner)
 
   keras::compile(
     learner$models$autoencoder,

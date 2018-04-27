@@ -127,7 +127,8 @@ loss_variational <- function(reconstruction_loss) {
 #' Builds the Keras loss function corresponding to the object received
 #'
 #' @param x A \code{"ruta_loss_variational"} object
-#' @param keras_model The keras autoencoder which will use the loss function
+#' @param learner The learner object including the keras model which will use the loss
+#'   function
 #' @return A function which returns the variational loss for given true and
 #' predicted values
 #' @param ... Rest of parameters, ignored
@@ -138,7 +139,8 @@ loss_variational <- function(reconstruction_loss) {
 #'
 #' @seealso `\link{autoencoder_variational}`
 #' @export
-to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
+to_keras.ruta_loss_variational <- function(loss, learner, ...) {
+  keras_model <- learner$models$autoencoder
   original_dim <- 1. * keras_model$input_shape[[2]]
   reconstruction_loss <- loss$reconstruction_loss %>% as_loss() %>% to_keras()
   z_mean <- keras::get_layer(keras_model, name = "z_mean")

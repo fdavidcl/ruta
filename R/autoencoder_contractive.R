@@ -68,7 +68,8 @@ make_contractive <- function(learner, weight) {
 #' @description Builds the Keras loss function corresponding to the object received
 #'
 #' @param x A \code{"ruta_loss_contraction"} object
-#' @param keras_model The keras autoencoder which will use the loss function
+#' @param learner The learner object including the keras model which will use the loss
+#'   function
 #' @return A function which returns the contractive loss for given true and
 #' predicted values
 #' @param ... Rest of parameters, ignored
@@ -77,24 +78,26 @@ make_contractive <- function(learner, weight) {
 #'
 #' @seealso `\link{autoencoder_contractive}`
 #' @export
-to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
+to_keras.ruta_loss_contraction <- function(x, learner, ...) {
+  keras_model <- learner$models$autoencoder
   rec_err <- x$reconstruction_loss %>% as_loss() %>% to_keras()
-  encoding_layer <- keras::get_layer(keras_model, name = "encoding")
+  encoding_z <- keras::get_layer(keras_model, name = "pre_encoding")
+  encoding_h <- keras::get_layer(keras_model, name = "encoding")
 
-  # derivative of the activation function -- only tanh for now
-  act_der <- function(h) 1 - h * h
+  # derivative of the activation function
+  act_der <- learner$network[[learner$network %@% "encoding"]]$activation %>% derivative()
 
   # contractive loss
   function(y_true, y_pred) {
     reconstruction <- rec_err(y_true, y_pred)
 
     sum_wt2 <-
-      keras::k_variable(value = keras::get_weights(encoding_layer)[[1]]) %>%
+      keras::k_variable(value = keras::get_weights(encoding_z)[[1]]) %>%
       keras::k_transpose() %>%
       keras::k_square() %>%
       keras::k_sum(axis = 2)
 
-    dh2 <- act_der(encoding_layer$output) ** 2
+    dh2 <- act_der(encoding_h$input, encoding_h$output) ** 2
 
     contractive <- x$weight * keras::k_sum(dh2 * sum_wt2, axis = 2)
 
