@@ -1,0 +1,13 @@
+---
+title: "Examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+| Example | Description |
+|---------|-------------|
+| [autoencoder_basic](autoencoder_basic.html) | Training and using a couple of basic autoencoder models |
+| [autoencoder_variational](autoencoder_variational.html) | Training and sampling a variational autoencoder |

@@ -1,0 +1,14 @@
+---
+title: "autoencoder_variational"
+type: docs
+output: rmarkdown::html_vignette
+---
+
+::: {.source-ref}
+[Example source:]{.caption} <`r sprintf("https://github.com/fdavidcl/ruta/blog/master/vignettes/examples/%s.R", rmarkdown::metadata$title)`>
+:::
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::spin_child(paste0(rmarkdown::metadata$title, ".R"))
+```
