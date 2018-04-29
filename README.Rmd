@@ -1,15 +1,28 @@
-Ruta <img src="https://raw.githubusercontent.com/fdavidcl/ruta/master/docs/images/logo/ruta_logo64.png" align="right">
-=================================================
+<style>
+.page-header {
+    padding-bottom: 0;
+    margin: 0;
+    border-bottom: 0px solid;
+}
+</style>
 
-*Software for unsupervised deep architectures*
+::: {.jumbotron}
+
+# Ruta <img src="https://raw.githubusercontent.com/fdavidcl/ruta/master/docs/images/logo/ruta_logo64.png" align="right">
+
+Software for unsupervised deep architectures
 
 [![R language](https://img.shields.io/badge/language-R-lightgrey.svg)](https://www.r-project.org/)
 [![Travis](https://img.shields.io/travis/fdavidcl/ruta.svg)](https://travis-ci.org/fdavidcl/ruta)
 [![license](https://img.shields.io/github/license/fdavidcl/ruta.svg)](https://www.gnu.org/licenses/gpl.html)
 
+---
+
 Get uncomplicated access to unsupervised deep neural networks, from building their architecture to their training and evaluation
 
-<a class="btn btn-primary" href="/articles/getting-started.html"><i class="fa fa-code"></i> Get started</a>
+[[]{.fa .fa-code} Get started](/articles/getting-started.html){.btn .btn-primary}
+
+:::
 
 ```{r structure, echo = F}
 library(ruta)
