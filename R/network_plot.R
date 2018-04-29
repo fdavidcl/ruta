@@ -38,27 +38,43 @@ get_xs <- function(struct) {
 #' @export
 plot.ruta_network <- function(x, ...) {
   args <- list(...)
-  bg <- args$bg %||% "grey"
+  bg <- args$bg %||% "#c0c0c0"
   fg <- args$fg %||% "black"
   log <- args$log %||% FALSE
 
-  struct <- sapply(x, function(n) n$units)
-  labels <- as.character(
+  struct <- as.integer(
     sapply(x, function(n)
-      if (n$units > 0) {
+      if (!is.null(n$units)) {
         n$units
-      } else if (n$type == "input") {
-        "in"
+      } else if (ruta_layer_custom %in% class(n)) {
+        0
       } else {
-        "out"
-      } )
+        -1
+      })
   )
 
-  ratios <- if (log) {
-    get_ratios(log(struct))
-  } else {
-    get_ratios(struct)
+  for (i in 1:length(struct)) {
+    if (struct[i] == 0 && i > 0) {
+      struct[i] <- struct[i - 1]
+    }
   }
+
+  labels <- as.character(
+    sapply(x, function(n)
+      if (!is.null(n$units)) {
+        n$units
+      } else if (ruta_layer_custom %in% class(n)) {
+        n$name
+      } else {
+        "⇩"
+      })
+  )
+
+  if (log) {
+    struct[struct > 0] <- log(struct[struct > 0])
+  }
+
+  ratios <- get_ratios(struct)
 
   ys <- get_ys(ratios)
   xs <- get_xs(ratios)
@@ -78,14 +94,16 @@ plot.ruta_network <- function(x, ...) {
         y = ys$upper[(l - 1):l], col = fg
       )
       # crossing lines
-      lines(
-        x = c(xs$upper[l - 1], xs$lower[l]),
-        y = c(ys$lower[l - 1], ys$upper[l]), col = bg
-      )
-      lines(
-        x = c(xs$upper[l - 1], xs$lower[l]),
-        y = c(ys$upper[l - 1], ys$lower[l]), col = bg
-      )
+      if (ruta_layer_dense %in% class(x[[l]])) {
+        lines(
+          x = c(xs$upper[l - 1], xs$lower[l]),
+          y = c(ys$lower[l - 1], ys$upper[l]), col = bg
+        )
+        lines(
+          x = c(xs$upper[l - 1], xs$lower[l]),
+          y = c(ys$upper[l - 1], ys$lower[l]), col = bg
+        )
+      }
     }
     text(mean(c(xs$lower[l], xs$upper[l])), 0.5, labels[l], srt = 90, col = fg)
   }
