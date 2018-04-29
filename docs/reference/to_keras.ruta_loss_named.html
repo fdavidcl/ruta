@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate samples from a generative model — generate.ruta_autoencoder_variational • ruta</title>
+<title>Obtain a Keras loss — to_keras.ruta_loss_contraction • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Generate samples from a generative model — generate.ruta_autoencoder_variational" />
+<meta property="og:title" content="Obtain a Keras loss — to_keras.ruta_loss_contraction" />
 
-<meta property="og:description" content="Generate samples from a generative model" />
+<meta property="og:description" content="Builds the Keras loss function corresponding to a name" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -138,59 +138,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate samples from a generative model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/generics.R'><code>R/generics.R</code></a></small>
-    <div class="hidden name"><code>generate.Rd</code></div>
+    <h1>Obtain a Keras loss</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_contractive.R'><code>R/autoencoder_contractive.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_robust.R'><code>R/autoencoder_robust.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a>, and 2 more</small>
+    <div class="hidden name"><code>to_keras.ruta_loss_named.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generate samples from a generative model</p>
+    <p>Builds the Keras loss function corresponding to a name</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for ruta_autoencoder_variational</span>
-<span class='fu'>generate</span>(<span class='no'>learner</span>, <span class='kw'>dimensions</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>),
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>side</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>fixed_values</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='co'># S3 method for ruta_loss_contraction</span>
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>keras_model</span>, <span class='no'>...</span>)
 
-<span class='fu'>generate</span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for ruta_loss_correntropy</span>
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_loss_variational</span>
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>loss</span>, <span class='no'>keras_model</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ruta_loss_named</span>
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>learner</th>
-      <td><p>Trained learner object</p></td>
-    </tr>
-    <tr>
-      <th>dimensions</th>
-      <td><p>Indices of the dimensions over which the model will be sampled</p></td>
-    </tr>
-    <tr>
-      <th>from</th>
-      <td><p>Lower limit on the values which will be passed to the inverse CDF of the prior</p></td>
-    </tr>
-    <tr>
-      <th>to</th>
-      <td><p>Upper limit on the values which will be passed to the inverse CDF of the prior</p></td>
-    </tr>
-    <tr>
-      <th>side</th>
-      <td><p>Number of steps to take in each traversed dimension</p></td>
-    </tr>
-    <tr>
-      <th>fixed_values</th>
-      <td><p>Value used as parameter for the inverse CDF of all non-traversed dimensions</p></td>
+      <th>x</th>
+      <td><p>A <code>"ruta_loss_named"</code> object</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Unused</p></td>
+      <td><p>Rest of parameters, ignored</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p><code><a href='autoencoder_variational.html'>autoencoder_variational</a></code></p></div>
+    <p>A function which returns the corresponding loss for given true and
+predicted values</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <ul>
+<li><p>Contractive loss: <a href='https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/'>Deriving Contractive Autoencoder and Implementing it in Keras</a></p></li>
+</ul>
+    <ul>
+<li><p>Correntropy loss: <a href='https://ieeexplore.ieee.org/abstract/document/6854900/'>Robust feature learning by stacked autoencoder with maximum correntropy criterion</a></p></li>
+</ul>
+    <ul>
+<li><p>Variational loss:</p><ul>
+<li><p><a href='https://arxiv.org/abs/1312.6114'>Auto-Encoding Variational Bayes</a></p></li>
+<li><p><a href='http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html'>Under the Hood of the Variational Autoencoder (in Prose and Code)</a></p></li>
+<li><p><a href='https://keras.rstudio.com/articles/examples/variational_autoencoder.html'>Keras example: Variational autoencoder</a></p></li>
+</ul></li>
+</ul>
     
 
   </div>
@@ -199,7 +202,9 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
           </ul>
 
   </div>

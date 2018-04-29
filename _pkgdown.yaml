@@ -94,6 +94,7 @@ reference:
       - contraction
       - correntropy
       - loss_variational
+      - as_loss
   - title: "Model training"
     desc: >
       The following functions allow to train an autoencoder with input data.

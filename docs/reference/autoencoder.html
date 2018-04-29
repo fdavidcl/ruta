@@ -213,9 +213,10 @@
   <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>256</span>, <span class='st'>"relu"</span>) +
   <span class='fu'><a href='output.html'>output</a></span>(<span class='st'>"sigmoid"</span>)
 
-<span class='no'>learner</span> <span class='kw'>&lt;-</span>
-  <span class='no'>network</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>autoencoder</span>(<span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div></pre>
+<span class='no'>learner</span> <span class='kw'>&lt;-</span> <span class='fu'>autoencoder</span>(
+  <span class='no'>network</span>,
+  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>
+)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

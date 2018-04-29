@@ -10,6 +10,9 @@
     <loc>http://ruta.software/reference/apply_filter.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/as_loss.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/as_network.html</loc>
   </url>
   <url>
@@ -145,13 +148,13 @@
     <loc>http://ruta.software/reference/to_keras.ruta_autoencoder.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_loss_contraction.html</loc>
+    <loc>http://ruta.software/reference/to_keras.ruta_layer_input.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_loss_correntropy.html</loc>
+    <loc>http://ruta.software/reference/to_keras.ruta_layer_variational.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_loss_variational.html</loc>
+    <loc>http://ruta.software/reference/to_keras.ruta_loss_named.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/to_keras.ruta_network.html</loc>
