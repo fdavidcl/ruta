@@ -102,27 +102,14 @@
 
     
     
-<p><span class="source-caption">Example source:</span> <a href="https://github.com/fdavidcl/ruta/blog/master/vignettes/examples/autoencoder_variational.R" class="uri">https://github.com/fdavidcl/ruta/blog/master/vignettes/examples/autoencoder_variational.R</a></p>
+<p><span class="source-caption">Example source:</span> <a href="https://github.com/fdavidcl/ruta/blob/master/vignettes/examples/autoencoder_variational.R" class="uri">https://github.com/fdavidcl/ruta/blob/master/vignettes/examples/autoencoder_variational.R</a></p>
 <p>This example demonstrates the use of variational autoencoders with the Ruta package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 <span class="kw">library</span>(keras)
 <span class="kw">library</span>(ruta)</code></pre></div>
 <p>Utility functions for plotting</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_digit &lt;-<span class="st"> </span><span class="cf">function</span>(digit, ...) {
-  <span class="kw">image</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>digit, <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">28</span>), <span class="st">"F"</span>)[, <span class="dv">28</span><span class="op">:</span><span class="dv">1</span>], <span class="dt">xaxt =</span> <span class="st">"n"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>, <span class="dt">col=</span><span class="kw">gray</span>((<span class="dv">0</span><span class="op">:</span><span class="dv">255</span>)<span class="op">/</span><span class="dv">255</span>), ...)
-}
-
-plot_sample &lt;-<span class="st"> </span><span class="cf">function</span>(digits_test, digits_dec, sample) {
-  sample_size &lt;-<span class="st"> </span><span class="kw">length</span>(sample)
-  <span class="kw">layout</span>(
-    <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>sample_size, (sample_size <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>sample_size)), <span class="dt">byrow =</span> F, <span class="dt">nrow =</span> <span class="dv">2</span>)
-  )
-
-  <span class="cf">for</span> (i <span class="cf">in</span> sample) {
-    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
-    <span class="kw">plot_digit</span>(digits_test[i, ])
-    <span class="kw">plot_digit</span>(digits_dec[i, ])
-  }
+  <span class="kw">image</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(digit, <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">28</span>), <span class="st">"F"</span>)[, <span class="dv">28</span><span class="op">:</span><span class="dv">1</span>], <span class="dt">xaxt =</span> <span class="st">"n"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>, <span class="dt">col=</span><span class="kw">gray</span>((<span class="dv">255</span><span class="op">:</span><span class="dv">0</span>)<span class="op">/</span><span class="dv">255</span>), ...)
 }
 
 plot_matrix &lt;-<span class="st"> </span><span class="cf">function</span>(digits) {

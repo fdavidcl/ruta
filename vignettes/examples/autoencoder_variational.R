@@ -7,20 +7,7 @@ library(ruta)
 #' Utility functions for plotting
 
 plot_digit <- function(digit, ...) {
-  image(array_reshape(1 - digit, c(28, 28), "F")[, 28:1], xaxt = "n", yaxt = "n", col=gray((0:255)/255), ...)
-}
-
-plot_sample <- function(digits_test, digits_dec, sample) {
-  sample_size <- length(sample)
-  layout(
-    matrix(c(1:sample_size, (sample_size + 1):(2 * sample_size)), byrow = F, nrow = 2)
-  )
-
-  for (i in sample) {
-    par(mar = c(0,0,0,0) + 1)
-    plot_digit(digits_test[i, ])
-    plot_digit(digits_dec[i, ])
-  }
+  image(array_reshape(digit, c(28, 28), "F")[, 28:1], xaxt = "n", yaxt = "n", col=gray((255:0)/255), ...)
 }
 
 plot_matrix <- function(digits) {
