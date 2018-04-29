@@ -150,13 +150,13 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ruta_loss_contraction</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>keras_model</span>, <span class='no'>...</span>)
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>learner</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ruta_loss_correntropy</span>
 <span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ruta_loss_variational</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>loss</span>, <span class='no'>keras_model</span>, <span class='no'>...</span>)
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>loss</span>, <span class='no'>learner</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ruta_loss_named</span>
 <span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
@@ -167,6 +167,11 @@
     <tr>
       <th>x</th>
       <td><p>A <code>"ruta_loss_named"</code> object</p></td>
+    </tr>
+    <tr>
+      <th>learner</th>
+      <td><p>The learner object including the keras model which will use the loss
+function</p></td>
     </tr>
     <tr>
       <th>...</th>
