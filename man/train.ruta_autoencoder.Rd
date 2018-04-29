@@ -29,7 +29,9 @@ be any optimizer object defined by Keras (e.g. \code{keras::optimizer_adam()})}
 
 \item{...}{Additional parameters for \code{keras::\link[keras]{fit}}. Some useful parameters:
 \itemize{
-\item \code{batch_size} The number of examples to be grouped for each gradient update
+\item \code{batch_size} The number of examples to be grouped for each gradient update.
+Use a smaller batch size for more frequent weight updates or a larger one for
+faster optimization.
 \item \code{shuffle} Whether to shuffle the training data before each epoch, defaults to \code{TRUE}
 }}
 }

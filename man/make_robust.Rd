@@ -4,7 +4,7 @@
 \alias{make_robust}
 \title{Add robust behavior to any autoencoder}
 \usage{
-make_robust(learner, sigma)
+make_robust(learner, sigma = 0.2)
 }
 \arguments{
 \item{learner}{The \code{"ruta_autoencoder"} object}

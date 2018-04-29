@@ -13,12 +13,16 @@
 #'   - `"gaussian"` Randomly offset each component of an input as drawn from
 #'     Gaussian distributions with the same variance (additive Gaussian noise,
 #'     `\link{noise_gaussian}`)
+#'   - `"cauchy"` Randomly offset each component of an input as drawn from
+#'     Cauchy distributions with the same scale (additive Cauchy noise,
+#'     `\link{noise_cauchy}`)
 #' @param ... Extra parameters to customize the noisy filter:
 #'   - `p` The probability that each instance in the input data which will be
 #'     altered by random noise (for `"zeros"`, `"ones"` and `"saltpepper"`)
 #'   - `var` or `sd` The variance or standard deviation of the Gaussian
 #'     distribution from which additive noise will be drawn (for `"gaussian"`,
 #'     only one of those parameters is necessary)
+#'   - `scale` For the Cauchy distribution
 #'
 #' @return A construct of class \code{"ruta_autoencoder"}
 #'

@@ -4,7 +4,7 @@
 \alias{autoencoder_robust}
 \title{Create a robust autoencoder}
 \usage{
-autoencoder_robust(network, sigma)
+autoencoder_robust(network, sigma = 0.2)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}

@@ -122,7 +122,9 @@ to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encod
 #' @param optimizer The optimizer to be used in order to train the model, can
 #'   be any optimizer object defined by Keras (e.g. `keras::optimizer_adam()`)
 #' @param ... Additional parameters for `keras::\link[keras]{fit}`. Some useful parameters:
-#'   - `batch_size` The number of examples to be grouped for each gradient update
+#'   - `batch_size` The number of examples to be grouped for each gradient update.
+#'     Use a smaller batch size for more frequent weight updates or a larger one for
+#'     faster optimization.
 #'   - `shuffle` Whether to shuffle the training data before each epoch, defaults to `TRUE`
 #' @return Same autoencoder passed as parameter, with trained internal models
 #' @examples

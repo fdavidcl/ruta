@@ -16,6 +16,7 @@ Object which can be applied to data with \code{\link{apply_filter}}
 A data filter which replaces some values with ones
 }
 \seealso{
-Other noise generators: \code{\link{noise_gaussian}},
+Other noise generators: \code{\link{noise_cauchy}},
+  \code{\link{noise_gaussian}},
   \code{\link{noise_saltpepper}}, \code{\link{noise_zeros}}
 }

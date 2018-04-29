@@ -7,6 +7,7 @@
 \alias{apply_filter.ruta_noise_ones}
 \alias{apply_filter.ruta_noise_saltpepper}
 \alias{apply_filter.ruta_noise_gaussian}
+\alias{apply_filter.ruta_noise_cauchy}
 \title{Apply filters}
 \usage{
 apply_filter(filter, data, ...)
@@ -20,6 +21,8 @@ apply_filter(filter, data, ...)
 \method{apply_filter}{ruta_noise_saltpepper}(filter, data, ...)
 
 \method{apply_filter}{ruta_noise_gaussian}(filter, data, ...)
+
+\method{apply_filter}{ruta_noise_cauchy}(filter, data, ...)
 }
 \arguments{
 \item{filter}{Filter object to be applied}

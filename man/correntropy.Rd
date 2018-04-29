@@ -4,7 +4,7 @@
 \alias{correntropy}
 \title{Correntropy loss}
 \usage{
-correntropy(sigma)
+correntropy(sigma = 0.2)
 }
 \arguments{
 \item{sigma}{Sigma parameter in the kernel}

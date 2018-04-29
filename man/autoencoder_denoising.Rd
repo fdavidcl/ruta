@@ -20,6 +20,9 @@ autoencoder, as a character string. Available types:
 \item \code{"gaussian"} Randomly offset each component of an input as drawn from
 Gaussian distributions with the same variance (additive Gaussian noise,
 \code{\link{noise_gaussian}})
+\item \code{"cauchy"} Randomly offset each component of an input as drawn from
+Cauchy distributions with the same scale (additive Cauchy noise,
+\code{\link{noise_cauchy}})
 }}
 
 \item{...}{Extra parameters to customize the noisy filter:
@@ -29,6 +32,7 @@ altered by random noise (for \code{"zeros"}, \code{"ones"} and \code{"saltpepper
 \item \code{var} or \code{sd} The variance or standard deviation of the Gaussian
 distribution from which additive noise will be drawn (for \code{"gaussian"},
 only one of those parameters is necessary)
+\item \code{scale} For the Cauchy distribution
 }}
 }
 \value{

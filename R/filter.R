@@ -9,6 +9,7 @@
 #' @param ... Other parameters
 #'
 #' @seealso `\link{autoencoder_denoising}`
+#' @export
 apply_filter <- function(filter, data, ...) UseMethod("apply_filter")
 
 #' @rdname apply_filter
@@ -21,7 +22,7 @@ runif_matrix <- function(data) {
   dims <- dim(data)
   dims %>%
     prod() %>%
-    runif() %>%
+    stats::runif() %>%
     matrix(nrow = dims[1], ncol = dims[2])
 }
 
@@ -44,6 +45,7 @@ noise <- function(type, ...) {
                     ones = noise_ones,
                     saltpepper = noise_saltpepper,
                     gaussian = noise_gaussian,
+                    cauchy = noise_cauchy,
                     NULL
   )
 
@@ -119,7 +121,7 @@ apply_filter.ruta_noise_saltpepper <- function(filter, data, ...) {
 
 #' Additive Gaussian noise
 #'
-#' A data filter which replaces adds Gaussian noise to instances
+#' A data filter which adds Gaussian noise to instances
 #'
 #' @param sd Standard deviation for the Gaussian distribution
 #' @param var Variance of the Gaussian distribution (optional, only used
@@ -146,7 +148,32 @@ apply_filter.ruta_noise_gaussian <- function(filter, data, ...) {
   term <-
     dims %>%
     prod() %>%
-    rnorm(sd = filter$sd) %>%
+    stats::rnorm(sd = filter$sd) %>%
+    matrix(nrow = dims[1], ncol = dims[2])
+
+  data + term
+}
+
+#' Additive Cauchy noise
+#'
+#' A data filter which adds noise from a Cauchy distribution to instances
+#'
+#' @param scale Scale for the Cauchy distribution
+#' @return Object which can be applied to data with `\link{apply_filter}`
+#' @family noise generators
+#' @export
+noise_cauchy <- function(scale = 0.005) {
+  new_noise(ruta_noise_cauchy, scale = scale)
+}
+
+#' @rdname apply_filter
+#' @export
+apply_filter.ruta_noise_cauchy <- function(filter, data, ...) {
+  dims <- dim(data)
+  term <-
+    dims %>%
+    prod() %>%
+    stats::rcauchy(scale = filter$scale) %>%
     matrix(nrow = dims[1], ncol = dims[2])
 
   data + term

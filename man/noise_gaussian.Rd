@@ -16,9 +16,10 @@ if \code{sd} is not provided)}
 Object which can be applied to data with \code{\link{apply_filter}}
 }
 \description{
-A data filter which replaces adds Gaussian noise to instances
+A data filter which adds Gaussian noise to instances
 }
 \seealso{
-Other noise generators: \code{\link{noise_ones}},
-  \code{\link{noise_saltpepper}}, \code{\link{noise_zeros}}
+Other noise generators: \code{\link{noise_cauchy}},
+  \code{\link{noise_ones}}, \code{\link{noise_saltpepper}},
+  \code{\link{noise_zeros}}
 }
