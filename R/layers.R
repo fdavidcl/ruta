@@ -54,7 +54,7 @@ make_atomic_network <- function(cl, ...) {
 #'
 #' This layer acts as a placeholder for input data. The number of units is not
 #' needed as it is deduced from the data during training.
-#' @return A construct with class \code{"ruta_layer"}
+#' @return A construct with class \code{"ruta_network"}
 #' @family neural layers
 #' @export
 input <- function() {
@@ -70,7 +70,7 @@ to_keras.ruta_layer_input <- function(x, input_shape, ...) {
 #' This layer acts as a placeholder for the output layer in an autoencoder. The
 #' number of units is not needed as it is deduced from the data during training.
 #' @param activation Optional, string indicating activation function (linear by default)
-#' @return A construct with class \code{"ruta_layer"}
+#' @return A construct with class \code{"ruta_network"}
 #' @family neural layers
 #' @export
 output <- function(activation = "linear") {
@@ -82,7 +82,7 @@ output <- function(activation = "linear") {
 #' Wrapper for a dense/fully-connected layer.
 #' @param units Number of units
 #' @param activation Optional, string indicating activation function (linear by default)
-#' @return A construct with class \code{"ruta_layer"}
+#' @return A construct with class \code{"ruta_network"}
 #' @examples
 #' dense(30, "tanh")
 #' @family neural layers
@@ -117,11 +117,27 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   )
 }
 
+#' Custom layer from Keras
+#'
+#' Gets any layer available in Keras with the specified parameters
+#'
+#' @param name The name of the layer, e.g. `"activity_regularization"` for a
+#'   `keras::layer_activity_regularization` object.
+#' @return A wrapper for the specified layer, which can be combined with other Ruta
+#'   layers
+#' @family neural layers
 #' @export
 layer_keras <- function(name, ...) {
   make_atomic_network(ruta_layer_custom, name = name, params = list(...))
 }
 
+#' Dropout layer
+#'
+#' Randomly sets a fraction `rate` of input units to 0 at each update during training
+#' time, which helps prevent overfitting.
+#' @param rate The fraction of affected units
+#' @return A construct of class `"ruta_network"`
+#' @family neural layers
 #' @export
 dropout <- function(rate = 0.5) {
   layer_keras("dropout", rate = rate)
