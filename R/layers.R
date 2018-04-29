@@ -117,12 +117,15 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   keras::layer_dense(
     model,
     units = x$units,
-    activation = x$activation,
     activity_regularizer = act_reg,
     kernel_regularizer = kern_reg,
-    name = x$name,
+    name = if (is.null(x$name)) NULL else paste0("pre_", x$name),
     ...
-  )
+  ) %>%
+    keras::layer_activation(
+      activation = x$activation,
+      name = x$name
+    )
 }
 
 #' Custom layer from Keras

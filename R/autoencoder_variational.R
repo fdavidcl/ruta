@@ -141,7 +141,8 @@ loss_variational <- function(reconstruction_loss) {
 #'     - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
 #'     - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
 #' @export
-to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
+to_keras.ruta_loss_variational <- function(loss, learner, ...) {
+  keras_model <- learner$models$autoencoder
   original_dim <- 1. * keras_model$input_shape[[2]]
   reconstruction_loss <- loss$reconstruction_loss %>% as_loss() %>% to_keras()
   z_mean <- keras::get_layer(keras_model, name = "z_mean")

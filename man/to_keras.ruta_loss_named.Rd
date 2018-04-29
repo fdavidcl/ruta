@@ -8,16 +8,19 @@
 \alias{to_keras.ruta_loss_named}
 \title{Obtain a Keras loss}
 \usage{
-\method{to_keras}{ruta_loss_contraction}(x, keras_model, ...)
+\method{to_keras}{ruta_loss_contraction}(x, learner, ...)
 
 \method{to_keras}{ruta_loss_correntropy}(x, ...)
 
-\method{to_keras}{ruta_loss_variational}(loss, keras_model, ...)
+\method{to_keras}{ruta_loss_variational}(loss, learner, ...)
 
 \method{to_keras}{ruta_loss_named}(x, ...)
 }
 \arguments{
 \item{x}{A \code{"ruta_loss_named"} object}
+
+\item{learner}{The learner object including the keras model which will use the loss
+function}
 
 \item{...}{Rest of parameters, ignored}
 }
