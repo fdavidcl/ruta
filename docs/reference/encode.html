@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Retrieve encoding of data — encode" />
 
 <meta property="og:description" content="Extracts the encoding calculated by a trained autoencoder for the specified
@@ -39,8 +42,6 @@ data." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -78,6 +79,22 @@ data." />
     Get started
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Examples
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Autoencoder variants</li>
+    <li>
+      <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -107,14 +124,16 @@ data." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieve encoding of data</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
     <div class="hidden name"><code>encode.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Extracts the encoding calculated by a trained autoencoder for the specified
 data.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>encode</span>(<span class='no'>learner</span>, <span class='no'>data</span>)</pre>
     

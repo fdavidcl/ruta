@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Variational loss — loss_variational" />
 
 <meta property="og:description" content="Specifies an evaluation function adapted to the variational autoencoder. It combines
@@ -40,8 +43,6 @@ distribution and the true latent posterior." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -79,6 +80,22 @@ distribution and the true latent posterior." />
     Get started
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Examples
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Autoencoder variants</li>
+    <li>
+      <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -108,15 +125,17 @@ distribution and the true latent posterior." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Variational loss</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a></small>
     <div class="hidden name"><code>loss_variational.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Specifies an evaluation function adapted to the variational autoencoder. It combines
 a base reconstruction error and the Kullback-Leibler divergence between the learned
 distribution and the true latent posterior.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>loss_variational</span>(<span class='no'>reconstruction_loss</span>)</pre>
     

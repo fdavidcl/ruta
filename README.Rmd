@@ -6,7 +6,7 @@
 }
 </style>
 
-::: {.jumbotron}
+<div class="jumbotron">
 
 # Ruta <img src="https://raw.githubusercontent.com/fdavidcl/ruta/master/docs/images/logo/ruta_logo64.png" align="right">
 
@@ -22,7 +22,7 @@ Get uncomplicated access to unsupervised deep neural networks, from building the
 
 [[]{.fa .fa-code} Get started](/articles/getting-started.html){.btn .btn-primary}
 
-:::
+</div>
 
 ```{r structure, echo = F}
 library(ruta)

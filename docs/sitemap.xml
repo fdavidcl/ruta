@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://ruta.software/index.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/add_weight_decay.html</loc>
   </url>
   <url>
@@ -158,6 +161,15 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/weight_decay.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_basic.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_variational.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/index.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/articles/getting-started.html</loc>

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Retrieve reconstructions for input data — reconstruct" />
 
 <meta property="og:description" content="Extracts the reconstructions calculated by a trained autoencoder for the specified
@@ -39,8 +42,6 @@ input data after encoding and decoding. predict is an alias for reconstruct." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -78,6 +79,22 @@ input data after encoding and decoding. predict is an alias for reconstruct." />
     Get started
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Examples
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Autoencoder variants</li>
+    <li>
+      <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -107,14 +124,16 @@ input data after encoding and decoding. predict is an alias for reconstruct." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieve reconstructions for input data</h1>
-    <small>Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a></small>
     <div class="hidden name"><code>reconstruct.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Extracts the reconstructions calculated by a trained autoencoder for the specified
 input data after encoding and decoding. <code>predict</code> is an alias for <code>reconstruct</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>reconstruct</span>(<span class='no'>learner</span>, <span class='no'>data</span>)
 
