@@ -31,9 +31,10 @@ network <-
   dense(256, "relu") +
   output("sigmoid")
 
-learner <-
-  network \%>\%
-  autoencoder(loss = "binary_crossentropy")
+learner <- autoencoder(
+  network,
+  loss = "binary_crossentropy"
+)
 
 }
 \references{

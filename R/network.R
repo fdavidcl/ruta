@@ -35,14 +35,14 @@ new_network <- function(...) {
 
 #' @rdname as_network
 #' @export
-as_network.ruta_network <- function(object) {
-  object
+as_network.ruta_network <- function(x) {
+  x
 }
 
 #' @rdname as_network
 #' @export
-as_network.numeric <- function(object) {
-  as_network(as.integer(object))
+as_network.numeric <- function(x) {
+  as_network(as.integer(x))
 }
 
 #' @rdname as_network
@@ -50,9 +50,9 @@ as_network.numeric <- function(object) {
 #' net <- as_network(c(784, 1000, 32))
 #' @import purrr
 #' @export
-as_network.integer <- function(object) {
-  object <- c(object, rev(object)[-1])
-  hidden <- object %>% map(dense) %>% reduce(`+`)
+as_network.integer <- function(x) {
+  x <- c(x, rev(x)[-1])
+  hidden <- x %>% map(dense) %>% reduce(`+`)
   input() + hidden + output()
 }
 

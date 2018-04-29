@@ -40,7 +40,7 @@ new_noise <- function(cl, ...) {
 #' @param ... Parameters for each noise class
 #' @export
 noise <- function(type, ...) {
-  noise_f <- switch(tolower(noise_type),
+  noise_f <- switch(tolower(type),
                     zeros = noise_zeros,
                     ones = noise_ones,
                     saltpepper = noise_saltpepper,

@@ -44,9 +44,10 @@ new_autoencoder <- function(network, loss, extra_class = NULL) {
 #'   dense(256, "relu") +
 #'   output("sigmoid")
 #'
-#' learner <-
-#'   network %>%
-#'   autoencoder(loss = "binary_crossentropy")
+#' learner <- autoencoder(
+#'   network,
+#'   loss = "binary_crossentropy"
+#' )
 #'
 #' @export
 autoencoder <- function(network, loss = "mean_squared_error") {

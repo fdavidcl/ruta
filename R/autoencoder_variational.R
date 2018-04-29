@@ -158,9 +158,10 @@ to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
 #' @param to Upper limit on the values which will be passed to the inverse CDF of the prior
 #' @param side Number of steps to take in each traversed dimension
 #' @param fixed_values Value used as parameter for the inverse CDF of all non-traversed dimensions
+#' @param ... Unused
 #' @seealso `\link{autoencoder_variational}`
 #' @export
-generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5) {
+generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10, fixed_values = 0.5, ...) {
   d <- learner$models$decoder$input_shape[[2]]
   md <- length(dimensions)
 
@@ -183,5 +184,5 @@ generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2),
   encoded[, dimensions] <- moving_dims
   encoded <- as.matrix(encoded)
 
-  sampled <- decode(model, encoded)
+  sampled <- decode(learner, encoded)
 }

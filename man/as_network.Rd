@@ -10,13 +10,13 @@
 \usage{
 as_network(x)
 
-\method{as_network}{ruta_layer}(object)
+\method{as_network}{ruta_layer}(x)
 
-\method{as_network}{ruta_network}(object)
+\method{as_network}{ruta_network}(x)
 
-\method{as_network}{numeric}(object)
+\method{as_network}{numeric}(x)
 
-\method{as_network}{integer}(object)
+\method{as_network}{integer}(x)
 }
 \arguments{
 \item{x}{Object to be converted into a network}

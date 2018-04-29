@@ -66,7 +66,7 @@ plot.ruta_network <- function(x, ...) {
       } else if (ruta_layer_custom %in% class(n)) {
         n$name
       } else {
-        "⇩"
+        "\u2193"
       })
   )
 

@@ -6,7 +6,7 @@
 \title{Generate samples from a generative model}
 \usage{
 \method{generate}{ruta_autoencoder_variational}(learner, dimensions = c(1, 2),
-  from = 0.05, to = 0.95, side = 10, fixed_values = 0.5)
+  from = 0.05, to = 0.95, side = 10, fixed_values = 0.5, ...)
 
 generate(learner, ...)
 }
@@ -22,6 +22,8 @@ generate(learner, ...)
 \item{side}{Number of steps to take in each traversed dimension}
 
 \item{fixed_values}{Value used as parameter for the inverse CDF of all non-traversed dimensions}
+
+\item{...}{Unused}
 }
 \description{
 Generate samples from a generative model

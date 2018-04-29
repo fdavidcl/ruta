@@ -40,8 +40,8 @@ new_layer <- function(cl, ...) {
 
 #' @rdname as_network
 #' @export
-as_network.ruta_layer <- function(object) {
-  new_network(object)
+as_network.ruta_layer <- function(x) {
+  new_network(x)
 }
 
 make_atomic_network <- function(cl, ...) {

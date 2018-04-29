@@ -8,3 +8,5 @@
 ^_pkgdown\.yaml$
 ^README\.Rmd$
 ^README\.html$
+^vignettes/examples$
+^demo$
