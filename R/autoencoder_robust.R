@@ -54,13 +54,10 @@ make_robust <- function(learner, sigma = 0.2) {
   learner$loss <- correntropy(sigma)
 }
 
-#' Obtain a Keras correntropy loss
+#' @rdname to_keras.ruta_loss_named
+#' @references
+#' - Correntropy loss: [Robust feature learning by stacked autoencoder with maximum correntropy criterion](https://ieeexplore.ieee.org/abstract/document/6854900/)
 #'
-#' @description Builds the Keras loss function corresponding to the object received
-#'
-#' @param x A \code{"ruta_loss_correntropy"} object
-#' @param ... Rest of parameters, ignored
-#' @seealso `\link{autoencoder_robust}`
 #' @export
 to_keras.ruta_loss_correntropy <- function(x, ...) {
   sigma <- x$sigma

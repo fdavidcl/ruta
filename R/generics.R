@@ -4,6 +4,12 @@ train <- function(learner, ...) {
   UseMethod("train")
 }
 
+#' Coercion to ruta_loss
+#'
+#' Generic function to coerce objects into loss objects.
+#' @param x Object to be converted into a loss
+#' @return A \code{"ruta_loss"} construct
+#' @export
 as_loss <- function(x) UseMethod("as_loss")
 
 #' Coercion to ruta_network

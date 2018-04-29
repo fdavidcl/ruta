@@ -60,6 +60,13 @@ input <- function() {
   make_atomic_network(ruta_layer_input)
 }
 
+#' Convert Ruta layers onto Keras layers
+#'
+#' @param x The layer object
+#' @param input_shape Number of features in training data
+#' @param ... Unused
+#' @return A Layer object from Keras
+#' @export
 to_keras.ruta_layer_input <- function(x, input_shape, ...) {
   keras::layer_input(shape = input_shape)
 }
@@ -90,6 +97,8 @@ dense <- function(units, activation = "linear") {
   make_atomic_network(ruta_layer_dense, units = units, activation = activation)
 }
 
+#' @param model Keras model where the layer will be added
+#' @rdname to_keras.ruta_layer_input
 to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   if (is.null(x$units)) {
     x$units <- input_shape
@@ -143,6 +152,7 @@ dropout <- function(rate = 0.5) {
   layer_keras("dropout", rate = rate)
 }
 
+#' @rdname to_keras.ruta_layer_input
 to_keras.ruta_layer_custom <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   layer_f = get_keras_object(x$name, "layer")
   args = c(list(object = model), x$params)

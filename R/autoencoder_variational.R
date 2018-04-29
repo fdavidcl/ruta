@@ -66,10 +66,22 @@ variational_block <- function(units) {
   make_atomic_network(ruta_layer_variational, units = units)
 }
 
+#' Obtain a Keras block of layers for the variational autoencoder
+#'
+#' This block contains two dense layers representing the mean and log var of a Gaussian
+#' distribution and a sampling layer.
+#'
+#' @param x The layer object
+#' @param input_shape Number of features in training data
+#' @param model Keras model where the layers will be added
+#' @param ... Unused
+#' @return A Layer object from Keras
+#'
 #' @references
 #' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
 #' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
 #' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' @export
 to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   epsilon_std <- 1.0
   latent_dim <- x$units
@@ -122,21 +134,12 @@ loss_variational <- function(reconstruction_loss) {
   )
 }
 
-#' Obtain a Keras variational loss
-#'
-#' Builds the Keras loss function corresponding to the object received
-#'
-#' @param loss A \code{"ruta_loss_variational"} object
-#' @param keras_model The keras autoencoder which will use the loss function
-#' @return A function which returns the variational loss for given true and
-#' predicted values
-#' @param ... Rest of parameters, ignored
+#' @rdname to_keras.ruta_loss_named
 #' @references
-#' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
-#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
-#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
-#'
-#' @seealso `\link{autoencoder_variational}`
+#' - Variational loss:
+#'     - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
+#'     - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#'     - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
 #' @export
 to_keras.ruta_loss_variational <- function(loss, keras_model, ...) {
   original_dim <- 1. * keras_model$input_shape[[2]]

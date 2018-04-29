@@ -63,19 +63,9 @@ make_contractive <- function(learner, weight = 2e-4) {
   learner
 }
 
-#' Obtain a Keras contractive loss
-#'
-#' @description Builds the Keras loss function corresponding to the object received
-#'
-#' @param x A \code{"ruta_loss_contraction"} object
-#' @param keras_model The keras autoencoder which will use the loss function
-#' @return A function which returns the contractive loss for given true and
-#' predicted values
-#' @param ... Rest of parameters, ignored
+#' @rdname to_keras.ruta_loss_named
 #' @references
-#' \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
-#'
-#' @seealso `\link{autoencoder_contractive}`
+#' - Contractive loss: \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
 #' @export
 to_keras.ruta_loss_contraction <- function(x, keras_model, ...) {
   rec_err <- x$reconstruction_loss %>% as_loss() %>% to_keras()
