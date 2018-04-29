@@ -35,6 +35,14 @@ get_xs <- function(struct) {
 #' }
 #' @import graphics
 #' @import purrr
+#' @examples
+#' net <-
+#'   input() +
+#'   dense(1000, "relu") + dropout() +
+#'   dense(100, "tanh") +
+#'   dense(1000, "relu") + dropout() +
+#'   output("sigmoid")
+#' plot(net, log = TRUE, fg = "#30707a", bg = "#e0e6ea")
 #' @export
 plot.ruta_network <- function(x, ...) {
   args <- list(...)

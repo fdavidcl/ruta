@@ -170,12 +170,22 @@
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>net</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='input.html'>input</a></span>() +
+  <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>1000</span>, <span class='st'>"relu"</span>) + <span class='fu'><a href='dropout.html'>dropout</a></span>() +
+  <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>100</span>, <span class='st'>"tanh"</span>) +
+  <span class='fu'><a href='dense.html'>dense</a></span>(<span class='fl'>1000</span>, <span class='st'>"relu"</span>) + <span class='fu'><a href='dropout.html'>dropout</a></span>() +
+  <span class='fu'><a href='output.html'>output</a></span>(<span class='st'>"sigmoid"</span>)
+<span class='fu'>plot</span>(<span class='no'>net</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fg</span> <span class='kw'>=</span> <span class='st'>"#30707a"</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"#e0e6ea"</span>)</div><div class='img'><img src='plot.ruta_network-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
