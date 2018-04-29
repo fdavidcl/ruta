@@ -4,12 +4,15 @@
 \alias{autoencode}
 \title{Automatically compute an encoding of a data matrix}
 \usage{
-autoencode(data, encoding_dim, activation = "linear")
+autoencode(data, dim, type = "basic", activation = "linear")
 }
 \arguments{
 \item{data}{Numeric matrix to be encoded}
 
-\item{encoding_dim}{Number of variables to be used in the encoding}
+\item{dim}{Number of variables to be used in the encoding}
+
+\item{activation}{Activation type to be used in the encoding layer. Some available
+activations are \code{"tanh"}, \code{"sigmoid"}, \code{"relu"}, \code{"elu"} and \code{"selu"}.}
 }
 \value{
 Matrix containing the encodings
@@ -21,8 +24,12 @@ same data matrix.
 \examples{
 \dontrun{
 inputs <- as.matrix(iris[, 1:4])
+
 # Train a basic autoencoder and generate a 2-variable encoding
 encoded <- autoencode(inputs, 2)
+
+# Train a contractive autoencoder with tanh activation
+encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
 }
 
 }

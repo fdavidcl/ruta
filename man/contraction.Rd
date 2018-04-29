@@ -4,7 +4,7 @@
 \alias{contraction}
 \title{Contractive loss}
 \usage{
-contraction(reconstruction_loss, weight)
+contraction(reconstruction_loss = "mean_squared_error", weight = 2e-04)
 }
 \arguments{
 \item{reconstruction_loss}{Original reconstruction error to be combined with the

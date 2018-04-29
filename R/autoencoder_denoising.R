@@ -31,7 +31,7 @@
 #'
 #' @family autoencoder variants
 #' @export
-autoencoder_denoising <- function(network, loss, noise_type = "zeros", ...) {
+autoencoder_denoising <- function(network, loss = "mean_squared_error", noise_type = "zeros", ...) {
   autoencoder(network, loss) %>%
     make_denoising(noise_type, ...)
 }

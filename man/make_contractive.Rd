@@ -4,7 +4,7 @@
 \alias{make_contractive}
 \title{Add contractive behavior to any autoencoder}
 \usage{
-make_contractive(learner, weight)
+make_contractive(learner, weight = 2e-04)
 }
 \arguments{
 \item{learner}{The \code{"ruta_autoencoder"} object}

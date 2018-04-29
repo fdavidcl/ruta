@@ -4,7 +4,8 @@
 \alias{autoencoder_denoising}
 \title{Create a denoising autoencoder}
 \usage{
-autoencoder_denoising(network, loss, noise_type = "zeros", ...)
+autoencoder_denoising(network, loss = "mean_squared_error",
+  noise_type = "zeros", ...)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}

@@ -4,7 +4,8 @@
 \alias{autoencoder_contractive}
 \title{Create a contractive autoencoder}
 \usage{
-autoencoder_contractive(network, loss, weight)
+autoencoder_contractive(network, loss = "mean_squared_error",
+  weight = 2e-04)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}

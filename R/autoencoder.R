@@ -207,20 +207,35 @@ train.ruta_autoencoder <- function(
 #' Trains an autoencoder adapted to the data and extracts its encoding for the
 #'   same data matrix.
 #' @param data Numeric matrix to be encoded
-#' @param encoding_dim Number of variables to be used in the encoding
+#' @param dim Number of variables to be used in the encoding
+#' @param activation Activation type to be used in the encoding layer. Some available
+#'   activations are `"tanh"`, `"sigmoid"`, `"relu"`, `"elu"` and `"selu"`.
 #' @return Matrix containing the encodings
 #'
 #' @examples
 #' \dontrun{
 #' inputs <- as.matrix(iris[, 1:4])
+#'
 #' # Train a basic autoencoder and generate a 2-variable encoding
 #' encoded <- autoencode(inputs, 2)
+#'
+#' # Train a contractive autoencoder with tanh activation
+#' encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
 #' }
 #'
 #' @seealso `\link{autoencoder}`
 #' @export
-autoencode <- function(data, encoding_dim, activation = "linear") {
-  autoencoder(input() + dense(encoding_dim, activation = activation) + output()) %>%
+autoencode <- function(data, dim, type = "basic", activation = "linear") {
+  autoencoder_f <- switch(tolower(type),
+                          basic = autoencoder,
+                          sparse = autoencoder_sparse,
+                          contractive = autoencoder_contractive,
+                          denoising = autoencoder_denoising,
+                          robust = autoencoder_robust,
+                          variational = autoencoder_variational,
+                          stop("The requested type of autoencoder does not exist"))
+
+  autoencoder_f(input() + dense(dim, activation = activation) + output()) %>%
     train(data) %>%
     encode(data)
 }

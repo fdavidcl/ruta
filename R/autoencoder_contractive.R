@@ -15,7 +15,7 @@
 #'
 #' @family autoencoder variants
 #' @export
-autoencoder_contractive <- function(network, loss, weight) {
+autoencoder_contractive <- function(network, loss = "mean_squared_error", weight = 2e-4) {
   autoencoder(network, loss) %>%
     make_contractive(weight)
 }
@@ -33,7 +33,7 @@ autoencoder_contractive <- function(network, loss, weight) {
 #' @seealso `\link{autoencoder_contractive}`
 #' @family loss functions
 #' @export
-contraction <- function(reconstruction_loss, weight) {
+contraction <- function(reconstruction_loss = "mean_squared_error", weight = 2e-4) {
   structure(
     list(
       reconstruction_loss = reconstruction_loss,
@@ -55,7 +55,7 @@ contraction <- function(reconstruction_loss, weight) {
 #'
 #' @seealso `\link{autoencoder_contractive}`
 #' @export
-make_contractive <- function(learner, weight) {
+make_contractive <- function(learner, weight = 2e-4) {
   if (!(ruta_loss_contraction %in% class(learner$loss))) {
     learner$loss = contraction(learner$loss, weight)
   }

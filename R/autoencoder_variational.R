@@ -63,7 +63,7 @@ autoencoder_variational <- function(network, loss = "binary_crossentropy", auto_
 #' @seealso `\link{autoencoder_variational}`
 #' @export
 variational_block <- function(units) {
-  make_atomic_network(ruta_layer_variational, units, "linear")
+  make_atomic_network(ruta_layer_variational, units = units)
 }
 
 #' @references

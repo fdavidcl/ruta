@@ -16,7 +16,7 @@
 #' @seealso \code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 #' @family autoencoder variants
 #' @export
-autoencoder_sparse <- function(network, loss, high_probability = 0.1, weight = 0.2) {
+autoencoder_sparse <- function(network, loss = "mean_squared_error", high_probability = 0.1, weight = 0.2) {
   autoencoder(network, loss) %>%
     make_sparse(high_probability, weight)
 }

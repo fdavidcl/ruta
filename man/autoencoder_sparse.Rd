@@ -4,7 +4,8 @@
 \alias{autoencoder_sparse}
 \title{Sparse autoencoder}
 \usage{
-autoencoder_sparse(network, loss, high_probability = 0.1, weight = 0.2)
+autoencoder_sparse(network, loss = "mean_squared_error",
+  high_probability = 0.1, weight = 0.2)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}
