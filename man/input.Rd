@@ -7,7 +7,7 @@
 input()
 }
 \value{
-A construct with class \code{"ruta_layer"}
+A construct with class \code{"ruta_network"}
 }
 \description{
 This layer acts as a placeholder for input data. The number of units is not
@@ -15,5 +15,6 @@ needed as it is deduced from the data during training.
 }
 \seealso{
 Other neural layers: \code{\link{dense}},
+  \code{\link{dropout}}, \code{\link{layer_keras}},
   \code{\link{output}}, \code{\link{variational_block}}
 }

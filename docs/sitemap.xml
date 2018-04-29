@@ -46,6 +46,9 @@
     <loc>http://ruta.software/reference/dense.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/dropout.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/encode.html</loc>
   </url>
   <url>
@@ -71,6 +74,9 @@
   </url>
   <url>
     <loc>http://ruta.software/reference/join-networks.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/layer_keras.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/loss_variational.html</loc>

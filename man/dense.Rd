@@ -12,7 +12,7 @@ dense(units, activation = "linear")
 \item{activation}{Optional, string indicating activation function (linear by default)}
 }
 \value{
-A construct with class \code{"ruta_layer"}
+A construct with class \code{"ruta_network"}
 }
 \description{
 Wrapper for a dense/fully-connected layer.
@@ -21,6 +21,7 @@ Wrapper for a dense/fully-connected layer.
 dense(30, "tanh")
 }
 \seealso{
-Other neural layers: \code{\link{input}},
+Other neural layers: \code{\link{dropout}},
+  \code{\link{input}}, \code{\link{layer_keras}},
   \code{\link{output}}, \code{\link{variational_block}}
 }

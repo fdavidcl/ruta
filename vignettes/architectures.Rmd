@@ -9,7 +9,10 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
+  collapse = TRUE, 
+  fig.height=7, 
+  fig.width=7,
+  out.width = "480",
   comment = "#>"
 )
 ```
@@ -37,7 +40,7 @@ net <-
   output("sigmoid")
 
 print(net)
-#plot(net)
+plot(net)
 ```
 
 Other available layers are `dropout` and other Keras layers via the `layer_keras` function:
@@ -53,5 +56,6 @@ net <-
   output("sigmoid")
 
 print(net)
+plot(net, log = TRUE, fg = "#30707a", bg = "#e0e6ea")
 ```
 
