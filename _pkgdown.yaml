@@ -21,6 +21,13 @@ navbar:
     - text: "Get started"
       href: "articles/getting-started.html"
       icon: fa-code
+    - text: "Examples"
+      menu:
+        - text: "Autoencoder variants"
+        - text: "Basic autoencoder"
+          href: "articles/examples/autoencoder_basic.html"
+        - text: "Variational autoencoder"
+          href: "articles/examples/autoencoder_variational.html"
   right:
     - text: "Documentation"
       icon: fa-book
