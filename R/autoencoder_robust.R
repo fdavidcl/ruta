@@ -16,7 +16,7 @@
 #'
 #' @family autoencoder variants
 #' @export
-autoencoder_robust <- function(network, sigma) {
+autoencoder_robust <- function(network, sigma = 0.2) {
   autoencoder(network, correntropy(sigma))
 }
 
@@ -30,7 +30,7 @@ autoencoder_robust <- function(network, sigma) {
 #' @seealso `\link{autoencoder_robust}`
 #' @family loss functions
 #' @export
-correntropy <- function(sigma) {
+correntropy <- function(sigma = 0.2) {
   structure(
     list(sigma = sigma),
     class = c(ruta_loss_correntropy, ruta_loss)
@@ -49,7 +49,7 @@ correntropy <- function(sigma) {
 #' @return An autoencoder object which contains the correntropy loss
 #' @seealso `\link{autoencoder_robust}`
 #' @export
-make_robust <- function(learner, sigma) {
+make_robust <- function(learner, sigma = 0.2) {
   # message("This will replace the previous loss function")
   learner$loss <- correntropy(sigma)
 }
