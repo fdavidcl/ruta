@@ -166,7 +166,7 @@ train.ruta_autoencoder <- function(
   data,
   validation_data = NULL,
   metrics = NULL,
-  epochs = 100,
+  epochs = 20,
   optimizer = keras::optimizer_rmsprop(),
   ...) {
   learner$models <- to_keras(learner, input_shape = ncol(data))
@@ -210,6 +210,8 @@ train.ruta_autoencoder <- function(
 #' @param dim Number of variables to be used in the encoding
 #' @param activation Activation type to be used in the encoding layer. Some available
 #'   activations are `"tanh"`, `"sigmoid"`, `"relu"`, `"elu"` and `"selu"`.
+#' @param epochs Number of times the data will traverse the autoencoder to update its
+#'   weights
 #' @return Matrix containing the encodings
 #'
 #' @examples
@@ -225,7 +227,7 @@ train.ruta_autoencoder <- function(
 #'
 #' @seealso `\link{autoencoder}`
 #' @export
-autoencode <- function(data, dim, type = "basic", activation = "linear") {
+autoencode <- function(data, dim, type = "basic", activation = "linear", epochs = 20) {
   autoencoder_f <- switch(tolower(type),
                           basic = autoencoder,
                           sparse = autoencoder_sparse,
@@ -236,7 +238,7 @@ autoencode <- function(data, dim, type = "basic", activation = "linear") {
                           stop("The requested type of autoencoder does not exist"))
 
   autoencoder_f(input() + dense(dim, activation = activation) + output()) %>%
-    train(data) %>%
+    train(data, epochs = epochs) %>%
     encode(data)
 }
 

@@ -4,7 +4,7 @@
 \alias{autoencode}
 \title{Automatically compute an encoding of a data matrix}
 \usage{
-autoencode(data, dim, type = "basic", activation = "linear")
+autoencode(data, dim, type = "basic", activation = "linear", epochs = 20)
 }
 \arguments{
 \item{data}{Numeric matrix to be encoded}
@@ -13,6 +13,9 @@ autoencode(data, dim, type = "basic", activation = "linear")
 
 \item{activation}{Activation type to be used in the encoding layer. Some available
 activations are \code{"tanh"}, \code{"sigmoid"}, \code{"relu"}, \code{"elu"} and \code{"selu"}.}
+
+\item{epochs}{Number of times the data will traverse the autoencoder to update its
+weights}
 }
 \value{
 Matrix containing the encodings
