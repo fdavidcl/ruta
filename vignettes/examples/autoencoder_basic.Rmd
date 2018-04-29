@@ -99,3 +99,20 @@ plot_sample <- function(digits_test, digits_dec, sample) {
 plot_sample(x_test, decoded, 1:10)
 ```
 
+Basic autoencoders provide some more options, such as weight decay of the encoding layer and training with validation data as well:
+
+```r
+my_ae_wd <- add_weight_decay(my_ae, decay = 0.01)
+
+train(
+  my_ae_wd,
+  x_train,
+  epochs = 20,
+  optimizer = "adam",
+  batch_size = 64,
+  validation_data = x_test,
+  metrics = list("binary_accuracy")
+)
+```
+
+For more details, read [the documentation](/reference/). For the rest of autoencoder variants, see [other examples](/articles/examples/).

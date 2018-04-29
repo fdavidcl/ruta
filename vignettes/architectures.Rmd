@@ -1,0 +1,57 @@
+---
+title: "Building neural architectures"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building neural architectures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Ruta allows creating the neural architecture of autoencoders in several ways. The easiest way is to use an integer vector describing the number of units of each hidden layer in the encoder:
+
+```{r int}
+library(magrittr)
+library(ruta)
+
+net <- c(1000, 100)
+net %>% as_network() %>% print()
+```
+
+The input and output layers have an undetermined size until training data is used and the autoencoder is converted onto a Keras model.
+
+By using [separate functions](/reference/#section-neural-network-architecture) for each layer type, one may define the activations at the output of each layer:
+
+```{r structure}
+net <- 
+  input() + 
+  dense(1000, "relu") + 
+  dense(100, "tanh") + 
+  dense(1000, "relu") + 
+  output("sigmoid")
+
+print(net)
+#plot(net)
+```
+
+Other available layers are `dropout` and other Keras layers via the `layer_keras` function:
+
+```{r custom}
+act_reg <- layer_keras("activity_regularization", l1 = 0.01)
+
+net <- 
+  input() + 
+  dense(1000, "relu") + dropout() +
+  dense(100, "tanh") + act_reg +
+  dense(1000, "relu") + dropout() +
+  output("sigmoid")
+
+print(net)
+```
+

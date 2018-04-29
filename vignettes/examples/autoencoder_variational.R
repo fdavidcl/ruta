@@ -1,11 +1,38 @@
-#' This example demonstrates the use of variational autoencoders with the Ruta package.
-
+#' **This example demonstrates the use of variational autoencoders with the Ruta package.**
+#'
+#' Define a variational autoencoder with 3-variable latent space.
+#' The encoding of a variational autoencoder is defined with `variational_block`.
 library(magrittr)
 library(keras)
 library(ruta)
 
-#' Utility functions for plotting
+network <-
+  input() +
+  dense(256, "elu") +
+  variational_block(3) +
+  dense(256, "elu") +
+  output("sigmoid")
 
+learner <- autoencoder_variational(network, loss = "binary_crossentropy")
+
+#' Load MNIST and normalize
+mnist <- dataset_mnist()
+x_train <- array_reshape(
+  mnist$train$x, c(dim(mnist$train$x)[1], 784)
+)
+x_train <- x_train / 255.0
+x_test <- array_reshape(
+  mnist$test$x, c(dim(mnist$test$x)[1], 784)
+)
+x_test <- x_test / 255.0
+
+#' Train
+model <- learner %>% train(x_train, epochs = 50)
+
+#' Sample the trained model
+samples <- model %>% generate(dimensions = c(2, 3), fixed_values = 0.5)
+
+#' Utility functions for plotting
 plot_digit <- function(digit, ...) {
   image(array_reshape(digit, c(28, 28), "F")[, 28:1], xaxt = "n", yaxt = "n", col=gray((255:0)/255), ...)
 }
@@ -22,38 +49,10 @@ plot_matrix <- function(digits) {
   }
 }
 
-#' Load MNIST
-
-mnist = dataset_mnist()
-x_train <- array_reshape(
-  mnist$train$x, c(dim(mnist$train$x)[1], 784)
-)
-x_train <- x_train / 255.0
-x_test <- array_reshape(
-  mnist$test$x, c(dim(mnist$test$x)[1], 784)
-)
-x_test <- x_test / 255.0
-
-
-#' Variational autoencoder
-
-network <-
-  input() +
-  dense(256, "elu") +
-  variational_block(3) +
-  dense(256, "elu") +
-  output("sigmoid")
-
-learner <- autoencoder_variational(network, loss = "binary_crossentropy")
-
-model <- learner %>% train(x_train, epochs = 50)
-
-#' Sampling the trained model
-
-model %>% generate(dimensions = c(2, 3), fixed_values = 0.5) %>% plot_matrix()
+#' Plot samples
+plot_matrix(samples)
 
 #' Creating an animation from a sampling
-
 library(animation)
 
 par(bg = "white")  # ensure the background color is white

@@ -10,4 +10,8 @@ vignette: >
 | Example | Description |
 |---------|-------------|
 | [autoencoder_basic](autoencoder_basic.html) | Training and using a couple of basic autoencoder models |
+| [autoencoder_contractive](autoencoder_contractive.html) | Training and testing a contractive autoencoder |
+| [autoencoder_denoising](autoencoder_denoising.html) | Training and testing a denoising autoencoder |
+| [autoencoder_robust](autoencoder_robust.html) | Training and testing a robust autoencoder |
+| [autoencoder_sparse](autoencoder_sparse.html) | Training and testing a sparse autoencoder |
 | [autoencoder_variational](autoencoder_variational.html) | Training and sampling a variational autoencoder |

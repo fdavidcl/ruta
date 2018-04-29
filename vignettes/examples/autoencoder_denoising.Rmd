@@ -1,5 +1,5 @@
 ---
-title: "autoencoder_variational"
+title: "autoencoder_denoising"
 type: docs
 output: rmarkdown::html_vignette
 ---
