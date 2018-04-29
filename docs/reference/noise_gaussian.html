@@ -30,7 +30,7 @@
 
 <meta property="og:title" content="Additive Gaussian noise — noise_gaussian" />
 
-<meta property="og:description" content="A data filter which replaces adds Gaussian noise to instances" />
+<meta property="og:description" content="A data filter which adds Gaussian noise to instances" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -85,9 +85,25 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/architectures.html">Building neural architectures</a>
+    </li>
+    <li class="divider"></li>
     <li class="dropdown-header">Autoencoder variants</li>
     <li>
       <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_denoising.html">Denoising autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_robust.html">Robust autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_sparse.html">Sparse autoencoder</a>
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
@@ -129,7 +145,7 @@
 
     <div class="ref-description">
     
-    <p>A data filter which replaces adds Gaussian noise to instances</p>
+    <p>A data filter which adds Gaussian noise to instances</p>
     
     </div>
 
@@ -155,8 +171,9 @@ if <code>sd</code> is not provided)</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other noise generators: <code><a href='noise_ones.html'>noise_ones</a></code>,
-  <code><a href='noise_saltpepper.html'>noise_saltpepper</a></code>, <code><a href='noise_zeros.html'>noise_zeros</a></code></p></div>
+    <div class='dont-index'><p>Other noise generators: <code><a href='noise_cauchy.html'>noise_cauchy</a></code>,
+  <code><a href='noise_ones.html'>noise_ones</a></code>, <code><a href='noise_saltpepper.html'>noise_saltpepper</a></code>,
+  <code><a href='noise_zeros.html'>noise_zeros</a></code></p></div>
     
 
   </div>

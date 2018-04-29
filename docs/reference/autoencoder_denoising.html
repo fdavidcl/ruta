@@ -86,9 +86,25 @@ create a model able to reduce noise in reconstructions from input data" />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/architectures.html">Building neural architectures</a>
+    </li>
+    <li class="divider"></li>
     <li class="dropdown-header">Autoencoder variants</li>
     <li>
       <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_denoising.html">Denoising autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_robust.html">Robust autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_sparse.html">Sparse autoencoder</a>
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
@@ -158,6 +174,9 @@ autoencoder, as a character string. Available types:</p><ul>
 <li><p><code>"gaussian"</code> Randomly offset each component of an input as drawn from
 Gaussian distributions with the same variance (additive Gaussian noise,
 <code><a href='noise_gaussian.html'>noise_gaussian</a></code>)</p></li>
+<li><p><code>"cauchy"</code> Randomly offset each component of an input as drawn from
+Cauchy distributions with the same scale (additive Cauchy noise,
+<code><a href='noise_cauchy.html'>noise_cauchy</a></code>)</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -168,6 +187,7 @@ altered by random noise (for <code>"zeros"</code>, <code>"ones"</code> and <code
 <li><p><code>var</code> or <code>sd</code> The variance or standard deviation of the Gaussian
 distribution from which additive noise will be drawn (for <code>"gaussian"</code>,
 only one of those parameters is necessary)</p></li>
+<li><p><code>scale</code> For the Cauchy distribution</p></li>
 </ul></td>
     </tr>
     </table>

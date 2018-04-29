@@ -4,6 +4,9 @@
     margin: 0;
     border-bottom: 0px solid;
 }
+.jumbotron {
+    margin-top: 30px;
+}
 </style>
 
 <div class="jumbotron">
@@ -23,8 +26,3 @@ Get uncomplicated access to unsupervised deep neural networks, from building the
 [[]{.fa .fa-code} Get started](/articles/getting-started.html){.btn .btn-primary}
 
 </div>
-
-```{r structure, echo = F}
-library(ruta)
-plot(dense(784) + dense(1000) + dense(100) + dense(1000) + dense(784))
-```

@@ -86,9 +86,25 @@ and trains it with the input data." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/architectures.html">Building neural architectures</a>
+    </li>
+    <li class="divider"></li>
     <li class="dropdown-header">Autoencoder variants</li>
     <li>
       <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_denoising.html">Denoising autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_robust.html">Robust autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_sparse.html">Sparse autoencoder</a>
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
@@ -175,7 +191,9 @@ be any optimizer object defined by Keras (e.g. <code><a href='http://www.rdocume
     <tr>
       <th>...</th>
       <td><p>Additional parameters for <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/fit'>fit</a></code>. Some useful parameters:</p><ul>
-<li><p><code>batch_size</code> The number of examples to be grouped for each gradient update</p></li>
+<li><p><code>batch_size</code> The number of examples to be grouped for each gradient update.
+Use a smaller batch size for more frequent weight updates or a larger one for
+faster optimization.</p></li>
 <li><p><code>shuffle</code> Whether to shuffle the training data before each epoch, defaults to <code>TRUE</code></p></li>
 </ul></td>
     </tr>

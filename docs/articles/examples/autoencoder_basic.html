@@ -56,9 +56,25 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Autoencoder variants</li>
+<li>
+      <a href="../../articles/architectures.html">Building neural architectures</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Autoencoder variants</li>
     <li>
       <a href="../../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
+    </li>
+    <li>
+      <a href="../../articles/examples/autoencoder_denoising.html">Denoising autoencoder</a>
+    </li>
+    <li>
+      <a href="../../articles/examples/autoencoder_robust.html">Robust autoencoder</a>
+    </li>
+    <li>
+      <a href="../../articles/examples/autoencoder_sparse.html">Sparse autoencoder</a>
     </li>
     <li>
       <a href="../../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
@@ -154,6 +170,19 @@ plot_sample &lt;-<span class="st"> </span><span class="cf">function</span>(digit
 
 <span class="kw">plot_sample</span>(x_test, decoded, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
 <p><img src="autoencoder_basic_files/figure-html/plot-1.png" width="1920"></p>
+<p>Basic autoencoders provide some more options, such as weight decay of the encoding layer and training with validation data as well:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_ae_wd &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_weight_decay.html">add_weight_decay</a></span>(my_ae, <span class="dt">decay =</span> <span class="fl">0.01</span>)
+
+<span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(
+  my_ae_wd,
+  x_train,
+  <span class="dt">epochs =</span> <span class="dv">20</span>,
+  <span class="dt">optimizer =</span> <span class="st">"adam"</span>,
+  <span class="dt">batch_size =</span> <span class="dv">64</span>,
+  <span class="dt">validation_data =</span> x_test,
+  <span class="dt">metrics =</span> <span class="kw">list</span>(<span class="st">"binary_accuracy"</span>)
+)</code></pre></div>
+<p>For more details, read <a href="/reference/">the documentation</a>. For the rest of autoencoder variants, see <a href="/articles/examples/">other examples</a>.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

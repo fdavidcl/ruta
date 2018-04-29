@@ -2,7 +2,12 @@ pandoc: 1.19.2.1
 pkgdown: 1.0.0
 pkgdown_sha: d43ca38c74827d1d6babc3a80d48cd3a8e8fad8c
 articles:
+  architectures: architectures.html
   autoencoder_basic: examples/autoencoder_basic.html
+  autoencoder_contractive: examples/autoencoder_contractive.html
+  autoencoder_denoising: examples/autoencoder_denoising.html
+  autoencoder_robust: examples/autoencoder_robust.html
+  autoencoder_sparse: examples/autoencoder_sparse.html
   autoencoder_variational: examples/autoencoder_variational.html
   index: examples/index.html
   getting-started: getting-started.html

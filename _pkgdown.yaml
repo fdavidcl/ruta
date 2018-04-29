@@ -23,9 +23,20 @@ navbar:
       icon: fa-code
     - text: "Examples"
       menu:
+        - text: "Building neural architectures"
+          href: "articles/architectures.html"
+        - text: "-----------------------------"
         - text: "Autoencoder variants"
         - text: "Basic autoencoder"
           href: "articles/examples/autoencoder_basic.html"
+        - text: "Contractive autoencoder"
+          href: "articles/examples/autoencoder_contractive.html"
+        - text: "Denoising autoencoder"
+          href: "articles/examples/autoencoder_denoising.html"
+        - text: "Robust autoencoder"
+          href: "articles/examples/autoencoder_robust.html"
+        - text: "Sparse autoencoder"
+          href: "articles/examples/autoencoder_sparse.html"
         - text: "Variational autoencoder"
           href: "articles/examples/autoencoder_variational.html"
   right:

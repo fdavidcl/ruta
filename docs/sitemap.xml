@@ -100,6 +100,9 @@
     <loc>http://ruta.software/reference/noise.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/noise_cauchy.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/noise_gaussian.html</loc>
   </url>
   <url>
@@ -163,7 +166,22 @@
     <loc>http://ruta.software/reference/weight_decay.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/articles/architectures.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/articles/examples/autoencoder_basic.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_contractive.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_denoising.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_robust.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_sparse.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/articles/examples/autoencoder_variational.html</loc>

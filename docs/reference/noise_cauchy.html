@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contractive loss — contraction • ruta</title>
+<title>Additive Cauchy noise — noise_cauchy • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,10 +28,9 @@
 
 
 
-<meta property="og:title" content="Contractive loss — contraction" />
+<meta property="og:title" content="Additive Cauchy noise — noise_cauchy" />
 
-<meta property="og:description" content="This is a wrapper for a loss which induces a contraction in the
-latent space." />
+<meta property="og:description" content="A data filter which adds noise from a Cauchy distribution to instances" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -139,43 +138,37 @@ latent space." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Contractive loss</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_contractive.R'><code>R/autoencoder_contractive.R</code></a></small>
-    <div class="hidden name"><code>contraction.Rd</code></div>
+    <h1>Additive Cauchy noise</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
+    <div class="hidden name"><code>noise_cauchy.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This is a wrapper for a loss which induces a contraction in the
-latent space.</p>
+    <p>A data filter which adds noise from a Cauchy distribution to instances</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>contraction</span>(<span class='no'>reconstruction_loss</span>, <span class='no'>weight</span>)</pre>
+    <pre class="usage"><span class='fu'>noise_cauchy</span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>0.005</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>reconstruction_loss</th>
-      <td><p>Original reconstruction error to be combined with the
-contractive loss (e.g. <code>"binary_crossentropy"</code>)</p></td>
-    </tr>
-    <tr>
-      <th>weight</th>
-      <td><p>Weight assigned to the contractive loss</p></td>
+      <th>scale</th>
+      <td><p>Scale for the Cauchy distribution</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A loss object which can be converted into a Keras loss</p>
+    <p>Object which can be applied to data with <code><a href='apply_filter.html'>apply_filter</a></code></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='autoencoder_contractive.html'>autoencoder_contractive</a></code></p>
-<p>Other loss functions: <code><a href='correntropy.html'>correntropy</a></code>,
-  <code><a href='loss_variational.html'>loss_variational</a></code></p></div>
+    <div class='dont-index'><p>Other noise generators: <code><a href='noise_gaussian.html'>noise_gaussian</a></code>,
+  <code><a href='noise_ones.html'>noise_ones</a></code>, <code><a href='noise_saltpepper.html'>noise_saltpepper</a></code>,
+  <code><a href='noise_zeros.html'>noise_zeros</a></code></p></div>
     
 
   </div>

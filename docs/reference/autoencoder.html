@@ -85,9 +85,25 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/architectures.html">Building neural architectures</a>
+    </li>
+    <li class="divider"></li>
     <li class="dropdown-header">Autoencoder variants</li>
     <li>
       <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_denoising.html">Denoising autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_robust.html">Robust autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_sparse.html">Sparse autoencoder</a>
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
@@ -199,8 +215,7 @@
 
 <span class='no'>learner</span> <span class='kw'>&lt;-</span>
   <span class='no'>network</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>autoencoder</span>(<span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): could not find function "%&gt;%"</span></div><div class='input'>
-</div></pre>
+  <span class='fu'>autoencoder</span>(<span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
