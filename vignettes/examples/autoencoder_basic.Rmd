@@ -1,0 +1,101 @@
+---
+title: "Basic autoencoder"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic autoencoder}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  cache = T,
+  comment = "#>"
+)
+```
+
+The main objective of most autoencoders is to learn a new set of features out of nonlinear transformations which present some useful properties, such as lower dimension, distance preservation or noise resilience. In this article we explore the possibilities of using just a basic autoencoder with Ruta.
+
+Ruta provides to ways of creating and training autoencoders. The first is the straight-forward `autoencode` function. It receives a data matrix as input and returns the learned features by an autoencoder with a single hidden layer of the specified size:
+
+```{r ae1}
+library(ruta)
+
+x = as.matrix(iris[, 1:4])
+iris2 = autoencode(x, 2)
+```
+
+Since this function only returns the learned features, one cannot reuse the trained autoencoder. This is useful, however, for low-dimension visualizations:
+
+```{r aepl}
+plot(iris2, col = iris[, 5])
+```
+
+For more customization options and reusability, we can build an autoencoder object (of class `"ruta_autoencoder"`). This can be done via the `autoencoder` family of functions. 
+
+```{r aead}
+network <- input() + dense(36, "tanh") + output("sigmoid")
+my_ae <- autoencoder(network, loss = "binary_crossentropy")
+```
+
+Notice that this allows to define a deeper architecture: in this example we have created an autoencoder with one 36-unit hidden layer, apart from the input and output layers which will have as many units as features in the training data. We have also defined activation functions for each layer: $\tanh$ is a common activation for the encoding layer, and setting `sigmoid` as the output will ensure an output in the range $[0,1]$. We can also specify the loss function we want to optimize. Here, `"binary_crossentropy"` is an objective function which works well with binary data and data in the $[0, 1]$ interval, but we can specify any [loss available in Keras](https://keras.io/losses/), another common one would be `"mean_squared_error"`.
+
+Now we need data to train the autoencoder. The [keras](https://cran.r-project.org/package=keras) package provides several well-known datasets:
+
+```{r data}
+mnist = keras::dataset_mnist()
+
+# Normalization to the [0, 1] interval
+x_train <- keras::array_reshape(
+  mnist$train$x, c(dim(mnist$train$x)[1], 784)
+)
+x_train <- x_train / 255.0
+x_test <- keras::array_reshape(
+  mnist$test$x, c(dim(mnist$test$x)[1], 784)
+)
+x_test <- x_test / 255.0
+```
+
+To train this autoencoder we can specify the [optimizer](https://keras.io/optimizers/) (e.g. `"sgd"`, `"rmsprop"`...), number of epochs and other parameters.
+
+```{r train}
+model = train(my_ae, x_train, epochs = 10)
+```
+
+Once we have a trained model, we can use it for several purposes. We can encode input data and decode the resulting codifications, for example:
+
+```r
+decoded <- reconstruct(model, x_test)
+```
+
+This is equivalent to doing the same task in two steps, as follows:
+
+```{r encdec}
+encoded <- encode(model, x_test)
+decoded <- decode(model, encoded)
+```
+
+Lastly, let's display our reconstructions as images:
+
+```{r plot, fig.height=4, fig.width=20}
+plot_digit <- function(digit, ...) {
+  image(keras::array_reshape(digit, c(28, 28), "F")[, 28:1], xaxt = "n", yaxt = "n", col=gray((255:0)/255), ...)
+}
+
+plot_sample <- function(digits_test, digits_dec, sample) {
+  sample_size <- length(sample)
+  layout(
+    matrix(c(1:sample_size, (sample_size + 1):(2 * sample_size)), byrow = F, nrow = 2)
+  )
+
+  for (i in sample) {
+    par(mar = c(0,0,0,0) + 1)
+    plot_digit(digits_test[i, ])
+    plot_digit(digits_dec[i, ])
+  }
+}
+
+plot_sample(x_test, decoded, 1:10)
+```
+
