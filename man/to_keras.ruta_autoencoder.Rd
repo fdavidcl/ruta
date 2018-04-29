@@ -14,6 +14,10 @@
 \item{learner}{Object of class \code{"ruta_autoencoder"}}
 
 \item{input_shape}{Number of attributes in input data}
+
+\item{encoder_end}{Name of the Keras layer where the encoder ends}
+
+\item{decoder_start}{Name of the Keras layer where the decoder starts}
 }
 \value{
 A list with several Keras models:

@@ -70,6 +70,8 @@ is_trained <- function(learner) {
 #'
 #' @param learner Object of class \code{"ruta_autoencoder"}
 #' @param input_shape Number of attributes in input data
+#' @param encoder_end Name of the Keras layer where the encoder ends
+#' @param decoder_start Name of the Keras layer where the decoder starts
 #' @return A list with several Keras models:
 #' - `autoencoder`: model from the input layer to the output layer
 #' - `encoder`: model from the input layer to the encoding layer
@@ -209,7 +211,9 @@ train.ruta_autoencoder <- function(
 #' @param data Numeric matrix to be encoded
 #' @param dim Number of variables to be used in the encoding
 #' @param activation Activation type to be used in the encoding layer. Some available
-#'   activations are `"tanh"`, `"sigmoid"`, `"relu"`, `"elu"` and `"selu"`.
+#'   activations are `"tanh"`, `"sigmoid"`, `"relu"`, `"elu"` and `"selu"`
+#' @param type Type of autoencoder to use: `"basic"`, `"sparse"`, `"contractive"`,
+#'   `"denoising"`, `"robust"` or `"variational"`
 #' @param epochs Number of times the data will traverse the autoencoder to update its
 #'   weights
 #' @return Matrix containing the encodings
@@ -296,5 +300,6 @@ reconstruct <- function(learner, data) {
 }
 
 #' @rdname reconstruct
+#' @param ... Rest of parameters, unused
 #' @export
 predict.ruta_autoencoder <- function(object, ...) reconstruct(object, ...)

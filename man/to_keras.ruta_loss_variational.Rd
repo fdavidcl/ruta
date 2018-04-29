@@ -7,11 +7,11 @@
 \method{to_keras}{ruta_loss_variational}(loss, keras_model, ...)
 }
 \arguments{
+\item{loss}{A \code{"ruta_loss_variational"} object}
+
 \item{keras_model}{The keras autoencoder which will use the loss function}
 
 \item{...}{Rest of parameters, ignored}
-
-\item{x}{A \code{"ruta_loss_variational"} object}
 }
 \value{
 A function which returns the variational loss for given true and

@@ -10,9 +10,7 @@ new_layer(cl, ...)
 \item{cl}{Character string specifying class of layer (e.g. \code{"ruta_layer_dense"}), which
 will be used to call the corresponding methods}
 
-\item{units}{Amount of units in the layer}
-
-\item{activation}{Character string specifying activation function}
+\item{...}{Other parameters (usually \code{units}, \code{activation})}
 }
 \value{
 A construct with class \code{"ruta_layer"}

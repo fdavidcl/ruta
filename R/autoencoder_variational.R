@@ -126,7 +126,7 @@ loss_variational <- function(reconstruction_loss) {
 #'
 #' Builds the Keras loss function corresponding to the object received
 #'
-#' @param x A \code{"ruta_loss_variational"} object
+#' @param loss A \code{"ruta_loss_variational"} object
 #' @param keras_model The keras autoencoder which will use the loss function
 #' @return A function which returns the variational loss for given true and
 #' predicted values

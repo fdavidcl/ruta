@@ -15,6 +15,8 @@ reconstruct(learner, data)
 \item{data}{data.frame to be passed through the network}
 
 \item{object}{Trained autoencoder model}
+
+\item{...}{Rest of parameters, unused}
 }
 \value{
 Matrix containing the reconstructions

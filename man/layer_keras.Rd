@@ -8,7 +8,9 @@ layer_keras(name, ...)
 }
 \arguments{
 \item{name}{The name of the layer, e.g. \code{"activity_regularization"} for a
-\code{keras::layer_activity_regularization} object.}
+\code{keras::layer_activity_regularization} object}
+
+\item{...}{Named parameters for the Keras layer constructor}
 }
 \value{
 A wrapper for the specified layer, which can be combined with other Ruta

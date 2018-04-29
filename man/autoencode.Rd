@@ -11,8 +11,11 @@ autoencode(data, dim, type = "basic", activation = "linear", epochs = 20)
 
 \item{dim}{Number of variables to be used in the encoding}
 
+\item{type}{Type of autoencoder to use: \code{"basic"}, \code{"sparse"}, \code{"contractive"},
+\code{"denoising"}, \code{"robust"} or \code{"variational"}}
+
 \item{activation}{Activation type to be used in the encoding layer. Some available
-activations are \code{"tanh"}, \code{"sigmoid"}, \code{"relu"}, \code{"elu"} and \code{"selu"}.}
+activations are \code{"tanh"}, \code{"sigmoid"}, \code{"relu"}, \code{"elu"} and \code{"selu"}}
 
 \item{epochs}{Number of times the data will traverse the autoencoder to update its
 weights}

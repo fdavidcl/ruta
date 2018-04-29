@@ -5,8 +5,7 @@
 #'
 #' @param cl Character string specifying class of layer (e.g. \code{"ruta_layer_dense"}), which
 #'   will be used to call the corresponding methods
-#' @param units Amount of units in the layer
-#' @param activation Character string specifying activation function
+#' @param ... Other parameters (usually `units`, `activation`)
 #' @return A construct with class \code{"ruta_layer"}
 #'
 #' @examples
@@ -122,7 +121,8 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
 #' Gets any layer available in Keras with the specified parameters
 #'
 #' @param name The name of the layer, e.g. `"activity_regularization"` for a
-#'   `keras::layer_activity_regularization` object.
+#'   `keras::layer_activity_regularization` object
+#' @param ... Named parameters for the Keras layer constructor
 #' @return A wrapper for the specified layer, which can be combined with other Ruta
 #'   layers
 #' @family neural layers
