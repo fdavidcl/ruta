@@ -55,7 +55,7 @@ autoencoder <- function(network, loss = "mean_squared_error") {
 }
 
 print.ruta_autoencoder <- function(x, ...) {
-  cat("Ruta autoencoder\n")
+  cat("Autoencoder learner\n")
   type <- NULL
 
   if (is_sparse(x)) type <- c(type, "sparse")

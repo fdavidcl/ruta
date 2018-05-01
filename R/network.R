@@ -116,7 +116,7 @@ encoding_index <- function(net) {
 #' @param ... Additional parameters, currently ignored
 #' @return Invisibly returns the same object passed as parameter
 print.ruta_network <- function(x, ...) {
-  cat("Ruta network. Structure:\n")
+  cat("Network structure:\n")
   ind <- " "
 
   for (layer in x) {
