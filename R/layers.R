@@ -107,9 +107,10 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   else
     NULL
 
-  if (activation == "selu") {
-
-  }
+  # TODO Use proper initialization for selu
+  # if (x$activation == "selu") {
+  #
+  # }
 
   keras::layer_dense(
     model,

@@ -14,6 +14,6 @@ get_keras_object <- function(name, prefix = "", quiet = FALSE) {
 }
 
 print_line <- function(length = 40) {
-  line <- paste0(rep("─", length), collapse = "")
+  line <- paste0(rep("-", length), collapse = "")
   cat(line, "\n", sep = "")
 }

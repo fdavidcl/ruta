@@ -12,7 +12,7 @@
 
 \method{to_keras}{ruta_loss_correntropy}(x, ...)
 
-\method{to_keras}{ruta_loss_variational}(loss, learner, ...)
+\method{to_keras}{ruta_loss_variational}(x, learner, ...)
 
 \method{to_keras}{ruta_loss_named}(x, ...)
 }
