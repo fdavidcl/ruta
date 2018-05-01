@@ -54,6 +54,27 @@ autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
 }
 
+print.ruta_autoencoder <- function(x, ...) {
+  cat("Ruta autoencoder\n")
+  type <- NULL
+
+  if (is_sparse(x)) type <- c(type, "sparse")
+  if (is_contractive(x)) type <- c(type, "contractive")
+  if (is_robust(x)) type <- c(type, "robust")
+  if (is_denoising(x)) type <- c(type, "denoising")
+  if (is_variational(x)) type <- c(type, "variational")
+  type <- if (is.null(type)) "basic" else paste0(type, collapse = ", ")
+
+  print_line()
+  cat("Type:", type, "\n\n")
+  print(x$network)
+  cat("\n")
+  print(x$loss)
+  print_line()
+
+  invisible(x)
+}
+
 #' Detect trained models
 #'
 #' Inspects a learner and figures out whether it has been trained

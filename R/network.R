@@ -115,7 +115,6 @@ encoding_index <- function(net) {
 #' @param x A \code{"ruta_network"} object
 #' @param ... Additional parameters, currently ignored
 #' @return Invisibly returns the same object passed as parameter
-#' @export
 print.ruta_network <- function(x, ...) {
   cat("Ruta network. Structure:\n")
   ind <- " "
