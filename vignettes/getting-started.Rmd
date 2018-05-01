@@ -1,5 +1,10 @@
 ---
 title: Getting started
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building neural architectures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## Install dependencies

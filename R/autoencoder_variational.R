@@ -179,7 +179,7 @@ generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2),
   md <- length(dimensions)
 
   # Values from the inverse CDF of the Gaussian distribution
-  col <- seq(from = from, to = to, length.out = side) %>% qnorm()
+  col <- seq(from = from, to = to, length.out = side) %>% stats::qnorm()
 
   args <- rep(list(col), times = md)
   names(args) <- paste("D", dimensions)
