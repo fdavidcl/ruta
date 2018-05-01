@@ -63,6 +63,15 @@ make_contractive <- function(learner, weight = 2e-4) {
   learner
 }
 
+#' Detect whether an autoencoder is contractive
+#' @param learner A \code{"ruta_autoencoder"} object
+#' @return Logical value indicating if a contractive loss was found
+#' @seealso `\link{contraction}`, `\link{autoencoder_contractive}`, `\link{make_contractive}`
+#' @export
+is_contractive <- function(learner) {
+  ruta_loss_contraction %in% class(learner$loss)
+}
+
 #' @rdname to_keras.ruta_loss_named
 #' @param learner The learner object including the keras model which will use the loss
 #'   function

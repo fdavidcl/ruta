@@ -50,6 +50,15 @@ autoencoder_variational <- function(network, loss = "binary_crossentropy", auto_
   new_autoencoder(network, loss_variational(loss), extra_class = ruta_autoencoder_variational)
 }
 
+#' Detect whether an autoencoder is variational
+#' @param learner A \code{"ruta_autoencoder"} object
+#' @return Logical value indicating if a variational loss was found
+#' @seealso `\link{autoencoder_variational}`
+#' @export
+is_variational <- function(learner) {
+  ruta_loss_variational %in% class(learner$loss)
+}
+
 #' Create a variational block of layers
 #'
 #' This variational block consists in two dense layers which take as input the previous layer
