@@ -70,10 +70,22 @@
     <loc>http://ruta.software/reference/input.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/is_contractive.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_denoising.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_robust.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/is_sparse.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/is_trained.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_variational.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/join-networks.html</loc>
