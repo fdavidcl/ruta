@@ -18,21 +18,14 @@
 new_layer <- function(cl, ...) {
   # length check
   stopifnot(
-    is_scalar_vector(cl)#,
-    # is_scalar_vector(units),
-    # is_scalar_vector(activation)
+    is_scalar_vector(cl)
   )
+
   # type coercion
   cl <- as.character(cl)
-  # units <- as.integer(units)
-  # activation <- as.character(activation)
 
   structure(
-    list(
-      # units = units,
-      # activation = activation
-      ...
-    ),
+    list(...),
     class = c(cl, ruta_layer)
   )
 }
