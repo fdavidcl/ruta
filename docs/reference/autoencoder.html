@@ -188,23 +188,19 @@
     <pre class="examples"><div class='input'>
 <span class='co'># Basic autoencoder with a network of [input]-256-36-256-[input] and</span>
 <span class='co'># no nonlinearities</span>
-<span class='fu'>autoencoder</span>(<span class='fu'>c</span>(<span class='fl'>256</span>, <span class='fl'>36</span>), <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div><div class='output co'>#&gt; $network
-#&gt; Ruta network. Structure:
+<span class='fu'>autoencoder</span>(<span class='fu'>c</span>(<span class='fl'>256</span>, <span class='fl'>36</span>), <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"binary_crossentropy"</span>)</div><div class='output co'>#&gt; Autoencoder learner
+#&gt; ----------------------------------------
+#&gt; Type: basic 
+#&gt; 
+#&gt; Network structure:
 #&gt;  input
 #&gt;  dense(256 units) - linear
 #&gt;  dense(36 units) - linear
 #&gt;  dense(256 units) - linear
 #&gt;  dense - linear
 #&gt; 
-#&gt; $loss
-#&gt; $name
-#&gt; [1] "binary_crossentropy"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "ruta_loss_named" "ruta_loss"      
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "ruta_autoencoder" "ruta_learner"    </div><div class='input'>
+#&gt; Loss: binary_crossentropy 
+#&gt; ----------------------------------------</div><div class='input'>
 <span class='co'># Customizing the activation functions in the same network</span>
 <span class='no'>network</span> <span class='kw'>&lt;-</span>
   <span class='fu'><a href='input.html'>input</a></span>() +

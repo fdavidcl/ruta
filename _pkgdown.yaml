@@ -71,19 +71,16 @@ reference:
       These functions allow to create and customize autoencoder learners.
     contents:
       - autoencoder
-      - autoencoder_sparse
-      - autoencoder_contractive
-      - autoencoder_denoising
-      - autoencoder_robust
-      - autoencoder_variational
+      - starts_with("autoencoder_")
       - add_weight_decay
       - weight_decay
-      - make_sparse
-      - make_contractive
-      - make_denoising
-      - make_robust
-      - sparsity
+      - starts_with("make_")
+      - is_contractive
+      - is_denoising
+      - is_robust
       - is_sparse
+      - is_variational
+      - sparsity
       - new_autoencoder
   - title: "Loss functions"
     desc: >
