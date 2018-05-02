@@ -1,7 +1,7 @@
 Package: ruta
 Title: Unsupervised Deep Architectures for R
 Version: 0.2.0.9000
-Authors@R: person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre"))
+Authors@R: c(person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre")), person("Francisco", "Charte", email = "francisco@fcharte.com", role = "aut"), person("Francisco", "Herrera", email = "herrera@decsai.ugr.es", role = "aut"))
 Description: Implementation of several unsupervised deep architectures.
 License: GPL (>= 3) | file LICENSE
 URL: https://github.com/fdavidcl/ruta
