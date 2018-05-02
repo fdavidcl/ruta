@@ -189,7 +189,7 @@ generate.ruta_autoencoder_variational <- function(learner, dimensions = c(1, 2),
   encoded <-
     fixed_values %>%
     rep(side ** md) %>%
-    qnorm() %>%
+    stats::qnorm() %>%
     list() %>%
     rep(d) %>%
     data.frame()
