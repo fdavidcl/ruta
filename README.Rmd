@@ -23,7 +23,7 @@ Software for unsupervised deep architectures
 
 Get uncomplicated access to unsupervised deep neural networks, from building their architecture to their training and evaluation
 
-[[]{.fa .fa-code} Get started](/articles/getting-started.html){.btn .btn-primary}
+[[]{.fa .fa-code} Get started](/articles/examples/autoencoder_basic.html){.btn .btn-primary}
 
 </div>
 

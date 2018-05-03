@@ -144,7 +144,7 @@ net <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a h
 <span class="co">#&gt;  dense(1000 units) - relu</span>
 <span class="co">#&gt;  dense - sigmoid</span>
 <span class="kw">plot</span>(net)</code></pre></div>
-<p><img src="architectures_files/figure-html/structure-1.png" width="480"></p>
+<p><img src="../docs/articles/architectures_files/figure-html/structure-1.png" width="480"></p>
 <p>Other available layers are <code>dropout</code> and other Keras layers via the <code>layer_keras</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">act_reg &lt;-<span class="st"> </span><span class="kw"><a href="../reference/layer_keras.html">layer_keras</a></span>(<span class="st">"activity_regularization"</span>, <span class="dt">l1 =</span> <span class="fl">0.01</span>)
 
@@ -166,7 +166,7 @@ net &lt;-<span class="st"> </span>
 <span class="co">#&gt;  dropout</span>
 <span class="co">#&gt;  dense - sigmoid</span>
 <span class="kw">plot</span>(net, <span class="dt">log =</span> <span class="ot">TRUE</span>, <span class="dt">fg =</span> <span class="st">"#30707a"</span>, <span class="dt">bg =</span> <span class="st">"#e0e6ea"</span>)</code></pre></div>
-<p><img src="architectures_files/figure-html/custom-1.png" width="480"></p>
+<p><img src="../docs/articles/architectures_files/figure-html/custom-1.png" width="480"></p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
