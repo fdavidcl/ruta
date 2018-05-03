@@ -92,6 +92,7 @@ dense <- function(units, activation = "linear") {
 
 #' @param model Keras model where the layer will be added
 #' @rdname to_keras.ruta_layer_input
+#' @export
 to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   if (is.null(x$units)) {
     x$units <- input_shape
@@ -154,6 +155,7 @@ dropout <- function(rate = 0.5) {
 }
 
 #' @rdname to_keras.ruta_layer_input
+#' @export
 to_keras.ruta_layer_custom <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   layer_f = get_keras_object(x$name, "layer")
   args = c(list(object = model), x$params)

@@ -54,6 +54,13 @@ autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
 }
 
+#' Inspect Ruta objects
+#'
+#' @param x An object
+#' @param ... Unused
+#' @return Invisibly returns the same object passed as parameter
+#' @rdname print-methods
+#' @export
 print.ruta_autoencoder <- function(x, ...) {
   cat("Autoencoder learner\n")
   type <- NULL

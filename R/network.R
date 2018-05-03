@@ -110,11 +110,8 @@ encoding_index <- function(net) {
   index <- detect_index(1:length(net), ~ sum(filtered[1:.]) == filtered_index)
 }
 
-#' Inspect a neural network
-#'
-#' @param x A \code{"ruta_network"} object
-#' @param ... Additional parameters, currently ignored
-#' @return Invisibly returns the same object passed as parameter
+#' @rdname print-methods
+#' @export
 print.ruta_network <- function(x, ...) {
   cat("Network structure:\n")
   ind <- " "

@@ -13,12 +13,16 @@ as_loss.character <- function(x) {
 #' @export
 as_loss.ruta_loss <- function(x) x
 
+#' @rdname print-methods
+#' @export
 print.ruta_loss_named <- function(x, ...) {
   cat("Loss:", x$name, "\n")
 
   invisible(x)
 }
 
+#' @rdname print-methods
+#' @export
 print.ruta_loss <- function(x, ...) {
   cat("Loss:", sub("ruta_loss_", "", class(x)[1]), "\n")
 
