@@ -2,7 +2,6 @@
 
 S3method("+",ruta_network)
 S3method("[",ruta_network)
-S3method(apply_filter,ruta_custom)
 S3method(apply_filter,ruta_noise_cauchy)
 S3method(apply_filter,ruta_noise_gaussian)
 S3method(apply_filter,ruta_noise_ones)

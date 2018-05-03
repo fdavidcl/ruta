@@ -26,3 +26,6 @@ Invisibly returns the same object passed as parameter
 \description{
 Inspect Ruta objects
 }
+\examples{
+print(autoencoder(c(256, 10), loss = correntropy()))
+}

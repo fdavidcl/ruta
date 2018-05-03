@@ -7,6 +7,17 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  cache = TRUE,
+  fig.height=7,
+  fig.width=7,
+  out.width = "480",
+  comment = "#>"
+)
+```
+
 ## Install dependencies
 
 Ruta is based in well known open source deep learning library [Keras](https://keras.io) and its [R interface](https://keras.rstudio.com). For now, it has been only tested with the [Tensorflow](https://www.tensorflow.org/) backend. In order to install these dependencies you will need the Python interpreter as well, and you can install them via Python's package manager *pip* or possibly your distro's package manager if you are running Linux.
@@ -43,7 +54,7 @@ plot(result, col = iris_y)
 
 We can customize the neural structure of our autoencoder, as well as other parameters that affect its learning behavior.
 
-```{r deeper, cache=TRUE}
+```r
 library(keras)
 library(magrittr)
 

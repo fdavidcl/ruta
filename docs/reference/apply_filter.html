@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply filters — apply_filter • ruta</title>
+<title>Apply filters — apply_filter.ruta_noise_zeros • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@
 
 
 
-<meta property="og:title" content="Apply filters — apply_filter" />
+<meta property="og:title" content="Apply filters — apply_filter.ruta_noise_zeros" />
 
 <meta property="og:description" content="Apply a filter to input data, generally a noise filter in
 order to train a denoising autoencoder. Users won't generally need to use
@@ -141,7 +141,7 @@ these functions" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply filters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/filter.R'><code>R/filter.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/generics.R'><code>R/generics.R</code></a></small>
     <div class="hidden name"><code>apply_filter.Rd</code></div>
     </div>
 
@@ -153,12 +153,7 @@ these functions</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for ruta_custom</span>
-<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for ruta_noise_zeros</span>
+    <pre class="usage"><span class='co'># S3 method for ruta_noise_zeros</span>
 <span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ruta_noise_ones</span>
@@ -171,6 +166,8 @@ these functions</p>
 <span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ruta_noise_cauchy</span>
+<span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
 <span class='fu'>apply_filter</span>(<span class='no'>filter</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
