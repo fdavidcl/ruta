@@ -231,7 +231,7 @@ train.ruta_autoencoder <- function(
     ...
   )
 
-  learner
+  invisible(learner)
 }
 
 #' Automatically compute an encoding of a data matrix
