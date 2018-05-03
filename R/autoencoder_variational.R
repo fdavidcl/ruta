@@ -90,6 +90,7 @@ variational_block <- function(units) {
 #' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
 #' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
 #' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' @import purrr
 #' @export
 to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   epsilon_std <- 1.0
@@ -116,7 +117,6 @@ to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras
 }
 
 #' @rdname to_keras.ruta_autoencoder
-#' @import purrr
 #' @export
 to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
   to_keras.ruta_autoencoder(learner, input_shape, encoder_end = "z_mean", decoder_start = "sampling")
@@ -149,6 +149,7 @@ loss_variational <- function(reconstruction_loss) {
 #'     - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
 #'     - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
 #'     - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' @import purrr
 #' @export
 to_keras.ruta_loss_variational <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder

@@ -13,13 +13,10 @@
 #'
 #' # Equivalent:
 #' my_layer <- dense(30, "tanh")[[1]]
-#' @import purrr
 #' @export
 new_layer <- function(cl, ...) {
   # length check
-  stopifnot(
-    is_scalar_vector(cl)
-  )
+  stopifnot(is_scalar_vector(cl))
 
   # type coercion
   cl <- as.character(cl)

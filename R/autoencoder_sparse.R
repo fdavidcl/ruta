@@ -15,6 +15,7 @@
 #' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes}
 #' @seealso \code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 #' @family autoencoder variants
+#' @import purrr
 #' @export
 autoencoder_sparse <- function(network, loss = "mean_squared_error", high_probability = 0.1, weight = 0.2) {
   autoencoder(network, loss) %>%
@@ -53,9 +54,15 @@ sparsity <- function(high_probability, weight) {
 #' @param weight The weight of the sparsity regularization
 #' @return The same autoencoder with the sparsity regularization applied
 #' @seealso \code{\link{sparsity}}, \code{\link{autoencoder_sparse}}, \code{\link{is_sparse}}
+#' @import purrr
 #' @export
 make_sparse <- function(learner, high_probability = 0.1, weight = 0.2) {
-  # TODO warn when activation function does not have well-defined low and high values
+  encoding_layer <- learner$network[[learner$network %@% "encoding"]]
+
+  if (!(encoding_layer$activation %in% c("tanh", "sigmoid", "softsign", "hard_sigmoid"))) {
+    message("The sparsity regularization is better defined for bounded activation functions (with an infimum and a supremum) in the encoding layer. Performance could be affected by this.")
+  }
+
   learner$network[[learner$network %@% "encoding"]]$activity_regularizer <- sparsity(high_probability, weight)
 
   learner
@@ -65,6 +72,7 @@ make_sparse <- function(learner, high_probability = 0.1, weight = 0.2) {
 #' @param learner A \code{"ruta_autoencoder"} object
 #' @return Logical value indicating if a sparsity regularization in the encoding layer was found
 #' @seealso \code{\link{sparsity}}, \code{\link{autoencoder_sparse}}, \code{\link{make_sparse}}
+#' @import purrr
 #' @export
 is_sparse <- function(learner) {
   !is.null(learner$network[[learner$network %@% "encoding"]]$activity_regularizer)
@@ -78,6 +86,7 @@ is_sparse <- function(learner) {
 #' - [Sparse deep belief net model for visual area V2](http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2)
 #' - Andrew Ng, Sparse Autoencoder.
 #' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
+#' @import purrr
 #' @export
 to_keras.ruta_sparsity <- function(x, activation) {
   p_high = x$high_probability
@@ -87,6 +96,7 @@ to_keras.ruta_sparsity <- function(x, activation) {
   # as < -1
   low_v = switch(activation,
     sigmoid = 0,
+    hard_sigmoid = 0,
     relu = 0,
     softplus = 0,
     selu = - 1.7581,

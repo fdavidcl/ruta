@@ -1,23 +1,4 @@
-#' Apply filters
-#'
-#' @description Apply a filter to input data, generally a noise filter in
-#' order to train a denoising autoencoder. Users won't generally need to use
-#' these functions
-#'
-#' @param filter Filter object to be applied
-#' @param data Input data to be filtered
-#' @param ... Other parameters
-#'
-#' @seealso `\link{autoencoder_denoising}`
-#' @export
-apply_filter <- function(filter, data, ...) UseMethod("apply_filter")
-
-#' @rdname apply_filter
-#' @export
-apply_filter.ruta_custom <- function(filter, data, ...) {
-  filter(data, ...)
-}
-
+#' @import purrr
 runif_matrix <- function(data) {
   dims <- dim(data)
   dims %>%
@@ -141,6 +122,7 @@ noise_gaussian <- function(sd = NULL, var = NULL) {
 }
 
 #' @rdname apply_filter
+#' @import purrr
 #' @export
 apply_filter.ruta_noise_gaussian <- function(filter, data, ...) {
 
@@ -167,6 +149,7 @@ noise_cauchy <- function(scale = 0.005) {
 }
 
 #' @rdname apply_filter
+#' @import purrr
 #' @export
 apply_filter.ruta_noise_cauchy <- function(filter, data, ...) {
   dims <- dim(data)

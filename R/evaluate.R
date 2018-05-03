@@ -11,8 +11,6 @@
 #' @seealso `\link[ruta]{evaluate}`
 #' @export
 evaluation_metric <- function(evaluate_f) function(learner, data) {
-  # Clone the model to prevent secondary effects by keras::compile?
-  # k_model <- keras::clone_model(learner$models$autoencoder)
   k_model <- learner$models$autoencoder
 
   keras::compile(

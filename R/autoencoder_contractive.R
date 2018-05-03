@@ -14,6 +14,7 @@
 #' - [A practical tutorial on autoencoders for nonlinear feature fusion](https://arxiv.org/abs/1801.01586)
 #'
 #' @family autoencoder variants
+#' @import purrr
 #' @export
 autoencoder_contractive <- function(network, loss = "mean_squared_error", weight = 2e-4) {
   autoencoder(network, loss) %>%
@@ -56,7 +57,7 @@ contraction <- function(reconstruction_loss = "mean_squared_error", weight = 2e-
 #' @seealso `\link{autoencoder_contractive}`
 #' @export
 make_contractive <- function(learner, weight = 2e-4) {
-  if (!(ruta_loss_contraction %in% class(learner$loss))) {
+  if (!is_contractive(learner)) {
     learner$loss = contraction(learner$loss, weight)
   }
 
@@ -77,6 +78,7 @@ is_contractive <- function(learner) {
 #'   function
 #' @references
 #' - Contractive loss: \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
+#' @import purrr
 #' @export
 to_keras.ruta_loss_contraction <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder

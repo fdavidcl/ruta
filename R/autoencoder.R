@@ -59,6 +59,8 @@ autoencoder <- function(network, loss = "mean_squared_error") {
 #' @param x An object
 #' @param ... Unused
 #' @return Invisibly returns the same object passed as parameter
+#' @examples
+#' print(autoencoder(c(256, 10), loss = correntropy()))
 #' @rdname print-methods
 #' @export
 print.ruta_autoencoder <- function(x, ...) {
@@ -258,6 +260,7 @@ train.ruta_autoencoder <- function(
 #' }
 #'
 #' @seealso `\link{autoencoder}`
+#' @import purrr
 #' @export
 autoencode <- function(data, dim, type = "basic", activation = "linear", epochs = 20) {
   autoencoder_f <- switch(tolower(type),
@@ -284,9 +287,7 @@ autoencode <- function(data, dim, type = "basic", activation = "linear", epochs 
 #' @seealso \code{\link{decode}}, \code{\link{reconstruct}}
 #' @export
 encode <- function(learner, data) {
-  if (!is_trained(learner)) {
-    stop("Autoencoder is not trained")
-  }
+  stopifnot(is_trained(learner))
 
   learner$models$encoder$predict(data)
 }
@@ -301,9 +302,7 @@ encode <- function(learner, data) {
 #' @seealso \code{\link{encode}}, \code{\link{reconstruct}}
 #' @export
 decode <- function(learner, data) {
-  if (!is_trained(learner)) {
-    stop("Autoencoder is not trained")
-  }
+  stopifnot(is_trained(learner))
 
   learner$models$decoder$predict(data)
 }
@@ -320,9 +319,7 @@ decode <- function(learner, data) {
 #' @seealso \code{\link{encode}}, \code{\link{decode}}
 #' @export
 reconstruct <- function(learner, data) {
-  if (!is_trained(learner)) {
-    stop("Autoencoder is not trained")
-  }
+  stopifnot(is_trained(learner))
 
   learner$models$autoencoder$predict(data)
 }

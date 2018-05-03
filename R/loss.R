@@ -2,9 +2,7 @@
 #' @export
 as_loss.character <- function(x) {
   structure(
-    list(
-      name = x
-    ),
+    list(name = x),
     class = c(ruta_loss_named, ruta_loss)
   )
 }
@@ -42,4 +40,3 @@ print.ruta_loss <- function(x, ...) {
 to_keras.ruta_loss_named <- function(x, ...) {
   get_keras_object(x$name, "loss")
 }
-
