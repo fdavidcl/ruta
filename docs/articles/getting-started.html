@@ -118,18 +118,24 @@
 
     
     
-<div id="install-dependencies" class="section level2">
+<p>In this article you will find information on how to install the Ruta package and start using it.</p>
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#install-dependencies" class="anchor"></a>Install dependencies</h2>
-<p>Ruta is based in well known open source deep learning library <a href="https://keras.io">Keras</a> and its <a href="https://keras.rstudio.com">R interface</a>. For now, it has been only tested with the <a href="https://www.tensorflow.org/">Tensorflow</a> backend. In order to install these dependencies you will need the Python interpreter as well, and you can install them via Python’s package manager <em>pip</em> or possibly your distro’s package manager if you are running Linux.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="ex">pip</span> install tensorflow
-$ <span class="ex">pip</span> install keras</code></pre></div>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div id="dependencies" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dependencies" class="anchor"></a>Dependencies</h3>
+<p>Ruta is based in the well known open source deep learning library <a href="https://keras.io">Keras</a> and its <a href="https://keras.rstudio.com">R interface</a>. For now, it has been only tested with the <a href="https://www.tensorflow.org/">Tensorflow</a> backend. In order to install these dependencies you will need the Python interpreter as well, and you can install them via Python’s package manager <em>pip</em> or possibly your distro’s package manager if you are running Linux.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="ex">pip</span> install --user tensorflow
+$ <span class="ex">pip</span> install --user keras</code></pre></div>
 </div>
-<div id="install-ruta" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install-ruta" class="anchor"></a>Install Ruta</h2>
-<p>You should now be able to install Ruta from the R command line, with the following command:</p>
+<div id="ruta-package" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ruta-package" class="anchor"></a>Ruta package</h3>
+<p>From the R command line, use <code>install.packages</code> to get Ruta from the CRAN. Alternatively, you can get the latest version of the source code from GitHub:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"fdavidcl/ruta"</span>)</code></pre></div>
+<p>All R dependencies will be automatically installed. These include the Keras R interface and <a href="https://purrr.tidyverse.org/"><code>purrr</code></a>. For convenience we also</p>
+</div>
 </div>
 <div id="train-your-first-autoencoder" class="section level2">
 <h2 class="hasAnchor">
@@ -185,8 +191,7 @@ model &lt;-<span class="st"> </span>learner <span class="op">%&gt;%</span><span 
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#install-dependencies">Install dependencies</a></li>
-      <li><a href="#install-ruta">Install Ruta</a></li>
+<li><a href="#installation">Installation</a></li>
       <li><a href="#train-your-first-autoencoder">Train your first autoencoder</a></li>
       <li><a href="#going-deeper">Going deeper</a></li>
       </ul>

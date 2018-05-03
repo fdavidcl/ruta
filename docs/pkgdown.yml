@@ -10,7 +10,6 @@ articles:
   autoencoder_sparse: examples/autoencoder_sparse.html
   autoencoder_variational: examples/autoencoder_variational.html
   index: examples/index.html
-  getting-started: getting-started.html
 urls:
   reference: http://ruta.software/reference
   article: http://ruta.software/articles

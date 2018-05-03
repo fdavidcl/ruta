@@ -19,7 +19,7 @@ navbar:
       href: ""
       icon: fa-home
     - text: "Get started"
-      href: "articles/getting-started.html"
+      href: "articles/examples/autoencoder_basic.html"
       icon: fa-code
     - text: "Examples"
       menu:
@@ -27,8 +27,6 @@ navbar:
           href: "articles/architectures.html"
         - text: "-----------------------------"
         - text: "Autoencoder variants"
-        - text: "Basic autoencoder"
-          href: "articles/examples/autoencoder_basic.html"
         - text: "Contractive autoencoder"
           href: "articles/examples/autoencoder_contractive.html"
         - text: "Denoising autoencoder"
