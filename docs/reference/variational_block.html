@@ -150,7 +150,7 @@ log variance of the learned distribution in a variational autoencoder.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>variational_block</span>(<span class='no'>units</span>)</pre>
+    <pre class="usage"><span class='fu'>variational_block</span>(<span class='no'>units</span>, <span class='kw'>epsilon_std</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +158,15 @@ log variance of the learned distribution in a variational autoencoder.</p>
     <tr>
       <th>units</th>
       <td><p>Number of units</p></td>
+    </tr>
+    <tr>
+      <th>epsilon_std</th>
+      <td><p>Standard deviation for the normal distribution used for sampling</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>A seed for the random number generator. <strong>Setting a seed is required if you
+want to save the model and be able to load it correctly</strong></p></td>
     </tr>
     </table>
     

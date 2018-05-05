@@ -5,7 +5,7 @@ library(magrittr)
 library(keras)
 library(ruta)
 
-network <- input() + dense(36, "elu") + output("sigmoid")
+network <- input() + dense(36, "selu") + output("sigmoid")
 learner <-
   network %>%
   autoencoder_contractive(

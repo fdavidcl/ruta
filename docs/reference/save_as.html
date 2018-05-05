@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract Keras models from an autoencoder wrapper — to_keras.ruta_autoencoder • ruta</title>
+<title>Save and load Ruta models — save_as • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Extract Keras models from an autoencoder wrapper — to_keras.ruta_autoencoder" />
+<meta property="og:title" content="Save and load Ruta models — save_as" />
 
-<meta property="og:description" content="Extract Keras models from an autoencoder wrapper" />
+<meta property="og:description" content="Functions to save a trained or untrained Ruta learner into a file and load it" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,64 +135,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract Keras models from an autoencoder wrapper</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder.R'><code>R/autoencoder.R</code></a>, <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_variational.R'><code>R/autoencoder_variational.R</code></a></small>
-    <div class="hidden name"><code>to_keras.ruta_autoencoder.Rd</code></div>
+    <h1>Save and load Ruta models</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/save.R'><code>R/save.R</code></a></small>
+    <div class="hidden name"><code>save_as.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Extract Keras models from an autoencoder wrapper</p>
+    <p>Functions to save a trained or untrained Ruta learner into a file and load it</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for ruta_autoencoder</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>learner</span>, <span class='kw'>encoder_end</span> <span class='kw'>=</span> <span class='st'>"encoding"</span>,
-  <span class='kw'>decoder_start</span> <span class='kw'>=</span> <span class='st'>"encoding"</span>, <span class='kw'>weights_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>save_as</span>(<span class='no'>learner</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='fu'>substitute</span>(<span class='no'>learner</span>), <span class='st'>".tar.gz"</span>),
+  <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)
 
-<span class='co'># S3 method for ruta_autoencoder_variational</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>load_from</span>(<span class='no'>file</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>learner</th>
-      <td><p>Object of class <code>"ruta_autoencoder"</code>. Needs to have a member
-<code>input_shape</code> indicating the number of attributes of the input data</p></td>
+      <td><p>The <code>"ruta_autoencoder"</code> object to be saved</p></td>
     </tr>
     <tr>
-      <th>encoder_end</th>
-      <td><p>Name of the Keras layer where the encoder ends</p></td>
+      <th>file</th>
+      <td><p>File name with extension (usually <code>.tar.gz</code>) where the object will be
+saved to or loaded from</p></td>
     </tr>
     <tr>
-      <th>decoder_start</th>
-      <td><p>Name of the Keras layer where the decoder starts</p></td>
-    </tr>
-    <tr>
-      <th>weights_file</th>
-      <td><p>The name of a hdf5 weights file in order to load from a trained model</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional parameters for <code>to_keras.ruta_autoencoder</code></p></td>
+      <th>compression</th>
+      <td><p>Type of compression to be used, for R function <code>tar</code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list with several Keras models:</p><ul>
-<li><p><code>autoencoder</code>: model from the input layer to the output layer</p></li>
-<li><p><code>encoder</code>: model from the input layer to the encoding layer</p></li>
-<li><p><code>decoder</code>: model from the encoding layer to the output layer</p></li>
-</ul>
-
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='autoencoder.html'>autoencoder</a></code></p></div>
+    <p><code>save_as</code> invisibly returns the filename where the model has been saved,
+<code>load_from</code> returns the loaded model as a <code>"ruta_autoencoder"</code> object</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
+
+<span class='co'># Save a trained model</span>
+<span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='train.ruta_autoencoder.html'>train</a></span>(<span class='no'>x</span>) <span class='kw'>%&gt;%</span> <span class='fu'>save_as</span>(<span class='st'>"my_model.tar.gz"</span>)
+
+<span class='co'># Load and use the model</span>
+<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>load_from</span>(<span class='st'>"my_model.tar.gz"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>x</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -200,9 +192,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
