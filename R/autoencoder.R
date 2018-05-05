@@ -98,10 +98,11 @@ is_trained <- function(learner) {
 
 #' Extract Keras models from an autoencoder wrapper
 #'
-#' @param learner Object of class \code{"ruta_autoencoder"}
-#' @param input_shape Number of attributes in input data
+#' @param learner Object of class \code{"ruta_autoencoder"}. Needs to have a member
+#'   `input_shape` indicating the number of attributes of the input data
 #' @param encoder_end Name of the Keras layer where the encoder ends
 #' @param decoder_start Name of the Keras layer where the decoder starts
+#' @param weights_file The name of a hdf5 weights file in order to load from a trained model
 #' @return A list with several Keras models:
 #' - `autoencoder`: model from the input layer to the output layer
 #' - `encoder`: model from the input layer to the encoding layer
@@ -109,9 +110,15 @@ is_trained <- function(learner) {
 #' @import purrr
 #' @seealso `\link{autoencoder}`
 #' @export
-to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encoding", decoder_start = "encoding") {
+to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder_start = "encoding", weights_file = NULL) {
   # end-to-end autoencoder
-  model <- to_keras(learner$network, input_shape)
+  model <- to_keras(learner$network, learner$input_shape)
+
+  # load HDF5 weights if required
+  if (!is.null(weights_file)) {
+    message("Loading weights from ", weights_file)
+    keras::load_model_weights_hdf5(model, weights_file)
+  }
 
   # encoder, from inputs to latent space
   encoding_layer <- keras::get_layer(model, encoder_end)
@@ -201,7 +208,8 @@ train.ruta_autoencoder <- function(
   epochs = 20,
   optimizer = keras::optimizer_rmsprop(),
   ...) {
-  learner$models <- to_keras(learner, input_shape = ncol(data))
+  learner$input_shape <- ncol(data)
+  learner$models <- to_keras(learner)
 
   loss_f <- learner$loss %>% to_keras(learner)
 

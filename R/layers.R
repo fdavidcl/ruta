@@ -105,23 +105,31 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   else
     NULL
 
-  # TODO Use proper initialization for selu
-  # if (x$activation == "selu") {
-  #
-  # }
+  kern_ini <- list(...)$kernel_initializer
+
+  if (is.null(kern_ini)) {
+    kern_ini <-
+      if (x$activation == "selu")
+        "lecun_normal"
+      else
+        "glorot_uniform"
+  }
+
 
   keras::layer_dense(
     model,
     units = x$units,
     activity_regularizer = act_reg,
     kernel_regularizer = kern_reg,
-    name = if (is.null(x$name)) NULL else paste0("pre_", x$name),
+    name = if (is.null(x$name))
+      NULL
+    else
+      paste0("pre_", x$name),
+    kernel_initializer = kern_ini,
     ...
   ) %>%
-    keras::layer_activation(
-      activation = x$activation,
-      name = x$name
-    )
+    keras::layer_activation(activation = x$activation, name = x$name)
+
 }
 
 #' Custom layer from Keras

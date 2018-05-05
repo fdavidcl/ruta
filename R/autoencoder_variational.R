@@ -65,14 +65,17 @@ is_variational <- function(learner) {
 #' and a sampling layer. More specifically, these layers aim to represent the mean and the
 #' log variance of the learned distribution in a variational autoencoder.
 #' @param units Number of units
+#' @param epsilon_std Standard deviation for the normal distribution used for sampling
+#' @param seed A seed for the random number generator. **Setting a seed is required if you
+#'   want to save the model and be able to load it correctly**
 #' @return A construct with class \code{"ruta_layer"}
 #' @examples
 #' variational_block(3)
 #' @family neural layers
 #' @seealso `\link{autoencoder_variational}`
 #' @export
-variational_block <- function(units) {
-  make_atomic_network(ruta_layer_variational, units = units)
+variational_block <- function(units, epsilon_std = 1.0, seed = NULL) {
+  make_atomic_network(ruta_layer_variational, units = units, epsilon_std = epsilon_std, seed = seed)
 }
 
 #' Obtain a Keras block of layers for the variational autoencoder
@@ -93,7 +96,7 @@ variational_block <- function(units) {
 #' @import purrr
 #' @export
 to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
-  epsilon_std <- 1.0
+  epsilon_std <- x$epsilon_std
   latent_dim <- x$units
   z_mean <- keras::layer_dense(model, latent_dim, name = "z_mean")
   z_log_var <- keras::layer_dense(model, latent_dim, name = "z_log_var")
@@ -105,10 +108,11 @@ to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras
     epsilon <- keras::k_random_normal(
       shape = c(keras::k_shape(z_mean)[[1]]),
       mean = 0.,
-      stddev = epsilon_std
+      stddev = epsilon_std,
+      seed = x$seed
     )
 
-    z_mean + keras::k_exp(z_log_var/2)*epsilon
+    z_mean + keras::k_exp(z_log_var/2) * epsilon
   }
 
   # "output_shape" isn't necessary with the TensorFlow backend
@@ -117,9 +121,10 @@ to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras
 }
 
 #' @rdname to_keras.ruta_autoencoder
+#' @param ... Additional parameters for `to_keras.ruta_autoencoder`
 #' @export
-to_keras.ruta_autoencoder_variational <- function(learner, input_shape) {
-  to_keras.ruta_autoencoder(learner, input_shape, encoder_end = "z_mean", decoder_start = "sampling")
+to_keras.ruta_autoencoder_variational <- function(learner, ...) {
+  to_keras.ruta_autoencoder(learner, encoder_end = "z_mean", decoder_start = "sampling", ...)
 }
 
 #' Variational loss
