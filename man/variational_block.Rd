@@ -4,10 +4,15 @@
 \alias{variational_block}
 \title{Create a variational block of layers}
 \usage{
-variational_block(units)
+variational_block(units, epsilon_std = 1, seed = NULL)
 }
 \arguments{
 \item{units}{Number of units}
+
+\item{epsilon_std}{Standard deviation for the normal distribution used for sampling}
+
+\item{seed}{A seed for the random number generator. \strong{Setting a seed is required if you
+want to save the model and be able to load it correctly}}
 }
 \value{
 A construct with class \code{"ruta_layer"}
