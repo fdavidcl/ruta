@@ -33,6 +33,7 @@ library(purrr)
 
 x <- as.matrix(iris[, 1:4])
 
+\donttest{
 # Save a trained model
 saved_file <-
   autoencoder(2) \%>\%
@@ -41,4 +42,5 @@ saved_file <-
 
 # Load and use the model
 encoded <- load_from(saved_file) \%>\% encode(x)
+}
 }

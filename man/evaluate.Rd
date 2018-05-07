@@ -37,9 +37,11 @@ x <- as.matrix(sample(iris[, 1:4]))
 x_train <- x[1:100, ]
 x_test <- x[101:150, ]
 
+\donttest{
 autoencoder(2) \%>\%
   train(x_train) \%>\%
   evaluate_mean_squared_error(x_test)
+}
 
 }
 \seealso{

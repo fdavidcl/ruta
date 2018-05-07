@@ -169,10 +169,12 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
 #' @return Same autoencoder passed as parameter, with trained internal models
 #' @examples
 #' # Minimal example ================================================
-#' iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
-#'
 #' \donttest{
+#' iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
+#' }
+#'
 #' # Simple example with MNIST ======================================
+#' \donttest{
 #' library(keras)
 #'
 #' # Load and normalize MNIST
@@ -259,12 +261,13 @@ train.ruta_autoencoder <- function(
 #' @examples
 #' inputs <- as.matrix(iris[, 1:4])
 #'
+#' \donttest{
 #' # Train a basic autoencoder and generate a 2-variable encoding
 #' encoded <- autoencode(inputs, 2)
 #'
 #' # Train a contractive autoencoder with tanh activation
 #' encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
-#'
+#' }
 #' @seealso `\link{autoencoder}`
 #' @import purrr
 #' @export

@@ -16,6 +16,7 @@
 #'
 #' x <- as.matrix(iris[, 1:4])
 #'
+#' \donttest{
 #' # Save a trained model
 #' saved_file <-
 #'   autoencoder(2) %>%
@@ -24,6 +25,7 @@
 #'
 #' # Load and use the model
 #' encoded <- load_from(saved_file) %>% encode(x)
+#' }
 #' @export
 save_as <- function(learner, file = paste0(substitute(learner), ".tar.gz"), dir, compression = "gzip") {
   output_file <- file.path(dir, file)

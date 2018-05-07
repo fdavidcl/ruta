@@ -44,10 +44,12 @@ and trains it with the input data.
 }
 \examples{
 # Minimal example ================================================
-iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
-
 \donttest{
+iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
+}
+
 # Simple example with MNIST ======================================
+\donttest{
 library(keras)
 
 # Load and normalize MNIST
