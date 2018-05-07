@@ -43,10 +43,10 @@ This function compiles the neural network described by the learner object
 and trains it with the input data.
 }
 \examples{
-\dontrun{
 # Minimal example ================================================
-iris_model <- autoencoder(2) \%>\% train(as.matrix(iris[, 1:4]))
+iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
 
+\donttest{
 # Simple example with MNIST ======================================
 library(keras)
 
@@ -66,7 +66,7 @@ learner <- autoencoder(c(256, 36), "binary_crossentropy")
 train(
   learner,
   x_train,
-  epochs = 20,
+  epochs = 1,
   optimizer = "rmsprop",
   batch_size = 64,
   validation_data = x_test,

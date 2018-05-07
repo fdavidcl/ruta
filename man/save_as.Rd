@@ -5,7 +5,7 @@
 \alias{load_from}
 \title{Save and load Ruta models}
 \usage{
-save_as(learner, file = paste0(substitute(learner), ".tar.gz"),
+save_as(learner, file = paste0(substitute(learner), ".tar.gz"), dir,
   compression = "gzip")
 
 load_from(file)
@@ -13,26 +13,32 @@ load_from(file)
 \arguments{
 \item{learner}{The \code{"ruta_autoencoder"} object to be saved}
 
-\item{file}{File name with extension (usually \code{.tar.gz}) where the object will be
-saved to or loaded from}
+\item{file}{In \code{save}, filename with extension (usually \code{.tar.gz}) where the object will be
+saved. In \code{load}, path to the saved model}
+
+\item{dir}{Directory where to save the file. Use \code{"."} to save in the current
+working directory or \code{tempdir()} to use a temporary one}
 
 \item{compression}{Type of compression to be used, for R function \code{\link{tar}}}
 }
 \value{
-\code{save_as} invisibly returns the filename where the model has been saved,
+\code{save_as} returns the filename where the model has been saved,
 \code{load_from} returns the loaded model as a \code{"ruta_autoencoder"} object
 }
 \description{
 Functions to save a trained or untrained Ruta learner into a file and load it
 }
 \examples{
-\dontrun{
+library(purrr)
+
 x <- as.matrix(iris[, 1:4])
 
 # Save a trained model
-autoencoder(2) \%>\% train(x) \%>\% save_as("my_model.tar.gz")
+saved_file <-
+  autoencoder(2) \%>\%
+  train(x) \%>\%
+  save_as("my_model.tar.gz", dir = tempdir())
 
 # Load and use the model
-encoded <- load_from("my_model.tar.gz") \%>\% encode(x)
-}
+encoded <- load_from(saved_file) \%>\% encode(x)
 }

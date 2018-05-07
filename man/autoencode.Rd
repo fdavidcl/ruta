@@ -28,7 +28,6 @@ Trains an autoencoder adapted to the data and extracts its encoding for the
 same data matrix.
 }
 \examples{
-\dontrun{
 inputs <- as.matrix(iris[, 1:4])
 
 # Train a basic autoencoder and generate a 2-variable encoding
@@ -36,7 +35,6 @@ encoded <- autoencode(inputs, 2)
 
 # Train a contractive autoencoder with tanh activation
 encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
-}
 
 }
 \seealso{
