@@ -30,6 +30,7 @@
 #' - [Extracting and composing robust features with denoising autoencoders](https://dl.acm.org/citation.cfm?id=1390294)
 #'
 #' @family autoencoder variants
+#' @import purrr
 #' @export
 autoencoder_denoising <- function(network, loss = "mean_squared_error", noise_type = "zeros", ...) {
   autoencoder(network, loss) %>%
@@ -55,3 +56,14 @@ make_denoising <- function(learner, noise_type = "zeros", ...) {
   learner$filter <- noise(noise_type, ...)
   learner
 }
+
+
+#' Detect whether an autoencoder is denoising
+#' @param learner A \code{"ruta_autoencoder"} object
+#' @return Logical value indicating if a noise generator was found
+#' @seealso `\link{noise}`, `\link{autoencoder_denoising}`, `\link{make_denoising}`
+#' @export
+is_denoising <- function(learner) {
+  (!is.null(learner$filter)) & (ruta_noise %in% class(learner$filter))
+}
+

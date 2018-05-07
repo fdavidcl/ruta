@@ -1,3 +1,7 @@
+# This file defines the derivatives of activation functions available in Keras
+# (except softmax). They are not exported since this computation could change
+# in the future, in case Keras can automatically calculate derivatives for activations.
+
 k_greater_int <- function(a, b) keras::k_cast(keras::k_greater(a, b), keras::k_floatx())
 k_less_int <- function(a, b) keras::k_cast(keras::k_less(a, b), keras::k_floatx())
 

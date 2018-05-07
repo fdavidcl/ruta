@@ -43,7 +43,7 @@
   </a>
 </li>
 <li>
-  <a href="articles/getting-started.html">
+  <a href="articles/examples/autoencoder_basic.html">
     <span class="fa fa-code"></span>
      
     Get started
@@ -62,9 +62,6 @@
     <li class="divider">
     </li>
 <li class="dropdown-header">Autoencoder variants</li>
-    <li>
-      <a href="articles/examples/autoencoder_basic.html">Basic autoencoder</a>
-    </li>
     <li>
       <a href="articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
     </li>
@@ -129,7 +126,57 @@
 <p><a href="https://www.r-project.org/"><img src="https://img.shields.io/badge/language-R-lightgrey.svg" alt="R language"></a> <a href="https://travis-ci.org/fdavidcl/ruta"><img src="https://img.shields.io/travis/fdavidcl/ruta.svg" alt="Travis"></a> <a href="https://www.gnu.org/licenses/gpl.html"><img src="https://img.shields.io/github/license/fdavidcl/ruta.svg" alt="license"></a></p>
 <hr>
 <p>Get uncomplicated access to unsupervised deep neural networks, from building their architecture to their training and evaluation</p>
-<p><a href="/articles/getting-started.html" class="btn btn-primary"><span class="fa fa-code"></span> Get started</a></p>
+<p><a href="/articles/examples/autoencoder_basic.html" class="btn btn-primary"><span class="fa fa-code"></span> Get started</a></p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div id="dependencies" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dependencies" class="anchor"></a>Dependencies</h3>
+<p>Ruta is based in the well known open source deep learning library <a href="https://keras.io">Keras</a> and its <a href="https://keras.rstudio.com">R interface</a>. It has been developed to work with the <a href="https://www.tensorflow.org/">TensorFlow</a> backend. In order to install these dependencies you will need the Python interpreter as well, and you can install them via the Python package manager <em>pip</em> or possibly your distro’s package manager if you are running Linux.</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="fu">sudo</span> pip install tensorflow
+$ <span class="fu">sudo</span> pip install keras</code></pre></div>
+<p>Otherwise, you can follow the official installation guides:</p>
+<ul>
+<li><a href="https://www.tensorflow.org/install/">Installing TensorFlow</a></li>
+<li><a href="https://keras.io/#installation">Keras installation</a></li>
+</ul>
+</div>
+<div id="ruta-package" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ruta-package" class="anchor"></a>Ruta package</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Just get Ruta from the CRAN</span>
+<span class="kw">install.packages</span>(<span class="st">"ruta"</span>)
+
+<span class="co"># Or get the latest development version from GitHub</span>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"fdavidcl/ruta"</span>)</code></pre></div>
+<p>All R dependencies will be automatically installed. These include the Keras R interface and <a href="https://purrr.tidyverse.org/"><code>purrr</code></a>. For convenience we also recommend installing and loading either <a href="https://magrittr.tidyverse.org/"><code>magrittr</code></a> or <code>purrr</code>, so that the pipe operator <code>%&gt;%</code> is available.</p>
+</div>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>The easiest way to start working with Ruta is to use the <code><a href="reference/autoencode.html">autoencode()</a></code> function. It allows for selecting a type of autoencoder and transforming the feature space of a data set onto another one with some desirable properties depending on the chosen type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/autoencode.html">autoencode</a></span>(<span class="dv">2</span>, <span class="dt">type =</span> <span class="st">"denoising"</span>)</code></pre></div>
+<p>You can learn more about different variants of autoencoders by reading <a href="https://arxiv.org/abs/1801.01586"><em>A practical tutorial on autoencoders for nonlinear feature fusion</em></a>.</p>
+<p>Ruta provides the functionality to build diverse neural architectures (see <code><a href="reference/autoencoder.html">autoencoder()</a></code>), train them as autoencoders (see <code><a href="reference/train.ruta_autoencoder.html">train()</a></code>) and perform different tasks with the resulting models (see <code><a href="reference/reconstruct.html">reconstruct()</a></code>), including evaluation (see <code><a href="reference/evaluate.html">evaluate_mean_squared_error()</a></code>). The following is a basic example of a natural pipeline with an autoencoder:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ruta)
+<span class="kw">library</span>(purrr)
+
+<span class="co"># Shuffle and normalize dataset</span>
+x &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="op">%&gt;%</span><span class="st"> </span>sample <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span>scale
+x_train &lt;-<span class="st"> </span>x[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, ]
+x_test &lt;-<span class="st"> </span>x[<span class="dv">101</span><span class="op">:</span><span class="dv">150</span>, ]
+
+<span class="kw"><a href="reference/autoencoder.html">autoencoder</a></span>(
+  <span class="kw"><a href="reference/input.html">input</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">256</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">36</span>, <span class="st">"tanh"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">256</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>),
+  <span class="dt">loss =</span> <span class="st">"mean_squared_error"</span>
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/make_contractive.html">make_contractive</a></span>(<span class="dt">weight =</span> <span class="fl">1e-4</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">40</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/evaluate.html">evaluate_mean_squared_error</a></span>(x_test)</code></pre></div>
+<p>For more details, see <a href="http://ruta.software/articles/examples">other examples</a> and <a href="http://ruta.software/reference/">the documentation</a>.</p>
 </div>
   </div>
 
@@ -155,6 +202,8 @@
 <ul class="list-unstyled">
 <li>
 <a href="http://david.quotient.space">David Charte</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Francisco Charte <br><small class="roles"> Author </small>  </li>
+<li>Francisco Herrera <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
@@ -164,7 +213,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://david.quotient.space">David Charte</a>.</p>
+  <p>Developed by <a href="http://david.quotient.space">David Charte</a>, Francisco Charte, Francisco Herrera.</p>
 </div>
 
 <div class="pkgdown">

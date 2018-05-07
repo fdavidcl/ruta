@@ -9,7 +9,7 @@ library(ruta)
 network <-
   input() +
   dense(256, "elu") +
-  variational_block(3) +
+  variational_block(3, seed = 42) +
   dense(256, "elu") +
   output("sigmoid")
 
@@ -27,7 +27,7 @@ x_test <- array_reshape(
 x_test <- x_test / 255.0
 
 #' Train
-model <- learner %>% train(x_train, epochs = 50)
+model <- learner %>% train(x_train, epochs = 5)
 
 #' Sample the trained model
 samples <- model %>% generate(dimensions = c(2, 3), fixed_values = 0.5)

@@ -70,10 +70,22 @@
     <loc>http://ruta.software/reference/input.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/is_contractive.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_denoising.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_robust.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/is_sparse.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/is_trained.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/is_variational.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/join-networks.html</loc>
@@ -130,10 +142,13 @@
     <loc>http://ruta.software/reference/plot.ruta_network.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/print.ruta_network.html</loc>
+    <loc>http://ruta.software/reference/print-methods.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/reconstruct.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/reference/save_as.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/reference/sparsity.html</loc>
@@ -197,8 +212,5 @@
   </url>
   <url>
     <loc>http://ruta.software/articles/examples/index.html</loc>
-  </url>
-  <url>
-    <loc>http://ruta.software/articles/getting-started.html</loc>
   </url>
 </urlset>

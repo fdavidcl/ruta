@@ -22,7 +22,7 @@ autoencoder_robust <- function(network, sigma = 0.2) {
 
 #' Correntropy loss
 #'
-#' @description A wrapper for the correntropy loss function
+#' A wrapper for the correntropy loss function
 #'
 #' @param sigma Sigma parameter in the kernel
 #'
@@ -39,7 +39,7 @@ correntropy <- function(sigma = 0.2) {
 
 #' Add robust behavior to any autoencoder
 #'
-#' @description Converts an autoencoder into a robust one by assigning a
+#' Converts an autoencoder into a robust one by assigning a
 #' correntropy loss to it. Notice that this will replace the previous loss
 #' function
 #'
@@ -50,9 +50,19 @@ correntropy <- function(sigma = 0.2) {
 #' @seealso `\link{autoencoder_robust}`
 #' @export
 make_robust <- function(learner, sigma = 0.2) {
-  # message("This will replace the previous loss function")
   learner$loss <- correntropy(sigma)
+  learner
 }
+
+#' Detect whether an autoencoder is robust
+#' @param learner A \code{"ruta_autoencoder"} object
+#' @return Logical value indicating if a correntropy loss was found
+#' @seealso `\link{correntropy}`, `\link{autoencoder_robust}`, `\link{make_robust}`
+#' @export
+is_robust <- function(learner) {
+  ruta_loss_correntropy %in% class(learner$loss)
+}
+
 
 #' @rdname to_keras.ruta_loss_named
 #' @references

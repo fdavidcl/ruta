@@ -19,7 +19,7 @@ navbar:
       href: ""
       icon: fa-home
     - text: "Get started"
-      href: "articles/getting-started.html"
+      href: "articles/examples/autoencoder_basic.html"
       icon: fa-code
     - text: "Examples"
       menu:
@@ -27,8 +27,6 @@ navbar:
           href: "articles/architectures.html"
         - text: "-----------------------------"
         - text: "Autoencoder variants"
-        - text: "Basic autoencoder"
-          href: "articles/examples/autoencoder_basic.html"
         - text: "Contractive autoencoder"
           href: "articles/examples/autoencoder_contractive.html"
         - text: "Denoising autoencoder"
@@ -60,7 +58,6 @@ reference:
       - layer_keras
       - "c.ruta_network"
       - "[.ruta_network"
-      - "print.ruta_network"
       - "plot.ruta_network"
       - new_layer
       - new_network
@@ -71,19 +68,16 @@ reference:
       These functions allow to create and customize autoencoder learners.
     contents:
       - autoencoder
-      - autoencoder_sparse
-      - autoencoder_contractive
-      - autoencoder_denoising
-      - autoencoder_robust
-      - autoencoder_variational
+      - starts_with("autoencoder_")
       - add_weight_decay
       - weight_decay
-      - make_sparse
-      - make_contractive
-      - make_denoising
-      - make_robust
-      - sparsity
+      - starts_with("make_")
+      - is_contractive
+      - is_denoising
+      - is_robust
       - is_sparse
+      - is_variational
+      - sparsity
       - new_autoencoder
   - title: "Loss functions"
     desc: >
@@ -119,6 +113,7 @@ reference:
       - decode
       - reconstruct
       - starts_with("generate")
+      - save_as
   - title: "Noise generators"
     desc: >
       These objects act as input filters which generate some noise into the
@@ -131,3 +126,8 @@ reference:
       Keras objects and functions.
     contents:
       - starts_with("to_keras")
+  - title: "Other methods"
+    desc: >
+      Some methods for R generics.
+    contents:
+      - starts_with("print.")

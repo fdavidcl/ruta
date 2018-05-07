@@ -43,7 +43,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/getting-started.html">
+  <a href="../articles/examples/autoencoder_basic.html">
     <span class="fa fa-code"></span>
      
     Get started
@@ -61,9 +61,6 @@
     </li>
     <li class="divider">
     <li class="dropdown-header">Autoencoder variants</li>
-    <li>
-      <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
-    </li>
     <li>
       <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
     </li>
@@ -124,7 +121,7 @@
 
 net &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">100</span>)
 net <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/as_network.html">as_network</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
-<span class="co">#&gt; Ruta network. Structure:</span>
+<span class="co">#&gt; Network structure:</span>
 <span class="co">#&gt;  input</span>
 <span class="co">#&gt;  dense(1000 units) - linear</span>
 <span class="co">#&gt;  dense(100 units) - linear</span>
@@ -140,7 +137,7 @@ net <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a h
 <span class="st">  </span><span class="kw"><a href="../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)
 
 <span class="kw">print</span>(net)
-<span class="co">#&gt; Ruta network. Structure:</span>
+<span class="co">#&gt; Network structure:</span>
 <span class="co">#&gt;  input</span>
 <span class="co">#&gt;  dense(1000 units) - relu</span>
 <span class="co">#&gt;  dense(100 units) - tanh</span>
@@ -159,7 +156,7 @@ net &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)
 
 <span class="kw">print</span>(net)
-<span class="co">#&gt; Ruta network. Structure:</span>
+<span class="co">#&gt; Network structure:</span>
 <span class="co">#&gt;  input</span>
 <span class="co">#&gt;  dense(1000 units) - relu</span>
 <span class="co">#&gt;  dropout</span>
@@ -179,7 +176,7 @@ net &lt;-<span class="st"> </span>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://david.quotient.space">David Charte</a>.</p>
+  <p>Developed by <a href="http://david.quotient.space">David Charte</a>, Francisco Charte, Francisco Herrera.</p>
 </div>
 
 <div class="pkgdown">

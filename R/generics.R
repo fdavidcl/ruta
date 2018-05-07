@@ -1,8 +1,6 @@
 #' @rdname train.ruta_autoencoder
 #' @export
-train <- function(learner, ...) {
-  UseMethod("train")
-}
+train <- function(learner, ...) UseMethod("train")
 
 #' Coercion to ruta_loss
 #'
@@ -34,3 +32,17 @@ to_keras <- function(x, ...) UseMethod("to_keras")
 #' @param learner Trained learner object
 #' @export
 generate <- function(learner, ...) UseMethod("generate")
+
+#' Apply filters
+#'
+#' @description Apply a filter to input data, generally a noise filter in
+#' order to train a denoising autoencoder. Users won't generally need to use
+#' these functions
+#'
+#' @param filter Filter object to be applied
+#' @param data Input data to be filtered
+#' @param ... Other parameters
+#'
+#' @seealso `\link{autoencoder_denoising}`
+#' @export
+apply_filter <- function(filter, data, ...) UseMethod("apply_filter")

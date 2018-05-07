@@ -72,7 +72,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/getting-started.html">
+  <a href="../articles/examples/autoencoder_basic.html">
     <span class="fa fa-code"></span>
      
     Get started
@@ -90,9 +90,6 @@
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Autoencoder variants</li>
-    <li>
-      <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
-    </li>
     <li>
       <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
     </li>
@@ -150,22 +147,19 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ruta_autoencoder</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>learner</span>, <span class='no'>input_shape</span>,
-  <span class='kw'>encoder_end</span> <span class='kw'>=</span> <span class='st'>"encoding"</span>, <span class='kw'>decoder_start</span> <span class='kw'>=</span> <span class='st'>"encoding"</span>)
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>learner</span>, <span class='kw'>encoder_end</span> <span class='kw'>=</span> <span class='st'>"encoding"</span>,
+  <span class='kw'>decoder_start</span> <span class='kw'>=</span> <span class='st'>"encoding"</span>, <span class='kw'>weights_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for ruta_autoencoder_variational</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>learner</span>, <span class='no'>input_shape</span>)</pre>
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>learner</th>
-      <td><p>Object of class <code>"ruta_autoencoder"</code></p></td>
-    </tr>
-    <tr>
-      <th>input_shape</th>
-      <td><p>Number of attributes in input data</p></td>
+      <td><p>Object of class <code>"ruta_autoencoder"</code>. Needs to have a member
+<code>input_shape</code> indicating the number of attributes of the input data</p></td>
     </tr>
     <tr>
       <th>encoder_end</th>
@@ -174,6 +168,14 @@
     <tr>
       <th>decoder_start</th>
       <td><p>Name of the Keras layer where the decoder starts</p></td>
+    </tr>
+    <tr>
+      <th>weights_file</th>
+      <td><p>The name of a hdf5 weights file in order to load from a trained model</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters for <code>to_keras.ruta_autoencoder</code></p></td>
     </tr>
     </table>
     
@@ -207,7 +209,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://david.quotient.space'>David Charte</a>.</p>
+  <p>Developed by <a href='http://david.quotient.space'>David Charte</a>, Francisco Charte, Francisco Herrera.</p>
 </div>
 
 <div class="pkgdown">

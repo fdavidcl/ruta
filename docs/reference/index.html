@@ -69,7 +69,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/getting-started.html">
+  <a href="../articles/examples/autoencoder_basic.html">
     <span class="fa fa-code"></span>
      
     Get started
@@ -87,9 +87,6 @@
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Autoencoder variants</li>
-    <li>
-      <a href="../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
-    </li>
     <li>
       <a href="../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
     </li>
@@ -203,12 +200,6 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="print.ruta_network.html">print(<i>&lt;ruta_network&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Inspect a neural network</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="plot.ruta_network.html">plot(<i>&lt;ruta_network&gt;</i>)</a></code> </p>
         </td>
         <td><p>Draw a neural network</p></td>
@@ -253,12 +244,6 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="autoencoder_sparse.html">autoencoder_sparse()</a></code> </p>
-        </td>
-        <td><p>Sparse autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="autoencoder_contractive.html">autoencoder_contractive()</a></code> </p>
         </td>
         <td><p>Create a contractive autoencoder</p></td>
@@ -274,6 +259,12 @@
           <p><code><a href="autoencoder_robust.html">autoencoder_robust()</a></code> </p>
         </td>
         <td><p>Create a robust autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="autoencoder_sparse.html">autoencoder_sparse()</a></code> </p>
+        </td>
+        <td><p>Sparse autoencoder</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -295,12 +286,6 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="make_sparse.html">make_sparse()</a></code> </p>
-        </td>
-        <td><p>Add sparsity regularization to an autoencoder</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="make_contractive.html">make_contractive()</a></code> </p>
         </td>
         <td><p>Add contractive behavior to any autoencoder</p></td>
@@ -319,15 +304,45 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="sparsity.html">sparsity()</a></code> </p>
+          <p><code><a href="make_sparse.html">make_sparse()</a></code> </p>
         </td>
-        <td><p>Sparsity regularization</p></td>
+        <td><p>Add sparsity regularization to an autoencoder</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is_contractive.html">is_contractive()</a></code> </p>
+        </td>
+        <td><p>Detect whether an autoencoder is contractive</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is_denoising.html">is_denoising()</a></code> </p>
+        </td>
+        <td><p>Detect whether an autoencoder is denoising</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is_robust.html">is_robust()</a></code> </p>
+        </td>
+        <td><p>Detect whether an autoencoder is robust</p></td>
       </tr><tr>
         <!--  -->
         <td>
           <p><code><a href="is_sparse.html">is_sparse()</a></code> </p>
         </td>
         <td><p>Detect whether an autoencoder is sparse</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is_variational.html">is_variational()</a></code> </p>
+        </td>
+        <td><p>Detect whether an autoencoder is variational</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sparsity.html">sparsity()</a></code> </p>
+        </td>
+        <td><p>Sparsity regularization</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -450,6 +465,12 @@
           <p><code><a href="generate.html">generate()</a></code> </p>
         </td>
         <td><p>Generate samples from a generative model</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="save_as.html">save_as()</a></code> <code><a href="save_as.html">load_from()</a></code> </p>
+        </td>
+        <td><p>Save and load Ruta models</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -551,6 +572,20 @@
         </td>
         <td><p>Obtain a Keras weight decay</p></td>
       </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-methods" class="hasAnchor"><a href="#section-other-methods" class="anchor"></a>Other methods</h2>
+          <p class="section-desc"><p>Some methods for R generics.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="print-methods.html">print(<i>&lt;ruta_autoencoder&gt;</i>)</a></code> <code><a href="print-methods.html">print(<i>&lt;ruta_loss_named&gt;</i>)</a></code> <code><a href="print-methods.html">print(<i>&lt;ruta_loss&gt;</i>)</a></code> <code><a href="print-methods.html">print(<i>&lt;ruta_network&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Inspect Ruta objects</p></td>
+      </tr>
     </tbody>
     </table>
   </div>
@@ -566,13 +601,14 @@
       <li><a href="#section-tasks-for-trained-models">Tasks for trained models</a></li>
       <li><a href="#section-noise-generators">Noise generators</a></li>
       <li><a href="#section-keras-conversions">Keras conversions</a></li>
+      <li><a href="#section-other-methods">Other methods</a></li>
     </ul>
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://david.quotient.space'>David Charte</a>.</p>
+  <p>Developed by <a href='http://david.quotient.space'>David Charte</a>, Francisco Charte, Francisco Herrera.</p>
 </div>
 
 <div class="pkgdown">

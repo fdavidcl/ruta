@@ -54,6 +54,36 @@ autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
 }
 
+#' Inspect Ruta objects
+#'
+#' @param x An object
+#' @param ... Unused
+#' @return Invisibly returns the same object passed as parameter
+#' @examples
+#' print(autoencoder(c(256, 10), loss = correntropy()))
+#' @rdname print-methods
+#' @export
+print.ruta_autoencoder <- function(x, ...) {
+  cat("Autoencoder learner\n")
+  type <- NULL
+
+  if (is_sparse(x)) type <- c(type, "sparse")
+  if (is_contractive(x)) type <- c(type, "contractive")
+  if (is_robust(x)) type <- c(type, "robust")
+  if (is_denoising(x)) type <- c(type, "denoising")
+  if (is_variational(x)) type <- c(type, "variational")
+  type <- if (is.null(type)) "basic" else paste0(type, collapse = ", ")
+
+  print_line()
+  cat("Type:", type, "\n\n")
+  print(x$network)
+  cat("\n")
+  print(x$loss)
+  print_line()
+
+  invisible(x)
+}
+
 #' Detect trained models
 #'
 #' Inspects a learner and figures out whether it has been trained
@@ -68,10 +98,11 @@ is_trained <- function(learner) {
 
 #' Extract Keras models from an autoencoder wrapper
 #'
-#' @param learner Object of class \code{"ruta_autoencoder"}
-#' @param input_shape Number of attributes in input data
+#' @param learner Object of class \code{"ruta_autoencoder"}. Needs to have a member
+#'   `input_shape` indicating the number of attributes of the input data
 #' @param encoder_end Name of the Keras layer where the encoder ends
 #' @param decoder_start Name of the Keras layer where the decoder starts
+#' @param weights_file The name of a hdf5 weights file in order to load from a trained model
 #' @return A list with several Keras models:
 #' - `autoencoder`: model from the input layer to the output layer
 #' - `encoder`: model from the input layer to the encoding layer
@@ -79,9 +110,15 @@ is_trained <- function(learner) {
 #' @import purrr
 #' @seealso `\link{autoencoder}`
 #' @export
-to_keras.ruta_autoencoder <- function(learner, input_shape, encoder_end = "encoding", decoder_start = "encoding") {
+to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder_start = "encoding", weights_file = NULL) {
   # end-to-end autoencoder
-  model <- to_keras(learner$network, input_shape)
+  model <- to_keras(learner$network, learner$input_shape)
+
+  # load HDF5 weights if required
+  if (!is.null(weights_file)) {
+    message("Loading weights from ", weights_file)
+    keras::load_model_weights_hdf5(model, weights_file)
+  }
 
   # encoder, from inputs to latent space
   encoding_layer <- keras::get_layer(model, encoder_end)
@@ -171,7 +208,8 @@ train.ruta_autoencoder <- function(
   epochs = 20,
   optimizer = keras::optimizer_rmsprop(),
   ...) {
-  learner$models <- to_keras(learner, input_shape = ncol(data))
+  learner$input_shape <- ncol(data)
+  learner$models <- to_keras(learner)
 
   loss_f <- learner$loss %>% to_keras(learner)
 
@@ -201,7 +239,7 @@ train.ruta_autoencoder <- function(
     ...
   )
 
-  learner
+  invisible(learner)
 }
 
 #' Automatically compute an encoding of a data matrix
@@ -230,6 +268,7 @@ train.ruta_autoencoder <- function(
 #' }
 #'
 #' @seealso `\link{autoencoder}`
+#' @import purrr
 #' @export
 autoencode <- function(data, dim, type = "basic", activation = "linear", epochs = 20) {
   autoencoder_f <- switch(tolower(type),
@@ -256,9 +295,7 @@ autoencode <- function(data, dim, type = "basic", activation = "linear", epochs 
 #' @seealso \code{\link{decode}}, \code{\link{reconstruct}}
 #' @export
 encode <- function(learner, data) {
-  if (!is_trained(learner)) {
-    stop("Autoencoder is not trained")
-  }
+  stopifnot(is_trained(learner))
 
   learner$models$encoder$predict(data)
 }
@@ -273,9 +310,7 @@ encode <- function(learner, data) {
 #' @seealso \code{\link{encode}}, \code{\link{reconstruct}}
 #' @export
 decode <- function(learner, data) {
-  if (!is_trained(learner)) {
-    stop("Autoencoder is not trained")
-  }
+  stopifnot(is_trained(learner))
 
   learner$models$decoder$predict(data)
 }
@@ -292,9 +327,7 @@ decode <- function(learner, data) {
 #' @seealso \code{\link{encode}}, \code{\link{decode}}
 #' @export
 reconstruct <- function(learner, data) {
-  if (!is_trained(learner)) {
-    stop("Autoencoder is not trained")
-  }
+  stopifnot(is_trained(learner))
 
   learner$models$autoencoder$predict(data)
 }

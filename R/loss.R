@@ -2,9 +2,7 @@
 #' @export
 as_loss.character <- function(x) {
   structure(
-    list(
-      name = x
-    ),
+    list(name = x),
     class = c(ruta_loss_named, ruta_loss)
   )
 }
@@ -12,6 +10,22 @@ as_loss.character <- function(x) {
 #' @rdname as_loss
 #' @export
 as_loss.ruta_loss <- function(x) x
+
+#' @rdname print-methods
+#' @export
+print.ruta_loss_named <- function(x, ...) {
+  cat("Loss:", x$name, "\n")
+
+  invisible(x)
+}
+
+#' @rdname print-methods
+#' @export
+print.ruta_loss <- function(x, ...) {
+  cat("Loss:", sub("ruta_loss_", "", class(x)[1]), "\n")
+
+  invisible(x)
+}
 
 #' Obtain a Keras loss
 #'
@@ -26,4 +40,3 @@ as_loss.ruta_loss <- function(x) x
 to_keras.ruta_loss_named <- function(x, ...) {
   get_keras_object(x$name, "loss")
 }
-

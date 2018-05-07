@@ -13,26 +13,16 @@
 #'
 #' # Equivalent:
 #' my_layer <- dense(30, "tanh")[[1]]
-#' @import purrr
 #' @export
 new_layer <- function(cl, ...) {
   # length check
-  stopifnot(
-    is_scalar_vector(cl)#,
-    # is_scalar_vector(units),
-    # is_scalar_vector(activation)
-  )
+  stopifnot(is_scalar_vector(cl))
+
   # type coercion
   cl <- as.character(cl)
-  # units <- as.integer(units)
-  # activation <- as.character(activation)
 
   structure(
-    list(
-      # units = units,
-      # activation = activation
-      ...
-    ),
+    list(...),
     class = c(cl, ruta_layer)
   )
 }
@@ -99,6 +89,7 @@ dense <- function(units, activation = "linear") {
 
 #' @param model Keras model where the layer will be added
 #' @rdname to_keras.ruta_layer_input
+#' @export
 to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   if (is.null(x$units)) {
     x$units <- input_shape
@@ -114,18 +105,31 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
   else
     NULL
 
+  kern_ini <- list(...)$kernel_initializer
+
+  if (is.null(kern_ini)) {
+    kern_ini <-
+      if (x$activation == "selu")
+        "lecun_normal"
+      else
+        "glorot_uniform"
+  }
+
+
   keras::layer_dense(
     model,
     units = x$units,
     activity_regularizer = act_reg,
     kernel_regularizer = kern_reg,
-    name = if (is.null(x$name)) NULL else paste0("pre_", x$name),
+    name = if (is.null(x$name))
+      NULL
+    else
+      paste0("pre_", x$name),
+    kernel_initializer = kern_ini,
     ...
   ) %>%
-    keras::layer_activation(
-      activation = x$activation,
-      name = x$name
-    )
+    keras::layer_activation(activation = x$activation, name = x$name)
+
 }
 
 #' Custom layer from Keras
@@ -156,6 +160,7 @@ dropout <- function(rate = 0.5) {
 }
 
 #' @rdname to_keras.ruta_layer_input
+#' @export
 to_keras.ruta_layer_custom <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   layer_f = get_keras_object(x$name, "layer")
   args = c(list(object = model), x$params)

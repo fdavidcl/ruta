@@ -43,7 +43,7 @@
   </a>
 </li>
 <li>
-  <a href="../../articles/getting-started.html">
+  <a href="../../articles/examples/autoencoder_basic.html">
     <span class="fa fa-code"></span>
      
     Get started
@@ -61,9 +61,6 @@
     </li>
     <li class="divider">
     <li class="dropdown-header">Autoencoder variants</li>
-    <li>
-      <a href="../../articles/examples/autoencoder_basic.html">Basic autoencoder</a>
-    </li>
     <li>
       <a href="../../articles/examples/autoencoder_contractive.html">Contractive autoencoder</a>
     </li>
@@ -129,7 +126,7 @@
 network &lt;-
 <span class="st">  </span><span class="kw"><a href="../../reference/input.html">input</a></span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">256</span>, <span class="st">"elu"</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="../../reference/variational_block.html">variational_block</a></span>(<span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="../../reference/variational_block.html">variational_block</a></span>(<span class="dv">3</span>, <span class="dt">seed =</span> <span class="dv">42</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">256</span>, <span class="st">"elu"</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="../../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)
 
@@ -145,7 +142,7 @@ x_test &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocum
 )
 x_test &lt;-<span class="st"> </span>x_test <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></code></pre></div>
 <p>Train</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span>learner <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">50</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span>learner <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">5</span>)</code></pre></div>
 <p>Sample the trained model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/generate.html">generate</a></span>(<span class="dt">dimensions =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">fixed_values =</span> <span class="fl">0.5</span>)</code></pre></div>
 <p>Utility functions for plotting</p>
@@ -189,7 +186,7 @@ plot_matrix &lt;-<span class="st"> </span><span class="cf">function</span>(digit
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://david.quotient.space">David Charte</a>.</p>
+  <p>Developed by <a href="http://david.quotient.space">David Charte</a>, Francisco Charte, Francisco Herrera.</p>
 </div>
 
 <div class="pkgdown">
