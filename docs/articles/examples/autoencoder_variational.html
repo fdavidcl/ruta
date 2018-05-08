@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">ruta</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
       </span>
     </div>
 
@@ -169,14 +169,14 @@ plot_matrix &lt;-<span class="st"> </span><span class="cf">function</span>(digit
 <span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">"white"</span>)  <span class="co"># ensure the background color is white</span>
 <span class="kw">plot</span>(<span class="kw">c</span>(), <span class="dt">type =</span> <span class="st">"n"</span>)
 
-<span class="kw"><a href="http://www.rdocumentation.org/packages/animation/topics/ani.record">ani.record</a></span>(<span class="dt">reset =</span> T)
+<span class="kw">ani.record</span>(<span class="dt">reset =</span> T)
 
 <span class="cf">for</span> (t <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="fl">0.001</span>, <span class="dt">to =</span> <span class="fl">0.999</span>, <span class="dt">length.out =</span> <span class="dv">180</span>)) {
   model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/generate.html">generate</a></span>(<span class="dt">dimensions =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">from =</span> <span class="fl">0.001</span>, <span class="dt">to =</span> <span class="fl">0.999</span>, <span class="dt">fixed_values =</span> t) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_matrix</span>()
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/animation/topics/ani.record">ani.record</a></span>()
+  <span class="kw">ani.record</span>()
 }
 
-<span class="kw"><a href="http://www.rdocumentation.org/packages/animation/topics/saveHTML">saveHTML</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/animation/topics/ani.record">ani.replay</a></span>(), <span class="dt">img.name =</span> <span class="st">"record_plot"</span>)</code></pre></div>
+<span class="kw">saveHTML</span>(<span class="kw">ani.replay</span>(), <span class="dt">img.name =</span> <span class="st">"record_plot"</span>)</code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

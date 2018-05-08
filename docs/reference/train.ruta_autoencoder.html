@@ -59,7 +59,7 @@ and trains it with the input data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruta</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
       </span>
     </div>
 
@@ -206,12 +206,10 @@ faster optimization.</p></li>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># Minimal example ================================================</span>
-<span class='no'>iris_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>train</span>(<span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>]))
-
-<span class='co'># Simple example with MNIST ======================================</span>
-<span class='fu'>library</span>(<span class='no'>keras</span>)
+    <pre class="examples"><div class='input'># Minimal example ================================================
+</div><div class='input'><span class='no'>iris_model</span> <span class='kw'>&lt;-</span> <span class='fu'>train</span>(<span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>), <span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>]))</div><div class='input'>
+# Simple example with MNIST ======================================
+</div><div class='input'><span class='fu'>library</span>(<span class='no'>keras</span>)
 
 <span class='co'># Load and normalize MNIST</span>
 <span class='no'>mnist</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/dataset_mnist'>dataset_mnist</a></span>()
@@ -229,13 +227,12 @@ faster optimization.</p></li>
 <span class='fu'>train</span>(
   <span class='no'>learner</span>,
   <span class='no'>x_train</span>,
-  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='st'>"rmsprop"</span>,
   <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>64</span>,
   <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='no'>x_test</span>,
   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>"binary_accuracy"</span>)
-)
-<span class='co'># }</span></pre>
+)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
