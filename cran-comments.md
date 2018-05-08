@@ -2,10 +2,11 @@
 
 This is a resubmission. Changes from the original:
 
-- Omitted redundant "for R" in the title
-- Improved description indicating the implemented neural networks and incorporating a reference.
-- Replaced \dontrun by \donttest in examples which need >5s to execute.
-- Ensured that functions and examples do not write to the user's filespace. The save_as() function only does so if the user specifies a directory.
+- Removed file left by accident
+- Fixed title (omitted redundant "for R")
+- Improved description (added implemented neural networks and a reference).
+- Replaced \dontrun by \donttest in examples.
+- Prevented writing to the user's filespace by default in functions/examples.
 
 ## Test environments
 * local Linux Mint install, R 3.4.4
@@ -17,3 +18,4 @@ This is a resubmission. Changes from the original:
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
+* Some types of auto-encoders are considered misspelled.
