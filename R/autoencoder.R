@@ -210,7 +210,7 @@ train.ruta_autoencoder <- function(
   epochs = 20,
   optimizer = keras::optimizer_rmsprop(),
   ...) {
-  learner$input_shape <- ncol(data)
+  learner$input_shape <- dim(data)[-1]
   learner$models <- to_keras(learner)
 
   loss_f <- learner$loss %>% to_keras(learner)
