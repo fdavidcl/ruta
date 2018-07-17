@@ -1,8 +1,15 @@
 Package: ruta
-Title: Unsupervised Deep Architectures for R
-Version: 0.2.0.9000
-Authors@R: c(person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre")), person("Francisco", "Charte", email = "francisco@fcharte.com", role = "aut"), person("Francisco", "Herrera", email = "herrera@decsai.ugr.es", role = "aut"))
-Description: Implementation of several unsupervised deep architectures.
+Title: Implementation of Unsupervised Neural Architectures
+Version: 1.0.2
+Authors@R: c(person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-4830-9512")), person("Francisco", "Charte", 
+    email = "francisco@fcharte.com", role = "aut", comment = c(ORCID = "0000-0002-3083-8942")), 
+    person("Francisco", "Herrera", email = "herrera@decsai.ugr.es", role = "aut"))
+Description: Implementation of several unsupervised neural networks,
+    from building their architecture to their training and evaluation. Available
+    networks are auto-encoders including their main variants: sparse, contractive,
+    denoising, robust and variational, as described in Charte et al. (2018)
+    <doi:10.1016/j.inffus.2017.12.007>.
 License: GPL (>= 3) | file LICENSE
 URL: https://github.com/fdavidcl/ruta
 BugReports: https://github.com/fdavidcl/ruta/issues
@@ -12,7 +19,8 @@ Imports:
     graphics (>= 3.2.3),
     keras (>= 2.1.5),
     purrr (>= 0.2.4),
-    stats (>= 3.2.3)
+    stats (>= 3.2.3),
+    utils
 Suggests: 
     knitr,
     magrittr (>= 1.5),

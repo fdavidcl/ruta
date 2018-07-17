@@ -10,3 +10,5 @@
 ^README\.html$
 ^vignettes/examples$
 ^demo$
+^cran-comments\.md$
+^.*\.tar\.gz$

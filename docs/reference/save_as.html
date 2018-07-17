@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruta</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>save_as</span>(<span class='no'>learner</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='fu'>substitute</span>(<span class='no'>learner</span>), <span class='st'>".tar.gz"</span>),
+    <pre class="usage"><span class='fu'>save_as</span>(<span class='no'>learner</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='fu'>substitute</span>(<span class='no'>learner</span>), <span class='st'>".tar.gz"</span>), <span class='no'>dir</span>,
   <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)
 
 <span class='fu'>load_from</span>(<span class='no'>file</span>)</pre>
@@ -160,8 +160,13 @@
     </tr>
     <tr>
       <th>file</th>
-      <td><p>File name with extension (usually <code>.tar.gz</code>) where the object will be
-saved to or loaded from</p></td>
+      <td><p>In <code>save</code>, filename with extension (usually <code>.tar.gz</code>) where the object will be
+saved. In <code>load</code>, path to the saved model</p></td>
+    </tr>
+    <tr>
+      <th>dir</th>
+      <td><p>Directory where to save the file. Use <code>"."</code> to save in the current
+working directory or <code>tempdir()</code> to use a temporary one</p></td>
     </tr>
     <tr>
       <th>compression</th>
@@ -171,20 +176,21 @@ saved to or loaded from</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>save_as</code> invisibly returns the filename where the model has been saved,
+    <p><code>save_as</code> returns the filename where the model has been saved,
 <code>load_from</code> returns the loaded model as a <code>"ruta_autoencoder"</code> object</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>purrr</span>)
 
-<span class='co'># Save a trained model</span>
-<span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='train.ruta_autoencoder.html'>train</a></span>(<span class='no'>x</span>) <span class='kw'>%&gt;%</span> <span class='fu'>save_as</span>(<span class='st'>"my_model.tar.gz"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])</div><div class='input'><span class='co'># Save a trained model</span>
+<span class='no'>saved_file</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='autoencoder.html'>autoencoder</a></span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='train.ruta_autoencoder.html'>train</a></span>(<span class='no'>x</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>save_as</span>(<span class='st'>"my_model.tar.gz"</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>tempdir</span>())
 
 <span class='co'># Load and use the model</span>
-<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>load_from</span>(<span class='st'>"my_model.tar.gz"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>x</span>)
-<span class='co'># }</span></pre>
+<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>load_from</span>(<span class='no'>saved_file</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Loading weights from /tmp/RtmphVC8m6/ruta/weights.hdf5</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

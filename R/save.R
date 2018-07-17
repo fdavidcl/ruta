@@ -3,30 +3,37 @@
 #' Functions to save a trained or untrained Ruta learner into a file and load it
 #'
 #' @param learner The `"ruta_autoencoder"` object to be saved
-#' @param file File name with extension (usually `.tar.gz`) where the object will be
-#'   saved to or loaded from
+#' @param file In `save`, filename with extension (usually `.tar.gz`) where the object will be
+#'   saved. In `load`, path to the saved model
+#' @param dir Directory where to save the file. Use `"."` to save in the current
+#'   working directory or `tempdir()` to use a temporary one
 #' @param compression Type of compression to be used, for R function `\link{tar}`
-#' @return `save_as` invisibly returns the filename where the model has been saved,
+#' @return `save_as` returns the filename where the model has been saved,
 #'   `load_from` returns the loaded model as a `"ruta_autoencoder"` object
 #'
 #' @examples
-#' \dontrun{
+#' library(purrr)
+#'
 #' x <- as.matrix(iris[, 1:4])
 #'
+#' \donttest{
 #' # Save a trained model
-#' autoencoder(2) %>% train(x) %>% save_as("my_model.tar.gz")
+#' saved_file <-
+#'   autoencoder(2) %>%
+#'   train(x) %>%
+#'   save_as("my_model.tar.gz", dir = tempdir())
 #'
 #' # Load and use the model
-#' encoded <- load_from("my_model.tar.gz") %>% encode(x)
+#' encoded <- load_from(saved_file) %>% encode(x)
 #' }
 #' @export
-save_as <- function(learner, file = paste0(substitute(learner), ".tar.gz"), compression = "gzip") {
+save_as <- function(learner, file = paste0(substitute(learner), ".tar.gz"), dir, compression = "gzip") {
+  output_file <- file.path(dir, file)
   # Work in a temporary dir
   tmpdir <- tempdir()
-  oldwd <- setwd(tmpdir)
 
   # Create an empty directory
-  base_name <- "ruta"
+  base_name <- file.path(tmpdir, "ruta")
   if (file.exists(base_name)) {
     unlink(base_name, recursive = TRUE)
   }
@@ -43,11 +50,12 @@ save_as <- function(learner, file = paste0(substitute(learner), ".tar.gz"), comp
   }
 
   # Create archive
-  archive <- tar(file.path(oldwd, file), files = base_name, compression = compression)
-
+  oldwd <- setwd(base_name)
+  archive <- utils::tar(file, files = NULL, compression = compression)
   if (!is.null(oldwd)) setwd(oldwd)
+  file.copy(file.path(base_name, file), output_file)
 
-  invisible(file)
+  output_file
 }
 
 #' @rdname save_as
@@ -55,22 +63,19 @@ save_as <- function(learner, file = paste0(substitute(learner), ".tar.gz"), comp
 load_from <- function(file) {
   # Work in a temporary dir
   tmpdir <- tempdir()
-  oldwd <- setwd(tmpdir)
-  base_name <- "ruta"
+  base_name <- file.path(tmpdir, "ruta")
   if (file.exists(base_name)) {
     unlink(base_name, recursive = TRUE)
   }
 
-  untar(file.path(oldwd, file))
+  utils::untar(file, exdir = base_name)
 
-  learner <- readRDS(file = file.path("ruta", "model.rds"))
+  learner <- readRDS(file = file.path(base_name, "model.rds"))
 
-  weights_file <- file.path("ruta", "weights.hdf5")
+  weights_file <- file.path(base_name, "weights.hdf5")
   if (file.exists(weights_file)) {
     learner$models <- to_keras(learner, weights_file = weights_file)
   }
-
-  if (!is.null(oldwd)) setwd(oldwd)
 
   learner
 }
