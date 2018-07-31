@@ -1,0 +1,38 @@
+---
+title: "Troubleshooting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building neural architectures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This article gathers some common problems users may encounter while installing or using Ruta.
+
+## Using Ruta with condaenvs
+
+If you are using Ruta over an Anaconda installation, you will need to choose the correct conda environment where Tensorflow and Keras are installed. To do this, you can try asking reticulate to use it (replace `"deeplearning"` with the name of your condaenv):
+
+```
+reticulate::use_condaenv("deeplearning", required = TRUE)
+```
+
+If reticulate still uses a different Python installation, you can opt to set the `RETICULATE_PYTHON` environment variable **before** reticulate is initialized. That is, in a new R session, execute the following command:
+
+```
+Sys.setenv(RETICULATE_PYTHON = PATH)
+```
+
+where `PATH` is the path to the convenient Python executable (you can discover this path by looking at available versions in `reticulate::py_config()`).
+
+## CUDA error: `CUBLAS_STATUS_NOT_INITIALIZED`
+
+Reset your R session and try allowing Tensorflow to grow the size of allocated memory:
+
+```r
+config = tensorflow::tf$ConfigProto(gpu_options = list(allow_growth = TRUE))
+sess = tensorflow::tf$Session(config = config)
+keras::k_set_session(session = sess)
+```
+
+
