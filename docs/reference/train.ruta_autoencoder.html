@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -33,6 +35,7 @@
 <meta property="og:description" content="This function compiles the neural network described by the learner object
 and trains it with the input data." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -108,6 +111,13 @@ and trains it with the input data." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../articles/troubleshooting.html">
+    <span class="fa fa-wrench"></span>
+     
+    Troubleshooting
+  </a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -150,8 +160,8 @@ and trains it with the input data.</p>
 
     <pre class="usage"><span class='co'># S3 method for ruta_autoencoder</span>
 <span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>data</span>, <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='kw pkg'>keras</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/optimizer_rmsprop'>optimizer_rmsprop</a></span>(),
-  <span class='no'>...</span>)
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='kw pkg'>keras</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/optimizer_rmsprop'>optimizer_rmsprop</a></span>(), <span class='no'>...</span>)
 
 <span class='fu'>train</span>(<span class='no'>learner</span>, <span class='no'>...</span>)</pre>
     

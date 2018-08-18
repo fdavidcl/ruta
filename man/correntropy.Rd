@@ -21,3 +21,4 @@ A wrapper for the correntropy loss function
 Other loss functions: \code{\link{contraction}},
   \code{\link{loss_variational}}
 }
+\concept{loss functions}

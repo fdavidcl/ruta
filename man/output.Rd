@@ -22,3 +22,4 @@ Other neural layers: \code{\link{dense}},
   \code{\link{layer_keras}},
   \code{\link{variational_block}}
 }
+\concept{neural layers}

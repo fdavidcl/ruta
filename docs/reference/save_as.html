@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:description" content="Functions to save a trained or untrained Ruta learner into a file and load it" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -106,6 +109,13 @@
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/troubleshooting.html">
+    <span class="fa fa-wrench"></span>
+     
+    Troubleshooting
+  </a>
 </li>
       </ul>
       
@@ -190,7 +200,7 @@ working directory or <code>tempdir()</code> to use a temporary one</p></td>
   <span class='fu'>save_as</span>(<span class='st'>"my_model.tar.gz"</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>tempdir</span>())
 
 <span class='co'># Load and use the model</span>
-<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>load_from</span>(<span class='no'>saved_file</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Loading weights from /tmp/RtmphVC8m6/ruta/weights.hdf5</span></div></pre>
+<span class='no'>encoded</span> <span class='kw'>&lt;-</span> <span class='fu'>load_from</span>(<span class='no'>saved_file</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Loading weights from /tmp/RtmpJD74PD/ruta/weights.hdf5</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

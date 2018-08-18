@@ -30,3 +30,4 @@ distribution and the true latent posterior.
 Other loss functions: \code{\link{contraction}},
   \code{\link{correntropy}}
 }
+\concept{loss functions}

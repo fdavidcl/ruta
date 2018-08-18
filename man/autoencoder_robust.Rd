@@ -33,3 +33,4 @@ Other autoencoder variants: \code{\link{autoencoder_contractive}},
   \code{\link{autoencoder_variational}},
   \code{\link{autoencoder}}
 }
+\concept{autoencoder variants}

@@ -20,3 +20,4 @@ Other noise generators: \code{\link{noise_cauchy}},
   \code{\link{noise_gaussian}}, \code{\link{noise_ones}},
   \code{\link{noise_zeros}}
 }
+\concept{noise generators}

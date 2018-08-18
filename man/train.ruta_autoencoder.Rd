@@ -6,8 +6,8 @@
 \title{Train a learner object with data}
 \usage{
 \method{train}{ruta_autoencoder}(learner, data, validation_data = NULL,
-  metrics = NULL, epochs = 20, optimizer = keras::optimizer_rmsprop(),
-  ...)
+  metrics = NULL, epochs = 20,
+  optimizer = keras::optimizer_rmsprop(), ...)
 
 train(learner, ...)
 }
