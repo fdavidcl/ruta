@@ -1,16 +1,17 @@
-test_function <- function(network = arg_network(), loss = arg_loss(), weight = 2e-4) {
-  check_args_internal()
-}
-
 # %to% operator. Defines intervals for argument checks
 `%to%` <- function(min, max) list(min = min, max = max)
 
-arg_constructor <- function(.class, .values, .default = NULL) {
+# Constructor for argument descriptors
+arg_constructor <- function(.class, .values = NULL, .default = NULL, .required = FALSE) {
+  # A function which returns a default value for a parameter. If the `get`
+  # argument is set to TRUE, a machine-readable description of
+  # the parameter is returned instead.
   structure(function(default = .default, get = FALSE) {
     if (get) {
       list(
         class = .class,
-        values = .values
+        values = .values,
+        required = .required
       )
     } else {
       default
@@ -20,12 +21,16 @@ arg_constructor <- function(.class, .values, .default = NULL) {
 
 as_arg <- function(x) UseMethod("as_arg", x)
 as_arg.ruta_arg <- function(x) x
+
+# Any value can be used to generate an argument descriptor for its class
 as_arg.default <- function(x) {
   arg_constructor(class(x), .default = x)
 }
 
-arg_network <- arg_constructor("ruta_network")
+# Argument descriptor for a neural network object
+arg_network <- arg_constructor("ruta_network", .required = TRUE)
 
+# Argument descriptor for a loss function
 arg_loss <- arg_constructor(
   c("ruta_loss", "character"),
   c("mean_squared_error"),
@@ -33,9 +38,11 @@ arg_loss <- arg_constructor(
 )
 
 which_args <- function(f) {
+  # Gets formal arguments for the function
   defaults <- formals(f)
 
   checks <- lapply(defaults, function(arg) {
+    # Retrieves the argument descriptor and calls it
     if (class(arg) == "call") {
       get(as.character(arg))(get = TRUE)
     } else {
@@ -44,32 +51,37 @@ which_args <- function(f) {
   })
 
   names(checks) <- names(defaults)
+  # Return descriptions for each argument
   checks
 }
 
 check_args_internal <- function() {
+  # Which function was called and with that arguments?
   call_l <- as.list(sys.call(sys.parent(1)))
-  #print(call_l)
+  # What are the argument descriptions for this function?
   checks <- which_args(as.character(call_l[[1]]))
-  #print(checks)
 
   check_args(call_l[2:length(call_l)], checks)
 }
 
 check_args <- function(args, checks) {
+  # Detect positional arguments
   unnamed_args <- if (is.null(names(args))) seq_along(args) else which(names(args) == "")
+  # Detect missing named arguments
   missing_args <- setdiff(names(checks), names(args)[-unnamed_args])
+  # Pair positional arguments with missing named arguments
   names(args)[unnamed_args] <- missing_args[1:length(unnamed_args)]
-
-  #print(unnamed_args)
-  #print(missing_args)
-  #print(args)
 
   for (name in names(args)) {
     check <- checks[[name]]
 
     if (!is.null(check)) {
       val <- eval(args[[name]])
+
+      # Check type: mandatory argument
+      if (check$required && is.null(val)) {
+        stop(paste0(name, " is a required argument"))
+      }
 
       # Check type: class
       if (!is.null(check$class)) {
@@ -105,4 +117,7 @@ check_args <- function(args, checks) {
   invisible(TRUE)
 }
 
+test_function <- function(network = arg_network(), loss = arg_loss(), weight = 2e-4) {
+  check_args_internal()
+}
 
