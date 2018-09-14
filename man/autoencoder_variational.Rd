@@ -48,3 +48,4 @@ Other autoencoder variants: \code{\link{autoencoder_contractive}},
   \code{\link{autoencoder_sparse}},
   \code{\link{autoencoder}}
 }
+\concept{autoencoder variants}

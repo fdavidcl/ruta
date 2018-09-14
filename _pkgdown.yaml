@@ -34,6 +34,9 @@ navbar:
           href: "articles/examples/autoencoder_sparse.html"
         - text: "Variational autoencoder"
           href: "articles/examples/autoencoder_variational.html"
+    - text: "Troubleshooting"
+      href: "articles/troubleshooting.html"
+      icon: fa-wrench
   right:
     - text: "Documentation"
       icon: fa-book

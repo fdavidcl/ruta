@@ -34,3 +34,4 @@ Other autoencoder variants: \code{\link{autoencoder_denoising}},
   \code{\link{autoencoder_variational}},
   \code{\link{autoencoder}}
 }
+\concept{autoencoder variants}

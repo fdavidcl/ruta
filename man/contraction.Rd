@@ -25,3 +25,4 @@ latent space.
 Other loss functions: \code{\link{correntropy}},
   \code{\link{loss_variational}}
 }
+\concept{loss functions}

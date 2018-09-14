@@ -32,3 +32,4 @@ Other neural layers: \code{\link{dense}},
   \code{\link{dropout}}, \code{\link{input}},
   \code{\link{layer_keras}}, \code{\link{output}}
 }
+\concept{neural layers}
