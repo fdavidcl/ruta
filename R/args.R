@@ -24,7 +24,10 @@ as_arg.ruta_arg <- function(x) x
 
 # Any value can be used to generate an argument descriptor for its class
 as_arg.default <- function(x) {
-  arg_constructor(class(x), .default = x)
+  if (is.name(x) && x == "")
+    arg_constructor(NULL, .required = TRUE)
+  else
+    arg_constructor(class(x), .default = x)
 }
 
 # Argument descriptor for a neural network object
@@ -37,9 +40,12 @@ arg_loss <- arg_constructor(
   "mean_squared_error"
 )
 
+which_functions <- function() as.character(lsf.str("package:ruta"))
+
 which_args <- function(f) {
   # Gets formal arguments for the function
   defaults <- formals(f)
+  defaults$... <- NULL
 
   checks <- lapply(defaults, function(arg) {
     # Retrieves the argument descriptor and calls it
@@ -77,44 +83,48 @@ check_args <- function(args, checks) {
 
     if (!is.null(check)) {
       val <- eval(args[[name]])
-
-      # Check type: mandatory argument
-      if (check$required && is.null(val)) {
-        stop(paste0(name, " is a required argument"))
-      }
-
-      # Check type: class
-      if (!is.null(check$class)) {
-        if (length(intersect(class(val), check$class)) == 0) {
-          stop(paste0(name, " does not have any allowed class (", paste(check$class, collapse = ", "), ")"))
-        }
-      }
-
-      # Check type: values
-      if (!is.null(check$values)) {
-        # Value check with set
-        if (is.atomic(check$values)) {
-          if (!(val %in% check$values)) {
-            stop(paste0(name, " does not equal any allowed value (", paste(check$values, collapse = ", "), ")"))
-          }
-        } else {
-          # Value check in interval
-          if (!is.null(check$values$min)) {
-            if (val < check$values$min) {
-              stop(paste0(name, " is lower than the minimum allowed value (", check$values$min, ")"))
-            }
-          }
-          if (!is.null(check$values$max)) {
-            if (val > check$values$max) {
-              stop(paste0(name, " is higher than the maximum allowed value (", check$values$max, ")"))
-            }
-          }
-        }
-      }
+      validate_arg(val, check)
     }
   }
 
   invisible(TRUE)
+}
+
+validate_arg <- function(val, check) {
+
+  # Check type: mandatory argument
+  if (check$required && is.null(val)) {
+    stop(paste0(name, " is a required argument"))
+  }
+
+  # Check type: class
+  if (!is.null(check$class)) {
+    if (length(intersect(class(val), check$class)) == 0) {
+      stop(paste0(name, " does not have any allowed class (", paste(check$class, collapse = ", "), ")"))
+    }
+  }
+
+  # Check type: values
+  if (!is.null(check$values)) {
+    # Value check with set
+    if (is.atomic(check$values)) {
+      if (!(val %in% check$values)) {
+        stop(paste0(name, " does not equal any allowed value (", paste(check$values, collapse = ", "), ")"))
+      }
+    } else {
+      # Value check in interval
+      if (!is.null(check$values$min)) {
+        if (val < check$values$min) {
+          stop(paste0(name, " is lower than the minimum allowed value (", check$values$min, ")"))
+        }
+      }
+      if (!is.null(check$values$max)) {
+        if (val > check$values$max) {
+          stop(paste0(name, " is higher than the maximum allowed value (", check$values$max, ")"))
+        }
+      }
+    }
+  }
 }
 
 test_function <- function(network = arg_network(), loss = arg_loss(), weight = 2e-4) {
