@@ -106,7 +106,7 @@ to_keras.ruta_sparsity <- function(x, activation) {
 
   function(observed_activations) {
     observed <- observed_activations %>%
-      keras::k_mean(axis = 0) %>%
+      keras::k_mean(axis = 1) %>%
       keras::k_clip(low_v + keras::k_epsilon(), high_v - keras::k_epsilon())
 
     # rescale means: what we want to calculate is the probability of a high value

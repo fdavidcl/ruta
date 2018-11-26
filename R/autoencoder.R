@@ -215,12 +215,22 @@ train.ruta_autoencoder <- function(
 
   loss_f <- learner$loss %>% to_keras(learner)
 
-  keras::compile(
-    learner$models$autoencoder,
-    optimizer = optimizer,
-    loss = loss_f,
-    metrics = metrics
-  )
+  if (is.function(loss_f)) {
+    keras::compile(
+      learner$models$autoencoder,
+      optimizer = optimizer,
+      loss = loss_f,
+      metrics = metrics
+    )
+  } else {
+    keras::compile(
+      learner$models$autoencoder,
+      optimizer = optimizer,
+      loss = loss_f$losses,
+      loss_weights = loss_f$loss_weights,
+      metrics = metrics
+    )
+  }
 
   input_data <- if (is.null(learner$filter)) {
     data
