@@ -143,8 +143,8 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
 #'   layers
 #' @family neural layers
 #' @export
-layer_keras <- function(name, ...) {
-  make_atomic_network(ruta_layer_custom, name = name, params = list(...))
+layer_keras <- function(type, ...) {
+  make_atomic_network(ruta_layer_custom, type = type, params = list(...))
 }
 
 #' Dropout layer
@@ -162,7 +162,7 @@ dropout <- function(rate = 0.5) {
 #' @rdname to_keras.ruta_layer_input
 #' @export
 to_keras.ruta_layer_custom <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
-  layer_f = get_keras_object(x$name, "layer")
+  layer_f = get_keras_object(x$type, "layer")
   args = c(list(object = model), x$params)
   do.call(layer_f, args)
 }

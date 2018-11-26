@@ -125,7 +125,7 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
   encoder <- keras::keras_model(model$input, encoding_layer$output)
 
   # decoder, from latent space to reconstructed inputs
-  encoding_dim <- keras::get_layer(model, decoder_start)$output_shape[[2]]
+  encoding_dim <- keras::get_layer(model, decoder_start)$output_shape[-1]
   decoder_input <- keras::layer_input(shape = encoding_dim)
 
   # re-build the decoder taking layers from the model
@@ -210,7 +210,7 @@ train.ruta_autoencoder <- function(
   epochs = 20,
   optimizer = keras::optimizer_rmsprop(),
   ...) {
-  learner$input_shape <- ncol(data)
+  learner$input_shape <- dim(data)[-1]
   learner$models <- to_keras(learner)
 
   loss_f <- learner$loss %>% to_keras(learner)
