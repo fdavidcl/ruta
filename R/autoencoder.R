@@ -134,8 +134,8 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
 
   decoder_stack <- decoder_input
   for (lay_i in start:end) {
-    # zero-based index
-    decoder_stack <- keras::get_layer(model, index = lay_i)(decoder_stack)
+    # one-based index
+    decoder_stack <- keras::get_layer(model, index = lay_i + 1)(decoder_stack)
   }
 
   decoder <- keras::keras_model(decoder_input, decoder_stack)

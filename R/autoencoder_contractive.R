@@ -99,7 +99,7 @@ to_keras.ruta_loss_contraction <- function(x, learner, ...) {
       keras::k_square() %>%
       keras::k_sum(axis = 2)
 
-    dh2 <- act_der(encoding_h$input, encoding_h$output) ** 2
+    dh2 <- act_der(encoding_h$input, keras::get_output_at(encoding_h, 1)) ** 2
 
     contractive <- x$weight * keras::k_sum(dh2 * sum_wt2, axis = 2)
 
