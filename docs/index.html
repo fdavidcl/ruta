@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2.4000</span>
       </span>
     </div>
 
@@ -80,6 +80,9 @@
     </li>
     <li>
       <a href="articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -146,8 +149,8 @@
 <h3 class="hasAnchor">
 <a href="#dependencies" class="anchor"></a>Dependencies</h3>
 <p>Ruta is based in the well known open source deep learning library <a href="https://keras.io">Keras</a> and its <a href="https://keras.rstudio.com">R interface</a>. It has been developed to work with the <a href="https://www.tensorflow.org/">TensorFlow</a> backend. In order to install these dependencies you will need the Python interpreter as well, and you can install them via the Python package manager <em>pip</em> or possibly your distro’s package manager if you are running Linux.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1">$ <span class="fu">sudo</span> pip install tensorflow</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">$ <span class="fu">sudo</span> pip install keras</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1">$ <span class="fu">sudo</span> pip install tensorflow</a>
+<a class="sourceLine" id="cb1-2" title="2">$ <span class="fu">sudo</span> pip install keras</a></code></pre></div>
 <p>Otherwise, you can follow the official installation guides:</p>
 <ul>
 <li><a href="https://www.tensorflow.org/install/">Installing TensorFlow</a></li>
@@ -157,11 +160,11 @@
 <div id="ruta-package" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ruta-package" class="anchor"></a>Ruta package</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Just get Ruta from the CRAN</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"ruta"</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Or get the latest development version from GitHub</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"fdavidcl/ruta"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Just get Ruta from the CRAN</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">install.packages</span>(<span class="st">"ruta"</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co"># Or get the latest development version from GitHub</span></a>
+<a class="sourceLine" id="cb2-5" title="5">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"fdavidcl/ruta"</span>)</a></code></pre></div>
 <p>All R dependencies will be automatically installed. These include the Keras R interface and <a href="https://purrr.tidyverse.org/"><code>purrr</code></a>. For convenience we also recommend installing and loading either <a href="https://magrittr.tidyverse.org/"><code>magrittr</code></a> or <code>purrr</code>, so that the pipe operator <code>%&gt;%</code> is available.</p>
 </div>
 </div>
@@ -169,24 +172,24 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>The easiest way to start working with Ruta is to use the <code><a href="reference/autoencode.html">autoencode()</a></code> function. It allows for selecting a type of autoencoder and transforming the feature space of a data set onto another one with some desirable properties depending on the chosen type.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/autoencode.html">autoencode</a></span>(<span class="dv">2</span>, <span class="dt">type =</span> <span class="st">"denoising"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/autoencode.html">autoencode</a></span>(<span class="dv">2</span>, <span class="dt">type =</span> <span class="st">"denoising"</span>)</a></code></pre></div>
 <p>You can learn more about different variants of autoencoders by reading <a href="https://arxiv.org/abs/1801.01586"><em>A practical tutorial on autoencoders for nonlinear feature fusion</em></a>.</p>
 <p>Ruta provides the functionality to build diverse neural architectures (see <code><a href="reference/autoencoder.html">autoencoder()</a></code>), train them as autoencoders (see <code><a href="reference/train.ruta_autoencoder.html">train()</a></code>) and perform different tasks with the resulting models (see <code><a href="reference/reconstruct.html">reconstruct()</a></code>), including evaluation (see <code><a href="reference/evaluate.html">evaluate_mean_squared_error()</a></code>). The following is a basic example of a natural pipeline with an autoencoder:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(ruta)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># Shuffle and normalize dataset</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">x &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="op">%&gt;%</span><span class="st"> </span>sample <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span>scale</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">x_train &lt;-<span class="st"> </span>x[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, ]</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">x_test &lt;-<span class="st"> </span>x[<span class="dv">101</span><span class="op">:</span><span class="dv">150</span>, ]</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="reference/autoencoder.html">autoencoder</a></span>(</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">  <span class="kw"><a href="reference/input.html">input</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">256</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">36</span>, <span class="st">"tanh"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">256</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>),</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">  <span class="dt">loss =</span> <span class="st">"mean_squared_error"</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/make_contractive.html">make_contractive</a></span>(<span class="dt">weight =</span> <span class="fl">1e-4</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">40</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="reference/evaluate.html">evaluate_mean_squared_error</a></span>(x_test)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(ruta)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co"># Shuffle and normalize dataset</span></a>
+<a class="sourceLine" id="cb4-5" title="5">x &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="op">%&gt;%</span><span class="st"> </span>sample <span class="op">%&gt;%</span><span class="st"> </span>as.matrix <span class="op">%&gt;%</span><span class="st"> </span>scale</a>
+<a class="sourceLine" id="cb4-6" title="6">x_train &lt;-<span class="st"> </span>x[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, ]</a>
+<a class="sourceLine" id="cb4-7" title="7">x_test &lt;-<span class="st"> </span>x[<span class="dv">101</span><span class="op">:</span><span class="dv">150</span>, ]</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="reference/autoencoder.html">autoencoder</a></span>(</a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw"><a href="reference/input.html">input</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">256</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">36</span>, <span class="st">"tanh"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/dense.html">dense</a></span>(<span class="dv">256</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>),</a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="dt">loss =</span> <span class="st">"mean_squared_error"</span></a>
+<a class="sourceLine" id="cb4-12" title="12">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="st">  </span><span class="kw"><a href="reference/make_contractive.html">make_contractive</a></span>(<span class="dt">weight =</span> <span class="fl">1e-4</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="st">  </span><span class="kw"><a href="reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">40</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="st">  </span><span class="kw"><a href="reference/evaluate.html">evaluate_mean_squared_error</a></span>(x_test)</a></code></pre></div>
 <p>For more details, see <a href="http://ruta.software/articles/examples">other examples</a> and <a href="http://ruta.software/reference/">the documentation</a>.</p>
 </div>
   </div>

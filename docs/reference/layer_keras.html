@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2.4000</span>
       </span>
     </div>
 
@@ -107,6 +107,9 @@
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -156,13 +159,13 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>layer_keras</span>(<span class='no'>name</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>layer_keras</span>(<span class='no'>type</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
+      <th>type</th>
       <td><p>The name of the layer, e.g. <code>"activity_regularization"</code> for a
 <code><a href='http://www.rdocumentation.org/packages/keras/topics/layer_activity_regularization'>keras::layer_activity_regularization</a></code> object</p></td>
     </tr>
@@ -179,9 +182,10 @@ layers</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other neural layers: <code><a href='dense.html'>dense</a></code>,
-  <code><a href='dropout.html'>dropout</a></code>, <code><a href='input.html'>input</a></code>,
-  <code><a href='output.html'>output</a></code>, <code><a href='variational_block.html'>variational_block</a></code></p></div>
+    <div class='dont-index'><p>Other neural layers: <code><a href='conv.html'>conv</a></code>,
+  <code><a href='dense.html'>dense</a></code>, <code><a href='dropout.html'>dropout</a></code>,
+  <code><a href='input.html'>input</a></code>, <code><a href='output.html'>output</a></code>,
+  <code><a href='variational_block.html'>variational_block</a></code></p></div>
     
 
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Obtain a Keras weight decay — to_keras.ruta_weight_decay • ruta</title>
+<title>Create a convolutional layer — conv • ruta</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,13 @@
 
 
 
-<meta property="og:title" content="Obtain a Keras weight decay — to_keras.ruta_weight_decay" />
+<meta property="og:title" content="Create a convolutional layer — conv" />
 
-<meta property="og:description" content="Builds the Keras regularizer corresponding to the weight decay" />
+<meta property="og:description" content="Wrapper for a convolutional layer. The dimensions of the convolution operation are
+inferred from the shape of the input data. This shape must follow the pattern
+(batch_shape, x, [y, [z, ]], channel) where dimensions y and z
+are optional, and channel will be either 1 for grayscale images or
+generally 3 for colored ones." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -148,40 +152,94 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Obtain a Keras weight decay</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/autoencoder_weight_decay.R'><code>R/autoencoder_weight_decay.R</code></a></small>
-    <div class="hidden name"><code>to_keras.ruta_weight_decay.Rd</code></div>
+    <h1>Create a convolutional layer</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/layers.R'><code>R/layers.R</code></a></small>
+    <div class="hidden name"><code>conv.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Builds the Keras regularizer corresponding to the weight decay</p>
+    <p>Wrapper for a convolutional layer. The dimensions of the convolution operation are
+inferred from the shape of the input data. This shape must follow the pattern
+<code>(batch_shape, x, [y, [z, ]], channel)</code> where dimensions <code>y</code> and <code>z</code>
+are optional, and <code>channel</code> will be either <code>1</code> for grayscale images or
+generally <code>3</code> for colored ones.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for ruta_weight_decay</span>
-<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>conv</span>(<span class='no'>filters</span>, <span class='no'>kernel_size</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='st'>"same"</span>, <span class='kw'>max_pooling</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>average_pooling</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>upsampling</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"linear"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A <code>"ruta_weight_decay"</code> object</p></td>
+      <th>filters</th>
+      <td><p>Number of filters learned by the layer</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Rest of parameters, ignored</p></td>
+      <th>kernel_size</th>
+      <td><p>Integer or list of integers indicating the size of the weight
+matrices to be convolved with the image</p></td>
+    </tr>
+    <tr>
+      <th>padding</th>
+      <td><p>One of "valid" or "same" (case-insensitive). See
+<code><a href='http://www.rdocumentation.org/packages/keras/topics/layer_conv_2d'>layer_conv_2d</a></code> for more details</p></td>
+    </tr>
+    <tr>
+      <th>max_pooling</th>
+      <td><p><code>NULL</code> or an integer indicating the reduction ratio for a max
+pooling operation after the convolution</p></td>
+    </tr>
+    <tr>
+      <th>average_pooling</th>
+      <td><p><code>NULL</code> or an integer indicating the reduction ratio for
+an average pooling operation after the convolution</p></td>
+    </tr>
+    <tr>
+      <th>upsampling</th>
+      <td><p><code>NULL</code> or an integer indicating the augmentation ratio for an
+upsampling operation after the convolution</p></td>
+    </tr>
+    <tr>
+      <th>activation</th>
+      <td><p>Optional, string indicating activation function (linear by default)</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A construct with class <code>"ruta_network"</code></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other neural layers: <code><a href='dense.html'>dense</a></code>,
+  <code><a href='dropout.html'>dropout</a></code>, <code><a href='input.html'>input</a></code>,
+  <code><a href='layer_keras.html'>layer_keras</a></code>, <code><a href='output.html'>output</a></code>,
+  <code><a href='variational_block.html'>variational_block</a></code></p></div>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Sample convolutional autoencoder</span>
+<span class='no'>net</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='input.html'>input</a></span>() +
+ <span class='fu'>conv</span>(<span class='fl'>16</span>, <span class='fl'>3</span>, <span class='kw'>max_pooling</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"relu"</span>) +
+ <span class='fu'>conv</span>(<span class='fl'>8</span>, <span class='fl'>3</span>, <span class='kw'>max_pooling</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"relu"</span>) +
+ <span class='fu'>conv</span>(<span class='fl'>8</span>, <span class='fl'>3</span>, <span class='kw'>upsampling</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"relu"</span>) +
+ <span class='fu'>conv</span>(<span class='fl'>16</span>, <span class='fl'>3</span>, <span class='kw'>upsampling</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"relu"</span>) +
+ <span class='fu'>conv</span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='kw'>activation</span> <span class='kw'>=</span> <span class='st'>"sigmoid"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

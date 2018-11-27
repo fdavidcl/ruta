@@ -15,3 +15,4 @@ vignette: >
 | [autoencoder_robust](autoencoder_robust.html) | Training and testing a robust autoencoder |
 | [autoencoder_sparse](autoencoder_sparse.html) | Training and testing a sparse autoencoder |
 | [autoencoder_variational](autoencoder_variational.html) | Training and sampling a variational autoencoder |
+| [autoencoder_convolutional](autoencoder_convolutional.html) | Defining and training a convolutional autoencoder |

@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2.4000</span>
       </span>
     </div>
 
@@ -75,6 +75,9 @@
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -137,9 +140,9 @@
 <a href="#cuda-error-cublas_status_not_initialized" class="anchor"></a>CUDA error: <code>CUBLAS_STATUS_NOT_INITIALIZED</code>
 </h2>
 <p>Reset your R session and try allowing Tensorflow to grow the size of allocated memory:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">config =<span class="st"> </span>tensorflow<span class="op">::</span>tf<span class="op">$</span><span class="kw">ConfigProto</span>(<span class="dt">gpu_options =</span> <span class="kw">list</span>(<span class="dt">allow_growth =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">sess =<span class="st"> </span>tensorflow<span class="op">::</span>tf<span class="op">$</span><span class="kw">Session</span>(<span class="dt">config =</span> config)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/k_get_session">k_set_session</a></span>(<span class="dt">session =</span> sess)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">config =<span class="st"> </span>tensorflow<span class="op">::</span>tf<span class="op">$</span><span class="kw">ConfigProto</span>(<span class="dt">gpu_options =</span> <span class="kw">list</span>(<span class="dt">allow_growth =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb3-2" title="2">sess =<span class="st"> </span>tensorflow<span class="op">::</span>tf<span class="op">$</span><span class="kw">Session</span>(<span class="dt">config =</span> config)</a>
+<a class="sourceLine" id="cb3-3" title="3">keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/k_get_session">k_set_session</a></span>(<span class="dt">session =</span> sess)</a></code></pre></div>
 </div>
   </div>
 
