@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2.4000</span>
       </span>
     </div>
 
@@ -75,6 +75,9 @@
     </li>
     <li>
       <a href="../../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="../../articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -126,64 +129,64 @@
 <hr>
 <p><strong>This example demonstrates the use of variational autoencoders with the Ruta package.</strong></p>
 <p>Define a variational autoencoder with 3-variable latent space. The encoding of a variational autoencoder is defined with <code>variational_block</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(keras)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(ruta)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">network &lt;-</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../../reference/input.html">input</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">256</span>, <span class="st">"elu"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../../reference/variational_block.html">variational_block</a></span>(<span class="dv">3</span>, <span class="dt">seed =</span> <span class="dv">42</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">256</span>, <span class="st">"elu"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">learner &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/autoencoder_variational.html">autoencoder_variational</a></span>(network, <span class="dt">loss =</span> <span class="st">"binary_crossentropy"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(keras)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(ruta)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">network &lt;-</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="st">  </span><span class="kw"><a href="../../reference/input.html">input</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="st">  </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">256</span>, <span class="st">"elu"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="st">  </span><span class="kw"><a href="../../reference/variational_block.html">variational_block</a></span>(<span class="dv">3</span>, <span class="dt">seed =</span> <span class="dv">42</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="st">  </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">256</span>, <span class="st">"elu"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="st">  </span><span class="kw"><a href="../../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)</a>
+<a class="sourceLine" id="cb1-11" title="11"></a>
+<a class="sourceLine" id="cb1-12" title="12">learner &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/autoencoder_variational.html">autoencoder_variational</a></span>(network, <span class="dt">loss =</span> <span class="st">"binary_crossentropy"</span>)</a></code></pre></div>
 <p>Load MNIST and normalize</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mnist &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/dataset_mnist">dataset_mnist</a></span>()</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">x_train &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  mnist<span class="op">$</span>train<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>train<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">x_train &lt;-<span class="st"> </span>x_train <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">x_test &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  mnist<span class="op">$</span>test<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>test<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">x_test &lt;-<span class="st"> </span>x_test <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">mnist &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/dataset_mnist">dataset_mnist</a></span>()</a>
+<a class="sourceLine" id="cb2-2" title="2">x_train &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">  mnist<span class="op">$</span>train<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>train<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">)</a>
+<a class="sourceLine" id="cb2-5" title="5">x_train &lt;-<span class="st"> </span>x_train <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a>
+<a class="sourceLine" id="cb2-6" title="6">x_test &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
+<a class="sourceLine" id="cb2-7" title="7">  mnist<span class="op">$</span>test<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>test<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
+<a class="sourceLine" id="cb2-8" title="8">)</a>
+<a class="sourceLine" id="cb2-9" title="9">x_test &lt;-<span class="st"> </span>x_test <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a></code></pre></div>
 <p>Train</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">model &lt;-<span class="st"> </span>learner <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">model &lt;-<span class="st"> </span>learner <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(x_train, <span class="dt">epochs =</span> <span class="dv">5</span>)</a></code></pre></div>
 <p>Sample the trained model</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">samples &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/generate.html">generate</a></span>(<span class="dt">dimensions =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">fixed_values =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">samples &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/generate.html">generate</a></span>(<span class="dt">dimensions =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">fixed_values =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p>Utility functions for plotting</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">plot_digit &lt;-<span class="st"> </span><span class="cf">function</span>(digit, ...) {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw">image</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(digit, <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">28</span>), <span class="st">"F"</span>)[, <span class="dv">28</span><span class="op">:</span><span class="dv">1</span>], <span class="dt">xaxt =</span> <span class="st">"n"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>, <span class="dt">col=</span><span class="kw">gray</span>((<span class="dv">255</span><span class="op">:</span><span class="dv">0</span>)<span class="op">/</span><span class="dv">255</span>), ...)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">plot_matrix &lt;-<span class="st"> </span><span class="cf">function</span>(digits) {</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">  n &lt;-<span class="st"> </span><span class="kw">dim</span>(digits)[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">  <span class="kw">layout</span>(</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dt">byrow =</span> F, <span class="dt">nrow =</span> <span class="kw">sqrt</span>(n))</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">  )</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">.2</span>)</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">    <span class="kw">plot_digit</span>(digits[i, ])</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">  }</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">plot_digit &lt;-<span class="st"> </span><span class="cf">function</span>(digit, ...) {</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">image</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(digit, <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">28</span>), <span class="st">"F"</span>)[, <span class="dv">28</span><span class="op">:</span><span class="dv">1</span>], <span class="dt">xaxt =</span> <span class="st">"n"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>, <span class="dt">col=</span><span class="kw">gray</span>((<span class="dv">255</span><span class="op">:</span><span class="dv">0</span>)<span class="op">/</span><span class="dv">255</span>), ...)</a>
+<a class="sourceLine" id="cb5-3" title="3">}</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5">plot_matrix &lt;-<span class="st"> </span><span class="cf">function</span>(digits) {</a>
+<a class="sourceLine" id="cb5-6" title="6">  n &lt;-<span class="st"> </span><span class="kw">dim</span>(digits)[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="kw">layout</span>(</a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dt">byrow =</span> F, <span class="dt">nrow =</span> <span class="kw">sqrt</span>(n))</a>
+<a class="sourceLine" id="cb5-9" title="9">  )</a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">.2</span>)</a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">plot_digit</span>(digits[i, ])</a>
+<a class="sourceLine" id="cb5-14" title="14">  }</a>
+<a class="sourceLine" id="cb5-15" title="15">}</a></code></pre></div>
 <p>Plot samples</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">plot_matrix</span>(samples)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">plot_matrix</span>(samples)</a></code></pre></div>
 <p>Creating an animation from a sampling</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(animation)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">"white"</span>)  <span class="co"># ensure the background color is white</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">plot</span>(<span class="kw">c</span>(), <span class="dt">type =</span> <span class="st">"n"</span>)</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="kw">ani.record</span>(<span class="dt">reset =</span> T)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="cf">for</span> (t <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="fl">0.001</span>, <span class="dt">to =</span> <span class="fl">0.999</span>, <span class="dt">length.out =</span> <span class="dv">180</span>)) {</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">  model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/generate.html">generate</a></span>(<span class="dt">dimensions =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">from =</span> <span class="fl">0.001</span>, <span class="dt">to =</span> <span class="fl">0.999</span>, <span class="dt">fixed_values =</span> t) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_matrix</span>()</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">  <span class="kw">ani.record</span>()</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="kw">saveHTML</span>(<span class="kw">ani.replay</span>(), <span class="dt">img.name =</span> <span class="st">"record_plot"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">library</span>(animation)</a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">"white"</span>)  <span class="co"># ensure the background color is white</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="kw">plot</span>(<span class="kw">c</span>(), <span class="dt">type =</span> <span class="st">"n"</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="kw">ani.record</span>(<span class="dt">reset =</span> T)</a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="cf">for</span> (t <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="fl">0.001</span>, <span class="dt">to =</span> <span class="fl">0.999</span>, <span class="dt">length.out =</span> <span class="dv">180</span>)) {</a>
+<a class="sourceLine" id="cb7-9" title="9">  model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/generate.html">generate</a></span>(<span class="dt">dimensions =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">from =</span> <span class="fl">0.001</span>, <span class="dt">to =</span> <span class="fl">0.999</span>, <span class="dt">fixed_values =</span> t) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot_matrix</span>()</a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="kw">ani.record</span>()</a>
+<a class="sourceLine" id="cb7-11" title="11">}</a>
+<a class="sourceLine" id="cb7-12" title="12"></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="kw">saveHTML</span>(<span class="kw">ani.replay</span>(), <span class="dt">img.name =</span> <span class="st">"record_plot"</span>)</a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

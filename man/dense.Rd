@@ -21,8 +21,9 @@ Wrapper for a dense/fully-connected layer.
 dense(30, "tanh")
 }
 \seealso{
-Other neural layers: \code{\link{dropout}},
-  \code{\link{input}}, \code{\link{layer_keras}},
-  \code{\link{output}}, \code{\link{variational_block}}
+Other neural layers: \code{\link{conv}},
+  \code{\link{dropout}}, \code{\link{input}},
+  \code{\link{layer_keras}}, \code{\link{output}},
+  \code{\link{variational_block}}
 }
 \concept{neural layers}

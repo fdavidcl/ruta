@@ -28,8 +28,9 @@ variational_block(3)
 \seealso{
 \code{\link{autoencoder_variational}}
 
-Other neural layers: \code{\link{dense}},
-  \code{\link{dropout}}, \code{\link{input}},
-  \code{\link{layer_keras}}, \code{\link{output}}
+Other neural layers: \code{\link{conv}},
+  \code{\link{dense}}, \code{\link{dropout}},
+  \code{\link{input}}, \code{\link{layer_keras}},
+  \code{\link{output}}
 }
 \concept{neural layers}

@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2.4000</span>
       </span>
     </div>
 
@@ -104,6 +104,9 @@
     </li>
     <li>
       <a href="articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -154,10 +157,10 @@
 <li>
 <p>Functions, variables and arguments will be named using snake_case.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">to_keras &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">UseMethod</span>(<span class="st">"to_keras"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">to_keras.ruta_network &lt;-<span class="st"> </span><span class="cf">function</span>(x, input_shape) {</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="co"># ...</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">to_keras &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">UseMethod</span>(<span class="st">"to_keras"</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">to_keras.ruta_network &lt;-<span class="st"> </span><span class="cf">function</span>(x, input_shape) {</a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="co"># ...</span></a>
+<a class="sourceLine" id="cb1-4" title="4">}</a></code></pre></div>
 </li>
 <li>
 <em>Constructor</em> functions are named starting with nouns, e.g. <code>autoencoder_robust</code> or <code>contraction</code>. In particular, all autoencoder variants start with <code>autoencoder_</code>.</li>
