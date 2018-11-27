@@ -17,9 +17,9 @@ This layer acts as a placeholder for the output layer in an autoencoder. The
 number of units is not needed as it is deduced from the data during training.
 }
 \seealso{
-Other neural layers: \code{\link{dense}},
-  \code{\link{dropout}}, \code{\link{input}},
-  \code{\link{layer_keras}},
+Other neural layers: \code{\link{conv}},
+  \code{\link{dense}}, \code{\link{dropout}},
+  \code{\link{input}}, \code{\link{layer_keras}},
   \code{\link{variational_block}}
 }
 \concept{neural layers}

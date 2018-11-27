@@ -4,13 +4,13 @@
 \alias{layer_keras}
 \title{Custom layer from Keras}
 \usage{
-layer_keras(name, ...)
+layer_keras(type, ...)
 }
 \arguments{
+\item{...}{Named parameters for the Keras layer constructor}
+
 \item{name}{The name of the layer, e.g. \code{"activity_regularization"} for a
 \code{keras::layer_activity_regularization} object}
-
-\item{...}{Named parameters for the Keras layer constructor}
 }
 \value{
 A wrapper for the specified layer, which can be combined with other Ruta
@@ -20,8 +20,9 @@ layers
 Gets any layer available in Keras with the specified parameters
 }
 \seealso{
-Other neural layers: \code{\link{dense}},
-  \code{\link{dropout}}, \code{\link{input}},
-  \code{\link{output}}, \code{\link{variational_block}}
+Other neural layers: \code{\link{conv}},
+  \code{\link{dense}}, \code{\link{dropout}},
+  \code{\link{input}}, \code{\link{output}},
+  \code{\link{variational_block}}
 }
 \concept{neural layers}
