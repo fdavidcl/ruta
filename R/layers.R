@@ -255,7 +255,7 @@ to_keras.ruta_layer_conv <- function(x, input_shape, model = keras::keras_model_
 #'
 #' Gets any layer available in Keras with the specified parameters
 #'
-#' @param name The name of the layer, e.g. `"activity_regularization"` for a
+#' @param type The name of the layer, e.g. `"activity_regularization"` for a
 #'   `keras::layer_activity_regularization` object
 #' @param ... Named parameters for the Keras layer constructor
 #' @return A wrapper for the specified layer, which can be combined with other Ruta
