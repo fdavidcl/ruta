@@ -105,6 +105,8 @@ c.ruta_network <- function(...) {
 #' @return Index of the middle layer
 #' @import purrr
 encoding_index <- function(net) {
+  if (length(net) == 0) return(0)
+
   filtered <- net %>% map(~ !is.null(.$units) || !is.null(.$filters)) %>% as_vector()
   if (ruta_layer_conv %in% class(net[[length(net)]])) {
     filtered[length(net)] <- FALSE
