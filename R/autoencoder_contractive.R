@@ -83,9 +83,9 @@ is_contractive <- function(learner) {
 to_keras.ruta_loss_contraction <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder
   rec_err <- x$reconstruction_loss %>% as_loss() %>% to_keras()
-  input_x <- keras::get_layer(keras_model, index = 0)$output
+  input_x <- keras::get_output_at(keras::get_layer(keras_model, index = 1), 1)
   #encoding_z <- keras::get_layer(keras_model, name = "pre_encoding")
-  encoding_h <- keras::get_layer(keras_model, name = "encoding")$output
+  encoding_h <- keras::get_output_at(keras::get_layer(keras_model, name = "encoding"), 1)
 
   # derivative of the activation function
   #act_der <- learner$network[[learner$network %@% "encoding"]]$activation %>% derivative()
