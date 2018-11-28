@@ -1,6 +1,6 @@
 Package: ruta
 Title: Implementation of Unsupervised Neural Architectures
-Version: 1.0.2
+Version: 1.1.0
 Authors@R: c(person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-4830-9512")), person("Francisco", "Charte", 
     email = "francisco@fcharte.com", role = "aut", comment = c(ORCID = "0000-0002-3083-8942")), 
@@ -17,7 +17,7 @@ Depends:
     R (>= 3.2)
 Imports: 
     graphics (>= 3.2.3),
-    keras (>= 2.1.5),
+    keras (>= 2.2.4),
     purrr (>= 0.2.4),
     stats (>= 3.2.3),
     utils

@@ -125,7 +125,7 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
   encoder <- keras::keras_model(model$input, encoding_layer$output)
 
   # decoder, from latent space to reconstructed inputs
-  encoding_dim <- keras::get_layer(model, decoder_start)$output_shape[[2]]
+  encoding_dim <- keras::get_layer(model, decoder_start)$output_shape[-1]
   decoder_input <- keras::layer_input(shape = encoding_dim)
 
   # re-build the decoder taking layers from the model
@@ -134,8 +134,8 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
 
   decoder_stack <- decoder_input
   for (lay_i in start:end) {
-    # zero-based index
-    decoder_stack <- keras::get_layer(model, index = lay_i)(decoder_stack)
+    # one-based index
+    decoder_stack <- keras::get_layer(model, index = lay_i + 1)(decoder_stack)
   }
 
   decoder <- keras::keras_model(decoder_input, decoder_stack)

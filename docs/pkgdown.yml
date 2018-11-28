@@ -1,10 +1,11 @@
-pandoc: 2.2.3.2
+pandoc: 2.3.1
 pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   architectures: architectures.html
   autoencoder_basic: examples/autoencoder_basic.html
   autoencoder_contractive: examples/autoencoder_contractive.html
+  autoencoder_convolutional: examples/autoencoder_convolutional.html
   autoencoder_denoising: examples/autoencoder_denoising.html
   autoencoder_robust: examples/autoencoder_robust.html
   autoencoder_sparse: examples/autoencoder_sparse.html

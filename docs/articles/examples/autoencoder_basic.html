@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.0</span>
       </span>
     </div>
 
@@ -75,6 +75,9 @@
     </li>
     <li>
       <a href="../../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="../../articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -124,68 +127,68 @@
     
 <p>The main objective of most autoencoders is to learn a new set of features out of nonlinear transformations which present some useful properties, such as lower dimension, distance preservation or noise resilience. In this article we explore the possibilities of using just a basic autoencoder with Ruta.</p>
 <p>Ruta provides to ways of creating and training autoencoders. The first is the straight-forward <code>autoencode</code> function. It receives a data matrix as input and returns the learned features by an autoencoder with a single hidden layer of the specified size:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(ruta)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">x =<span class="st"> </span><span class="kw">as.matrix</span>(iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">iris2 =<span class="st"> </span><span class="kw"><a href="../../reference/autoencode.html">autoencode</a></span>(x, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(ruta)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">x =<span class="st"> </span><span class="kw">as.matrix</span>(iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb1-4" title="4">iris2 =<span class="st"> </span><span class="kw"><a href="../../reference/autoencode.html">autoencode</a></span>(x, <span class="dv">2</span>)</a></code></pre></div>
 <p>Since this function only returns the learned features, one cannot reuse the trained autoencoder. This is useful, however, for low-dimension visualizations:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">plot</span>(iris2, <span class="dt">col =</span> iris[, <span class="dv">5</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">plot</span>(iris2, <span class="dt">col =</span> iris[, <span class="dv">5</span>])</a></code></pre></div>
 <p><img src="autoencoder_basic_files/figure-html/aepl-1.png" width="700"></p>
 <p>For more customization options and reusability, we can build an autoencoder object (of class <code>"ruta_autoencoder"</code>). This can be done via the <code>autoencoder</code> family of functions.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">network &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/input.html">input</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">36</span>, <span class="st">"tanh"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">my_ae &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/autoencoder.html">autoencoder</a></span>(network, <span class="dt">loss =</span> <span class="st">"binary_crossentropy"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">network &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/input.html">input</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../../reference/dense.html">dense</a></span>(<span class="dv">36</span>, <span class="st">"tanh"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../../reference/output.html">output</a></span>(<span class="st">"sigmoid"</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">my_ae &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/autoencoder.html">autoencoder</a></span>(network, <span class="dt">loss =</span> <span class="st">"binary_crossentropy"</span>)</a></code></pre></div>
 <p>Notice that this allows to define a deeper architecture: in this example we have created an autoencoder with one 36-unit hidden layer, apart from the input and output layers which will have as many units as features in the training data. We have also defined activation functions for each layer: <span class="math inline">\(\tanh\)</span> is a common activation for the encoding layer, and setting <code>sigmoid</code> as the output will ensure an output in the range <span class="math inline">\([0,1]\)</span>. We can also specify the loss function we want to optimize. Here, <code>"binary_crossentropy"</code> is an objective function which works well with binary data and data in the <span class="math inline">\([0, 1]\)</span> interval, but we can specify any <a href="https://keras.io/losses/">loss available in Keras</a>, another common one would be <code>"mean_squared_error"</code>.</p>
 <p>Now we need data to train the autoencoder. The <a href="https://cran.r-project.org/package=keras">keras</a> package provides several well-known datasets:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">mnist =<span class="st"> </span>keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/dataset_mnist">dataset_mnist</a></span>()</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># Normalization to the [0, 1] interval</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">x_train &lt;-<span class="st"> </span>keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  mnist<span class="op">$</span>train<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>train<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">x_train &lt;-<span class="st"> </span>x_train <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">x_test &lt;-<span class="st"> </span>keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">  mnist<span class="op">$</span>test<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>test<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">)</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">x_test &lt;-<span class="st"> </span>x_test <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">mnist =<span class="st"> </span>keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/dataset_mnist">dataset_mnist</a></span>()</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co"># Normalization to the [0, 1] interval</span></a>
+<a class="sourceLine" id="cb4-4" title="4">x_train &lt;-<span class="st"> </span>keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
+<a class="sourceLine" id="cb4-5" title="5">  mnist<span class="op">$</span>train<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>train<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6">)</a>
+<a class="sourceLine" id="cb4-7" title="7">x_train &lt;-<span class="st"> </span>x_train <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a>
+<a class="sourceLine" id="cb4-8" title="8">x_test &lt;-<span class="st"> </span>keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(</a>
+<a class="sourceLine" id="cb4-9" title="9">  mnist<span class="op">$</span>test<span class="op">$</span>x, <span class="kw">c</span>(<span class="kw">dim</span>(mnist<span class="op">$</span>test<span class="op">$</span>x)[<span class="dv">1</span>], <span class="dv">784</span>)</a>
+<a class="sourceLine" id="cb4-10" title="10">)</a>
+<a class="sourceLine" id="cb4-11" title="11">x_test &lt;-<span class="st"> </span>x_test <span class="op">/</span><span class="st"> </span><span class="fl">255.0</span></a></code></pre></div>
 <p>To train this autoencoder we can specify the <a href="https://keras.io/optimizers/">optimizer</a> (e.g. <code>"sgd"</code>, <code>"rmsprop"</code>…), number of epochs and other parameters.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">model =<span class="st"> </span><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(my_ae, x_train, <span class="dt">epochs =</span> <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">model =<span class="st"> </span><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(my_ae, x_train, <span class="dt">epochs =</span> <span class="dv">10</span>)</a></code></pre></div>
 <p>Once we have a trained model, we can use it for several purposes. We can encode input data and decode the resulting codifications, for example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">decoded &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/reconstruct.html">reconstruct</a></span>(model, x_test)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">decoded &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/reconstruct.html">reconstruct</a></span>(model, x_test)</a></code></pre></div>
 <p>This is equivalent to doing the same task in two steps, as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">encoded &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/encode.html">encode</a></span>(model, x_test)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">decoded &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/decode.html">decode</a></span>(model, encoded)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">encoded &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/encode.html">encode</a></span>(model, x_test)</a>
+<a class="sourceLine" id="cb7-2" title="2">decoded &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/decode.html">decode</a></span>(model, encoded)</a></code></pre></div>
 <p>Lastly, let’s display our reconstructions as images:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">plot_digit &lt;-<span class="st"> </span><span class="cf">function</span>(digit, ...) {</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="kw">image</span>(keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(digit, <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">28</span>), <span class="st">"F"</span>)[, <span class="dv">28</span><span class="op">:</span><span class="dv">1</span>], <span class="dt">xaxt =</span> <span class="st">"n"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>, <span class="dt">col=</span><span class="kw">gray</span>((<span class="dv">255</span><span class="op">:</span><span class="dv">0</span>)<span class="op">/</span><span class="dv">255</span>), ...)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">plot_sample &lt;-<span class="st"> </span><span class="cf">function</span>(digits_test, digits_dec, sample) {</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  sample_size &lt;-<span class="st"> </span><span class="kw">length</span>(sample)</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="kw">layout</span>(</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>sample_size, (sample_size <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>sample_size)), <span class="dt">byrow =</span> F, <span class="dt">nrow =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">  )</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">  <span class="cf">for</span> (i <span class="cf">in</span> sample) {</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">    <span class="kw">plot_digit</span>(digits_test[i, ])</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">    <span class="kw">plot_digit</span>(digits_dec[i, ])</a>
-<a class="sourceLine" id="cb8-15" data-line-number="15">  }</a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">}</a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="kw">plot_sample</span>(x_test, decoded, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">plot_digit &lt;-<span class="st"> </span><span class="cf">function</span>(digit, ...) {</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">image</span>(keras<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/reexports">array_reshape</a></span>(digit, <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">28</span>), <span class="st">"F"</span>)[, <span class="dv">28</span><span class="op">:</span><span class="dv">1</span>], <span class="dt">xaxt =</span> <span class="st">"n"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>, <span class="dt">col=</span><span class="kw">gray</span>((<span class="dv">255</span><span class="op">:</span><span class="dv">0</span>)<span class="op">/</span><span class="dv">255</span>), ...)</a>
+<a class="sourceLine" id="cb8-3" title="3">}</a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">plot_sample &lt;-<span class="st"> </span><span class="cf">function</span>(digits_test, digits_dec, sample) {</a>
+<a class="sourceLine" id="cb8-6" title="6">  sample_size &lt;-<span class="st"> </span><span class="kw">length</span>(sample)</a>
+<a class="sourceLine" id="cb8-7" title="7">  <span class="kw">layout</span>(</a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>sample_size, (sample_size <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>sample_size)), <span class="dt">byrow =</span> F, <span class="dt">nrow =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb8-9" title="9">  )</a>
+<a class="sourceLine" id="cb8-10" title="10"></a>
+<a class="sourceLine" id="cb8-11" title="11">  <span class="cf">for</span> (i <span class="cf">in</span> sample) {</a>
+<a class="sourceLine" id="cb8-12" title="12">    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb8-13" title="13">    <span class="kw">plot_digit</span>(digits_test[i, ])</a>
+<a class="sourceLine" id="cb8-14" title="14">    <span class="kw">plot_digit</span>(digits_dec[i, ])</a>
+<a class="sourceLine" id="cb8-15" title="15">  }</a>
+<a class="sourceLine" id="cb8-16" title="16">}</a>
+<a class="sourceLine" id="cb8-17" title="17"></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="kw">plot_sample</span>(x_test, decoded, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a></code></pre></div>
 <p><img src="autoencoder_basic_files/figure-html/plot-1.png" width="1920"></p>
 <p>Basic autoencoders provide some more options, such as weight decay of the encoding layer and training with validation data as well:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">my_ae_wd &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_weight_decay.html">add_weight_decay</a></span>(my_ae, <span class="dt">decay =</span> <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">  my_ae_wd,</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">  x_train,</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="dt">epochs =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">  <span class="dt">optimizer =</span> <span class="st">"adam"</span>,</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">  <span class="dt">batch_size =</span> <span class="dv">64</span>,</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">  <span class="dt">validation_data =</span> x_test,</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">  <span class="dt">metrics =</span> <span class="kw">list</span>(<span class="st">"binary_accuracy"</span>)</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">my_ae_wd &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_weight_decay.html">add_weight_decay</a></span>(my_ae, <span class="dt">decay =</span> <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2"></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw"><a href="../../reference/train.ruta_autoencoder.html">train</a></span>(</a>
+<a class="sourceLine" id="cb9-4" title="4">  my_ae_wd,</a>
+<a class="sourceLine" id="cb9-5" title="5">  x_train,</a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="dt">epochs =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="dt">optimizer =</span> <span class="st">"adam"</span>,</a>
+<a class="sourceLine" id="cb9-8" title="8">  <span class="dt">batch_size =</span> <span class="dv">64</span>,</a>
+<a class="sourceLine" id="cb9-9" title="9">  <span class="dt">validation_data =</span> x_test,</a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="dt">metrics =</span> <span class="kw">list</span>(<span class="st">"binary_accuracy"</span>)</a>
+<a class="sourceLine" id="cb9-11" title="11">)</a></code></pre></div>
 <p>For more details, read <a href="/reference/">the documentation</a>. For the rest of autoencoder variants, see <a href="/articles/examples/">other examples</a>.</p>
   </div>
 

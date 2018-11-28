@@ -62,7 +62,7 @@ and trains it with the input data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ruta</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.0</span>
       </span>
     </div>
 
@@ -108,6 +108,9 @@ and trains it with the input data." />
     </li>
     <li>
       <a href="../articles/examples/autoencoder_variational.html">Variational autoencoder</a>
+    </li>
+    <li>
+      <a href="../articles/examples/autoencoder_convolutional.html">Convolutional autoencoder</a>
     </li>
   </ul>
 </li>
@@ -184,7 +187,7 @@ for training but the loss measure and any metrics will be computed against it</p
     <tr>
       <th>metrics</th>
       <td><p>Optional list of metrics which will evaluate the model but
-won't be optimized. See <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/compile'>compile</a></code></p></td>
+won't be optimized. See <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/reexports'>compile</a></code></p></td>
     </tr>
     <tr>
       <th>epochs</th>
@@ -197,7 +200,7 @@ be any optimizer object defined by Keras (e.g. <code><a href='http://www.rdocume
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional parameters for <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/fit'>fit</a></code>. Some useful parameters:</p><ul>
+      <td><p>Additional parameters for <code>keras::<a href='http://www.rdocumentation.org/packages/keras/topics/reexports'>fit</a></code>. Some useful parameters:</p><ul>
 <li><p><code>batch_size</code> The number of examples to be grouped for each gradient update.
 Use a smaller batch size for more frequent weight updates or a larger one for
 faster optimization.</p></li>

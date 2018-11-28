@@ -34,6 +34,8 @@ navbar:
           href: "articles/examples/autoencoder_sparse.html"
         - text: "Variational autoencoder"
           href: "articles/examples/autoencoder_variational.html"
+        - text: "Convolutional autoencoder"
+          href: "articles/examples/autoencoder_convolutional.html"
     - text: "Troubleshooting"
       href: "articles/troubleshooting.html"
       icon: fa-wrench
@@ -53,6 +55,7 @@ reference:
       - input
       - dense
       - variational_block
+      - conv
       - output
       - dropout
       - layer_keras

@@ -2,6 +2,7 @@ ruta_layer <- "ruta_layer"
 ruta_layer_input <- "ruta_layer_input"
 ruta_layer_dense <- "ruta_layer_dense"
 ruta_layer_variational <- "ruta_layer_variational"
+ruta_layer_conv <- "ruta_layer_conv"
 ruta_layer_custom <- "ruta_layer_custom"
 ruta_network <- "ruta_network"
 

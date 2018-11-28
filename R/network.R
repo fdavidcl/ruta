@@ -105,9 +105,14 @@ c.ruta_network <- function(...) {
 #' @return Index of the middle layer
 #' @import purrr
 encoding_index <- function(net) {
-  filtered <- net %>% map(~ !is.null(.$units)) %>% as_vector()
+  if (length(net) == 0) return(0)
+
+  filtered <- net %>% map(~ !is.null(.$units) || !is.null(.$filters)) %>% as_vector()
+  if (ruta_layer_conv %in% class(net[[length(net)]])) {
+    filtered[length(net)] <- FALSE
+  }
   filtered_index <- ceiling(sum(filtered) / 2)
-  index <- detect_index(1:length(net), ~ sum(filtered[1:.]) == filtered_index)
+  detect_index(1:length(net), ~ sum(filtered[1:.]) == filtered_index)
 }
 
 #' @rdname print-methods

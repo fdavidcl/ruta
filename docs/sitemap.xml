@@ -40,6 +40,9 @@
     <loc>http://ruta.software/reference/contraction.html</loc>
   </url>
   <url>
+    <loc>http://ruta.software/reference/conv.html</loc>
+  </url>
+  <url>
     <loc>http://ruta.software/reference/correntropy.html</loc>
   </url>
   <url>
@@ -197,6 +200,9 @@
   </url>
   <url>
     <loc>http://ruta.software/articles/examples/autoencoder_contractive.html</loc>
+  </url>
+  <url>
+    <loc>http://ruta.software/articles/examples/autoencoder_convolutional.html</loc>
   </url>
   <url>
     <loc>http://ruta.software/articles/examples/autoencoder_denoising.html</loc>
