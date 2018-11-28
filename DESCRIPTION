@@ -1,6 +1,6 @@
 Package: ruta
 Title: Implementation of Unsupervised Neural Architectures
-Version: 1.0.2.4000
+Version: 1.1.0
 Authors@R: c(person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-4830-9512")), person("Francisco", "Charte", 
     email = "francisco@fcharte.com", role = "aut", comment = c(ORCID = "0000-0002-3083-8942")), 
