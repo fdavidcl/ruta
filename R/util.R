@@ -13,6 +13,15 @@ get_keras_object <- function(name, prefix = "", quiet = FALSE) {
   }
 }
 
+list_keras_objects <- function(prefix, rm_prefix = TRUE) {
+  found <- ls(pattern = paste0("^", prefix), envir = asNamespace("keras"))
+  if (rm_prefix) {
+    gsub(paste0("^", prefix, "_"), "", found)
+  } else {
+    found
+  }
+}
+
 print_line <- function(length = 40) {
   line <- paste0(rep("-", length), collapse = "")
   cat(line, "\n", sep = "")
