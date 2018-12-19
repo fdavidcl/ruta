@@ -8,6 +8,10 @@ make_reductive <- function(learner, method = "fisher", weight = 0.01) {
   learner
 }
 
+is_reductive <- function(learner) {
+  ruta_loss_reductive %in% class(learner$loss)
+}
+
 loss_reductive <- function(reconstruction_loss, method = "fisher", weight = 0.01) {
   structure(list(
     reconstruction_loss = reconstruction_loss,
@@ -20,8 +24,8 @@ loss_reductive <- function(reconstruction_loss, method = "fisher", weight = 0.01
 to_keras.ruta_autoencoder_reductive <- function(learner, weights_file = NULL) {
   models <- to_keras.ruta_autoencoder(learner, weights_file = weights_file)
   # class input accepts ones and zeros
-  class_pos <- layer_input(list(1))
-  models$autoencoder <- keras_model(list(models$autoencoder$input, class_pos), models$autoencoder$output)
+  class_pos <- keras::layer_input(list(1))
+  models$autoencoder <- keras::keras_model(list(models$autoencoder$input, class_pos), models$autoencoder$output)
 
   models
 }
