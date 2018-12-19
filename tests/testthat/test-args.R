@@ -1,0 +1,25 @@
+context("test-args.R")
+
+test_that("args can be validated", {
+  expect_silent(.test_function(network = input() + output()))
+  expect_silent(.test_function(network = input() + output(), loss = "binary_crossentropy"))
+  expect_silent(.test_function(network = input() + output(), loss = "binary_crossentropy", activation = "elu"))
+  expect_silent(.test_function(network = input() + output(), loss = "binary_crossentropy", activation = "elu", weight = 1))
+  expect_silent(.test_function2(network = input() + output()))
+  expect_silent(.test_function2(network = input() + output(), "binary_crossentropy"))
+  expect_silent(.test_function2(network = input() + output(), "binary_crossentropy", "elu"))
+  expect_silent(.test_function2(network = input() + output(), "binary_crossentropy", "elu", 1))
+  expect_silent(purrr::map(list(input() + output()), .test_function))
+  expect_silent(purrr::map(list(input() + output()), .test_function2))
+  expect_silent(purrr::map(list(input() + output()), ~ .test_function(.)))
+  expect_silent(purrr::map(list(input() + output()), ~ .test_function2(.)))
+})
+
+test_that("args can error", {
+  expect_error(.test_function())
+  expect_error(.test_function(network = input() + output(), loss = 3))
+  expect_error(.test_function(network = input() + output(), loss = "hinge", activation = "unknown"))
+  expect_error(.test_function2())
+  expect_error(.test_function2(input() + output(), 3))
+  expect_error(.test_function2(input() + output(), "hinge", "unknown"))
+})
