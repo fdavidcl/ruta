@@ -50,7 +50,8 @@ new_autoencoder <- function(network, loss, extra_class = NULL) {
 #' )
 #'
 #' @export
-autoencoder <- function(network, loss = "mean_squared_error") {
+autoencoder <- function(network = arg_network(), loss = arg_loss("mean_squared_error")) {
+  check_args(formals(), environment())
   new_autoencoder(network, loss)
 }
 

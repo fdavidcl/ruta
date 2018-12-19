@@ -2,15 +2,14 @@
 `%to%` <- function(min, max) list(min = min, max = max)
 
 # Constructor for argument descriptors
-arg_constructor <- function(.class, .values = NULL, .default = NULL, .required = FALSE) {
+arg_constructor <- function(..., .default = NULL, .required = FALSE) {
   # A function which returns a default value for a parameter. If the `get`
   # argument is set to TRUE, a machine-readable description of
   # the parameter is returned instead.
   structure(function(default = .default, get = FALSE) {
     if (get) {
       list(
-        class = .class,
-        values = .values,
+        classes = list(...),
         required = .required
       )
     } else {
@@ -25,25 +24,27 @@ as_arg.ruta_arg <- function(x) x
 # Any value can be used to generate an argument descriptor for its class
 as_arg.default <- function(x) {
   if (is.name(x) && x == "")
-    arg_constructor(NULL, .required = TRUE)
-  else
-    arg_constructor(class(x), .default = x)
+    arg_constructor(.required = TRUE)
+  else {
+    args <- list(NULL)
+    names(args) <- class(x)
+    do.call(arg_constructor, c(args, list(.default = x)))
+  }
 }
 
 # Argument descriptor for a neural network object
-arg_network <- arg_constructor("ruta_network", .required = TRUE)
+arg_network <- arg_constructor(ruta_network = NULL, numeric = NULL, .required = TRUE)
 
 # Argument descriptor for a loss function
 arg_loss <- arg_constructor(
-  c("ruta_loss", "character"),
-  list_keras_objects("loss"),
-  "mean_squared_error"
+  ruta_loss = NULL,
+  character = list_keras_objects("loss"),
+  .default = "mean_squared_error"
 )
 
 arg_activation <- arg_constructor(
-  c("character"),
-  list_keras_objects("activation"),
-  "linear"
+  character = list_keras_objects("activation"),
+  .default = "linear"
 )
 
 which_functions <- function() as.character(lsf.str("package:ruta"))
@@ -74,48 +75,49 @@ get_checks <- function(formal_args) {
 print.ruta_args <- function(checks) {
   cat("Usage: \n")
   for (arg in names(checks)) {
-    type <- if (is.null(checks[[arg]]$class) || checks[[arg]]$class == "NULL")
+    types <- checks[[arg]]$classes
+    str_types <- if (length(types) == 0)
       "unknown"
     else
-      paste0(checks[[arg]]$class, collapse = " or ")
+      paste0(names(types), collapse = " or ")
 
-    values <- if (!is.null(checks[[arg]]$values))
-      c("allowed values {\n    ", paste0(checks[[arg]]$values, collapse = "\n    "), "\n  }, ")
-    else
-      ""
+    # values <- if (!is.null(checks[[arg]]$classes))
+    #   c("allowed values {\n    ", paste0(checks[[arg]]$values, collapse = "\n    "), "\n  }, ")
+    # else
+    #   ""
 
     required <- if (checks[[arg]]$required) "" else "not "
 
     cat(
-      "  ", arg, ": type ", type, ", ", values, required, "required\n",
+      "  ", arg, ": type ", str_types, ", ", required, "required\n",
       sep = ""
     )
   }
 }
 
-check_args_internal <- function() {
-  # Which function was called and with what arguments?
-  call_l <- as.list(sys.call(sys.parent(1)))
-  # return(args(as.function(call_l)))
-  # What are the argument descriptions for this function?
-  checks <- which_args(as.character(call_l[[1]]))
-  #print(call_l)
-
-  args <- call_l[-1]
-  # print(args) #############
-  # print(checks) ############
-
-  check_args(args, checks)
-}
+# check_args_internal <- function() {
+#   # Which function was called and with what arguments?
+#   call_l <- as.list(sys.call(sys.parent(1)))
+#   # return(args(as.function(call_l)))
+#   # What are the argument descriptions for this function?
+#   checks <- which_args(as.character(call_l[[1]]))
+#   #print(call_l)
+#
+#   args <- call_l[-1]
+#   # print(args) #############
+#   # print(checks) ############
+#
+#   check_args(args, checks)
+# }
 
 # formal_args - call to formals()
 # arguments - call to environment()
-check_args_alt <- function(formal_args, arguments) {
+check_args <- function(formal_args, arguments) {
   checks <- get_checks(formal_args)
-  check_args(as.list(arguments), checks)
+  validate_call(as.list(arguments), checks)
 }
 
-check_args <- function(args, checks) {
+validate_call <- function(args, checks) {
   # Detect positional arguments
   unnamed_args <- if (is.null(names(args))) seq_along(args) else which(names(args) == "")
   # Detect remaining named arguments
@@ -157,40 +159,50 @@ validate_arg <- function(name, val, check) {
   }
 
   # Check type: class
-  if (!is.null(check$class)) {
-    if (length(intersect(class(val), check$class)) == 0) {
-      stop(paste0(name, " does not have any allowed class (", paste(check$class, collapse = ", "), "), found class: ", paste(class(val), collapse = " ")), call. = F)
-    }
-  }
+  if (length(check$classes) > 0) {
+    identified_class <- intersect(class(val), names(check$classes))
 
-  # Check type: values
-  if (!is.null(check$values)) {
-    # Value check with set
-    if (is.atomic(check$values)) {
-      if (!(val %in% check$values)) {
-        stop(paste0(name, " does not equal any allowed value (", paste(check$values, collapse = ", "), ")"), call. = F)
-      }
-    } else {
-      # Value check in interval
-      if (!is.null(check$values$min)) {
-        if (val < check$values$min) {
-          stop(paste0(name, " is lower than the minimum allowed value (", check$values$min, ")"), call. = F)
+    if (length(identified_class) == 0) {
+      stop(paste0(name, " does not have any allowed class (", paste(names(check$classes), collapse = ", "), "), found class: ", paste(class(val), collapse = " ")), call. = F)
+    }
+
+    # Check type: values
+    messages <- list()
+    for (klass in identified_class) {
+      values <- check$classes[[klass]]
+
+      if (!is.null(values)) {
+        if (is.atomic(values)) {
+          if (val %in% values) {
+            return(invisible(TRUE))
+          } else {
+            messages <- append(messages, paste0(name, " does not equal any allowed value (", paste(values, collapse = ", "), ")"))
+          }
+        }
+        if (is.list(values)) {
+          check_min <- is.null(values$min) || val >= values$min
+          check_max <- is.null(values$max) || val <= values$max
+
+          if (check_min && check_max) {
+            return(invisible(TRUE))
+          } else {
+            messages <- append(messages, paste0(name, " is outside allowed range (", paste(values$min %||% "-infinity", values$max %||% "infinity", sep = "-"), ")"))
+          }
         }
       }
-      if (!is.null(check$values$max)) {
-        if (val > check$values$max) {
-          stop(paste0(name, " is higher than the maximum allowed value (", check$values$max, ")"), call. = F)
-        }
-      }
+    }
+
+    if (length(messages) > 0) {
+      stop("Couldn't find a matching allowed value for ", name, ". Warnings:\n", paste(messages, collapse = "\n"))
     }
   }
 }
 
 
 .test_function <- function(network = arg_network(), loss = arg_loss(), activation = arg_activation(), weight = 2e-4) {
-  check_args_alt(formals(), environment())
+  check_args(formals(), environment())
 }
 .test_function2 <- function(network = arg_network(), loss = arg_loss("binary_crossentropy"), activation = arg_activation("elu"), weight = 2e-4) {
-  check_args_alt(formals(), environment())
+  check_args(formals(), environment())
 }
 
