@@ -51,9 +51,13 @@ which_functions <- function() as.character(lsf.str("package:ruta"))
 which_args <- function(f) {
   # Gets formal arguments for the function
   defaults <- formals(f)
-  defaults$... <- NULL
+  get_checks(defaults)
+}
 
-  checks <- lapply(defaults, function(arg) {
+get_checks <- function(formal_args) {
+  formal_args$... <- NULL
+
+  checks <- lapply(formal_args, function(arg) {
     # Retrieves the argument descriptor and calls it
     if (class(arg) == "call") {
       get(as.character(arg))(get = TRUE)
@@ -62,7 +66,7 @@ which_args <- function(f) {
     }
   })
 
-  names(checks) <- names(defaults)
+  names(checks) <- names(formal_args)
   # Return descriptions for each argument
   structure(checks, class = "ruta_args")
 }
@@ -90,23 +94,42 @@ print.ruta_args <- function(checks) {
 }
 
 check_args_internal <- function() {
-  # Which function was called and with that arguments?
+  # Which function was called and with what arguments?
   call_l <- as.list(sys.call(sys.parent(1)))
+  # return(args(as.function(call_l)))
   # What are the argument descriptions for this function?
   checks <- which_args(as.character(call_l[[1]]))
+  #print(call_l)
 
-  check_args(call_l[2:length(call_l)], checks)
+  args <- call_l[-1]
+  # print(args) #############
+  # print(checks) ############
+
+  check_args(args, checks)
+}
+
+# formal_args - call to formals()
+# arguments - call to environment()
+check_args_alt <- function(formal_args, arguments) {
+  checks <- get_checks(formal_args)
+  check_args(as.list(arguments), checks)
 }
 
 check_args <- function(args, checks) {
   # Detect positional arguments
   unnamed_args <- if (is.null(names(args))) seq_along(args) else which(names(args) == "")
-  # Detect missing named arguments
-  missing_args <- setdiff(names(checks), names(args)[-unnamed_args])
+  # Detect remaining named arguments
+  remaining_args <- setdiff(names(checks), names(args)[-unnamed_args])
   # Pair positional arguments with missing named arguments
-  names(args)[unnamed_args] <- missing_args[1:length(unnamed_args)]
+  names(args)[unnamed_args] <- remaining_args[1:length(unnamed_args)]
 
-  for (name in names(args)) {
+  # Are there formals which are not provided as arguments?
+  missing_args <- if (length(remaining_args) > length(unnamed_args))
+    remaining_args[(length(unnamed_args) + 1):length(remaining_args)]
+  else
+    character(0)
+
+  for (name in c(names(args), missing_args)) {
     check <- checks[[name]]
 
     if (!is.null(check)) {
@@ -119,16 +142,24 @@ check_args <- function(args, checks) {
 }
 
 validate_arg <- function(name, val, check) {
+  if ("call" %in% class(val)) {
+    val <- call(val)
+  }
 
   # Check type: mandatory argument
-  if (check$required && is.null(val)) {
-    stop(paste0(name, " is a required argument"), call. = F)
+  if (is.null(val)) {
+    if (check$required) {
+      stop(paste0(name, " is a required argument"), call. = F)
+    } else {
+      # nothing else to check if argument was not provided and not required
+      return()
+    }
   }
 
   # Check type: class
   if (!is.null(check$class)) {
     if (length(intersect(class(val), check$class)) == 0) {
-      stop(paste0(name, " does not have any allowed class (", paste(check$class, collapse = ", "), ")"), call. = F)
+      stop(paste0(name, " does not have any allowed class (", paste(check$class, collapse = ", "), "), found class: ", paste(class(val), collapse = " ")), call. = F)
     }
   }
 
@@ -155,7 +186,11 @@ validate_arg <- function(name, val, check) {
   }
 }
 
-test_function <- function(network = arg_network(), loss = arg_loss(), activation = arg_activation(), weight = 2e-4) {
-  check_args_internal()
+
+.test_function <- function(network = arg_network(), loss = arg_loss(), activation = arg_activation(), weight = 2e-4) {
+  check_args_alt(formals(), environment())
+}
+.test_function2 <- function(network = arg_network(), loss = arg_loss("binary_crossentropy"), activation = arg_activation("elu"), weight = 2e-4) {
+  check_args_alt(formals(), environment())
 }
 

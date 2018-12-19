@@ -70,6 +70,7 @@ to_keras.ruta_layer_input <- function(x, input_shape, ...) {
 #' @family neural layers
 #' @export
 output <- function(activation = "linear") {
+  check_args_alt(formals(), environment())
   make_atomic_network(ruta_layer_dense, activation = activation)
 }
 
@@ -83,7 +84,8 @@ output <- function(activation = "linear") {
 #' dense(30, "tanh")
 #' @family neural layers
 #' @export
-dense <- function(units, activation = "linear") {
+dense <- function(units, activation = arg_activation("linear")) {
+  check_args_alt(formals(), environment())
   make_atomic_network(ruta_layer_dense, units = units, activation = activation)
 }
 
