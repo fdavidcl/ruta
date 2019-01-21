@@ -4,7 +4,7 @@ runif_matrix <- function(data) {
   dims %>%
     prod() %>%
     stats::runif() %>%
-    matrix(nrow = dims[1], ncol = dims[2])
+    array(dim = dims)
 }
 
 new_noise <- function(cl, ...) {
@@ -131,7 +131,7 @@ apply_filter.ruta_noise_gaussian <- function(filter, data, ...) {
     dims %>%
     prod() %>%
     stats::rnorm(sd = filter$sd) %>%
-    matrix(nrow = dims[1], ncol = dims[2])
+    array(dim = dims)
 
   data + term
 }
@@ -157,7 +157,7 @@ apply_filter.ruta_noise_cauchy <- function(filter, data, ...) {
     dims %>%
     prod() %>%
     stats::rcauchy(scale = filter$scale) %>%
-    matrix(nrow = dims[1], ncol = dims[2])
+    array(dim = dims)
 
   data + term
 }
