@@ -204,11 +204,11 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
 #' @seealso `\link{autoencoder}`
 #' @export
 train.ruta_autoencoder <- function(
-  learner,
-  data,
-  validation_data = NULL,
+  learner = arg_learner(),
+  data = arg_data(),
+  validation_data = arg_data(NULL),
   metrics = NULL,
-  epochs = 20,
+  epochs = arg_positive(20),
   optimizer = keras::optimizer_rmsprop(),
   ...) {
   learner$input_shape <- dim(data)[-1]

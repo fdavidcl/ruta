@@ -13,6 +13,9 @@ test_that("args can be validated", {
   expect_silent(purrr::map(list(input() + output()), .test_function2))
   expect_silent(purrr::map(list(input() + output()), ~ .test_function(.)))
   expect_silent(purrr::map(list(input() + output()), ~ .test_function2(.)))
+
+  expect_is(purrr::map(list(input, output), which_args), "list")
+  expect_is(purrr::map(list(input, output), ~ which_args(.)), "list")
 })
 
 test_that("args can error", {
