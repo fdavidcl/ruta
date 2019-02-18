@@ -233,24 +233,40 @@ train.ruta_autoencoder <- function(
     )
   }
 
-  input_data <- if (is.null(learner$filter)) {
-    data
-  } else {
-    apply_filter(learner$filter, data)
-  }
+  # input_data <- if (is.null(learner$filter)) {
+  #   data
+  # } else {
+  #   apply_filter(learner$filter, data)
+  # }
 
   if (!is.null(validation_data)) {
     validation_data <- list(validation_data, validation_data)
   }
 
-  keras::fit(
-    learner$models$autoencoder,
-    x = input_data,
-    y = data,
-    epochs = epochs,
-    validation_data = validation_data,
-    ...
-  )
+  if (is.null(learner$filter)) {
+    keras::fit(
+      learner$models$autoencoder,
+      x = data,
+      y = data,
+      epochs = epochs,
+      validation_data = validation_data,
+      ...
+    )
+  } else {
+    batch_size <- list(...)$batch_size
+    if (is.null(batch_size)) batch_size <- 32
+
+    keras::fit_generator(
+      learner$models$autoencoder,
+      to_keras(learner$filter, data, batch_size),
+      steps_per_epoch = ceiling(dim(data)[1] / batch_size),
+      epochs = epochs,
+      validation_data = validation_data,
+      ...
+    )
+  }
+
+
 
   invisible(learner)
 }

@@ -10,7 +10,7 @@
 #'   just like the ones defined in `\link[ruta]{evaluate}`.
 #' @seealso `\link[ruta]{evaluate}`
 #' @export
-evaluation_metric <- function(evaluate_f) function(learner, data) {
+evaluation_metric <- function(evaluate_f) function(learner, data, ...) {
   k_model <- learner$models$autoencoder
 
   keras::compile(
@@ -19,7 +19,7 @@ evaluation_metric <- function(evaluate_f) function(learner, data) {
     loss = to_keras(learner$loss, learner),
     metrics = evaluate_f
   )
-  keras::evaluate(k_model, x = data, y = data)
+  keras::evaluate(k_model, x = data, y = data, ...)
 }
 
 #' Evaluation metrics
