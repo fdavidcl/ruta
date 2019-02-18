@@ -204,9 +204,9 @@ to_keras.ruta_autoencoder <- function(learner, encoder_end = "encoding", decoder
 #' @seealso `\link{autoencoder}`
 #' @export
 train.ruta_autoencoder <- function(
-  learner = arg_learner(),
-  data = arg_data(),
-  validation_data = arg_data(NULL),
+  learner,
+  data,
+  validation_data = NULL,
   metrics = NULL,
   epochs = arg_positive(20),
   optimizer = keras::optimizer_rmsprop(),
@@ -253,20 +253,21 @@ train.ruta_autoencoder <- function(
       ...
     )
   } else {
-    batch_size <- list(...)$batch_size
-    if (is.null(batch_size)) batch_size <- 32
+    bsize <- list(...)$batch_size
 
+    if (is.null(bsize)) bsize <- 32
+
+    # Remove batch_size from dots parameters
+    (function(..., batch_size = NULL)
     keras::fit_generator(
       learner$models$autoencoder,
-      to_keras(learner$filter, data, batch_size),
-      steps_per_epoch = ceiling(dim(data)[1] / batch_size),
+      to_keras(learner$filter, data, bsize),
+      steps_per_epoch = ceiling(dim(data)[1] / bsize),
       epochs = epochs,
       validation_data = validation_data,
       ...
-    )
+    ))(...)
   }
-
-
 
   invisible(learner)
 }
