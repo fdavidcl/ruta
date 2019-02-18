@@ -161,3 +161,25 @@ apply_filter.ruta_noise_cauchy <- function(filter, data, ...) {
 
   data + term
 }
+
+#' @import R.utils
+#' @param data
+#' @param batch_size
+to_keras.ruta_filter <- function(x, data, batch_size, ...) {
+  limit <- dim(data)[1]
+  order <- sample.int(limit)
+  start <- 1
+  function() {
+    if (start + batch_size > limit) {
+      idx <- order[start:limit]
+      order <- sample.int(limit)
+      start <- 1
+    } else {
+      idx <- order[start:(start + batch_size - 1)]
+      start <- start + batch_size
+    }
+    original <- R.utils::extract(data, "1" = idx)
+    noisy <- apply_filter(x, original)
+    list(noisy, original)
+  }
+}
