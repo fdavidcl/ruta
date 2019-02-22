@@ -1,8 +1,4 @@
-gradients <- reticulate::import("tensorflow.python.ops.parallel_for.gradients")
-
-# jacobian <- function(y, x) {
-#   gradients$batch_jacobian(y, x)
-# }
+gradients <- reticulate::import("tensorflow.python.ops.parallel_for.gradients", delay_load = TRUE)
 
 # inputs:
 #  - y: shape (batch_size, output_length)
@@ -10,4 +6,8 @@ gradients <- reticulate::import("tensorflow.python.ops.parallel_for.gradients")
 # outputs:
 #  - J: shape (batch_size, output_length, input_length)
 #    the jacobians of y with respect to inputs x
-jacobian <- gradients$batch_jacobian
+jacobian <- function(y, x) {
+  gradients$batch_jacobian(y, x)
+}
+
+# jacobian <- gradients$batch_jacobian
