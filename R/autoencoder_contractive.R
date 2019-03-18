@@ -83,26 +83,33 @@ is_contractive <- function(learner) {
 to_keras.ruta_loss_contraction <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder
   rec_err <- x$reconstruction_loss %>% as_loss() %>% to_keras()
-  encoding_z <- keras::get_layer(keras_model, name = "pre_encoding")
-  encoding_h <- keras::get_layer(keras_model, name = "encoding")
+  input_x <- keras::get_output_at(keras::get_layer(keras_model, index = 1), 1)
+  #encoding_z <- keras::get_layer(keras_model, name = "pre_encoding")
+  encoding_h <- keras::get_output_at(keras::get_layer(keras_model, name = "encoding"), 1)
 
   # derivative of the activation function
-  act_der <- learner$network[[learner$network %@% "encoding"]]$activation %>% derivative()
+  #act_der <- learner$network[[learner$network %@% "encoding"]]$activation %>% derivative()
 
   # contractive loss
   function(y_true, y_pred) {
     reconstruction <- rec_err(y_true, y_pred)
 
-    sum_wt2 <-
-      keras::k_variable(value = keras::get_weights(encoding_z)[[1]]) %>%
-      keras::k_transpose() %>%
+    # sum_wt2 <-
+    #   keras::k_variable(value = keras::get_weights(encoding_z)[[1]]) %>%
+    #   keras::k_transpose() %>%
+    #   keras::k_square() %>%
+    #   keras::k_sum(axis = 2)
+    #
+    # dh2 <- act_der(encoding_h$input, keras::get_output_at(encoding_h, 1)) ** 2
+
+    # Alternative implementation: directly calculating Jf using Tensorflow
+    # More general: does not depend on implemented derivatives
+    contractive <-
+      jacobian(encoding_h, input_x) %>%
+      # Squared Frobenius norm: sum of squared values of the matrix
       keras::k_square() %>%
-      keras::k_sum(axis = 2)
+      keras::k_sum(axis = list(2, 3))
 
-    dh2 <- act_der(encoding_h$input, keras::get_output_at(encoding_h, 1)) ** 2
-
-    contractive <- x$weight * keras::k_sum(dh2 * sum_wt2, axis = 2)
-
-    reconstruction + contractive
+    reconstruction + x$weight * contractive
   }
 }

@@ -215,12 +215,22 @@ train.ruta_autoencoder <- function(
 
   loss_f <- learner$loss %>% to_keras(learner)
 
-  keras::compile(
-    learner$models$autoencoder,
-    optimizer = optimizer,
-    loss = loss_f,
-    metrics = metrics
-  )
+  if (is.function(loss_f)) {
+    keras::compile(
+      learner$models$autoencoder,
+      optimizer = optimizer,
+      loss = loss_f,
+      metrics = metrics
+    )
+  } else {
+    keras::compile(
+      learner$models$autoencoder,
+      optimizer = optimizer,
+      loss = loss_f$losses,
+      loss_weights = loss_f$loss_weights,
+      metrics = metrics
+    )
+  }
 
   # input_data <- if (is.null(learner$filter)) {
   #   data
@@ -242,20 +252,21 @@ train.ruta_autoencoder <- function(
       ...
     )
   } else {
-    batch_size <- list(...)$batch_size
-    if (is.null(batch_size)) batch_size <- 32
+    bsize <- list(...)$batch_size
 
+    if (is.null(bsize)) bsize <- 32
+
+    # Remove batch_size from dots parameters
+    (function(..., batch_size = NULL)
     keras::fit_generator(
       learner$models$autoencoder,
-      to_keras(learner$filter, data, batch_size),
-      steps_per_epoch = ceiling(dim(data)[1] / batch_size),
+      to_keras(learner$filter, data, bsize),
+      steps_per_epoch = ceiling(dim(data)[1] / bsize),
       epochs = epochs,
       validation_data = validation_data,
       ...
-    )
+    ))(...)
   }
-
-
 
   invisible(learner)
 }

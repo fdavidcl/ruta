@@ -28,6 +28,7 @@ evaluation_metric <- function(evaluate_f) function(learner, data, ...) {
 #'
 #' @param learner A trained learner object
 #' @param data Test data for evaluation
+#' @param ... Additional parameters passed to `keras::\link[keras]{evaluate}`.
 #' @return A named list with the autoencoder training loss and evaluation metric for the
 #'   given data
 #' @examples

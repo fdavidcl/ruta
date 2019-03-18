@@ -1,0 +1,18 @@
+citHeader("To cite ruta in publications use:")
+
+citEntry(
+  entry = "Article",
+  title = "Ruta: Implementations of neural autoencoders in R",
+  author = personList(as.person("David Charte"), as.person("Francisco Herrera"), as.person("Francisco Charte")),
+  journal = "Knowledge-Based Systems",
+  year = "2019",
+  volume = "In press",
+  doi = "10.1016/j.knosys.2019.01.014",
+
+  textVersion = paste(
+    "D. Charte, F. Herrera and F. Charte,",
+    "Ruta: Implementations of neural autoencoders in R,",
+    "Knowledge-Based Systems (2019),",
+    "https://doi.org/10.1016/j.knosys.2019.01.01"
+  )
+)
