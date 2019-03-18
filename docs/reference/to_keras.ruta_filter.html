@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Noise generator — noise • ruta</title>
+<title>Get a Keras generator from a data filter — to_keras.ruta_filter • ruta</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Noise generator — noise" />
+<meta property="og:title" content="Get a Keras generator from a data filter — to_keras.ruta_filter" />
 
-<meta property="og:description" content="Delegates on noise classes to generate noise of some type" />
+<meta property="og:description" content="Noise filters can be applied during training (in denoising autoencoders),
+for this a generator is used to get data batches." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -150,29 +151,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Noise generator</h1>
+    <h1>Get a Keras generator from a data filter</h1>
     <small class="dont-index">Source: <a href='https://github.com/fdavidcl/ruta/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
-    <div class="hidden name"><code>noise.Rd</code></div>
+    <div class="hidden name"><code>to_keras.ruta_filter.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Delegates on noise classes to generate noise of some type</p>
+    <p>Noise filters can be applied during training (in denoising autoencoders),
+for this a generator is used to get data batches.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>noise</span>(<span class='no'>type</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for ruta_filter</span>
+<span class='fu'><a href='to_keras.html'>to_keras</a></span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>batch_size</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>Type of noise, as a character string</p></td>
+      <th>x</th>
+      <td><p>Filter object</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>Matrix where the filter will be applied</p></td>
+    </tr>
+    <tr>
+      <th>batch_size</th>
+      <td><p>Size of the sample (for the training stage)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Parameters for each noise class</p></td>
+      <td><p>Additional parameters, currently unused</p></td>
     </tr>
     </table>
     
