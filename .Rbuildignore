@@ -1,3 +1,6 @@
+^css$
+^js$
+^index\.html$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^CONVENTIONS\.md$

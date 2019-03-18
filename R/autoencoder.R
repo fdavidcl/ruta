@@ -50,8 +50,7 @@ new_autoencoder <- function(network, loss, extra_class = NULL) {
 #' )
 #'
 #' @export
-autoencoder <- function(network = arg_network(), loss = arg_loss("mean_squared_error")) {
-  check_args(formals(), environment())
+autoencoder <- function(network, loss = "mean_squared_error") {
   new_autoencoder(network, loss)
 }
 
@@ -208,7 +207,7 @@ train.ruta_autoencoder <- function(
   data,
   validation_data = NULL,
   metrics = NULL,
-  epochs = arg_positive(20),
+  epochs = 20,
   optimizer = keras::optimizer_rmsprop(),
   ...) {
   learner$input_shape <- dim(data)[-1]
