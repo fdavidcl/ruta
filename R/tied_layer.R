@@ -73,7 +73,7 @@ mytest <- function() {
     layer_dense_tied(decoder2, tied_to = encoder1, activation = "hard_sigmoid")
 
   contractive_loss <-
-    ruta:::contraction("binary_crossentropy") %>% ruta:::to_keras.ruta_loss_contraction(list(models = list(autoencoder = decoder)))
+    contraction("binary_crossentropy") %>% to_keras.ruta_loss_contraction(list(models = list(autoencoder = decoder)))
   compile(
     decoder1,
     optimizer = "rmsprop",
