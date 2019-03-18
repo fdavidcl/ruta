@@ -124,7 +124,7 @@ to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras
 #' @param ... Additional parameters for `to_keras.ruta_autoencoder`
 #' @export
 to_keras.ruta_autoencoder_variational <- function(learner, ...) {
-  to_keras.ruta_autoencoder(learner, encoder_end = "z_mean", decoder_start = "sampling", ...)
+  to_keras.ruta_autoencoder(learner, encoder_end = "sampling", decoder_start = "sampling", ...)
 }
 
 #' Variational loss
