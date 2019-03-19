@@ -1,3 +1,5 @@
+# Functions in this file are no longer used, and only kept for backward compatibility.
+
 # This file defines the derivatives of activation functions available in Keras
 # (except softmax). They are not exported since this computation could change
 # in the future, in case Keras can automatically calculate derivatives for activations.

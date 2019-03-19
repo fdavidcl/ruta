@@ -162,9 +162,16 @@ apply_filter.ruta_noise_cauchy <- function(filter, data, ...) {
   data + term
 }
 
+#' Get a Keras generator from a data filter
+#'
+#' Noise filters can be applied during training (in denoising autoencoders),
+#' for this a generator is used to get data batches.
+#'
 #' @import R.utils
-#' @param data
-#' @param batch_size
+#' @param x Filter object
+#' @param data Matrix where the filter will be applied
+#' @param batch_size Size of the sample (for the training stage)
+#' @param ... Additional parameters, currently unused
 to_keras.ruta_filter <- function(x, data, batch_size, ...) {
   limit <- dim(data)[1]
   order <- sample.int(limit)
@@ -176,7 +183,7 @@ to_keras.ruta_filter <- function(x, data, batch_size, ...) {
       start <- 1
     } else {
       idx <- order[start:(start + batch_size - 1)]
-      start <- start + batch_size
+      # start <- start + batch_size
     }
     original <- R.utils::extract(data, "1" = idx)
     noisy <- apply_filter(x, original)

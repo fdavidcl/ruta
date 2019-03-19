@@ -8,20 +8,22 @@
 \alias{evaluate_kullback_leibler_divergence}
 \title{Evaluation metrics}
 \usage{
-evaluate_mean_squared_error(learner, data)
+evaluate_mean_squared_error(learner, data, ...)
 
-evaluate_mean_absolute_error(learner, data)
+evaluate_mean_absolute_error(learner, data, ...)
 
-evaluate_binary_crossentropy(learner, data)
+evaluate_binary_crossentropy(learner, data, ...)
 
-evaluate_binary_accuracy(learner, data)
+evaluate_binary_accuracy(learner, data, ...)
 
-evaluate_kullback_leibler_divergence(learner, data)
+evaluate_kullback_leibler_divergence(learner, data, ...)
 }
 \arguments{
 \item{learner}{A trained learner object}
 
 \item{data}{Test data for evaluation}
+
+\item{...}{Additional parameters passed to \code{keras::\link[keras]{evaluate}}.}
 }
 \value{
 A named list with the autoencoder training loss and evaluation metric for the

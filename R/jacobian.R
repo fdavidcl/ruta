@@ -9,5 +9,3 @@ gradients <- reticulate::import("tensorflow.python.ops.parallel_for.gradients", 
 jacobian <- function(y, x) {
   gradients$batch_jacobian(y, x)
 }
-
-# jacobian <- gradients$batch_jacobian
