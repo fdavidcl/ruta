@@ -3,6 +3,13 @@
 
 *Software for unsupervised deep architectures*
 
+[![R language](https://img.shields.io/badge/language-R-lightgrey.svg)](https://www.r-project.org/)
+[![Downloads](https://cranlogs.r-pkg.org/badges/ruta)](https://cranlogs.r-pkg.org/downloads/total/last-month/ruta)
+[![Travis](https://img.shields.io/travis/fdavidcl/ruta/master.svg)](https://travis-ci.org/fdavidcl/ruta)
+[![license](https://img.shields.io/github/license/fdavidcl/ruta.svg)](https://www.gnu.org/licenses/gpl.html)
+
+---
+
 Get uncomplicated access to unsupervised deep neural networks, from building their architecture to their training and evaluation
 
 [Get started](https://ruta.software/articles/examples/autoencoder_basic.html)

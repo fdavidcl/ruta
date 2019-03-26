@@ -2,7 +2,7 @@
 `%to%` <- function(min, max) list(min = min, max = max)
 
 # Constructor for argument descriptors
-arg_constructor <- function(..., .default = NULL, .required = FALSE) {
+arg <- function(..., .default = NULL, .required = FALSE) {
   # A function which returns a default value for a parameter. If the `get`
   # argument is set to TRUE, a machine-readable description of
   # the parameter is returned instead.
@@ -24,25 +24,25 @@ as_arg.ruta_arg <- function(x) x
 # Any value can be used to generate an argument descriptor for its class
 as_arg.default <- function(x) {
   if (is.name(x) && x == "")
-    arg_constructor(.required = TRUE)
+    arg(.required = TRUE)
   else {
     args <- list(NULL)
     names(args) <- class(x)
-    do.call(arg_constructor, c(args, list(.default = x)))
+    do.call(arg, c(args, list(.default = x)))
   }
 }
 
 # Argument descriptor for a neural network object
-arg_network <- arg_constructor(ruta_network = NULL, numeric = NULL, .required = TRUE)
+arg_network <- arg(ruta_network = NULL, numeric = NULL, .required = TRUE)
 
 # Argument descriptor for a loss function
-arg_loss <- arg_constructor(
+arg_loss <- arg(
   ruta_loss = NULL,
   character = list_keras_objects("loss"),
   .default = "mean_squared_error"
 )
 
-arg_activation <- arg_constructor(
+arg_activation <- arg(
   character = list_keras_objects("activation"),
   .default = "linear"
 )
