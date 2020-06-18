@@ -72,5 +72,12 @@ autoencoder(
   evaluate_mean_squared_error(x_test)
 ```
 
+**Note**: if using Tensorflow 2 you may need to run the following lines before training an autoencoder:
+
+```r
+if (tensorflow::tf$executing_eagerly())
+  tensorflow::tf$compat$v1$disable_eager_execution()
+```
+
 For more details, see [other examples](http://ruta.software/articles/examples) and [the documentation](http://ruta.software/reference/).
 
