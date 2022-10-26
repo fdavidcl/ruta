@@ -88,7 +88,7 @@ to_keras.ruta_loss_contraction <- function(x, learner, ...) {
   encoding_h <- keras::get_output_at(keras::get_layer(keras_model, name = "encoding"), 1)
 
   # derivative of the activation function
-  #act_der <- learner$network[[learner$network %@% "encoding"]]$activation %>% derivative()
+  #act_der <- network_encoding(learner$network)$activation %>% derivative()
 
   # contractive loss
   function(y_true, y_pred) {

@@ -57,13 +57,13 @@ sparsity <- function(high_probability, weight) {
 #' @import purrr
 #' @export
 make_sparse <- function(learner, high_probability = 0.1, weight = 0.2) {
-  encoding_layer <- learner$network[[learner$network %@% "encoding"]]
+  encoding_layer <- network_encoding(learner$network)
 
   if (!(encoding_layer$activation %in% c("tanh", "sigmoid", "softsign", "hard_sigmoid"))) {
     message("The sparsity regularization is better defined for bounded activation functions (with an infimum and a supremum) in the encoding layer. Performance could be affected by this.")
   }
 
-  learner$network[[learner$network %@% "encoding"]]$activity_regularizer <- sparsity(high_probability, weight)
+  network_encoding(learner$network)$activity_regularizer <- sparsity(high_probability, weight)
 
   learner
 }
@@ -75,7 +75,7 @@ make_sparse <- function(learner, high_probability = 0.1, weight = 0.2) {
 #' @import purrr
 #' @export
 is_sparse <- function(learner) {
-  !is.null(learner$network[[learner$network %@% "encoding"]]$activity_regularizer)
+  !is.null(network_encoding(learner$network)$activity_regularizer)
 }
 
 #' Translate sparsity regularization to Keras regularizer
