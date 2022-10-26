@@ -33,6 +33,14 @@ new_network <- function(...) {
   )
 }
 
+network_encoding <- function(x) {
+  x[[attr(x, "encoding")]]
+}
+`network_encoding<-` <- function(x, value) {
+  x[[attr(x, "encoding")]] <- value
+  x
+}
+
 #' @rdname as_network
 #' @export
 as_network.ruta_network <- function(x) {
@@ -153,7 +161,7 @@ to_keras.ruta_network <- function(x, input_shape) {
   network <- NULL
   net_list <- list()
 
-  x[[x %@% "encoding"]]$name = "encoding"
+  network_encoding(x)$name = "encoding"
 
   for (layer in x) {
     network <- to_keras(layer, input_shape, model = network)

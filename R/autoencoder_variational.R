@@ -40,8 +40,8 @@ autoencoder_variational <- function(network, loss = "binary_crossentropy", auto_
   if (detect_index(network, ~ ruta_layer_variational %in% class(.)) == 0) {
     if (auto_transform_network) {
       message("Transforming encoding layer into variational block")
-      encoding_units <- network[[network %@% "encoding"]]$units
-      network[network %@% "encoding"] <- variational_block(encoding_units)
+      encoding_units <- network_encoding(network)$units
+      network_encoding(network) <- variational_block(encoding_units)
     } else {
       stop("Can't build a variational autoencoder without a variational block")
     }

@@ -26,7 +26,7 @@ weight_decay <- function(decay = 0.02) {
 #' @export
 add_weight_decay <- function(learner, decay = 0.02) {
   # apply this regularizer only to the encoding?
-  learner$network[[learner$network %@% "encoding"]]$kernel_regularizer <- weight_decay(decay)
+  network_encoding(learner$network)$kernel_regularizer <- weight_decay(decay)
 
   learner
 }
