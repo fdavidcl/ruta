@@ -23,7 +23,7 @@ new_network <- function(...) {
 
   # type check
   stopifnot(
-    every(args, ~ class(.) == ruta_layer)
+    every(args, ~ inherits(., ruta_layer))
   )
 
   structure(
