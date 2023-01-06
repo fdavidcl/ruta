@@ -69,22 +69,25 @@ to_keras.ruta_layer_input <- function(x, input_shape, ...) {
 #' @return A construct with class \code{"ruta_network"}
 #' @family neural layers
 #' @export
-output <- function(activation = "linear") {
+output <- function(activation = arg_activation("linear")) {
   make_atomic_network(ruta_layer_dense, activation = activation)
 }
 
 #' Create a fully-connected neural layer
 #'
 #' Wrapper for a dense/fully-connected layer.
-#' @param units Number of units
+#' @param units Number of units (automatic coercion to integer)
 #' @param activation Optional, string indicating activation function (linear by default)
 #' @return A construct with class \code{"ruta_network"}
 #' @examples
 #' dense(30, "tanh")
 #' @family neural layers
 #' @export
-dense <- function(units, activation = "linear") {
-  make_atomic_network(ruta_layer_dense, units = units, activation = activation)
+dense <- function(units, activation = arg_activation("linear")) {
+  if (as.integer(units) != units) {
+    warning(paste0("Automatic coercion to integer in layer units (found value ", units, ")"))
+  }
+  make_atomic_network(ruta_layer_dense, units = as.integer(units), activation = activation)
 }
 
 #' @param model Keras model where the layer will be added
@@ -143,6 +146,8 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
 #' @param filters Number of filters learned by the layer
 #' @param kernel_size Integer or list of integers indicating the size of the weight
 #'  matrices to be convolved with the image
+#' @param strides The number of pixels stepped by the sliding window of the convolution
+#'  operation (default: 1)
 #' @param padding One of "valid" or "same" (case-insensitive). See
 #'  \code{\link[keras]{layer_conv_2d}} for more details
 #' @param max_pooling \code{NULL} or an integer indicating the reduction ratio for a max
@@ -163,7 +168,7 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
 #'  conv(1, 3, activation = "sigmoid")
 #' @family neural layers
 #' @export
-conv <- function(filters, kernel_size, padding = "same", max_pooling = NULL, average_pooling = NULL, upsampling = NULL, activation = "linear") {
+conv <- function(filters, kernel_size, strides = 1L, padding = "same", max_pooling = NULL, average_pooling = NULL, upsampling = NULL, activation = "linear") {
   if (sum(map_lgl(list(max_pooling, average_pooling, upsampling), is.null)) < 2) {
     warning("More than one pooling or upsampling operation has been selected in this layer.")
   }
@@ -171,6 +176,57 @@ conv <- function(filters, kernel_size, padding = "same", max_pooling = NULL, ave
   make_atomic_network(
     ruta_layer_conv,
     filters = filters,
+    strides = strides,
+    kernel_size = kernel_size,
+    padding = padding,
+    activation = activation,
+    max_pooling = max_pooling,
+    average_pooling = average_pooling,
+    upsampling = upsampling
+  )
+}
+
+#' Create a deconvolutional layer
+#'
+#' Wrapper for a deconvolutional layer, also known as convolutional transpose. The
+#' dimensions of the convolution operation are
+#' inferred from the shape of the input data. This shape must follow the pattern
+#' \code{(batch_shape, x, [y, [z, ]], channel)} where dimensions \code{y} and \code{z}
+#' are optional, and \code{channel} will be either \code{1} for grayscale images or
+#' generally \code{3} for colored ones.
+#' @param filters Number of filters learned by the layer
+#' @param kernel_size Integer or list of integers indicating the size of the weight
+#'  matrices to be convolved with the image
+#' @param strides The number of pixels stepped by the sliding window of the convolution
+#'  operation (default: 1)
+#' @param padding One of "valid" or "same" (case-insensitive). See
+#'  \code{\link[keras]{layer_conv_2d}} for more details
+#' @param max_pooling \code{NULL} or an integer indicating the reduction ratio for a max
+#'  pooling operation after the convolution
+#' @param average_pooling \code{NULL} or an integer indicating the reduction ratio for
+#'  an average pooling operation after the convolution
+#' @param upsampling \code{NULL} or an integer indicating the augmentation ratio for an
+#'  upsampling operation after the convolution
+#' @param activation Optional, string indicating activation function (linear by default)
+#' @return A construct with class \code{"ruta_network"}
+#' @examples
+#' # Sample convolutional autoencoder
+#' net <- input() +
+#'  conv(16, 3, max_pooling = 2, activation = "relu") +
+#'  conv(8, 3, max_pooling = 2, activation = "relu") +
+#'  deconv(16, 3, upsampling = 2, activation = "relu") +
+#'  deconv(1, 3, activation = "sigmoid")
+#' @family neural layers
+#' @export
+deconv <- function(filters, kernel_size, strides = 1L, padding = "same", max_pooling = NULL, average_pooling = NULL, upsampling = NULL, activation = "linear") {
+  if (sum(map_lgl(list(max_pooling, average_pooling, upsampling), is.null)) < 2) {
+    warning("More than one pooling or upsampling operation has been selected in this layer.")
+  }
+
+  make_atomic_network(
+    ruta_layer_deconv,
+    filters = filters,
+    strides = strides,
     kernel_size = kernel_size,
     padding = padding,
     activation = activation,

@@ -4,10 +4,10 @@
 \alias{dense}
 \title{Create a fully-connected neural layer}
 \usage{
-dense(units, activation = "linear")
+dense(units, activation = arg_activation("linear"))
 }
 \arguments{
-\item{units}{Number of units}
+\item{units}{Number of units (automatic coercion to integer)}
 
 \item{activation}{Optional, string indicating activation function (linear by default)}
 }
@@ -21,9 +21,13 @@ Wrapper for a dense/fully-connected layer.
 dense(30, "tanh")
 }
 \seealso{
-Other neural layers: \code{\link{conv}},
-  \code{\link{dropout}}, \code{\link{input}},
-  \code{\link{layer_keras}}, \code{\link{output}},
-  \code{\link{variational_block}}
+Other neural layers: 
+\code{\link{conv}()},
+\code{\link{deconv}()},
+\code{\link{dropout}()},
+\code{\link{input}()},
+\code{\link{layer_keras}()},
+\code{\link{output}()},
+\code{\link{variational_block}()}
 }
 \concept{neural layers}

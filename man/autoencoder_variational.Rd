@@ -4,8 +4,11 @@
 \alias{autoencoder_variational}
 \title{Build a variational autoencoder}
 \usage{
-autoencoder_variational(network, loss = "binary_crossentropy",
-  auto_transform_network = TRUE)
+autoencoder_variational(
+  network,
+  loss = "binary_crossentropy",
+  auto_transform_network = TRUE
+)
 }
 \arguments{
 \item{network}{Network architecture as a \code{"ruta_network"} object (or coercible)}
@@ -42,10 +45,12 @@ learner <- autoencoder_variational(network, loss = "binary_crossentropy")
 }
 }
 \seealso{
-Other autoencoder variants: \code{\link{autoencoder_contractive}},
-  \code{\link{autoencoder_denoising}},
-  \code{\link{autoencoder_robust}},
-  \code{\link{autoencoder_sparse}},
-  \code{\link{autoencoder}}
+Other autoencoder variants: 
+\code{\link{autoencoder_contractive}()},
+\code{\link{autoencoder_denoising}()},
+\code{\link{autoencoder_orthonormal}()},
+\code{\link{autoencoder_robust}()},
+\code{\link{autoencoder_sparse}()},
+\code{\link{autoencoder}()}
 }
 \concept{autoencoder variants}

@@ -1,0 +1,10 @@
+* using log directory ‘/media/datos/Documents/Universidad/TFG/ruta/..Rcheck’
+* using R version 3.4.0 (2017-04-21)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--as-cran’
+* checking for file ‘./DESCRIPTION’ ... ERROR
+Required fields missing or empty:
+  ‘Author’ ‘Maintainer’
+* DONE
+Status: 1 ERROR

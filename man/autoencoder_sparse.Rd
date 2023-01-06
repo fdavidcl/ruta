@@ -4,8 +4,12 @@
 \alias{autoencoder_sparse}
 \title{Sparse autoencoder}
 \usage{
-autoencoder_sparse(network, loss = "mean_squared_error",
-  high_probability = 0.1, weight = 0.2)
+autoencoder_sparse(
+  network,
+  loss = "mean_squared_error",
+  high_probability = 0.1,
+  weight = 0.2
+)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}
@@ -34,10 +38,12 @@ Creates a representation of a sparse autoencoder.
 \seealso{
 \code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 
-Other autoencoder variants: \code{\link{autoencoder_contractive}},
-  \code{\link{autoencoder_denoising}},
-  \code{\link{autoencoder_robust}},
-  \code{\link{autoencoder_variational}},
-  \code{\link{autoencoder}}
+Other autoencoder variants: 
+\code{\link{autoencoder_contractive}()},
+\code{\link{autoencoder_denoising}()},
+\code{\link{autoencoder_orthonormal}()},
+\code{\link{autoencoder_robust}()},
+\code{\link{autoencoder_variational}()},
+\code{\link{autoencoder}()}
 }
 \concept{autoencoder variants}

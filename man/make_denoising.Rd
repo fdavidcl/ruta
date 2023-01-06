@@ -10,11 +10,11 @@ make_denoising(learner, noise_type = "zeros", ...)
 \item{learner}{The \code{"ruta_autoencoder"} object}
 
 \item{noise_type}{Type of data corruption which will be used to train the
-autoencoder, as a character string. See \code{\link{autoencoder_denoising}} for
+autoencoder, as a character string. See \verb{\link{autoencoder_denoising}} for
 details}
 
 \item{...}{Extra parameters to customize the noisy filter. See
-\code{\link{autoencoder_denoising}} for details}
+\verb{\link{autoencoder_denoising}} for details}
 }
 \value{
 An autoencoder object which contains the noisy filter
@@ -24,5 +24,5 @@ Converts an autoencoder into a denoising one by adding a filter
 for the input data
 }
 \seealso{
-\code{\link{autoencoder_denoising}}
+\verb{\link{autoencoder_denoising}}
 }

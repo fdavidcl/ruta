@@ -5,9 +5,15 @@
 \alias{generate}
 \title{Generate samples from a generative model}
 \usage{
-\method{generate}{ruta_autoencoder_variational}(learner,
-  dimensions = c(1, 2), from = 0.05, to = 0.95, side = 10,
-  fixed_values = 0.5, ...)
+\method{generate}{ruta_autoencoder_variational}(
+  learner,
+  dimensions = c(1, 2),
+  from = 0.05,
+  to = 0.95,
+  side = 10,
+  fixed_values = 0.5,
+  ...
+)
 
 generate(learner, ...)
 }
@@ -30,5 +36,5 @@ generate(learner, ...)
 Generate samples from a generative model
 }
 \seealso{
-\code{\link{autoencoder_variational}}
+\verb{\link{autoencoder_variational}}
 }

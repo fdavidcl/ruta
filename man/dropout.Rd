@@ -17,9 +17,13 @@ Randomly sets a fraction \code{rate} of input units to 0 at each update during t
 time, which helps prevent overfitting.
 }
 \seealso{
-Other neural layers: \code{\link{conv}},
-  \code{\link{dense}}, \code{\link{input}},
-  \code{\link{layer_keras}}, \code{\link{output}},
-  \code{\link{variational_block}}
+Other neural layers: 
+\code{\link{conv}()},
+\code{\link{deconv}()},
+\code{\link{dense}()},
+\code{\link{input}()},
+\code{\link{layer_keras}()},
+\code{\link{output}()},
+\code{\link{variational_block}()}
 }
 \concept{neural layers}

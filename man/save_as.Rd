@@ -5,8 +5,12 @@
 \alias{load_from}
 \title{Save and load Ruta models}
 \usage{
-save_as(learner, file = paste0(substitute(learner), ".tar.gz"), dir,
-  compression = "gzip")
+save_as(
+  learner,
+  file = paste0(substitute(learner), ".tar.gz"),
+  dir,
+  compression = "gzip"
+)
 
 load_from(file)
 }
@@ -19,7 +23,7 @@ saved. In \code{load}, path to the saved model}
 \item{dir}{Directory where to save the file. Use \code{"."} to save in the current
 working directory or \code{tempdir()} to use a temporary one}
 
-\item{compression}{Type of compression to be used, for R function \code{\link{tar}}}
+\item{compression}{Type of compression to be used, for R function \verb{\link{tar}}}
 }
 \value{
 \code{save_as} returns the filename where the model has been saved,

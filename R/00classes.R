@@ -27,3 +27,5 @@ ruta_loss_named <- "ruta_loss_named"
 ruta_loss_contraction <- "ruta_loss_contraction"
 ruta_loss_correntropy <- "ruta_loss_correntropy"
 ruta_loss_variational <- "ruta_loss_variational"
+
+ruta_arg <- "ruta_arg"

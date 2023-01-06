@@ -20,9 +20,13 @@ layers
 Gets any layer available in Keras with the specified parameters
 }
 \seealso{
-Other neural layers: \code{\link{conv}},
-  \code{\link{dense}}, \code{\link{dropout}},
-  \code{\link{input}}, \code{\link{output}},
-  \code{\link{variational_block}}
+Other neural layers: 
+\code{\link{conv}()},
+\code{\link{deconv}()},
+\code{\link{dense}()},
+\code{\link{dropout}()},
+\code{\link{input}()},
+\code{\link{output}()},
+\code{\link{variational_block}()}
 }
 \concept{neural layers}

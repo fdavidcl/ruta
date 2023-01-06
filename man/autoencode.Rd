@@ -4,8 +4,7 @@
 \alias{autoencode}
 \title{Automatically compute an encoding of a data matrix}
 \usage{
-autoencode(data, dim, type = "basic", activation = "linear",
-  epochs = 20)
+autoencode(data, dim, type = "basic", activation = "linear", epochs = 20)
 }
 \arguments{
 \item{data}{Numeric matrix to be encoded}
@@ -40,5 +39,5 @@ encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
 }
 }
 \seealso{
-\code{\link{autoencoder}}
+\verb{\link{autoencoder}}
 }

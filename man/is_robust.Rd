@@ -16,5 +16,5 @@ Logical value indicating if a correntropy loss was found
 Detect whether an autoencoder is robust
 }
 \seealso{
-\code{\link{correntropy}}, \code{\link{autoencoder_robust}}, \code{\link{make_robust}}
+\verb{\link{correntropy}}, \verb{\link{autoencoder_robust}}, \verb{\link{make_robust}}
 }

@@ -27,10 +27,12 @@ squared error.
 }
 }
 \seealso{
-Other autoencoder variants: \code{\link{autoencoder_contractive}},
-  \code{\link{autoencoder_denoising}},
-  \code{\link{autoencoder_sparse}},
-  \code{\link{autoencoder_variational}},
-  \code{\link{autoencoder}}
+Other autoencoder variants: 
+\code{\link{autoencoder_contractive}()},
+\code{\link{autoencoder_denoising}()},
+\code{\link{autoencoder_orthonormal}()},
+\code{\link{autoencoder_sparse}()},
+\code{\link{autoencoder_variational}()},
+\code{\link{autoencoder}()}
 }
 \concept{autoencoder variants}

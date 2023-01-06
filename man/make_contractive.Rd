@@ -19,5 +19,5 @@ Converts an autoencoder into a contractive one by assigning a
 contractive loss to it
 }
 \seealso{
-\code{\link{autoencoder_contractive}}
+\verb{\link{autoencoder_contractive}}
 }

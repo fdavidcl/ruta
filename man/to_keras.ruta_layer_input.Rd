@@ -9,14 +9,11 @@
 \usage{
 \method{to_keras}{ruta_layer_input}(x, input_shape, ...)
 
-\method{to_keras}{ruta_layer_dense}(x, input_shape,
-  model = keras::keras_model_sequential(), ...)
+\method{to_keras}{ruta_layer_dense}(x, input_shape, model = keras::keras_model_sequential(), ...)
 
-\method{to_keras}{ruta_layer_conv}(x, input_shape,
-  model = keras::keras_model_sequential(), ...)
+\method{to_keras}{ruta_layer_conv}(x, input_shape, model = keras::keras_model_sequential(), ...)
 
-\method{to_keras}{ruta_layer_custom}(x, input_shape,
-  model = keras::keras_model_sequential(), ...)
+\method{to_keras}{ruta_layer_custom}(x, input_shape, model = keras::keras_model_sequential(), ...)
 }
 \arguments{
 \item{x}{The layer object}

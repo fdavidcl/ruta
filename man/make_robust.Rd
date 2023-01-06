@@ -20,5 +20,5 @@ correntropy loss to it. Notice that this will replace the previous loss
 function
 }
 \seealso{
-\code{\link{autoencoder_robust}}
+\verb{\link{autoencoder_robust}}
 }
