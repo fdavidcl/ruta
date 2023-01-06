@@ -10,14 +10,16 @@ noise_ones(p = 0.05)
 \item{p}{Probability that a feature in an instance is set to one}
 }
 \value{
-Object which can be applied to data with \code{\link{apply_filter}}
+Object which can be applied to data with \verb{\link{apply_filter}}
 }
 \description{
 A data filter which replaces some values with ones
 }
 \seealso{
-Other noise generators: \code{\link{noise_cauchy}},
-  \code{\link{noise_gaussian}},
-  \code{\link{noise_saltpepper}}, \code{\link{noise_zeros}}
+Other noise generators: 
+\code{\link{noise_cauchy}()},
+\code{\link{noise_gaussian}()},
+\code{\link{noise_saltpepper}()},
+\code{\link{noise_zeros}()}
 }
 \concept{noise generators}

@@ -16,5 +16,5 @@ Logical value indicating if a variational loss was found
 Detect whether an autoencoder is variational
 }
 \seealso{
-\code{\link{autoencoder_variational}}
+\verb{\link{autoencoder_variational}}
 }

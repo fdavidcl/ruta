@@ -4,8 +4,7 @@
 \alias{autoencoder_contractive}
 \title{Create a contractive autoencoder}
 \usage{
-autoencoder_contractive(network, loss = "mean_squared_error",
-  weight = 2e-04)
+autoencoder_contractive(network, loss = "mean_squared_error", weight = 2e-04)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}
@@ -28,10 +27,11 @@ data in the latent space.
 }
 }
 \seealso{
-Other autoencoder variants: \code{\link{autoencoder_denoising}},
-  \code{\link{autoencoder_robust}},
-  \code{\link{autoencoder_sparse}},
-  \code{\link{autoencoder_variational}},
-  \code{\link{autoencoder}}
+Other autoencoder variants: 
+\code{\link{autoencoder_denoising}()},
+\code{\link{autoencoder_robust}()},
+\code{\link{autoencoder_sparse}()},
+\code{\link{autoencoder_variational}()},
+\code{\link{autoencoder}()}
 }
 \concept{autoencoder variants}

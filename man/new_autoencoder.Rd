@@ -19,5 +19,5 @@ A construct of class \code{"ruta_autoencoder"}
 }
 \description{
 Internal function to create autoencoder objects. Instead, consider using
-\code{\link{autoencoder}}.
+\verb{\link{autoencoder}}.
 }

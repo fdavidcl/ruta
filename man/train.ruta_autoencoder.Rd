@@ -5,9 +5,15 @@
 \alias{train}
 \title{Train a learner object with data}
 \usage{
-\method{train}{ruta_autoencoder}(learner, data, validation_data = NULL,
-  metrics = NULL, epochs = 20,
-  optimizer = keras::optimizer_rmsprop(), ...)
+\method{train}{ruta_autoencoder}(
+  learner,
+  data,
+  validation_data = NULL,
+  metrics = NULL,
+  epochs = 20,
+  optimizer = keras::optimizer_rmsprop(),
+  ...
+)
 
 train(learner, ...)
 }
@@ -20,14 +26,14 @@ train(learner, ...)
 for training but the loss measure and any metrics will be computed against it}
 
 \item{metrics}{Optional list of metrics which will evaluate the model but
-won't be optimized. See \code{keras::\link[keras]{compile}}}
+won't be optimized. See \verb{keras::\link[keras]\{compile\}}}
 
 \item{epochs}{The number of times data will pass through the network}
 
 \item{optimizer}{The optimizer to be used in order to train the model, can
 be any optimizer object defined by Keras (e.g. \code{keras::optimizer_adam()})}
 
-\item{...}{Additional parameters for \code{keras::\link[keras]{fit}}. Some useful parameters:
+\item{...}{Additional parameters for \verb{keras::\link[keras]\{fit\}}. Some useful parameters:
 \itemize{
 \item \code{batch_size} The number of examples to be grouped for each gradient update.
 Use a smaller batch size for more frequent weight updates or a larger one for
@@ -77,5 +83,5 @@ train(
 }
 }
 \seealso{
-\code{\link{autoencoder}}
+\verb{\link{autoencoder}}
 }

@@ -4,8 +4,12 @@
 \alias{autoencoder_denoising}
 \title{Create a denoising autoencoder}
 \usage{
-autoencoder_denoising(network, loss = "mean_squared_error",
-  noise_type = "zeros", ...)
+autoencoder_denoising(
+  network,
+  loss = "mean_squared_error",
+  noise_type = "zeros",
+  ...
+)
 }
 \arguments{
 \item{network}{Layer construct of class \code{"ruta_network"}}
@@ -15,15 +19,15 @@ autoencoder_denoising(network, loss = "mean_squared_error",
 \item{noise_type}{Type of data corruption which will be used to train the
 autoencoder, as a character string. Available types:
 \itemize{
-\item \code{"zeros"} Randomly set components to zero (\code{\link{noise_zeros}})
-\item \code{"ones"} Randomly set components to one (\code{\link{noise_ones}})
-\item \code{"saltpepper"} Randomly set components to zero or one (\code{\link{noise_saltpepper}})
+\item \code{"zeros"} Randomly set components to zero (\verb{\link{noise_zeros}})
+\item \code{"ones"} Randomly set components to one (\verb{\link{noise_ones}})
+\item \code{"saltpepper"} Randomly set components to zero or one (\verb{\link{noise_saltpepper}})
 \item \code{"gaussian"} Randomly offset each component of an input as drawn from
 Gaussian distributions with the same variance (additive Gaussian noise,
-\code{\link{noise_gaussian}})
+\verb{\link{noise_gaussian}})
 \item \code{"cauchy"} Randomly offset each component of an input as drawn from
 Cauchy distributions with the same scale (additive Cauchy noise,
-\code{\link{noise_cauchy}})
+\verb{\link{noise_cauchy}})
 }}
 
 \item{...}{Extra parameters to customize the noisy filter:
@@ -49,10 +53,11 @@ create a model able to reduce noise in reconstructions from input data
 }
 }
 \seealso{
-Other autoencoder variants: \code{\link{autoencoder_contractive}},
-  \code{\link{autoencoder_robust}},
-  \code{\link{autoencoder_sparse}},
-  \code{\link{autoencoder_variational}},
-  \code{\link{autoencoder}}
+Other autoencoder variants: 
+\code{\link{autoencoder_contractive}()},
+\code{\link{autoencoder_robust}()},
+\code{\link{autoencoder_sparse}()},
+\code{\link{autoencoder_variational}()},
+\code{\link{autoencoder}()}
 }
 \concept{autoencoder variants}

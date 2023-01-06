@@ -16,5 +16,5 @@ Logical value indicating if a noise generator was found
 Detect whether an autoencoder is denoising
 }
 \seealso{
-\code{\link{noise}}, \code{\link{autoencoder_denoising}}, \code{\link{make_denoising}}
+\verb{\link{noise}}, \verb{\link{autoencoder_denoising}}, \verb{\link{make_denoising}}
 }

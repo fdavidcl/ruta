@@ -9,16 +9,16 @@ evaluation_metric(evaluate_f)
 \arguments{
 \item{evaluate_f}{Must be either a metric function defined by Keras (e.g.
 \code{keras::metric_binary_crossentropy}) or a valid function for Keras to
-create a performance metric (see \code{\link[keras]{metric_binary_accuracy}}
+create a performance metric (see \verb{\link[keras]\{metric_binary_accuracy\}}
 for details)}
 }
 \value{
 A function which can be called with parameters \code{learner} and \code{data}
-just like the ones defined in \code{\link[ruta]{evaluate}}.
+just like the ones defined in \verb{\link[ruta]\{evaluate\}}.
 }
 \description{
 Create a different evaluation metric from a valid Keras metric
 }
 \seealso{
-\code{\link[ruta]{evaluate}}
+\verb{\link[ruta]\{evaluate\}}
 }

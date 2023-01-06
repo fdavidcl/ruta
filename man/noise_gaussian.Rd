@@ -13,14 +13,16 @@ noise_gaussian(sd = NULL, var = NULL)
 if \code{sd} is not provided)}
 }
 \value{
-Object which can be applied to data with \code{\link{apply_filter}}
+Object which can be applied to data with \verb{\link{apply_filter}}
 }
 \description{
 A data filter which adds Gaussian noise to instances
 }
 \seealso{
-Other noise generators: \code{\link{noise_cauchy}},
-  \code{\link{noise_ones}}, \code{\link{noise_saltpepper}},
-  \code{\link{noise_zeros}}
+Other noise generators: 
+\code{\link{noise_cauchy}()},
+\code{\link{noise_ones}()},
+\code{\link{noise_saltpepper}()},
+\code{\link{noise_zeros}()}
 }
 \concept{noise generators}

@@ -25,9 +25,10 @@ distribution and the true latent posterior.
 }
 }
 \seealso{
-\code{\link{autoencoder_variational}}
+\verb{\link{autoencoder_variational}}
 
-Other loss functions: \code{\link{contraction}},
-  \code{\link{correntropy}}
+Other loss functions: 
+\code{\link{contraction}()},
+\code{\link{correntropy}()}
 }
 \concept{loss functions}

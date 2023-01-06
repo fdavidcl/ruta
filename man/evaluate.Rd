@@ -23,7 +23,7 @@ evaluate_kullback_leibler_divergence(learner, data, ...)
 
 \item{data}{Test data for evaluation}
 
-\item{...}{Additional parameters passed to \code{keras::\link[keras]{evaluate}}.}
+\item{...}{Additional parameters passed to \verb{keras::\link[keras]\{evaluate\}}.}
 }
 \value{
 A named list with the autoencoder training loss and evaluation metric for the
@@ -47,5 +47,5 @@ autoencoder(2) \%>\%
 
 }
 \seealso{
-\code{\link{evaluation_metric}}
+\verb{\link{evaluation_metric}}
 }

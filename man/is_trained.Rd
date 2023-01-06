@@ -16,5 +16,5 @@ A boolean
 Inspects a learner and figures out whether it has been trained
 }
 \seealso{
-\code{\link{train}}
+\verb{\link{train}}
 }

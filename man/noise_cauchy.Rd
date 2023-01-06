@@ -10,14 +10,16 @@ noise_cauchy(scale = 0.005)
 \item{scale}{Scale for the Cauchy distribution}
 }
 \value{
-Object which can be applied to data with \code{\link{apply_filter}}
+Object which can be applied to data with \verb{\link{apply_filter}}
 }
 \description{
 A data filter which adds noise from a Cauchy distribution to instances
 }
 \seealso{
-Other noise generators: \code{\link{noise_gaussian}},
-  \code{\link{noise_ones}}, \code{\link{noise_saltpepper}},
-  \code{\link{noise_zeros}}
+Other noise generators: 
+\code{\link{noise_gaussian}()},
+\code{\link{noise_ones}()},
+\code{\link{noise_saltpepper}()},
+\code{\link{noise_zeros}()}
 }
 \concept{noise generators}

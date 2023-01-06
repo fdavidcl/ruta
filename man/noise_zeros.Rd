@@ -10,14 +10,16 @@ noise_zeros(p = 0.05)
 \item{p}{Probability that a feature in an instance is set to zero}
 }
 \value{
-Object which can be applied to data with \code{\link{apply_filter}}
+Object which can be applied to data with \verb{\link{apply_filter}}
 }
 \description{
 A data filter which replaces some values with zeros
 }
 \seealso{
-Other noise generators: \code{\link{noise_cauchy}},
-  \code{\link{noise_gaussian}}, \code{\link{noise_ones}},
-  \code{\link{noise_saltpepper}}
+Other noise generators: 
+\code{\link{noise_cauchy}()},
+\code{\link{noise_gaussian}()},
+\code{\link{noise_ones}()},
+\code{\link{noise_saltpepper}()}
 }
 \concept{noise generators}

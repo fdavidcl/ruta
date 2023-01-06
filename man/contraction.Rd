@@ -20,9 +20,10 @@ This is a wrapper for a loss which induces a contraction in the
 latent space.
 }
 \seealso{
-\code{\link{autoencoder_contractive}}
+\verb{\link{autoencoder_contractive}}
 
-Other loss functions: \code{\link{correntropy}},
-  \code{\link{loss_variational}}
+Other loss functions: 
+\code{\link{correntropy}()},
+\code{\link{loss_variational}()}
 }
 \concept{loss functions}

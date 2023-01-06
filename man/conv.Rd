@@ -4,8 +4,15 @@
 \alias{conv}
 \title{Create a convolutional layer}
 \usage{
-conv(filters, kernel_size, padding = "same", max_pooling = NULL,
-  average_pooling = NULL, upsampling = NULL, activation = "linear")
+conv(
+  filters,
+  kernel_size,
+  padding = "same",
+  max_pooling = NULL,
+  average_pooling = NULL,
+  upsampling = NULL,
+  activation = "linear"
+)
 }
 \arguments{
 \item{filters}{Number of filters learned by the layer}
@@ -47,9 +54,12 @@ net <- input() +
  conv(1, 3, activation = "sigmoid")
 }
 \seealso{
-Other neural layers: \code{\link{dense}},
-  \code{\link{dropout}}, \code{\link{input}},
-  \code{\link{layer_keras}}, \code{\link{output}},
-  \code{\link{variational_block}}
+Other neural layers: 
+\code{\link{dense}()},
+\code{\link{dropout}()},
+\code{\link{input}()},
+\code{\link{layer_keras}()},
+\code{\link{output}()},
+\code{\link{variational_block}()}
 }
 \concept{neural layers}

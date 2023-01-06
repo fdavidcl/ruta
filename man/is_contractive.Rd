@@ -16,5 +16,5 @@ Logical value indicating if a contractive loss was found
 Detect whether an autoencoder is contractive
 }
 \seealso{
-\code{\link{contraction}}, \code{\link{autoencoder_contractive}}, \code{\link{make_contractive}}
+\verb{\link{contraction}}, \verb{\link{autoencoder_contractive}}, \verb{\link{make_contractive}}
 }

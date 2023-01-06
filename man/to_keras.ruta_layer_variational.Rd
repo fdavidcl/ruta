@@ -4,8 +4,7 @@
 \alias{to_keras.ruta_layer_variational}
 \title{Obtain a Keras block of layers for the variational autoencoder}
 \usage{
-\method{to_keras}{ruta_layer_variational}(x, input_shape,
-  model = keras::keras_model_sequential(), ...)
+\method{to_keras}{ruta_layer_variational}(x, input_shape, model = keras::keras_model_sequential(), ...)
 }
 \arguments{
 \item{x}{The layer object}

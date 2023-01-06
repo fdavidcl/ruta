@@ -45,10 +45,11 @@ learner <- autoencoder(
 \seealso{
 \code{\link{train.ruta_autoencoder}}
 
-Other autoencoder variants: \code{\link{autoencoder_contractive}},
-  \code{\link{autoencoder_denoising}},
-  \code{\link{autoencoder_robust}},
-  \code{\link{autoencoder_sparse}},
-  \code{\link{autoencoder_variational}}
+Other autoencoder variants: 
+\code{\link{autoencoder_contractive}()},
+\code{\link{autoencoder_denoising}()},
+\code{\link{autoencoder_robust}()},
+\code{\link{autoencoder_sparse}()},
+\code{\link{autoencoder_variational}()}
 }
 \concept{autoencoder variants}
