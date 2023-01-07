@@ -1,13 +1,12 @@
 #' **This example demonstrates the use of denoising autoencoders with the Ruta package.**
 #'
 #' Define a denoising autoencoder with 36-variable encoding.
-library(magrittr)
 library(keras)
 library(ruta)
 
 network <- input() + dense(36, "elu") + output("sigmoid")
 learner <-
-  network %>%
+  network |>
   autoencoder_denoising(
     loss = "binary_crossentropy",
     noise_type = "gaussian"
@@ -34,7 +33,7 @@ model <- train(
 )
 
 #' Generate reconstructions from test data
-decoded <- model %>% reconstruct(x_test)
+decoded <- model |> reconstruct(x_test)
 
 #' Utility functions for plotting
 plot_digit <- function(digit, ...) {
@@ -59,6 +58,6 @@ plot_sample(x_test, decoded, 1:10)
 
 #' Generate noisy test data and plot denoised reconstructions. Notice that values of noisy instances may not restrict themselves to the $[0,1]$ range.
 x_test_noisy <- apply_filter(noise_gaussian(), x_test)
-decoded <- model %>% reconstruct(x_test_noisy)
+decoded <- model |> reconstruct(x_test_noisy)
 
 plot_sample(x_test_noisy, decoded, 1:10)

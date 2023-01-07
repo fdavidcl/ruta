@@ -32,15 +32,13 @@ evaluation_metric <- function(evaluate_f) function(learner, data, ...) {
 #' @return A named list with the autoencoder training loss and evaluation metric for the
 #'   given data
 #' @examples
-#' library(purrr)
-#'
 #' x <- as.matrix(sample(iris[, 1:4]))
 #' x_train <- x[1:100, ]
 #' x_test <- x[101:150, ]
 #'
 #' \donttest{
-#' autoencoder(2) %>%
-#'   train(x_train) %>%
+#' autoencoder(2) |>
+#'   train(x_train) |>
 #'   evaluate_mean_squared_error(x_test)
 #' }
 #'

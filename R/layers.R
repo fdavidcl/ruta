@@ -13,6 +13,7 @@
 #'
 #' # Equivalent:
 #' my_layer <- dense(30, "tanh")[[1]]
+#' @importFrom purrr is_scalar_vector
 #' @export
 new_layer <- function(cl, ...) {
   # length check
@@ -127,7 +128,7 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
       paste0("pre_", x$name),
     kernel_initializer = kern_ini,
     ...
-  ) %>%
+  ) |>
     keras::layer_activation(activation = x$activation, name = x$name)
 
 }
@@ -162,6 +163,7 @@ to_keras.ruta_layer_dense <- function(x, input_shape, model = keras::keras_model
 #'  conv(16, 3, upsampling = 2, activation = "relu") +
 #'  conv(1, 3, activation = "sigmoid")
 #' @family neural layers
+#' @importFrom purrr map_lgl
 #' @export
 conv <- function(filters, kernel_size, padding = "same", max_pooling = NULL, average_pooling = NULL, upsampling = NULL, activation = "linear") {
   if (sum(map_lgl(list(max_pooling, average_pooling, upsampling), is.null)) < 2) {
@@ -228,7 +230,7 @@ to_keras.ruta_layer_conv <- function(x, input_shape, model = keras::keras_model_
           kernel_initializer = kern_ini,
           padding = x$padding,
           ...
-  ) %>%
+  ) |>
     keras::layer_activation(activation = x$activation, name = if (is.null(x$max_pooling) && is.null(x$average_pooling) && is.null(x$upsampling)) x$name else NULL)
 
   if (!is.null(x$max_pooling)) {

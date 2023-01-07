@@ -33,18 +33,17 @@ working directory or \code{tempdir()} to use a temporary one}
 Functions to save a trained or untrained Ruta learner into a file and load it
 }
 \examples{
-library(purrr)
 
 x <- as.matrix(iris[, 1:4])
 
 \donttest{
 # Save a trained model
 saved_file <-
-  autoencoder(2) \%>\%
-  train(x) \%>\%
+  autoencoder(2) |>
+  train(x) |>
   save_as("my_model.tar.gz", dir = tempdir())
 
 # Load and use the model
-encoded <- load_from(saved_file) \%>\% encode(x)
+encoded <- load_from(saved_file) |> encode(x)
 }
 }

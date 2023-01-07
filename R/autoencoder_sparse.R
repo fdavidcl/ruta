@@ -15,10 +15,9 @@
 #' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes}
 #' @seealso \code{\link{sparsity}}, \code{\link{make_sparse}}, \code{\link{is_sparse}}
 #' @family autoencoder variants
-#' @import purrr
 #' @export
 autoencoder_sparse <- function(network, loss = "mean_squared_error", high_probability = 0.1, weight = 0.2) {
-  autoencoder(network, loss) %>%
+  autoencoder(network, loss) |>
     make_sparse(high_probability, weight)
 }
 
@@ -54,7 +53,6 @@ sparsity <- function(high_probability, weight) {
 #' @param weight The weight of the sparsity regularization
 #' @return The same autoencoder with the sparsity regularization applied
 #' @seealso \code{\link{sparsity}}, \code{\link{autoencoder_sparse}}, \code{\link{is_sparse}}
-#' @import purrr
 #' @export
 make_sparse <- function(learner, high_probability = 0.1, weight = 0.2) {
   encoding_layer <- network_encoding(learner$network)
@@ -72,7 +70,6 @@ make_sparse <- function(learner, high_probability = 0.1, weight = 0.2) {
 #' @param learner A \code{"ruta_autoencoder"} object
 #' @return Logical value indicating if a sparsity regularization in the encoding layer was found
 #' @seealso \code{\link{sparsity}}, \code{\link{autoencoder_sparse}}, \code{\link{make_sparse}}
-#' @import purrr
 #' @export
 is_sparse <- function(learner) {
   !is.null(network_encoding(learner$network)$activity_regularizer)
@@ -81,14 +78,14 @@ is_sparse <- function(learner) {
 #' Translate sparsity regularization to Keras regularizer
 #' @param x Sparsity object
 #' @param activation Name of the activation function used in the encoding layer
+#' @param ... Unused
 #' @return Function which can be used as activity regularizer in a Keras layer
 #' @references
 #' - [Sparse deep belief net model for visual area V2](http://papers.nips.cc/paper/3313-sparse-deep-belief-net-model-for-visual-area-v2)
 #' - Andrew Ng, Sparse Autoencoder.
 #' \href{https://web.stanford.edu/class/cs294a/sparseAutoencoder_2011new.pdf}{CS294A Lecture Notes} (2011)
-#' @import purrr
 #' @export
-to_keras.ruta_sparsity <- function(x, activation) {
+to_keras.ruta_sparsity <- function(x, activation, ...) {
   p_high = x$high_probability
 
   # This regularization only makes sense for bounded activation functions, but we
@@ -105,8 +102,8 @@ to_keras.ruta_sparsity <- function(x, activation) {
   high_v = 1
 
   function(observed_activations) {
-    observed <- observed_activations %>%
-      keras::k_mean(axis = 1) %>%
+    observed <- observed_activations |>
+      keras::k_mean(axis = 1) |>
       keras::k_clip(low_v + keras::k_epsilon(), high_v - keras::k_epsilon())
 
     # rescale means: what we want to calculate is the probability of a high value

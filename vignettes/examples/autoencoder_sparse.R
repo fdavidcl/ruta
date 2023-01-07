@@ -1,13 +1,12 @@
 #' **This example demonstrates the use of sparse autoencoders with the Ruta package.**
 #'
 #' Define a sparse autoencoder with 36-variable encoding.
-library(magrittr)
 library(keras)
 library(ruta)
 
 network <- input() + dense(36, "selu") + output("sigmoid")
 learner <-
-  network %>%
+  network |>
   autoencoder_sparse(
     loss = "binary_crossentropy",
     weight = 0.05
@@ -34,7 +33,7 @@ model <- train(
 )
 
 #' Generate reconstructions from test data
-decoded <- model %>% reconstruct(x_test)
+decoded <- model |> reconstruct(x_test)
 
 #' Utility functions for plotting
 plot_digit <- function(digit, ...) {

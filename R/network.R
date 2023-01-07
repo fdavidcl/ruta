@@ -16,7 +16,7 @@
 #'
 #' # Instead, consider using
 #' my_network <- input() + dense(32, "tanh") + output("sigmoid")
-#' @import purrr
+#' @importFrom purrr every
 #' @export
 new_network <- function(...) {
   args <- list(...)
@@ -56,11 +56,11 @@ as_network.numeric <- function(x) {
 #' @rdname as_network
 #' @examples
 #' net <- as_network(c(784, 1000, 32))
-#' @import purrr
+#' @importFrom purrr map reduce
 #' @export
 as_network.integer <- function(x) {
   x <- c(x, rev(x)[-1])
-  hidden <- x %>% map(dense) %>% reduce(`+`)
+  hidden <- x |> map(dense) |> reduce(`+`)
   input() + hidden + output()
 }
 
@@ -80,10 +80,10 @@ as_network.integer <- function(x) {
 
 #' @rdname join-networks
 #' @param ... networks or layers to be concatenated
-#' @import purrr
+#' @importFrom purrr map flatten
 #' @export
 c.ruta_network <- function(...) {
-  args <- list(...) %>% map(as_network) %>% flatten
+  args <- list(...) |> map(as_network) |> flatten()
   do.call(new_network, args)
 }
 
@@ -96,7 +96,6 @@ c.ruta_network <- function(...) {
 #' (input() + dense(30))[2]
 #' long <- input() + dense(1000) + dense(100) + dense(1000) + output()
 #' short <- long[c(1, 3, 5)]
-#' @import purrr
 #' @export
 "[.ruta_network" <- function(net, index) {
   reduce(
@@ -110,12 +109,12 @@ c.ruta_network <- function(...) {
 #'
 #' Calculates the index of the middle layer of an encoder-decoder network.
 #' @param net A network of class \code{"ruta_network"}
+#' @importFrom purrr map detect_index as_vector
 #' @return Index of the middle layer
-#' @import purrr
 encoding_index <- function(net) {
   if (length(net) == 0) return(0)
 
-  filtered <- net %>% map(~ !is.null(.$units) || !is.null(.$filters)) %>% as_vector()
+  filtered <- net |> map(\(x) !is.null(x$units) || !is.null(x$filters)) |> as_vector()
   if (ruta_layer_conv %in% class(net[[length(net)]])) {
     filtered[length(net)] <- FALSE
   }
@@ -153,11 +152,11 @@ print.ruta_network <- function(x, ...) {
 #'
 #' @param x A \code{"ruta_network"} object
 #' @param input_shape The length of each input vector (number of input attributes)
+#' @param ... Unused
 #' @return A list of Keras Tensor objects with an attribute \code{"encoding"}
 #' indicating the index of the encoding layer
-#' @import purrr
 #' @export
-to_keras.ruta_network <- function(x, input_shape) {
+to_keras.ruta_network <- function(x, input_shape, ...) {
   network <- NULL
   net_list <- list()
 

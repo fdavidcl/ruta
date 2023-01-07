@@ -22,7 +22,6 @@ weight_decay <- function(decay = 0.02) {
 #' @param decay Numeric value indicating the amount of decay
 #'
 #' @return An autoencoder object which contains the weight decay
-#' @import purrr
 #' @export
 add_weight_decay <- function(learner, decay = 0.02) {
   # apply this regularizer only to the encoding?

@@ -25,6 +25,7 @@ as_network <- function(x) UseMethod("as_network")
 #'
 #' @param x Object to be converted
 #' @param ... Remaining parameters depending on the method
+#' @export
 to_keras <- function(x, ...) UseMethod("to_keras")
 
 #' Generate samples from a generative model

@@ -2,7 +2,6 @@
 #'
 #' Convolutional layers are defined with `conv` indicating number of learned filters, size of the kernels and whether there are
 #' max/average pooling or upsampling operations to be made.
-library(magrittr)
 library(keras)
 library(ruta)
 
@@ -22,8 +21,8 @@ net <- input() +
 ae <- autoencoder(net, loss = "binary_crossentropy")
 
 model <-
-  ae %>% train(x_train, validation_data = x_test, epochs = 4)
+  ae |> train(x_train, validation_data = x_test, epochs = 4)
 
 evaluate_mean_squared_error(model, x_test)
-enc <- model %>% encode(x_test)
-decode <- model %>% reconstruct(x_test)
+enc <- model |> encode(x_test)
+decode <- model |> reconstruct(x_test)

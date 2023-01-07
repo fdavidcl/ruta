@@ -1,13 +1,12 @@
 #' **This example demonstrates the use of contractive autoencoders with the Ruta package.**
 #'
 #' Define a contractive autoencoder with 36-variable encoding.
-library(magrittr)
 library(keras)
 library(ruta)
 
 network <- input() + dense(36, "selu") + output("sigmoid")
 learner <-
-  network %>%
+  network |>
   autoencoder_contractive(
     loss = "binary_crossentropy",
     weight = 2e-4
@@ -34,7 +33,7 @@ model <- train(
 )
 
 #' Generate reconstructions from test data
-decoded <- model %>% reconstruct(x_test)
+decoded <- model |> reconstruct(x_test)
 
 #' Utility functions for plotting
 plot_digit <- function(digit, ...) {

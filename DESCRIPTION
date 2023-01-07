@@ -1,6 +1,6 @@
 Package: ruta
 Title: Implementation of Unsupervised Neural Architectures
-Version: 1.1.0
+Version: 1.2.0
 Authors@R: c(person("David", "Charte", email = "fdavidcl@ugr.es", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-4830-9512")), person("Francisco", "Charte", 
     email = "francisco@fcharte.com", role = "aut", comment = c(ORCID = "0000-0002-3083-8942")), 
@@ -16,21 +16,21 @@ BugReports: https://github.com/fdavidcl/ruta/issues
 Depends: 
     R (>= 3.2)
 Imports: 
-    graphics (>= 3.2.3),
-    keras (>= 2.2.4),
-    purrr (>= 0.2.4),
-    R.utils (>= 2.7.0),
-    stats (>= 3.2.3),
+    graphics (>= 4.0.0),
+    keras (>= 2.11.0),
+    tensorflow (>= 2.11.0),
+    purrr (>= 1.0.0),
+    R.utils (>= 2.12.2),
+    stats (>= 4.0.0),
     utils
 Suggests: 
     knitr,
-    magrittr (>= 1.5),
     rmarkdown,
     testthat (>= 2.0.0)
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 SystemRequirements:
     Python (>= 2.7); keras <https://keras.io/> (>= 2.1)

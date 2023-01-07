@@ -34,7 +34,6 @@ get_xs <- function(struct) {
 #' \item \code{log}: Use logarithmic scale
 #' }
 #' @import graphics
-#' @import purrr
 #' @examples
 #' net <-
 #'   input() +
@@ -43,6 +42,7 @@ get_xs <- function(struct) {
 #'   dense(1000, "relu") + dropout() +
 #'   output("sigmoid")
 #' plot(net, log = TRUE, fg = "#30707a", bg = "#e0e6ea")
+#' @importFrom purrr %||%
 #' @export
 plot.ruta_network <- function(x, ...) {
   args <- list(...)

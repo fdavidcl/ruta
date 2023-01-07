@@ -30,10 +30,9 @@
 #' - [Extracting and composing robust features with denoising autoencoders](https://dl.acm.org/citation.cfm?id=1390294)
 #'
 #' @family autoencoder variants
-#' @import purrr
 #' @export
 autoencoder_denoising <- function(network, loss = "mean_squared_error", noise_type = "zeros", ...) {
-  autoencoder(network, loss) %>%
+  autoencoder(network, loss) |>
     make_denoising(noise_type, ...)
 }
 

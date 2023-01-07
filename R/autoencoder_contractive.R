@@ -14,10 +14,9 @@
 #' - [A practical tutorial on autoencoders for nonlinear feature fusion](https://arxiv.org/abs/1801.01586)
 #'
 #' @family autoencoder variants
-#' @import purrr
 #' @export
 autoencoder_contractive <- function(network, loss = "mean_squared_error", weight = 2e-4) {
-  autoencoder(network, loss) %>%
+  autoencoder(network, loss) |>
     make_contractive(weight)
 }
 
@@ -78,36 +77,30 @@ is_contractive <- function(learner) {
 #'   function
 #' @references
 #' - Contractive loss: \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
-#' @import purrr
 #' @export
 to_keras.ruta_loss_contraction <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder
-  rec_err <- x$reconstruction_loss %>% as_loss() %>% to_keras()
-  input_x <- keras::get_output_at(keras::get_layer(keras_model, index = 1), 1)
-  #encoding_z <- keras::get_layer(keras_model, name = "pre_encoding")
-  encoding_h <- keras::get_output_at(keras::get_layer(keras_model, name = "encoding"), 1)
-
-  # derivative of the activation function
-  #act_der <- network_encoding(learner$network)$activation %>% derivative()
+  stopifnot(keras_model != NULL)
+  rec_err <- x$reconstruction_loss |> as_loss() |> to_keras()
+  input_x <- keras_model$input
+  encoding_h <- keras_model$get_layer("encoding")$output
 
   # contractive loss
   function(y_true, y_pred) {
     reconstruction <- rec_err(y_true, y_pred)
 
-    # sum_wt2 <-
-    #   keras::k_variable(value = keras::get_weights(encoding_z)[[1]]) %>%
-    #   keras::k_transpose() %>%
-    #   keras::k_square() %>%
-    #   keras::k_sum(axis = 2)
-    #
-    # dh2 <- act_der(encoding_h$input, keras::get_output_at(encoding_h, 1)) ** 2
+    ## Code attempting to comput the loss with TF does not work
+    ## because TF tensors clash with Keras Tensors
+    # contractive <-
+    #   tape$jacobian(encoding_h, input_x) |>
+    #   # Squared Frobenius norm: sum of squared values of the matrix
+    #   tensorflow::tf$square() |>
+    #   tensorflow::tf$reduce_sum(axis = list(2, 3))
 
-    # Alternative implementation: directly calculating Jf using Tensorflow
-    # More general: does not depend on implemented derivatives
+    # Instead, use k_gradients to compute derivatives
     contractive <-
-      jacobian(encoding_h, input_x) %>%
-      # Squared Frobenius norm: sum of squared values of the matrix
-      keras::k_square() %>%
+      keras::k_gradients(encoding_h, input_x) |>
+      keras::k_square() |>
       keras::k_sum(axis = list(2, 3))
 
     reconstruction + x$weight * contractive

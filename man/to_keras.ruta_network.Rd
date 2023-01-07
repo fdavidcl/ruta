@@ -4,12 +4,14 @@
 \alias{to_keras.ruta_network}
 \title{Build a Keras network}
 \usage{
-\method{to_keras}{ruta_network}(x, input_shape)
+\method{to_keras}{ruta_network}(x, input_shape, ...)
 }
 \arguments{
 \item{x}{A \code{"ruta_network"} object}
 
 \item{input_shape}{The length of each input vector (number of input attributes)}
+
+\item{...}{Unused}
 }
 \value{
 A list of Keras Tensor objects with an attribute \code{"encoding"}

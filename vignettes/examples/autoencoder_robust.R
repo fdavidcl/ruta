@@ -1,7 +1,6 @@
 #' **This example demonstrates the use of robust autoencoders with the Ruta package.**
 #'
 #' Define a robust autoencoder with 36-variable encoding.
-library(magrittr)
 library(keras)
 library(ruta)
 
@@ -29,7 +28,7 @@ model <- train(
 )
 
 #' Generate reconstructions from test data
-decoded <- model %>% reconstruct(x_test)
+decoded <- model |> reconstruct(x_test)
 
 #' Utility functions for plotting
 plot_digit <- function(digit, ...) {
@@ -54,6 +53,6 @@ plot_sample(x_test, decoded, 1:10)
 
 #' Generate noisy test data and plot denoised reconstructions. Notice that values of noisy instances may not restrict themselves to the $[0,1]$ range.
 x_test_noisy <- apply_filter(noise_cauchy(scale = 0.005), x_test)
-decoded <- model %>% reconstruct(x_test_noisy)
+decoded <- model |> reconstruct(x_test_noisy)
 
 plot_sample(x_test_noisy, decoded, 1:10)

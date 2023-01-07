@@ -11,7 +11,7 @@
   validation_data = NULL,
   metrics = NULL,
   epochs = 20,
-  optimizer = keras::optimizer_rmsprop(),
+  optimizer = "rmsprop",
   ...
 )
 

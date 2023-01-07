@@ -4,12 +4,14 @@
 \alias{to_keras.ruta_sparsity}
 \title{Translate sparsity regularization to Keras regularizer}
 \usage{
-\method{to_keras}{ruta_sparsity}(x, activation)
+\method{to_keras}{ruta_sparsity}(x, activation, ...)
 }
 \arguments{
 \item{x}{Sparsity object}
 
 \item{activation}{Name of the activation function used in the encoding layer}
+
+\item{...}{Unused}
 }
 \value{
 Function which can be used as activity regularizer in a Keras layer

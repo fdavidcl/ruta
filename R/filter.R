@@ -1,9 +1,8 @@
-#' @import purrr
 runif_matrix <- function(data) {
   dims <- dim(data)
-  dims %>%
-    prod() %>%
-    stats::runif() %>%
+  dims |>
+    prod() |>
+    stats::runif() |>
     array(dim = dims)
 }
 
@@ -122,15 +121,14 @@ noise_gaussian <- function(sd = NULL, var = NULL) {
 }
 
 #' @rdname apply_filter
-#' @import purrr
 #' @export
 apply_filter.ruta_noise_gaussian <- function(filter, data, ...) {
 
   dims <- dim(data)
   term <-
-    dims %>%
-    prod() %>%
-    stats::rnorm(sd = filter$sd) %>%
+    dims |>
+    prod() |>
+    stats::rnorm(sd = filter$sd) |>
     array(dim = dims)
 
   data + term
@@ -149,14 +147,13 @@ noise_cauchy <- function(scale = 0.005) {
 }
 
 #' @rdname apply_filter
-#' @import purrr
 #' @export
 apply_filter.ruta_noise_cauchy <- function(filter, data, ...) {
   dims <- dim(data)
   term <-
-    dims %>%
-    prod() %>%
-    stats::rcauchy(scale = filter$scale) %>%
+    dims |>
+    prod() |>
+    stats::rcauchy(scale = filter$scale) |>
     array(dim = dims)
 
   data + term

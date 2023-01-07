@@ -2,7 +2,6 @@
 #'
 #' Define a variational autoencoder with 3-variable latent space.
 #' The encoding of a variational autoencoder is defined with `variational_block`.
-library(magrittr)
 library(keras)
 library(ruta)
 
@@ -27,10 +26,10 @@ x_test <- array_reshape(
 x_test <- x_test / 255.0
 
 #' Train
-model <- learner %>% train(x_train, epochs = 5)
+model <- learner |> train(x_train, epochs = 5)
 
 #' Sample the trained model
-samples <- model %>% generate(dimensions = c(2, 3), fixed_values = 0.5)
+samples <- model |> generate(dimensions = c(2, 3), fixed_values = 0.5)
 
 #' Utility functions for plotting
 plot_digit <- function(digit, ...) {
@@ -61,7 +60,7 @@ plot(c(), type = "n")
 ani.record(reset = T)
 
 for (t in seq(from = 0.001, to = 0.999, length.out = 180)) {
-  model %>% generate(dimensions = c(2, 3), from = 0.001, to = 0.999, fixed_values = t) %>% plot_matrix()
+  model |> generate(dimensions = c(2, 3), from = 0.001, to = 0.999, fixed_values = t) |> plot_matrix()
   ani.record()
 }
 

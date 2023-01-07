@@ -12,19 +12,18 @@
 #'   `load_from` returns the loaded model as a `"ruta_autoencoder"` object
 #'
 #' @examples
-#' library(purrr)
 #'
 #' x <- as.matrix(iris[, 1:4])
 #'
 #' \donttest{
 #' # Save a trained model
 #' saved_file <-
-#'   autoencoder(2) %>%
-#'   train(x) %>%
+#'   autoencoder(2) |>
+#'   train(x) |>
 #'   save_as("my_model.tar.gz", dir = tempdir())
 #'
 #' # Load and use the model
-#' encoded <- load_from(saved_file) %>% encode(x)
+#' encoded <- load_from(saved_file) |> encode(x)
 #' }
 #' @export
 save_as <- function(learner, file = paste0(substitute(learner), ".tar.gz"), dir, compression = "gzip") {
