@@ -11,10 +11,9 @@ addons:
       - python3-pip
 
 before_install:
-  - >
-    python3 --version
-    travis_wait pip3 install --user --upgrade -q setuptools tensorflow tensorflow-hub tensorflow-datasets scipy requests pyyaml Pillow h5py pandas pydot
-    rm -f travis_wait*
+  - python3 --version
+  - travis_wait pip3 install --user --upgrade -q setuptools tensorflow tensorflow-hub tensorflow-datasets scipy requests pyyaml Pillow h5py pandas pydot
+  - rm -f travis_wait*
 
 sudo: false
 cache:
