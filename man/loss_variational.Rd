@@ -20,8 +20,8 @@ distribution and the true latent posterior.
 \references{
 \itemize{
 \item \href{https://arxiv.org/abs/1312.6114}{Auto-Encoding Variational Bayes}
-\item \href{http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html}{Under the Hood of the Variational Autoencoder (in Prose and Code)}
-\item \href{https://keras.rstudio.com/articles/examples/variational_autoencoder.html}{Keras example: Variational autoencoder}
+\item \href{https://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html}{Under the Hood of the Variational Autoencoder (in Prose and Code)}
+\item \href{https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder.R}{Keras example: Variational autoencoder}
 }
 }
 \seealso{

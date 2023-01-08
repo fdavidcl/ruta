@@ -28,7 +28,7 @@ net |> as_network() |> print()
 
 The input and output layers have an undetermined size until training data is used and the autoencoder is converted onto a Keras model.
 
-By using [separate functions](/reference/#section-neural-network-architecture) for each layer type, one may define the activations at the output of each layer:
+By using [separate functions](https://ruta.software/reference/#section-neural-network-architecture) for each layer type, one may define the activations at the output of each layer:
 
 ```{r structure}
 net <- 

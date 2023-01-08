@@ -37,13 +37,15 @@ Functions to save a trained or untrained Ruta learner into a file and load it
 x <- as.matrix(iris[, 1:4])
 
 \donttest{
-# Save a trained model
-saved_file <-
-  autoencoder(2) |>
-  train(x) |>
-  save_as("my_model.tar.gz", dir = tempdir())
+if (interactive() && keras::is_keras_available()) {
+  # Save a trained model
+  saved_file <-
+    autoencoder(2) |>
+    train(x) |>
+    save_as("my_model.tar.gz", dir = tempdir())
 
-# Load and use the model
-encoded <- load_from(saved_file) |> encode(x)
+  # Load and use the model
+  encoded <- load_from(saved_file) |> encode(x)
+}
 }
 }

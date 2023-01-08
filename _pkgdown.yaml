@@ -1,4 +1,4 @@
-url: "http://ruta.software"
+url: "https://ruta.software"
 
 template:
   params:
@@ -6,7 +6,7 @@ template:
 
 authors:
   David Charte:
-    href: http://david.quotient.space
+    href: http://deivi.ch
 
 navbar:
   title: Ruta
@@ -98,6 +98,8 @@ reference:
     contents:
       - autoencode
       - starts_with("apply_filter")
+      - configure
+      - starts_with("to_ker")
       - train.ruta_autoencoder
       - is_trained
   - title: "Model evaluation"

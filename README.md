@@ -82,4 +82,4 @@ autoencoder(
   evaluate_mean_squared_error(x_test)
 ```
 
-For more details, see [other examples](http://ruta.software/articles/examples) and [the documentation](http://ruta.software/reference/).
+For more details, see [other examples](https://ruta.software/articles/examples/) and [the documentation](https://ruta.software/reference/).

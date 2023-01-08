@@ -51,35 +51,37 @@ and trains it with the input data.
 \examples{
 # Minimal example ================================================
 \donttest{
-iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
+if (interactive() && keras::is_keras_available())
+  iris_model <- train(autoencoder(2), as.matrix(iris[, 1:4]))
 }
 
 # Simple example with MNIST ======================================
 \donttest{
 library(keras)
+if (interactive() && keras::is_keras_available()) {
+  # Load and normalize MNIST
+  mnist = dataset_mnist()
+  x_train <- array_reshape(
+    mnist$train$x, c(dim(mnist$train$x)[1], 784)
+  )
+  x_train <- x_train / 255.0
+  x_test <- array_reshape(
+    mnist$test$x, c(dim(mnist$test$x)[1], 784)
+  )
+  x_test <- x_test / 255.0
 
-# Load and normalize MNIST
-mnist = dataset_mnist()
-x_train <- array_reshape(
-  mnist$train$x, c(dim(mnist$train$x)[1], 784)
-)
-x_train <- x_train / 255.0
-x_test <- array_reshape(
-  mnist$test$x, c(dim(mnist$test$x)[1], 784)
-)
-x_test <- x_test / 255.0
-
-# Autoencoder with layers: 784-256-36-256-784
-learner <- autoencoder(c(256, 36), "binary_crossentropy")
-train(
-  learner,
-  x_train,
-  epochs = 1,
-  optimizer = "rmsprop",
-  batch_size = 64,
-  validation_data = x_test,
-  metrics = list("binary_accuracy")
-)
+  # Autoencoder with layers: 784-256-36-256-784
+  learner <- autoencoder(c(256, 36), "binary_crossentropy")
+  train(
+    learner,
+    x_train,
+    epochs = 1,
+    optimizer = "rmsprop",
+    batch_size = 64,
+    validation_data = x_test,
+    metrics = list("binary_accuracy")
+  )
+}
 }
 }
 \seealso{

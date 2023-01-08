@@ -27,7 +27,7 @@
 #' @return A construct of class \code{"ruta_autoencoder"}
 #'
 #' @references
-#' - [Extracting and composing robust features with denoising autoencoders](https://dl.acm.org/citation.cfm?id=1390294)
+#' - [Extracting and composing robust features with denoising autoencoders](https://dl.acm.org/doi/10.1145/1390156.1390294)
 #'
 #' @family autoencoder variants
 #' @export

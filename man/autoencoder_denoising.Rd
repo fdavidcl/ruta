@@ -49,7 +49,7 @@ create a model able to reduce noise in reconstructions from input data
 }
 \references{
 \itemize{
-\item \href{https://dl.acm.org/citation.cfm?id=1390294}{Extracting and composing robust features with denoising autoencoders}
+\item \href{https://dl.acm.org/doi/10.1145/1390156.1390294}{Extracting and composing robust features with denoising autoencoders}
 }
 }
 \seealso{

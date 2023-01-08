@@ -115,4 +115,4 @@ train(
 )
 ```
 
-For more details, read [the documentation](/reference/). For the rest of autoencoder variants, see [other examples](/articles/examples/).
+For more details, read [the documentation](https://ruta.software/reference/). For the rest of autoencoder variants, see [other examples](https://ruta.software/articles/examples/).

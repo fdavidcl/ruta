@@ -31,11 +31,13 @@ same data matrix.
 inputs <- as.matrix(iris[, 1:4])
 
 \donttest{
-# Train a basic autoencoder and generate a 2-variable encoding
-encoded <- autoencode(inputs, 2)
+if (interactive() && keras::is_keras_available()) {
+  # Train a basic autoencoder and generate a 2-variable encoding
+  encoded <- autoencode(inputs, 2)
 
-# Train a contractive autoencoder with tanh activation
-encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
+  # Train a contractive autoencoder with tanh activation
+  encoded <- autoencode(inputs, 2, type = "contractive", activation = "tanh")
+}
 }
 }
 \seealso{

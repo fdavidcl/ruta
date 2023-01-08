@@ -28,8 +28,8 @@
 #' learner <- autoencoder_variational(network, loss = "binary_crossentropy")
 #' @references
 #' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
-#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
-#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](https://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder.R)
 #'
 #' @family autoencoder variants
 #' @export
@@ -90,8 +90,8 @@ variational_block <- function(units, epsilon_std = 1.0, seed = NULL) {
 #'
 #' @references
 #' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
-#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
-#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](https://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder.R)
 #' @export
 to_keras.ruta_layer_variational <- function(x, input_shape, model = keras::keras_model_sequential(), ...) {
   epsilon_std <- x$epsilon_std
@@ -134,8 +134,8 @@ to_keras.ruta_autoencoder_variational <- function(x, ...) {
 #' @return A \code{"ruta_loss"} object
 #' @references
 #' - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
-#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
-#' - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#' - [Under the Hood of the Variational Autoencoder (in Prose and Code)](https://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#' - [Keras example: Variational autoencoder](https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder.R)
 #' @seealso `\link{autoencoder_variational}`
 #' @family loss functions
 #' @export
@@ -150,8 +150,8 @@ loss_variational <- function(reconstruction_loss) {
 #' @references
 #' - Variational loss:
 #'     - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
-#'     - [Under the Hood of the Variational Autoencoder (in Prose and Code)](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
-#'     - [Keras example: Variational autoencoder](https://keras.rstudio.com/articles/examples/variational_autoencoder.html)
+#'     - [Under the Hood of the Variational Autoencoder (in Prose and Code)](https://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)
+#'     - [Keras example: Variational autoencoder](https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder.R)
 #' @export
 to_keras.ruta_loss_variational <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder

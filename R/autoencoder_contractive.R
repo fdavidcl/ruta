@@ -76,7 +76,7 @@ is_contractive <- function(learner) {
 #' @param learner The learner object including the keras model which will use the loss
 #'   function
 #' @references
-#' - Contractive loss: \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
+#' - Contractive loss: \href{https://agustinus.kristia.de/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
 #' @export
 to_keras.ruta_loss_contraction <- function(x, learner, ...) {
   keras_model <- learner$models$autoencoder

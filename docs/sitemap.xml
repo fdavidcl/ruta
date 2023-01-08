@@ -1,228 +1,249 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://ruta.software/index.html</loc>
+    <loc>https://ruta.software/404.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/add_weight_decay.html</loc>
+    <loc>https://ruta.software/CONVENTIONS.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/apply_filter.html</loc>
+    <loc>https://ruta.software/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/as_loss.html</loc>
+    <loc>https://ruta.software/articles/architectures.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/as_network.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_basic.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencode.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_contractive.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencoder.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_convolutional.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencoder_contractive.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_denoising.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencoder_denoising.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_robust.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencoder_robust.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_sparse.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencoder_sparse.html</loc>
+    <loc>https://ruta.software/articles/examples/autoencoder_variational.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/autoencoder_variational.html</loc>
+    <loc>https://ruta.software/articles/examples/index.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/contraction.html</loc>
+    <loc>https://ruta.software/articles/index.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/conv.html</loc>
+    <loc>https://ruta.software/articles/troubleshooting.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/correntropy.html</loc>
+    <loc>https://ruta.software/authors.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/decode.html</loc>
+    <loc>https://ruta.software/index.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/dense.html</loc>
+    <loc>https://ruta.software/reference/add_weight_decay.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/dropout.html</loc>
+    <loc>https://ruta.software/reference/apply_filter.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/encode.html</loc>
+    <loc>https://ruta.software/reference/as_loss.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/encoding_index.html</loc>
+    <loc>https://ruta.software/reference/as_network.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/evaluate.html</loc>
+    <loc>https://ruta.software/reference/autoencode.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/evaluation_metric.html</loc>
+    <loc>https://ruta.software/reference/autoencoder.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/generate.html</loc>
+    <loc>https://ruta.software/reference/autoencoder_contractive.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/input.html</loc>
+    <loc>https://ruta.software/reference/autoencoder_denoising.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/is_contractive.html</loc>
+    <loc>https://ruta.software/reference/autoencoder_robust.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/is_denoising.html</loc>
+    <loc>https://ruta.software/reference/autoencoder_sparse.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/is_robust.html</loc>
+    <loc>https://ruta.software/reference/autoencoder_variational.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/is_sparse.html</loc>
+    <loc>https://ruta.software/reference/configure.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/is_trained.html</loc>
+    <loc>https://ruta.software/reference/contraction.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/is_variational.html</loc>
+    <loc>https://ruta.software/reference/conv.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/join-networks.html</loc>
+    <loc>https://ruta.software/reference/correntropy.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/layer_keras.html</loc>
+    <loc>https://ruta.software/reference/decode.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/loss_variational.html</loc>
+    <loc>https://ruta.software/reference/dense.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/make_contractive.html</loc>
+    <loc>https://ruta.software/reference/dropout.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/make_denoising.html</loc>
+    <loc>https://ruta.software/reference/encode.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/make_robust.html</loc>
+    <loc>https://ruta.software/reference/encoding_index.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/make_sparse.html</loc>
+    <loc>https://ruta.software/reference/evaluate.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/new_autoencoder.html</loc>
+    <loc>https://ruta.software/reference/evaluation_metric.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/new_layer.html</loc>
+    <loc>https://ruta.software/reference/generate.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/new_network.html</loc>
+    <loc>https://ruta.software/reference/index.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/noise.html</loc>
+    <loc>https://ruta.software/reference/input.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/noise_cauchy.html</loc>
+    <loc>https://ruta.software/reference/is_contractive.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/noise_gaussian.html</loc>
+    <loc>https://ruta.software/reference/is_denoising.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/noise_ones.html</loc>
+    <loc>https://ruta.software/reference/is_robust.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/noise_saltpepper.html</loc>
+    <loc>https://ruta.software/reference/is_sparse.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/noise_zeros.html</loc>
+    <loc>https://ruta.software/reference/is_trained.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/output.html</loc>
+    <loc>https://ruta.software/reference/is_variational.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/plot.ruta_network.html</loc>
+    <loc>https://ruta.software/reference/join-networks.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/print-methods.html</loc>
+    <loc>https://ruta.software/reference/layer_keras.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/reconstruct.html</loc>
+    <loc>https://ruta.software/reference/loss_variational.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/save_as.html</loc>
+    <loc>https://ruta.software/reference/make_contractive.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/sparsity.html</loc>
+    <loc>https://ruta.software/reference/make_denoising.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/sub-.ruta_network.html</loc>
+    <loc>https://ruta.software/reference/make_robust.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.html</loc>
+    <loc>https://ruta.software/reference/make_sparse.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_autoencoder.html</loc>
+    <loc>https://ruta.software/reference/new_autoencoder.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_filter.html</loc>
+    <loc>https://ruta.software/reference/new_layer.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_layer_input.html</loc>
+    <loc>https://ruta.software/reference/new_network.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_layer_variational.html</loc>
+    <loc>https://ruta.software/reference/noise.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_loss_named.html</loc>
+    <loc>https://ruta.software/reference/noise_cauchy.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_network.html</loc>
+    <loc>https://ruta.software/reference/noise_gaussian.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_sparsity.html</loc>
+    <loc>https://ruta.software/reference/noise_ones.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/to_keras.ruta_weight_decay.html</loc>
+    <loc>https://ruta.software/reference/noise_saltpepper.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/train.ruta_autoencoder.html</loc>
+    <loc>https://ruta.software/reference/noise_zeros.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/variational_block.html</loc>
+    <loc>https://ruta.software/reference/output.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/reference/weight_decay.html</loc>
+    <loc>https://ruta.software/reference/plot.ruta_network.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/architectures.html</loc>
+    <loc>https://ruta.software/reference/print-methods.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_basic.html</loc>
+    <loc>https://ruta.software/reference/reconstruct.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_contractive.html</loc>
+    <loc>https://ruta.software/reference/save_as.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_convolutional.html</loc>
+    <loc>https://ruta.software/reference/sparsity.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_denoising.html</loc>
+    <loc>https://ruta.software/reference/sub-.ruta_network.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_robust.html</loc>
+    <loc>https://ruta.software/reference/to_keras.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_sparse.html</loc>
+    <loc>https://ruta.software/reference/to_keras.ruta_autoencoder.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/autoencoder_variational.html</loc>
+    <loc>https://ruta.software/reference/to_keras.ruta_filter.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/examples/index.html</loc>
+    <loc>https://ruta.software/reference/to_keras.ruta_layer_input.html</loc>
   </url>
   <url>
-    <loc>http://ruta.software/articles/troubleshooting.html</loc>
+    <loc>https://ruta.software/reference/to_keras.ruta_layer_variational.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/to_keras.ruta_loss_named.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/to_keras.ruta_network.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/to_keras.ruta_sparsity.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/to_keras.ruta_weight_decay.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/train.ruta_autoencoder.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/variational_block.html</loc>
+  </url>
+  <url>
+    <loc>https://ruta.software/reference/weight_decay.html</loc>
   </url>
 </urlset>

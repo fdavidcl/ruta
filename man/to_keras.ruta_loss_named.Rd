@@ -33,7 +33,7 @@ Builds the Keras loss function corresponding to a name
 }
 \references{
 \itemize{
-\item Contractive loss: \href{https://wiseodd.github.io/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
+\item Contractive loss: \href{https://agustinus.kristia.de/techblog/2016/12/05/contractive-autoencoder/}{Deriving Contractive Autoencoder and Implementing it in Keras}
 }
 
 \itemize{
@@ -44,8 +44,8 @@ Builds the Keras loss function corresponding to a name
 \item Variational loss:
 \itemize{
 \item \href{https://arxiv.org/abs/1312.6114}{Auto-Encoding Variational Bayes}
-\item \href{http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html}{Under the Hood of the Variational Autoencoder (in Prose and Code)}
-\item \href{https://keras.rstudio.com/articles/examples/variational_autoencoder.html}{Keras example: Variational autoencoder}
+\item \href{https://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html}{Under the Hood of the Variational Autoencoder (in Prose and Code)}
+\item \href{https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder.R}{Keras example: Variational autoencoder}
 }
 }
 }
